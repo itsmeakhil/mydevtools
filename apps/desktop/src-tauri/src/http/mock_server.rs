@@ -6,14 +6,19 @@
 //!   http://127.0.0.1:<port>/<collectionId>/<path...>
 //!
 //! Matching mirrors the web matcher (`lib/__tests__/mock-server.test.ts`):
-//! HTTP method (case-insensitive) + exact pathname of the example's stored
-//! URL; tree order, first match wins. The collection is re-read from the
-//! local DB on every request, so edits to examples are live immediately.
-//! Started lazily by the `mock_server_start` command; runs until app exit.
+//! HTTP method (case-insensitive) + pathname of the example's stored URL,
+//! where a `:name` segment matches any one segment. Exact paths win over
+//! `:param` ones; otherwise tree order, first match wins. The collection is
+//! re-read from the local DB on every request, so edits to examples are live
+//! immediately. Started by `mock_server_start`, stopped by `mock_server_stop`.
 
+use std::collections::VecDeque;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Mutex, OnceLock};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 use base64::Engine;
+use serde::Serialize;
 use serde_json::Value;
 use tauri::Manager;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
@@ -23,47 +28,143 @@ use crate::router::entries::{active_workspace, get_doc};
 use crate::state::AppState;
 
 /// Stable port so copied mock URLs survive app restarts; falls back to an
-/// ephemeral port if something else holds it.
+/// ephemeral port if something else holds it (only when no port was asked for).
 const PREFERRED_PORT: u16 = 8940;
+const LOG_CAP: usize = 200;
+const MAX_LATENCY_MS: u64 = 60_000;
 
-static RUNNING: OnceLock<Mutex<Option<u16>>> = OnceLock::new();
-
-fn running() -> &'static Mutex<Option<u16>> {
-    RUNNING.get_or_init(|| Mutex::new(None))
+struct Running {
+    port: u16,
+    task: tauri::async_runtime::JoinHandle<()>,
 }
 
-/// Start the mock server (idempotent) and return its port.
-pub async fn start(app: tauri::AppHandle) -> Result<u16, String> {
-    if let Some(port) = *running().lock().unwrap() {
-        return Ok(port);
-    }
-    let listener = match TcpListener::bind(("127.0.0.1", PREFERRED_PORT)).await {
-        Ok(l) => l,
-        Err(_) => TcpListener::bind("127.0.0.1:0")
-            .await
-            .map_err(|e| format!("failed to bind mock server port: {e}"))?,
-    };
-    let port = listener.local_addr().map_err(|e| e.to_string())?.port();
-    *running().lock().unwrap() = Some(port);
+/// Async mutex: start/stop hold it across bind/abort so concurrent calls serialize.
+fn control() -> &'static tokio::sync::Mutex<Option<Running>> {
+    static CONTROL: OnceLock<tokio::sync::Mutex<Option<Running>>> = OnceLock::new();
+    CONTROL.get_or_init(|| tokio::sync::Mutex::new(None))
+}
 
-    tauri::async_runtime::spawn(async move {
-        loop {
-            match listener.accept().await {
-                Ok((socket, _)) => {
-                    let app = app.clone();
-                    tauri::async_runtime::spawn(async move {
-                        let _ = handle_conn(socket, app).await;
-                    });
-                }
-                // Transient accept errors (e.g. fd exhaustion): back off, keep serving.
-                Err(_) => tokio::time::sleep(std::time::Duration::from_millis(100)).await,
-            }
+static LATENCY_MS: AtomicU64 = AtomicU64::new(0);
+static LOG: Mutex<VecDeque<LogEntry>> = Mutex::new(VecDeque::new());
+
+#[derive(Serialize, Clone)]
+#[serde(rename_all = "camelCase")]
+pub struct LogEntry {
+    /// Unix epoch milliseconds.
+    at: u64,
+    collection_id: String,
+    method: String,
+    path: String,
+    status: u16,
+    /// Name of the matched example, if any.
+    example: Option<String>,
+    duration_ms: u64,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Status {
+    port: Option<u16>,
+    latency_ms: u64,
+    log: Vec<LogEntry>,
+}
+
+/// Start the mock server and return its port. `port: None` keeps a running
+/// server, or binds 8940 with an ephemeral fallback; an explicit port restarts
+/// the server there and fails if it is taken. `latency_ms` delays every response.
+pub async fn start(
+    app: tauri::AppHandle,
+    port: Option<u16>,
+    latency_ms: Option<u64>,
+) -> Result<u16, String> {
+    if let Some(ms) = latency_ms {
+        LATENCY_MS.store(ms.min(MAX_LATENCY_MS), Ordering::Relaxed);
+    }
+    let mut guard = control().lock().await;
+    if let Some(r) = guard.as_ref() {
+        if port.is_none() || port == Some(r.port) {
+            return Ok(r.port);
         }
-    });
+    }
+    if let Some(r) = guard.take() {
+        shutdown(r).await;
+    }
+    let listener = bind(port).await?;
+    let port = listener.local_addr().map_err(|e| e.to_string())?.port();
+    let task = tauri::async_runtime::spawn(serve(listener, app));
+    *guard = Some(Running { port, task });
     Ok(port)
 }
 
+/// Stop the server and free its port. In-flight responses still complete.
+pub async fn stop() {
+    if let Some(r) = control().lock().await.take() {
+        shutdown(r).await;
+    }
+}
+
+pub async fn status() -> Status {
+    Status {
+        port: control().lock().await.as_ref().map(|r| r.port),
+        latency_ms: LATENCY_MS.load(Ordering::Relaxed),
+        log: LOG.lock().unwrap().iter().cloned().collect(),
+    }
+}
+
+pub fn clear_log() {
+    LOG.lock().unwrap().clear();
+}
+
+async fn shutdown(r: Running) {
+    r.task.abort();
+    // Wait for the task to drop its listener so the port is free on return.
+    let _ = r.task.await;
+}
+
+async fn bind(port: Option<u16>) -> Result<TcpListener, String> {
+    // Loopback only — the mock is never reachable from other machines.
+    match port {
+        Some(p) => TcpListener::bind(("127.0.0.1", p)).await.map_err(|e| {
+            if e.kind() == std::io::ErrorKind::AddrInUse {
+                format!("Port {p} is already in use")
+            } else {
+                format!("failed to bind mock server port {p}: {e}")
+            }
+        }),
+        None => match TcpListener::bind(("127.0.0.1", PREFERRED_PORT)).await {
+            Ok(l) => Ok(l),
+            Err(_) => TcpListener::bind("127.0.0.1:0")
+                .await
+                .map_err(|e| format!("failed to bind mock server port: {e}")),
+        },
+    }
+}
+
+async fn serve(listener: TcpListener, app: tauri::AppHandle) {
+    loop {
+        match listener.accept().await {
+            Ok((socket, _)) => {
+                let app = app.clone();
+                tauri::async_runtime::spawn(async move {
+                    let _ = handle_conn(socket, app).await;
+                });
+            }
+            // Transient accept errors (e.g. fd exhaustion): back off, keep serving.
+            Err(_) => tokio::time::sleep(Duration::from_millis(100)).await,
+        }
+    }
+}
+
+fn record(entry: LogEntry) {
+    let mut log = LOG.lock().unwrap();
+    if log.len() >= LOG_CAP {
+        log.pop_front();
+    }
+    log.push_back(entry);
+}
+
 async fn handle_conn(mut socket: TcpStream, app: tauri::AppHandle) -> std::io::Result<()> {
+    let started = Instant::now();
     // ponytail: single 64KB read — matching only needs the request line, which
     // arrives in the first segment for any realistic client. Switch to
     // read-until-blank-line if giant request lines ever truncate.
@@ -101,30 +202,57 @@ async fn handle_conn(mut socket: TcpStream, app: tauri::AppHandle) -> std::io::R
             .flatten()
     };
 
-    let Some(collection) = collection else {
-        return write_json(&mut socket, 404, r#"{"error":"Collection not found"}"#).await;
+    let latency = LATENCY_MS.load(Ordering::Relaxed);
+    if latency > 0 {
+        tokio::time::sleep(Duration::from_millis(latency)).await;
+    }
+
+    let items = collection
+        .as_ref()
+        .and_then(|c| c["items"].as_array().cloned())
+        .unwrap_or_default();
+    let hit = find_first_match(&items, &method, &request_path);
+    let status = match (&collection, hit) {
+        (Some(_), Some(ex)) => ex["response"]["status"].as_u64().unwrap_or(200) as u16,
+        _ => 404,
     };
-    let items = collection["items"].as_array().cloned().unwrap_or_default();
-    match find_first_match(&items, &method, &request_path) {
-        Some(response) => write_example(&mut socket, response).await,
-        None => {
-            let msg = format!(
-                r#"{{"error":"No matching example for {} {}"}}"#,
-                method.to_uppercase(),
-                request_path
-            );
-            write_json(&mut socket, 404, &msg).await
+    record(LogEntry {
+        at: SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map(|d| d.as_millis() as u64)
+            .unwrap_or(0),
+        collection_id,
+        method: method.to_uppercase(),
+        path: request_path.clone(),
+        status,
+        example: hit.and_then(|ex| ex["name"].as_str().map(String::from)),
+        duration_ms: started.elapsed().as_millis() as u64,
+    });
+
+    match (collection, hit) {
+        (None, _) => write_json(&mut socket, 404, r#"{"error":"Collection not found"}"#).await,
+        (Some(_), Some(ex)) => write_example(&mut socket, &ex["response"]).await,
+        (Some(_), None) => {
+            let msg = serde_json::json!({
+                "error": format!("No matching example for {} {}", method.to_uppercase(), request_path)
+            });
+            write_json(&mut socket, 404, &msg.to_string()).await
         }
     }
 }
 
 // ── Matcher (mirrors lib/__tests__/mock-server.test.ts) ────────────────────
 
+/// The matching example (not just its response, so the log can name it).
 fn find_first_match<'a>(items: &'a [Value], method: &str, pathname: &str) -> Option<&'a Value> {
+    find_in(items, method, pathname, true).or_else(|| find_in(items, method, pathname, false))
+}
+
+fn find_in<'a>(items: &'a [Value], method: &str, pathname: &str, exact: bool) -> Option<&'a Value> {
     for item in items {
         if item["type"].as_str() == Some("folder") {
             if let Some(children) = item["items"].as_array() {
-                if let Some(hit) = find_first_match(children, method, pathname) {
+                if let Some(hit) = find_in(children, method, pathname, exact) {
                     return Some(hit);
                 }
             }
@@ -132,8 +260,8 @@ fn find_first_match<'a>(items: &'a [Value], method: &str, pathname: &str) -> Opt
         }
         if let Some(examples) = item["examples"].as_array() {
             for ex in examples {
-                if example_matches(ex, method, pathname) {
-                    return Some(&ex["response"]);
+                if example_matches(ex, method, pathname, exact) {
+                    return Some(ex);
                 }
             }
         }
@@ -141,7 +269,7 @@ fn find_first_match<'a>(items: &'a [Value], method: &str, pathname: &str) -> Opt
     None
 }
 
-fn example_matches(ex: &Value, method: &str, pathname: &str) -> bool {
+fn example_matches(ex: &Value, method: &str, pathname: &str, exact: bool) -> bool {
     let ex_method = ex["request"]["method"].as_str().unwrap_or("");
     if !ex_method.eq_ignore_ascii_case(method) {
         return false;
@@ -154,7 +282,22 @@ fn example_matches(ex: &Value, method: &str, pathname: &str) -> bool {
         Err(_) if url.is_empty() => "/".to_string(),
         Err(_) => url.to_string(),
     };
-    stored == pathname
+    if exact {
+        stored == pathname
+    } else {
+        param_path_matches(&stored, pathname)
+    }
+}
+
+/// `/users/:id` matches `/users/42`: a `:name` segment matches any one
+/// non-empty segment; every other segment must be equal.
+fn param_path_matches(pattern: &str, path: &str) -> bool {
+    let p: Vec<&str> = pattern.split('/').collect();
+    let a: Vec<&str> = path.split('/').collect();
+    p.len() == a.len()
+        && p.iter()
+            .zip(&a)
+            .all(|(p, a)| p == a || (p.len() > 1 && p.starts_with(':') && !a.is_empty()))
 }
 
 // ── Response writing ───────────────────────────────────────────────────────
@@ -269,7 +412,7 @@ mod tests {
         b["response"]["body"] = json!("b");
         let items = vec![request_with(vec![a, b])];
         let hit = find_first_match(&items, "GET", "/dup").unwrap();
-        assert_eq!(hit["body"], "a");
+        assert_eq!(hit["response"]["body"], "a");
     }
 
     #[test]
@@ -282,5 +425,48 @@ mod tests {
     fn bare_host_url_matches_root() {
         let items = vec![request_with(vec![example("GET", "https://api.test")])];
         assert!(find_first_match(&items, "GET", "/").is_some());
+    }
+
+    #[test]
+    fn param_segments_match_one_segment() {
+        let items = vec![request_with(vec![example("GET", "https://api.test/users/:id/posts")])];
+        assert!(find_first_match(&items, "GET", "/users/42/posts").is_some());
+        assert!(find_first_match(&items, "GET", "/users/42").is_none());
+        assert!(find_first_match(&items, "GET", "/users//posts").is_none());
+        assert!(find_first_match(&items, "GET", "/users/1/2/posts").is_none());
+    }
+
+    #[test]
+    fn exact_path_beats_earlier_param_path() {
+        let mut param = example("GET", "https://api.test/users/:id");
+        param["name"] = json!("param");
+        let mut exact = example("GET", "https://api.test/users/me");
+        exact["name"] = json!("exact");
+        let items = vec![request_with(vec![param, exact])];
+        assert_eq!(find_first_match(&items, "GET", "/users/me").unwrap()["name"], "exact");
+        assert_eq!(find_first_match(&items, "GET", "/users/7").unwrap()["name"], "param");
+    }
+
+    #[tokio::test]
+    async fn bind_reports_port_in_use_and_frees_port_after_drop() {
+        let held = bind(Some(0)).await.unwrap();
+        let port = held.local_addr().unwrap().port();
+        let err = bind(Some(port)).await.unwrap_err();
+        assert_eq!(err, format!("Port {port} is already in use"));
+        drop(held);
+        assert!(bind(Some(port)).await.is_ok());
+    }
+
+    #[tokio::test]
+    async fn shutdown_frees_the_port_for_a_restart() {
+        let listener = bind(Some(0)).await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        let task = tauri::async_runtime::spawn(async move {
+            let _l = listener;
+            std::future::pending::<()>().await
+        });
+        assert!(bind(Some(port)).await.is_err());
+        shutdown(Running { port, task }).await;
+        assert!(bind(Some(port)).await.is_ok());
     }
 }

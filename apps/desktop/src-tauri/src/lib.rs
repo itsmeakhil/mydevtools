@@ -43,8 +43,27 @@ fn http_request_stream_cancel(id: u64) {
 }
 
 #[tauri::command]
-async fn mock_server_start(app: tauri::AppHandle) -> Result<u16, String> {
-    http::mock_server::start(app).await
+async fn mock_server_start(
+    app: tauri::AppHandle,
+    port: Option<u16>,
+    latency_ms: Option<u64>,
+) -> Result<u16, String> {
+    http::mock_server::start(app, port, latency_ms).await
+}
+
+#[tauri::command]
+async fn mock_server_stop() {
+    http::mock_server::stop().await
+}
+
+#[tauri::command]
+async fn mock_server_status() -> http::mock_server::Status {
+    http::mock_server::status().await
+}
+
+#[tauri::command]
+fn mock_server_clear_log() {
+    http::mock_server::clear_log()
 }
 
 #[tauri::command]
@@ -174,6 +193,9 @@ pub fn run() {
             http_request_stream,
             http_request_stream_cancel,
             mock_server_start,
+            mock_server_stop,
+            mock_server_status,
+            mock_server_clear_log,
             proxy_grpc,
             fs_allow_collection_dir,
             file_collections_registry_load,
