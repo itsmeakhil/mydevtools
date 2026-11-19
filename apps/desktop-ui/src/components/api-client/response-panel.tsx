@@ -132,6 +132,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
     const t = useTranslations("ApiClient.responsePanel")
     const tTimeline = useTranslations("ApiClient.timeline")
     const tApi = useTranslations("ApiClient")
+    const tViews = useTranslations("ApiClient.jsonViews")
     const { copyToClipboard } = useCopyToClipboard()
     const bodyEditorRef = React.useRef<editor.IStandaloneCodeEditor | null>(null)
 
@@ -244,7 +245,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
         } else if (isHtmlResponse) {
             return (
                 <iframe
-                    title="HTML response preview"
+                    title={t("htmlPreview")}
                     srcDoc={response.body}
                     className="w-full h-full min-h-[320px] border-0 absolute inset-0 bg-card"
                     // `allow-same-origin` is omitted on purpose — combined with `srcDoc` it
@@ -294,15 +295,15 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                         {isNdjson && <TabsTrigger value="lines">{t("linesTab")}</TabsTrigger>}
                         <TabsTrigger value="body">{t("bodyTab")}</TabsTrigger>
                         {hasPreview && <TabsTrigger value="preview">{t("previewTab")}</TabsTrigger>}
-                        <TabsTrigger value="tree">Tree</TabsTrigger>
-                        <TabsTrigger value="table">Table</TabsTrigger>
-                        <TabsTrigger value="geo">Geo</TabsTrigger>
+                        <TabsTrigger value="tree">{tViews("tree")}</TabsTrigger>
+                        <TabsTrigger value="table">{tViews("table")}</TabsTrigger>
+                        <TabsTrigger value="geo">{tViews("geo")}</TabsTrigger>
                         <TabsTrigger value="headers">{t("headersTab")}</TabsTrigger>
                         {response.timeline && <TabsTrigger value="timeline">{tTimeline("tab")}</TabsTrigger>}
                         {cookies.length > 0 && (
                             <TabsTrigger value="cookies" className="flex items-center gap-1.5">
                                 <Cookie className="h-3.5 w-3.5" />
-                                Cookies
+                                {t("cookiesTab")}
                                 <span className="inline-flex h-4 min-w-[16px] items-center justify-center rounded-full px-1 text-[10px] font-medium tabular-nums bg-primary/[0.12] text-primary">{cookies.length}</span>
                             </TabsTrigger>
                         )}
@@ -311,7 +312,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                             const passed = scriptResults.tests.length - failed
                             return (
                                 <TabsTrigger value="tests" className="flex items-center gap-1.5">
-                                    Tests
+                                    {t("testsTab")}
                                     {scriptResults.tests.length > 0 && (
                                         <span className={cn(
                                             "inline-flex h-4 items-center rounded-full px-1.5 text-[10px] font-medium tabular-nums",
@@ -359,11 +360,11 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                         </div>
                         <div className="h-5 w-px shrink-0 bg-border" />
                         <div className="flex items-center gap-0.5 shrink-0">
-                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleOpenSearch} title="Search in body (Ctrl+F)">
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={handleOpenSearch} title={t("searchBody")}>
                             <Search className="h-4 w-4" />
                         </Button>
                         {onSaveExample && (
-                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onSaveExample} title="Save response as example">
+                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={onSaveExample} title={t("saveExample")}>
                                 <Bookmark className="h-4 w-4" />
                             </Button>
                         )}
@@ -381,7 +382,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                         className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted-foreground"
                         title={redirectChain.map(h => `${h.status} → ${h.url}`).join("\n")}
                     >
-                        <span className="font-medium">Redirects:</span>
+                        <span className="font-medium">{t("redirects")}</span>
                         {redirectChain.map((hop, i) => (
                             <span key={`${hop.url}-${i}`} className="inline-flex items-center gap-1">
                                 <span className="tabular-nums font-medium px-1.5 rounded-full bg-foreground/[0.06]">{hop.status}</span>
@@ -486,9 +487,9 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                                                 <span className="text-xs font-mono text-muted-foreground break-all">{cookie.value}</span>
                                             </div>
                                             <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground">
-                                                {cookie.path && <span>Path: <code className="font-mono">{cookie.path}</code></span>}
-                                                {cookie.domain && <span>Domain: <code className="font-mono">{cookie.domain}</code></span>}
-                                                {cookie.expires && <span>Expires: {cookie.expires}</span>}
+                                                {cookie.path && <span>{t.rich("cookiePath", { value: cookie.path, code: (chunks) => <code className="font-mono">{chunks}</code> })}</span>}
+                                                {cookie.domain && <span>{t.rich("cookieDomain", { value: cookie.domain, code: (chunks) => <code className="font-mono">{chunks}</code> })}</span>}
+                                                {cookie.expires && <span>{t("cookieExpires", { value: cookie.expires })}</span>}
                                                 {cookie.maxAge && <span>Max-Age: {cookie.maxAge}s</span>}
                                                 {cookie.sameSite && <span>SameSite: {cookie.sameSite}</span>}
                                                 {cookie.httpOnly && <span className="text-warning font-medium">HttpOnly</span>}
@@ -506,7 +507,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                                 <div className="p-4 space-y-4">
                                     {scriptResults.errors.length > 0 && (
                                         <div className="border border-destructive/30 bg-destructive/5 rounded-lg p-3 space-y-1">
-                                            <div className="text-xs font-semibold text-destructive">Script errors</div>
+                                            <div className="text-xs font-semibold text-destructive">{t("scriptErrors")}</div>
                                             {scriptResults.errors.map((err, i) => (
                                                 <pre key={i} className="text-xs font-mono whitespace-pre-wrap break-all">{err}</pre>
                                             ))}
@@ -514,7 +515,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                                     )}
                                     {scriptResults.tests.length > 0 && (
                                         <div className="space-y-2">
-                                            <div className="text-xs font-medium text-muted-foreground">Assertions</div>
+                                            <div className="text-xs font-medium text-muted-foreground">{t("assertions")}</div>
                                             {scriptResults.tests.map((tt, i) => (
                                                 <div
                                                     key={i}
@@ -544,7 +545,7 @@ function ResponsePanelImpl({ response, isLoading, scriptResults, onSaveExample }
                                     )}
                                     {scriptResults.logs.length > 0 && (
                                         <div className="space-y-2">
-                                            <div className="text-xs font-medium text-muted-foreground">Console</div>
+                                            <div className="text-xs font-medium text-muted-foreground">{t("console")}</div>
                                             <div className="border border-border rounded-lg p-3 bg-muted/40 space-y-1">
                                                 {scriptResults.logs.map((l, i) => (
                                                     <div

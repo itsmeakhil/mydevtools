@@ -5,6 +5,7 @@ import { Collection } from "../types"
 import { useCollections } from "../collections/use-collections"
 import { useEnvironmentsActions } from "./environments-context"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 import type { Location } from "@/lib/api-client/collection-tree"
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -47,6 +48,7 @@ const CollectionsActionsCtx = React.createContext<CollectionsActions | null>(nul
 // ── Provider ───────────────────────────────────────────────────────────────
 
 export function CollectionsProvider({ children }: { children: React.ReactNode }) {
+    const tToast = useTranslations("ApiClient.toasts")
     const {
         collections,
         isLoading,
@@ -82,7 +84,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
                 if (envId) await updateEnvironment(envId, { variables: env.variables })
             }
         } catch (e) {
-            toast.error(`Imported the collection, but not its environments: ${e instanceof Error ? e.message : String(e)}`)
+            toast.error(tToast("envsNotImported", { message: e instanceof Error ? e.message : String(e) }))
         }
         return opened.collection
     }

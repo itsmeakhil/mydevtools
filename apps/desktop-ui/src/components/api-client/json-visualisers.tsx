@@ -3,6 +3,7 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { ChevronDown, ChevronRight } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 /* ── Tree view ───────────────────────────────────────────────────────────── */
 
@@ -13,6 +14,7 @@ interface TreeNodeProps {
 }
 
 function TreeNode({ name, value, depth }: TreeNodeProps) {
+    const t = useTranslations("ApiClient.jsonViews")
     const [open, setOpen] = React.useState(depth < 2)
     if (value === null || value === undefined) {
         return <Leaf name={name} text="null" tone="text-muted-foreground" depth={depth} />
@@ -39,7 +41,7 @@ function TreeNode({ name, value, depth }: TreeNodeProps) {
                 <TreeNode key={String(k)} name={k} value={v} depth={depth + 1} />
             ))}
             {open && entries.length > MAX_TREE_CHILDREN && (
-                <Leaf name="…" text={`${entries.length - MAX_TREE_CHILDREN} more (download the body to see all)`} tone="text-muted-foreground" depth={depth + 1} />
+                <Leaf name="…" text={t("more", { count: entries.length - MAX_TREE_CHILDREN })} tone="text-muted-foreground" depth={depth + 1} />
             )}
         </div>
     )
@@ -61,8 +63,9 @@ function Leaf({ name, text, tone, depth }: { name: string | number; text: string
 }
 
 export function JsonTreeView({ data }: { data: unknown }) {
+    const t = useTranslations("ApiClient.jsonViews")
     if (data === undefined || data === null) {
-        return <div className="text-xs text-muted-foreground p-2">No data</div>
+        return <div className="text-xs text-muted-foreground p-2">{t("noData")}</div>
     }
     return (
         <div className="p-2 overflow-auto">
@@ -74,6 +77,7 @@ export function JsonTreeView({ data }: { data: unknown }) {
 /* ── Table view ─────────────────────────────────────────────────────────── */
 
 export function JsonTableView({ rows }: { rows: unknown }) {
+    const t = useTranslations("ApiClient.jsonViews")
     const cols = React.useMemo(() => {
         if (!Array.isArray(rows) || rows.length === 0) return []
         const colSet = new Set<string>()
@@ -85,10 +89,10 @@ export function JsonTableView({ rows }: { rows: unknown }) {
         return Array.from(colSet)
     }, [rows])
     if (!Array.isArray(rows) || rows.length === 0) {
-        return <div className="text-xs text-muted-foreground p-2">Array of objects required.</div>
+        return <div className="text-xs text-muted-foreground p-2">{t("needArray")}</div>
     }
     if (cols.length === 0) {
-        return <div className="text-xs text-muted-foreground p-2">Not a tabular shape.</div>
+        return <div className="text-xs text-muted-foreground p-2">{t("notTabular")}</div>
     }
     return (
         <div className="overflow-auto text-xs font-mono">
@@ -119,7 +123,7 @@ export function JsonTableView({ rows }: { rows: unknown }) {
             </table>
             {rows.length > MAX_TABLE_ROWS && (
                 <div className="text-[10px] text-muted-foreground px-2 py-1">
-                    Showing {MAX_TABLE_ROWS} of {rows.length} rows
+                    {t("showingRows", { shown: MAX_TABLE_ROWS, total: rows.length })}
                 </div>
             )}
         </div>
@@ -157,9 +161,10 @@ function pickNum(obj: Record<string, unknown>, keys: string[]): number | null {
 }
 
 export function JsonGeoView({ data }: { data: unknown }) {
+    const t = useTranslations("ApiClient.jsonViews")
     const points = React.useMemo(() => extractPoints(data), [data])
     if (points.length === 0) {
-        return <div className="text-xs text-muted-foreground p-2">No lat/lng pairs detected.</div>
+        return <div className="text-xs text-muted-foreground p-2">{t("noPoints")}</div>
     }
     const w = 720, h = 360
     const padding = 16
@@ -172,7 +177,7 @@ export function JsonGeoView({ data }: { data: unknown }) {
     return (
         <div className="p-2">
             <div className="text-[10px] text-muted-foreground mb-1">
-                {points.length} point{points.length === 1 ? "" : "s"} · lat {latMin.toFixed(3)}…{latMax.toFixed(3)} · lng {lngMin.toFixed(3)}…{lngMax.toFixed(3)}
+                {t("points", { count: points.length })} · lat {latMin.toFixed(3)}…{latMax.toFixed(3)} · lng {lngMin.toFixed(3)}…{lngMax.toFixed(3)}
             </div>
             <svg viewBox={`0 0 ${w} ${h}`} className="w-full max-h-[360px] border rounded bg-muted/20">
                 {points.map((p, i) => (

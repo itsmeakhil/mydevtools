@@ -47,12 +47,10 @@ import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, K
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { ensureHttpScheme } from "@/lib/url-normalize"
-import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { ensureFreshToken } from "@/lib/oauth2"
-import { signAwsSigV4 } from "@/lib/auth/aws-sigv4"
-import { signHawk } from "@/lib/auth/hawk"
-import { digestCredentials, signDigest } from "@/lib/auth/digest"
-import { signJwt } from "@/lib/auth/jwt-bearer"
+import { digestCredentials } from "@/lib/auth/digest"
+import { applyHeaderAuth, applyPayloadAuth } from "@/lib/api-client/apply-auth"
+import { introspectionBody } from "@/lib/graphql-introspect"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { evaluateAssertions } from "@/lib/api-client/assertions"
 import { collectionNet } from "@/lib/api-client/network-settings"
@@ -123,6 +121,7 @@ function ApiClientInner() {
     const tNav = useTranslations("Navigation")
     const tNet = useTranslations("ApiClient.network")
     const tPlugins = useTranslations("ApiClient.plugins")
+    const tSave = useTranslations("ApiClient.saveExample")
     const { tabs, activeTabId, activeTab } = useTabs()
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab, updateTab } = useTabsActions()
 
@@ -217,7 +216,7 @@ function ApiClientInner() {
             },
         }
         updateActiveTab({ examples: [...(activeTab.examples ?? []), example] })
-        toast.success(`Saved example "${name}"`)
+        toast.success(tSave("saved", { name }))
     }
 
     const handleDeleteExample = React.useCallback((id: string) => {
@@ -237,7 +236,7 @@ function ApiClientInner() {
             },
             isLoading: false,
         })
-        toast.success(`Loaded example "${example.name}"`)
+        toast.success(tSave("loaded", { name: example.name }))
     }, [updateActiveTab])
 
     // One stable setter per RequestTabs field. Inline `(v) => updateActiveTab({...})`
@@ -600,57 +599,15 @@ function ApiClientInner() {
                 headersObj[substituteAll(k)] = substituteAll(v)
             })
 
-            // Add Auth — credentials are trimmed: copy-pasted tokens routinely carry leading/trailing
-            // whitespace which most servers reject as malformed.
-            if (sendTab.auth.type === "bearer" && sendTab.auth.token) {
-                headersObj["Authorization"] = `Bearer ${substituteAll(sendTab.auth.token).trim()}`
-            } else if (sendTab.auth.type === "basic" && sendTab.auth.username && sendTab.auth.password) {
-                const credentials = encodeBasicCredentials(
-                    substituteAll(sendTab.auth.username).trim(),
-                    substituteAll(sendTab.auth.password),
-                )
-                headersObj["Authorization"] = `Basic ${credentials}`
-            } else if (sendTab.auth.type === "api-key" && sendTab.auth.apiKeyKey && sendTab.auth.apiKeyValue) {
-                const key = substituteAll(sendTab.auth.apiKeyKey).trim()
-                const val = substituteAll(sendTab.auth.apiKeyValue).trim()
-                if (sendTab.auth.apiKeyLocation === "query") {
-                    urlObj.searchParams.append(key, val)
-                } else {
-                    headersObj[key] = val
-                }
-            } else if (sendTab.auth.type === "jwt-bearer" && sendTab.auth.jwtBearer) {
-                try {
-                    const cfg = sendTab.auth.jwtBearer
-                    let extra: Record<string, unknown> | undefined
-                    if (cfg.extraClaimsJson && cfg.extraClaimsJson.trim()) {
-                        extra = JSON.parse(cfg.extraClaimsJson) as Record<string, unknown>
-                    }
-                    const jwt = await signJwt({
-                        algorithm: cfg.algorithm,
-                        secret: cfg.secret,
-                        privateKeyPem: cfg.privateKeyPem,
-                        ttlSeconds: cfg.ttlSeconds,
-                        claims: {
-                            iss: cfg.issuer || undefined,
-                            sub: cfg.subject || undefined,
-                            aud: cfg.audience || undefined,
-                            extra,
-                        },
-                    })
-                    headersObj["Authorization"] = `Bearer ${jwt}`
-                } catch (err) {
-                    toast.error(`JWT signing failed: ${(err as Error).message}`)
-                    updateActiveTab({ isLoading: false })
-                    return
-                }
-            } else if (sendTab.auth.type === "aws-sigv4" && sendTab.auth.awsSigV4) {
-                // Defer signing until after the body is built — it has to hash the payload.
-                // We mark the intent here and apply at the end of body assembly.
-            } else if (sendTab.auth.type === "hawk" && sendTab.auth.hawk) {
-                // Same — deferred to post-body assembly.
-            } else if (sendTab.auth.type === "digest" && sendTab.auth.digest) {
-                // Digest with qop=auth-int also needs body. Deferred.
-            } else if (sendTab.auth.type === "oauth2" && sendTab.auth.oauth2) {
+            // Header/URL auth (bearer, basic, api-key, jwt-bearer); OAuth2 below writes back to the tab.
+            try {
+                await applyHeaderAuth(sendTab.auth, { headers: headersObj, url: urlObj }, substituteAll)
+            } catch (err) {
+                toast.error(t("toasts.jwtFailed", { message: (err as Error).message }))
+                updateActiveTab({ isLoading: false })
+                return
+            }
+            if (sendTab.auth.type === "oauth2" && sendTab.auth.oauth2) {
                 // Refresh / re-fetch as needed. The fresh config is persisted back
                 // into tab state so subsequent sends reuse the same access token.
                 try {
@@ -670,7 +627,7 @@ function ApiClientInner() {
                         headersObj["Authorization"] = `${tokenType} ${fresh.accessToken}`
                     }
                 } catch (err) {
-                    toast.error(`OAuth token refresh failed: ${(err as Error).message}`)
+                    toast.error(t("toasts.oauthRefreshFailed", { message: (err as Error).message }))
                     updateActiveTab({ isLoading: false })
                     return
                 }
@@ -778,7 +735,7 @@ function ApiClientInner() {
                         try {
                             variables = JSON.parse(substituteAll(rawVars))
                         } catch (e) {
-                            toast.error(`Invalid GraphQL variables JSON: ${(e as Error).message}`)
+                            toast.error(t("toasts.invalidGraphqlVars", { message: (e as Error).message }))
                             updateActiveTab({ isLoading: false })
                             return
                         }
@@ -802,34 +759,9 @@ function ApiClientInner() {
                 ? bodyPayload
                 : (bodyContent ?? "")
             try {
-                if (sendTab.auth.type === "aws-sigv4" && sendTab.auth.awsSigV4) {
-                    await signAwsSigV4({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.awsSigV4,
-                    })
-                } else if (sendTab.auth.type === "hawk" && sendTab.auth.hawk) {
-                    await signHawk({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.hawk,
-                    })
-                } else if (sendTab.auth.type === "digest" && sendTab.auth.digest?.nonce?.trim()) {
-                    // A pasted nonce = pre-emptive; otherwise the proxy answers the challenge (digestAuth below).
-                    await signDigest({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.digest,
-                    })
-                }
+                await applyPayloadAuth(sendTab.auth, { method: workMethod, url: urlObj, headers: headersObj, body: bodyForSigning })
             } catch (signErr) {
-                toast.error(`Auth signing failed: ${(signErr as Error).message}`)
+                toast.error(t("toasts.authSigningFailed", { message: (signErr as Error).message }))
                 updateActiveTab({ isLoading: false })
                 return
             }
@@ -1278,6 +1210,42 @@ function ApiClientInner() {
     React.useEffect(() => { sendRef.current = sendImpl }, [sendImpl])
     const handleSend = React.useCallback(() => sendRef.current(), [])
 
+    // GraphQL introspection target: the tab's URL, params, headers and auth with
+    // variables resolved — what a send would use, minus scripts and body signers.
+    const introspectionTargetImpl = React.useCallback(async (): Promise<{ url: string; headers: Record<string, string> }> => {
+        const tab = withFolderDefaults(activeTab, collections)
+        const collection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+        const secrets = await resolveSecretVariables(
+            [tab.url, JSON.stringify({ params: tab.params, headers: tab.headers, auth: tab.auth })],
+            cipherKey,
+        )
+        const sub = (text: string) => substituteVariables(text, {
+            globals: globalVariables,
+            collection: variablesToRecord(collection?.variables),
+            environment: activeEnvironmentVariables,
+            session: sessionVarsRef.current,
+            secrets,
+        })
+        const urlObj = buildRequestUrl(sub(tab.url))
+        tab.params.forEach((p) => { if (p.active && p.key) urlObj.searchParams.append(sub(p.key), sub(p.value)) })
+        const headers: Record<string, string> = {}
+        tab.headers.forEach((h) => { if (h.active && h.key) headers[sub(h.key)] = sub(h.value) })
+        const auth = tab.auth
+        await applyHeaderAuth(auth, { headers, url: urlObj }, sub)
+        if (auth.type === "oauth2" && auth.oauth2) {
+            const fresh = await ensureFreshToken(auth.oauth2)
+            if (fresh.accessToken) headers["Authorization"] = `${fresh.tokenType || "Bearer"} ${fresh.accessToken}`
+        }
+        // Body signers hash exactly what fetchGraphQLSchema will POST.
+        headers["Content-Type"] = "application/json"
+        await applyPayloadAuth(auth, { method: "POST", url: urlObj, headers, body: introspectionBody() })
+        // ponytail: NTLM/SPNEGO introspection unsupported (their proxy routes return 501 on desktop anyway).
+        return { url: urlObj.toString(), headers }
+    }, [activeTab, collections, cipherKey, globalVariables, activeEnvironmentVariables])
+    const introspectionTargetRef = React.useRef(introspectionTargetImpl)
+    React.useEffect(() => { introspectionTargetRef.current = introspectionTargetImpl }, [introspectionTargetImpl])
+    const resolveIntrospectionTarget = React.useCallback(() => introspectionTargetRef.current(), [])
+
     const handleCurlPaste = React.useCallback((curl: string) => {
         try {
             const parsed = parseCurlCommand(curl)
@@ -1420,6 +1388,7 @@ function ApiClientInner() {
                     testScript={activeTab.testScript}
                     setTestScript={setField.testScript}
                     graphqlUrl={activeTab.url}
+                    resolveIntrospectionTarget={resolveIntrospectionTarget}
                     graphqlSchema={activeTab.graphqlSchema}
                     setGraphqlSchema={setField.graphqlSchema}
                     examples={activeTab.examples}
@@ -1757,6 +1726,7 @@ function ApiClientInner() {
                                             testScript={activeTab.testScript}
                                             setTestScript={setField.testScript}
                                             graphqlUrl={activeTab.url}
+                                            resolveIntrospectionTarget={resolveIntrospectionTarget}
                                             graphqlSchema={activeTab.graphqlSchema}
                                             setGraphqlSchema={setField.graphqlSchema}
                                             examples={activeTab.examples}

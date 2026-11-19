@@ -9,6 +9,15 @@ import { ArrowDownLeft, ArrowUpRight, Plug, X, Trash2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { ApiRequestState, WebSocketMessage, WebSocketState } from "./types"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
+
+const STATUS_KEY = {
+    idle: "statusIdle",
+    connecting: "statusConnecting",
+    open: "statusOpen",
+    closing: "statusClosing",
+    closed: "statusClosed",
+} as const satisfies Record<WebSocketState["status"], string>
 
 interface WebSocketPanelProps {
     tab: ApiRequestState
@@ -22,6 +31,7 @@ interface WebSocketPanelProps {
  * tear it down; closing the tab does, via the cleanup effect.
  */
 export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
+    const t = useTranslations("ApiClient.websocket")
     const wsRef = React.useRef<WebSocket | null>(null)
     const transcriptRef = React.useRef<HTMLDivElement | null>(null)
 
@@ -75,11 +85,11 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
 
     const connect = () => {
         if (!tab.url.trim()) {
-            toast.error("Enter a ws:// or wss:// URL first")
+            toast.error(t("enterUrl"))
             return
         }
         if (!/^wss?:\/\//i.test(tab.url)) {
-            toast.error("URL must start with ws:// or wss://")
+            toast.error(t("badScheme"))
             return
         }
         disconnect()
@@ -113,14 +123,14 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
                 wsRef.current = null
             }
         } catch (err) {
-            toast.error(`Failed to connect: ${(err as Error).message}`)
+            toast.error(t("connectFailed", { message: (err as Error).message }))
             setState({ status: "closed" })
         }
     }
 
     const send = () => {
         if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
-            toast.error("Socket not connected")
+            toast.error(t("notConnected"))
             return
         }
         const payload = state.draft
@@ -130,7 +140,7 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
             appendMessage({ direction: "sent", data: payload })
             setState({ draft: "" })
         } catch (err) {
-            toast.error(`Send failed: ${(err as Error).message}`)
+            toast.error(t("sendFailed", { message: (err as Error).message }))
         }
     }
 
@@ -161,15 +171,15 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
                 />
                 {!isOpen ? (
                     <Button onClick={connect} disabled={isConnecting}>
-                        <Plug className="h-4 w-4 mr-2" /> {isConnecting ? "Connecting…" : "Connect"}
+                        <Plug className="h-4 w-4 mr-2" /> {isConnecting ? t("connecting") : t("connect")}
                     </Button>
                 ) : (
                     <Button variant="outline" onClick={disconnect} className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive">
-                        <X className="h-4 w-4 mr-2" /> Disconnect
+                        <X className="h-4 w-4 mr-2" /> {t("disconnect")}
                     </Button>
                 )}
-                <span className={cn("inline-flex h-6 items-center text-xs font-medium px-2.5 rounded-full capitalize", statusColor[state.status])}>
-                    {state.status}
+                <span className={cn("inline-flex h-6 items-center text-xs font-medium px-2.5 rounded-full", statusColor[state.status])}>
+                    {t(STATUS_KEY[state.status])}
                     {state.status === "closed" && state.closeCode !== undefined && ` (${state.closeCode})`}
                 </span>
             </div>
@@ -177,16 +187,16 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
             <div className="grid grid-rows-[1fr_auto] gap-3 flex-1 min-h-0">
                 <div className="border border-border rounded-xl flex flex-col bg-card shadow-elev-1 overflow-hidden min-h-0">
                     <div className="flex items-center justify-between h-11 px-4 border-b border-border text-[13px] font-semibold">
-                        <span>Transcript ({state.messages.length})</span>
+                        <span>{t("transcript", { count: state.messages.length })}</span>
                         <Button size="sm" variant="ghost" onClick={clearTranscript} disabled={state.messages.length === 0}>
-                            <Trash2 className="h-3.5 w-3.5 mr-1" /> Clear
+                            <Trash2 className="h-3.5 w-3.5 mr-1" /> {t("clear")}
                         </Button>
                     </div>
                     <ScrollArea className="flex-1 min-h-0">
                         <div ref={transcriptRef} className="p-3 space-y-2">
                             {state.messages.length === 0 ? (
                                 <div className="text-center text-[13px] text-muted-foreground py-8">
-                                    No messages yet. Connect and send to populate.
+                                    {t("empty")}
                                 </div>
                             ) : (
                                 state.messages.map((m) => (
@@ -219,10 +229,10 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
 
                 <div className="border border-border rounded-xl bg-card shadow-elev-1 p-3 space-y-2">
                     <div className="text-[13px] font-semibold">
-                        Compose message
+                        {t("compose")}
                     </div>
                     <Textarea
-                        placeholder="Plain text or JSON…"
+                        placeholder={t("composePlaceholder")}
                         value={state.draft}
                         onChange={(e) => setState({ draft: e.target.value })}
                         className="font-mono text-xs min-h-[80px]"
@@ -234,9 +244,9 @@ export function WebSocketPanel({ tab, onUpdate }: WebSocketPanelProps) {
                         }}
                     />
                     <div className="flex items-center justify-between">
-                        <span className="text-[11px] text-muted-foreground">⌘/Ctrl + Enter to send</span>
+                        <span className="text-[11px] text-muted-foreground">{t("sendHint")}</span>
                         <Button onClick={send} disabled={!isOpen || !state.draft}>
-                            <ArrowUpRight className="h-4 w-4 mr-2" /> Send
+                            <ArrowUpRight className="h-4 w-4 mr-2" /> {t("send")}
                         </Button>
                     </div>
                 </div>
