@@ -50,6 +50,7 @@ import { ensureHttpScheme } from "@/lib/url-normalize"
 import { ensureFreshToken } from "@/lib/oauth2"
 import { digestCredentials } from "@/lib/auth/digest"
 import { applyHeaderAuth, applyPayloadAuth } from "@/lib/api-client/apply-auth"
+import { introspectionBody } from "@/lib/graphql-introspect"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { evaluateAssertions } from "@/lib/api-client/assertions"
 import { collectionNet } from "@/lib/api-client/network-settings"
@@ -1230,20 +1231,15 @@ function ApiClientInner() {
         const headers: Record<string, string> = {}
         tab.headers.forEach((h) => { if (h.active && h.key) headers[sub(h.key)] = sub(h.value) })
         const auth = tab.auth
-        if (auth.type === "bearer" && auth.token) {
-            headers["Authorization"] = `Bearer ${sub(auth.token).trim()}`
-        } else if (auth.type === "basic" && auth.username && auth.password) {
-            headers["Authorization"] = `Basic ${encodeBasicCredentials(sub(auth.username).trim(), sub(auth.password))}`
-        } else if (auth.type === "api-key" && auth.apiKeyKey && auth.apiKeyValue) {
-            const key = sub(auth.apiKeyKey).trim()
-            const val = sub(auth.apiKeyValue).trim()
-            if (auth.apiKeyLocation === "query") urlObj.searchParams.append(key, val)
-            else headers[key] = val
-        } else if (auth.type === "oauth2" && auth.oauth2) {
+        await applyHeaderAuth(auth, { headers, url: urlObj }, sub)
+        if (auth.type === "oauth2" && auth.oauth2) {
             const fresh = await ensureFreshToken(auth.oauth2)
             if (fresh.accessToken) headers["Authorization"] = `${fresh.tokenType || "Bearer"} ${fresh.accessToken}`
         }
-        // ponytail: SigV4/Hawk/JWT/Digest/NTLM aren't applied to introspection; reuse the send signers if a server needs them.
+        // Body signers hash exactly what fetchGraphQLSchema will POST.
+        headers["Content-Type"] = "application/json"
+        await applyPayloadAuth(auth, { method: "POST", url: urlObj, headers, body: introspectionBody() })
+        // ponytail: NTLM/SPNEGO introspection unsupported (their proxy routes return 501 on desktop anyway).
         return { url: urlObj.toString(), headers }
     }, [activeTab, collections, cipherKey, globalVariables, activeEnvironmentVariables])
     const introspectionTargetRef = React.useRef(introspectionTargetImpl)

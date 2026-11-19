@@ -37,6 +37,11 @@ export function cacheGraphQLSchema(url: string, schema: GqlSchema): void {
     schemaCache.set(url, schema)
 }
 
+/** The exact POST body sent — exported so body-hashing signers sign the same bytes. */
+export function introspectionBody(): string {
+    return JSON.stringify({ query: INTROSPECTION_QUERY })
+}
+
 export async function fetchGraphQLSchema(args: {
     url: string
     headers?: Record<string, string>
@@ -55,7 +60,7 @@ export async function fetchGraphQLSchema(args: {
                 Accept: "application/json",
                 ...(args.headers ?? {}),
             },
-            body: JSON.stringify({ query: INTROSPECTION_QUERY }),
+            body: introspectionBody(),
         }),
     })
 
