@@ -160,7 +160,8 @@ export function GraphqlBodyEditor({ query, onQueryChange, variables, onVariables
                 </Button>
             </div>
             <div className={cn("flex-1 min-h-0 grid gap-2", docsOpen && schema && "grid-cols-[minmax(0,1fr)_minmax(220px,300px)]")}>
-                <div className="min-h-0 grid grid-rows-[2fr_1fr] gap-2">
+                {/* minmax(0,1fr) + min-w-0: Monaco keeps its old pixel width and would otherwise spill over the docs panel. */}
+                <div className="min-h-0 min-w-0 grid grid-cols-[minmax(0,1fr)] grid-rows-[2fr_1fr] gap-2">
                     <div className="border border-border rounded-lg overflow-hidden min-h-0">
                         <MemoCodeEditor
                             value={query}
