@@ -2394,6 +2394,26 @@
       "loaded": "Baris dimuat dari {file}: {count}",
       "parseFailed": "Tidak dapat membaca file data: {message}",
       "runFailed": "Gagal menjalankan: {message}"
+    },
+    "graphql": {
+      "sentAs": "Dikirim sebagai <json></json> dengan <shape></shape>.",
+      "fetchSchema": "Ambil skema",
+      "fetching": "Mengambil skema…",
+      "needUrl": "Atur URL permintaan terlebih dahulu",
+      "fetchHint": "Memuat skema lewat introspeksi untuk pelengkapan otomatis dan dokumentasi",
+      "fetched": "Skema dimuat: {count} tipe",
+      "fetchFailed": "Gagal memuat skema: {message}",
+      "docs": "Dokumentasi",
+      "docsNeedSchema": "Ambil skema terlebih dahulu",
+      "variables": "Variabel (JSON)",
+      "root": "Skema",
+      "search": "Cari tipe dan bidang",
+      "noResults": "Tidak ada yang cocok",
+      "fields": "Bidang",
+      "inputFields": "Bidang input",
+      "values": "Nilai",
+      "possibleTypes": "Tipe yang mungkin",
+      "deprecated": "Usang"
     }
   },
   "RichEditor": {

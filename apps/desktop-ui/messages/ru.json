@@ -2394,6 +2394,26 @@
       "loaded": "Строк загружено из {file}: {count}",
       "parseFailed": "Не удалось прочитать файл данных: {message}",
       "runFailed": "Запуск не удался: {message}"
+    },
+    "graphql": {
+      "sentAs": "Отправляется как <json></json> с <shape></shape>.",
+      "fetchSchema": "Получить схему",
+      "fetching": "Получение схемы…",
+      "needUrl": "Сначала укажите URL запроса",
+      "fetchHint": "Загружает схему через интроспекцию для автодополнения и документации",
+      "fetched": "Схема загружена, типов: {count}",
+      "fetchFailed": "Не удалось загрузить схему: {message}",
+      "docs": "Документация",
+      "docsNeedSchema": "Сначала получите схему",
+      "variables": "Переменные (JSON)",
+      "root": "Схема",
+      "search": "Поиск типов и полей",
+      "noResults": "Ничего не найдено",
+      "fields": "Поля",
+      "inputFields": "Поля ввода",
+      "values": "Значения",
+      "possibleTypes": "Возможные типы",
+      "deprecated": "Устарело"
     }
   },
   "RichEditor": {

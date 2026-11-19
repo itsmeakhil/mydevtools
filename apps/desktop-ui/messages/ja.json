@@ -2394,6 +2394,26 @@
       "loaded": "{file} から読み込んだ行: {count}",
       "parseFailed": "データファイルを読み込めませんでした: {message}",
       "runFailed": "実行に失敗しました: {message}"
+    },
+    "graphql": {
+      "sentAs": "<json></json> として <shape></shape> を送信します。",
+      "fetchSchema": "スキーマを取得",
+      "fetching": "スキーマを取得中…",
+      "needUrl": "先にリクエスト URL を設定してください",
+      "fetchHint": "補完とドキュメントのためにイントロスペクションでスキーマを読み込みます",
+      "fetched": "スキーマを読み込みました: {count} 個の型",
+      "fetchFailed": "スキーマを読み込めませんでした: {message}",
+      "docs": "ドキュメント",
+      "docsNeedSchema": "先にスキーマを取得してください",
+      "variables": "変数 (JSON)",
+      "root": "スキーマ",
+      "search": "型とフィールドを検索",
+      "noResults": "一致なし",
+      "fields": "フィールド",
+      "inputFields": "入力フィールド",
+      "values": "値",
+      "possibleTypes": "取りうる型",
+      "deprecated": "非推奨"
     }
   },
   "RichEditor": {

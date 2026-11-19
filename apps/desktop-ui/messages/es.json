@@ -2394,6 +2394,26 @@
       "loaded": "Filas cargadas de {file}: {count}",
       "parseFailed": "No se pudo leer el archivo de datos: {message}",
       "runFailed": "La ejecución falló: {message}"
+    },
+    "graphql": {
+      "sentAs": "Se envía como <json></json> con <shape></shape>.",
+      "fetchSchema": "Obtener esquema",
+      "fetching": "Obteniendo esquema…",
+      "needUrl": "Primero define la URL de la petición",
+      "fetchHint": "Carga el esquema por introspección para el autocompletado y la documentación",
+      "fetched": "Esquema cargado: {count} tipos",
+      "fetchFailed": "No se pudo cargar el esquema: {message}",
+      "docs": "Documentación",
+      "docsNeedSchema": "Primero obtén el esquema",
+      "variables": "Variables (JSON)",
+      "root": "Esquema",
+      "search": "Buscar tipos y campos",
+      "noResults": "Sin coincidencias",
+      "fields": "Campos",
+      "inputFields": "Campos de entrada",
+      "values": "Valores",
+      "possibleTypes": "Tipos posibles",
+      "deprecated": "Obsoleto"
     }
   },
   "RichEditor": {

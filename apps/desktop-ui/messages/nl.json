@@ -2394,6 +2394,26 @@
       "loaded": "Rijen geladen uit {file}: {count}",
       "parseFailed": "Kan het gegevensbestand niet lezen: {message}",
       "runFailed": "Uitvoeren mislukt: {message}"
+    },
+    "graphql": {
+      "sentAs": "Verzonden als <json></json> met <shape></shape>.",
+      "fetchSchema": "Schema ophalen",
+      "fetching": "Schema ophalen…",
+      "needUrl": "Stel eerst de verzoek-URL in",
+      "fetchHint": "Laadt het schema via introspectie voor automatisch aanvullen en documentatie",
+      "fetched": "Schema geladen: {count} typen",
+      "fetchFailed": "Kan het schema niet laden: {message}",
+      "docs": "Documentatie",
+      "docsNeedSchema": "Haal eerst het schema op",
+      "variables": "Variabelen (JSON)",
+      "root": "Schema",
+      "search": "Typen en velden zoeken",
+      "noResults": "Geen resultaten",
+      "fields": "Velden",
+      "inputFields": "Invoervelden",
+      "values": "Waarden",
+      "possibleTypes": "Mogelijke typen",
+      "deprecated": "Verouderd"
     }
   },
   "RichEditor": {

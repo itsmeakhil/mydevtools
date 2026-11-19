@@ -2394,6 +2394,26 @@
       "loaded": "الصفوف المحمّلة من {file}: {count}",
       "parseFailed": "تعذّرت قراءة ملف البيانات: {message}",
       "runFailed": "فشل التشغيل: {message}"
+    },
+    "graphql": {
+      "sentAs": "يُرسل بصيغة <json></json> مع <shape></shape>.",
+      "fetchSchema": "جلب المخطط",
+      "fetching": "جارٍ جلب المخطط…",
+      "needUrl": "حدّد رابط الطلب أولًا",
+      "fetchHint": "حمّل المخطط عبر الاستبطان للإكمال التلقائي والتوثيق",
+      "fetched": "تم تحميل المخطط: {count} نوع",
+      "fetchFailed": "تعذّر تحميل المخطط: {message}",
+      "docs": "التوثيق",
+      "docsNeedSchema": "اجلب المخطط أولًا",
+      "variables": "المتغيرات (JSON)",
+      "root": "المخطط",
+      "search": "ابحث في الأنواع والحقول",
+      "noResults": "لا توجد نتائج",
+      "fields": "الحقول",
+      "inputFields": "حقول الإدخال",
+      "values": "القيم",
+      "possibleTypes": "الأنواع الممكنة",
+      "deprecated": "مُهمَل"
     }
   },
   "RichEditor": {

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { KeyValueEditor } from "./key-value-editor"
-import { KeyValueItem, RequestBody, RequestAuth, RequestFormDataItem, GraphQLIntrospectionType, RequestSettings } from "./types"
+import { KeyValueItem, RequestBody, RequestAuth, RequestFormDataItem, RequestSettings } from "./types"
 import { useJsonBodyValidation } from "./use-json-validation"
 import { CommentsPanel } from "./comments-panel"
 import { AuthEditor } from "./auth-editor"
@@ -15,8 +15,8 @@ import { RequestSettingsPanel, hasCustomSettings } from "./request-settings-pane
 import { RequestAssertionsPanel, countAssertions } from "./request-assertions-panel"
 import { DocsEditor } from "./docs-editor"
 import type { Assertion } from "@/lib/api-client/assertions"
-import { fetchGraphQLSchema } from "@/lib/graphql-introspect"
-import { toast } from "sonner"
+import { GraphqlBodyEditor } from "./graphql-body-editor"
+import type { GqlSchema } from "@/lib/api-client/graphql-schema"
 import dynamic from "next/dynamic"
 
 // Stable sentinel IDs for the placeholder rows shown before a user adds anything.
@@ -63,8 +63,10 @@ interface RequestTabsProps {
     setTestScript?: (s: string) => void
     /** GraphQL introspection target URL + persisted schema. */
     graphqlUrl?: string
-    graphqlSchema?: { types: GraphQLIntrospectionType[]; queryType?: string; mutationType?: string; subscriptionType?: string }
-    setGraphqlSchema?: (s: RequestTabsProps["graphqlSchema"]) => void
+    graphqlSchema?: GqlSchema
+    setGraphqlSchema?: (s: GqlSchema) => void
+    /** URL + headers (vars, auth resolved) for the introspection request. */
+    resolveIntrospectionTarget?: () => Promise<{ url: string; headers: Record<string, string> }>
     /** Saved examples on this tab. */
     examples?: import("./types").SavedExample[]
     onDeleteExample?: (id: string) => void
@@ -119,6 +121,7 @@ function RequestTabsImpl({
     setTestScript,
     graphqlUrl,
     graphqlSchema,
+    resolveIntrospectionTarget,
     setGraphqlSchema,
     examples,
     onDeleteExample,
@@ -208,21 +211,6 @@ function RequestTabsImpl({
         (v: string) => updateBody({ graphqlVariables: v }),
         [updateBody]
     )
-
-    const [introspecting, setIntrospecting] = React.useState(false)
-    const handleIntrospect = async () => {
-        if (!graphqlUrl || !setGraphqlSchema) return
-        setIntrospecting(true)
-        try {
-            const result = await fetchGraphQLSchema({ url: graphqlUrl })
-            setGraphqlSchema(result)
-            toast.success(`Introspected ${result.types.length} types`)
-        } catch (e) {
-            toast.error((e as Error).message)
-        } finally {
-            setIntrospecting(false)
-        }
-    }
 
     const handleFileSelect = async (id: string, file: File | null) => {
         if (!file) return
@@ -534,77 +522,16 @@ function RequestTabsImpl({
                             </div>
                         </div>
                     ) : normalizedBody.type === "graphql" ? (
-                        <div className="flex-1 flex flex-col gap-2 min-h-0">
-                            <div className="flex items-center gap-2 flex-wrap">
-                                <p className="text-xs text-muted-foreground flex-1 min-w-[260px]">
-                                    Sent as <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">application/json</code> with{" "}
-                                    <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">{"{ query, variables }"}</code>.
-                                </p>
-                                <Button
-                                    size="sm"
-                                    variant="outline"
-                                    onClick={handleIntrospect}
-                                    disabled={!graphqlUrl || introspecting}
-                                    title={!graphqlUrl ? "Set the request URL first" : "Fetch __schema via introspection"}
-                                >
-                                    {introspecting ? "Introspecting…" : "Fetch schema"}
-                                </Button>
-                            </div>
-                            <div className="flex-1 min-h-0 grid grid-rows-[2fr_1fr] gap-2">
-                                <div className="border border-border rounded-lg overflow-hidden min-h-0">
-                                    <MemoCodeEditor
-                                        value={normalizedBody.content}
-                                        onChange={handleBodyContentChange}
-                                        language="graphql"
-                                    />
-                                </div>
-                                <div className="flex flex-col gap-1 min-h-0">
-                                    <Label className="text-[11px] font-medium text-muted-foreground">
-                                        Variables (JSON)
-                                    </Label>
-                                    <div className="flex-1 border border-border rounded-lg overflow-hidden min-h-0">
-                                        <MemoCodeEditor
-                                            value={normalizedBody.graphqlVariables ?? ""}
-                                            onChange={handleGraphqlVariablesChange}
-                                            language="json"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            {graphqlSchema && graphqlSchema.types.length > 0 && (
-                                <details className="border border-border rounded-lg p-2 bg-muted/40">
-                                    <summary className="text-xs font-medium text-muted-foreground">
-                                        Schema · {graphqlSchema.types.length} types
-                                        {graphqlSchema.queryType && (
-                                            <span className="ml-2 font-mono text-[10px]">query: {graphqlSchema.queryType}</span>
-                                        )}
-                                        {graphqlSchema.mutationType && (
-                                            <span className="ml-2 font-mono text-[10px]">mutation: {graphqlSchema.mutationType}</span>
-                                        )}
-                                    </summary>
-                                    <div className="mt-2 max-h-[200px] overflow-y-auto space-y-2 text-xs font-mono">
-                                        {graphqlSchema.types.map((tp) => (
-                                            <div key={tp.name} className="border border-border rounded-md p-2 bg-card">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-[10px] uppercase text-muted-foreground">{tp.kind}</span>
-                                                    <span className="font-semibold">{tp.name}</span>
-                                                </div>
-                                                {tp.fields && tp.fields.length > 0 && (
-                                                    <ul className="pl-3 mt-1 space-y-0.5">
-                                                        {tp.fields.map((f) => (
-                                                            <li key={f.name}>
-                                                                <span>{f.name}</span>
-                                                                <span className="text-muted-foreground">: {f.type?.name ?? f.type?.ofType?.name ?? "?"}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </details>
-                            )}
-                        </div>
+                        <GraphqlBodyEditor
+                            query={normalizedBody.content}
+                            onQueryChange={handleBodyContentChange}
+                            variables={normalizedBody.graphqlVariables ?? ""}
+                            onVariablesChange={handleGraphqlVariablesChange}
+                            url={graphqlUrl}
+                            schema={graphqlSchema}
+                            setSchema={setGraphqlSchema}
+                            resolveTarget={resolveIntrospectionTarget}
+                        />
                     ) : (
                         <div className="flex-1 flex flex-col items-center justify-center gap-1 text-muted-foreground">
                             <p className="text-[13px]">{t("noBodyHint")}</p>

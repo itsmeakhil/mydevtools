@@ -2394,6 +2394,26 @@
       "loaded": "Rows loaded from {file}: {count}",
       "parseFailed": "Couldn't read the data file: {message}",
       "runFailed": "Run failed: {message}"
+    },
+    "graphql": {
+      "sentAs": "Sent as <json></json> with <shape></shape>.",
+      "fetchSchema": "Fetch schema",
+      "fetching": "Fetching schema…",
+      "needUrl": "Set the request URL first",
+      "fetchHint": "Load the schema by introspection for autocomplete and docs",
+      "fetched": "Schema loaded: {count} types",
+      "fetchFailed": "Couldn't load the schema: {message}",
+      "docs": "Docs",
+      "docsNeedSchema": "Fetch the schema first",
+      "variables": "Variables (JSON)",
+      "root": "Schema",
+      "search": "Search types and fields",
+      "noResults": "No matches",
+      "fields": "Fields",
+      "inputFields": "Input fields",
+      "values": "Values",
+      "possibleTypes": "Possible types",
+      "deprecated": "Deprecated"
     }
   },
   "RichEditor": {

@@ -2394,6 +2394,26 @@
       "loaded": "从 {file} 加载的行数：{count}",
       "parseFailed": "无法读取数据文件：{message}",
       "runFailed": "运行失败：{message}"
+    },
+    "graphql": {
+      "sentAs": "以 <json></json> 格式发送 <shape></shape>。",
+      "fetchSchema": "获取 Schema",
+      "fetching": "正在获取 Schema…",
+      "needUrl": "请先设置请求 URL",
+      "fetchHint": "通过内省加载 Schema，用于自动补全和文档",
+      "fetched": "Schema 已加载：{count} 个类型",
+      "fetchFailed": "无法加载 Schema：{message}",
+      "docs": "文档",
+      "docsNeedSchema": "请先获取 Schema",
+      "variables": "变量 (JSON)",
+      "root": "Schema",
+      "search": "搜索类型和字段",
+      "noResults": "无匹配项",
+      "fields": "字段",
+      "inputFields": "输入字段",
+      "values": "值",
+      "possibleTypes": "可能的类型",
+      "deprecated": "已弃用"
     }
   },
   "RichEditor": {

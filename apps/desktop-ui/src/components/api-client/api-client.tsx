@@ -1208,6 +1208,47 @@ function ApiClientInner() {
     React.useEffect(() => { sendRef.current = sendImpl }, [sendImpl])
     const handleSend = React.useCallback(() => sendRef.current(), [])
 
+    // GraphQL introspection target: the tab's URL, params, headers and auth with
+    // variables resolved — what a send would use, minus scripts and body signers.
+    const introspectionTargetImpl = React.useCallback(async (): Promise<{ url: string; headers: Record<string, string> }> => {
+        const tab = withFolderDefaults(activeTab, collections)
+        const collection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+        const secrets = await resolveSecretVariables(
+            [tab.url, JSON.stringify({ params: tab.params, headers: tab.headers, auth: tab.auth })],
+            cipherKey,
+        )
+        const sub = (text: string) => substituteVariables(text, {
+            globals: globalVariables,
+            collection: variablesToRecord(collection?.variables),
+            environment: activeEnvironmentVariables,
+            session: sessionVarsRef.current,
+            secrets,
+        })
+        const urlObj = buildRequestUrl(sub(tab.url))
+        tab.params.forEach((p) => { if (p.active && p.key) urlObj.searchParams.append(sub(p.key), sub(p.value)) })
+        const headers: Record<string, string> = {}
+        tab.headers.forEach((h) => { if (h.active && h.key) headers[sub(h.key)] = sub(h.value) })
+        const auth = tab.auth
+        if (auth.type === "bearer" && auth.token) {
+            headers["Authorization"] = `Bearer ${sub(auth.token).trim()}`
+        } else if (auth.type === "basic" && auth.username && auth.password) {
+            headers["Authorization"] = `Basic ${encodeBasicCredentials(sub(auth.username).trim(), sub(auth.password))}`
+        } else if (auth.type === "api-key" && auth.apiKeyKey && auth.apiKeyValue) {
+            const key = sub(auth.apiKeyKey).trim()
+            const val = sub(auth.apiKeyValue).trim()
+            if (auth.apiKeyLocation === "query") urlObj.searchParams.append(key, val)
+            else headers[key] = val
+        } else if (auth.type === "oauth2" && auth.oauth2) {
+            const fresh = await ensureFreshToken(auth.oauth2)
+            if (fresh.accessToken) headers["Authorization"] = `${fresh.tokenType || "Bearer"} ${fresh.accessToken}`
+        }
+        // ponytail: SigV4/Hawk/JWT/Digest/NTLM aren't applied to introspection; reuse the send signers if a server needs them.
+        return { url: urlObj.toString(), headers }
+    }, [activeTab, collections, cipherKey, globalVariables, activeEnvironmentVariables])
+    const introspectionTargetRef = React.useRef(introspectionTargetImpl)
+    React.useEffect(() => { introspectionTargetRef.current = introspectionTargetImpl }, [introspectionTargetImpl])
+    const resolveIntrospectionTarget = React.useCallback(() => introspectionTargetRef.current(), [])
+
     const handleCurlPaste = React.useCallback((curl: string) => {
         try {
             const parsed = parseCurlCommand(curl)
@@ -1350,6 +1391,7 @@ function ApiClientInner() {
                     testScript={activeTab.testScript}
                     setTestScript={setField.testScript}
                     graphqlUrl={activeTab.url}
+                    resolveIntrospectionTarget={resolveIntrospectionTarget}
                     graphqlSchema={activeTab.graphqlSchema}
                     setGraphqlSchema={setField.graphqlSchema}
                     examples={activeTab.examples}
@@ -1687,6 +1729,7 @@ function ApiClientInner() {
                                             testScript={activeTab.testScript}
                                             setTestScript={setField.testScript}
                                             graphqlUrl={activeTab.url}
+                                            resolveIntrospectionTarget={resolveIntrospectionTarget}
                                             graphqlSchema={activeTab.graphqlSchema}
                                             setGraphqlSchema={setField.graphqlSchema}
                                             examples={activeTab.examples}

@@ -2394,6 +2394,26 @@
       "loaded": "Baris dimuatkan daripada {file}: {count}",
       "parseFailed": "Tidak dapat membaca fail data: {message}",
       "runFailed": "Larian gagal: {message}"
+    },
+    "graphql": {
+      "sentAs": "Dihantar sebagai <json></json> dengan <shape></shape>.",
+      "fetchSchema": "Ambil skema",
+      "fetching": "Mengambil skema…",
+      "needUrl": "Tetapkan URL permintaan dahulu",
+      "fetchHint": "Memuatkan skema melalui introspeksi untuk autolengkap dan dokumentasi",
+      "fetched": "Skema dimuatkan: {count} jenis",
+      "fetchFailed": "Tidak dapat memuatkan skema: {message}",
+      "docs": "Dokumentasi",
+      "docsNeedSchema": "Ambil skema dahulu",
+      "variables": "Pemboleh ubah (JSON)",
+      "root": "Skema",
+      "search": "Cari jenis dan medan",
+      "noResults": "Tiada padanan",
+      "fields": "Medan",
+      "inputFields": "Medan input",
+      "values": "Nilai",
+      "possibleTypes": "Jenis yang mungkin",
+      "deprecated": "Lapuk"
     }
   },
   "RichEditor": {

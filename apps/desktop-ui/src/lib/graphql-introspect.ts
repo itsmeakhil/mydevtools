@@ -5,36 +5,7 @@ import { apiFetch } from "@/lib/desktop/api-fetch";
  * inherits SSRF protection + cookie forwarding.
  */
 
-import type { GraphQLIntrospectionType } from "@/components/api-client/types"
-
-export interface GraphQLIntrospectionResult {
-    types: GraphQLIntrospectionType[]
-    queryType?: string
-    mutationType?: string
-    subscriptionType?: string
-}
-
-/** Standard introspection query — trimmed to what the schema explorer renders. */
-const INTROSPECTION_QUERY = `
-query IntrospectionQuery {
-  __schema {
-    queryType { name }
-    mutationType { name }
-    subscriptionType { name }
-    types {
-      kind
-      name
-      description
-      fields(includeDeprecated: false) {
-        name
-        type {
-          name
-          ofType { name }
-        }
-      }
-    }
-  }
-}`.trim()
+import { INTROSPECTION_QUERY, type GqlSchema, type GqlType } from "@/lib/api-client/graphql-schema"
 
 interface ProxyResponseShape {
     status: number
@@ -49,16 +20,27 @@ interface IntrospectionShape {
             queryType?: { name?: string }
             mutationType?: { name?: string }
             subscriptionType?: { name?: string }
-            types?: GraphQLIntrospectionType[]
+            types?: GqlType[]
         }
     }
     errors?: Array<{ message: string }>
 }
 
+/** Last fetched schema per request URL (as typed, before variable substitution) — session only. */
+const schemaCache = new Map<string, GqlSchema>()
+
+export function cachedGraphQLSchema(url: string | undefined): GqlSchema | undefined {
+    return url ? schemaCache.get(url) : undefined
+}
+
+export function cacheGraphQLSchema(url: string, schema: GqlSchema): void {
+    schemaCache.set(url, schema)
+}
+
 export async function fetchGraphQLSchema(args: {
     url: string
     headers?: Record<string, string>
-}): Promise<GraphQLIntrospectionResult> {
+}): Promise<GqlSchema> {
     if (!args.url.trim()) throw new Error("GraphQL URL is required")
 
     const proxyRes = await apiFetch("/api/proxy", {
@@ -79,7 +61,7 @@ export async function fetchGraphQLSchema(args: {
 
     const data = (await proxyRes.json()) as ProxyResponseShape
     if (data.status >= 400 || data.error) {
-        throw new Error(`Introspection failed: ${data.status} ${data.body?.slice(0, 200) ?? ""}`)
+        throw new Error(`Introspection failed: ${data.error ?? data.status} ${data.body?.slice(0, 200) ?? ""}`)
     }
 
     let parsed: IntrospectionShape
@@ -97,7 +79,7 @@ export async function fetchGraphQLSchema(args: {
     if (!schema) throw new Error("Response missing data.__schema")
 
     return {
-        types: (schema.types ?? []).filter((t) => !t.name?.startsWith("__")),
+        types: (schema.types ?? []).filter((t) => t.name && !t.name.startsWith("__")),
         queryType: schema.queryType?.name,
         mutationType: schema.mutationType?.name,
         subscriptionType: schema.subscriptionType?.name,

@@ -2394,6 +2394,26 @@
       "loaded": "Wiersze wczytane z {file}: {count}",
       "parseFailed": "Nie udało się odczytać pliku danych: {message}",
       "runFailed": "Uruchomienie nie powiodło się: {message}"
+    },
+    "graphql": {
+      "sentAs": "Wysyłane jako <json></json> z <shape></shape>.",
+      "fetchSchema": "Pobierz schemat",
+      "fetching": "Pobieranie schematu…",
+      "needUrl": "Najpierw ustaw URL żądania",
+      "fetchHint": "Wczytuje schemat przez introspekcję na potrzeby podpowiedzi i dokumentacji",
+      "fetched": "Wczytano schemat, typów: {count}",
+      "fetchFailed": "Nie udało się wczytać schematu: {message}",
+      "docs": "Dokumentacja",
+      "docsNeedSchema": "Najpierw pobierz schemat",
+      "variables": "Zmienne (JSON)",
+      "root": "Schemat",
+      "search": "Szukaj typów i pól",
+      "noResults": "Brak wyników",
+      "fields": "Pola",
+      "inputFields": "Pola wejściowe",
+      "values": "Wartości",
+      "possibleTypes": "Możliwe typy",
+      "deprecated": "Przestarzałe"
     }
   },
   "RichEditor": {

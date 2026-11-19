@@ -2394,6 +2394,26 @@
       "loaded": "Rader lastet fra {file}: {count}",
       "parseFailed": "Kunne ikke lese datafilen: {message}",
       "runFailed": "Kjøringen mislyktes: {message}"
+    },
+    "graphql": {
+      "sentAs": "Sendes som <json></json> med <shape></shape>.",
+      "fetchSchema": "Hent skjema",
+      "fetching": "Henter skjema…",
+      "needUrl": "Angi forespørselens URL først",
+      "fetchHint": "Laster skjemaet via introspeksjon for autofullføring og dokumentasjon",
+      "fetched": "Skjema lastet: {count} typer",
+      "fetchFailed": "Kunne ikke laste skjemaet: {message}",
+      "docs": "Dokumentasjon",
+      "docsNeedSchema": "Hent skjemaet først",
+      "variables": "Variabler (JSON)",
+      "root": "Skjema",
+      "search": "Søk i typer og felt",
+      "noResults": "Ingen treff",
+      "fields": "Felt",
+      "inputFields": "Inndatafelt",
+      "values": "Verdier",
+      "possibleTypes": "Mulige typer",
+      "deprecated": "Foreldet"
     }
   },
   "RichEditor": {

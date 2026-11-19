@@ -1,4 +1,5 @@
 import type { Assertion } from "@/lib/api-client/assertions"
+import type { GqlSchema } from "@/lib/api-client/graphql-schema"
 
 /** Standard methods, or any custom HTTP token (e.g. PROPFIND) set via the method picker. */
 export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS" | (string & {})
@@ -243,13 +244,6 @@ export interface WebSocketState {
 }
 
 /** Public-only fragment of the GraphQL spec we care about for the schema explorer. */
-export interface GraphQLIntrospectionType {
-    name?: string
-    kind?: string
-    fields?: Array<{ name: string; type?: { name?: string; ofType?: { name?: string } } }>
-    description?: string
-}
-
 export interface ApiRequestState {
     id: string
     name: string
@@ -266,7 +260,7 @@ export interface ApiRequestState {
     websocket?: WebSocketState
     grpc?: GrpcWebState
     /** Last successful GraphQL introspection result for this tab. */
-    graphqlSchema?: { types: GraphQLIntrospectionType[]; queryType?: string; mutationType?: string; subscriptionType?: string }
+    graphqlSchema?: GqlSchema
     /** Per-request timeout override (ms). Falls back to proxy default when omitted. */
     timeoutMs?: number
     /** When false, the cookie jar does not attach cookies or store Set-Cookie for this request.

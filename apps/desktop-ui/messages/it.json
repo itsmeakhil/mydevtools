@@ -2394,6 +2394,26 @@
       "loaded": "Righe caricate da {file}: {count}",
       "parseFailed": "Impossibile leggere il file di dati: {message}",
       "runFailed": "Esecuzione non riuscita: {message}"
+    },
+    "graphql": {
+      "sentAs": "Inviato come <json></json> con <shape></shape>.",
+      "fetchSchema": "Recupera schema",
+      "fetching": "Recupero dello schema…",
+      "needUrl": "Imposta prima l'URL della richiesta",
+      "fetchHint": "Carica lo schema tramite introspezione per completamento automatico e documentazione",
+      "fetched": "Schema caricato: {count} tipi",
+      "fetchFailed": "Impossibile caricare lo schema: {message}",
+      "docs": "Documentazione",
+      "docsNeedSchema": "Recupera prima lo schema",
+      "variables": "Variabili (JSON)",
+      "root": "Schema",
+      "search": "Cerca tipi e campi",
+      "noResults": "Nessun risultato",
+      "fields": "Campi",
+      "inputFields": "Campi di input",
+      "values": "Valori",
+      "possibleTypes": "Tipi possibili",
+      "deprecated": "Deprecato"
     }
   },
   "RichEditor": {

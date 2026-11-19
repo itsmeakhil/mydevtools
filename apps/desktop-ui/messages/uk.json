@@ -2394,6 +2394,26 @@
       "loaded": "Рядків завантажено з {file}: {count}",
       "parseFailed": "Не вдалося прочитати файл даних: {message}",
       "runFailed": "Запуск не вдався: {message}"
+    },
+    "graphql": {
+      "sentAs": "Надсилається як <json></json> з <shape></shape>.",
+      "fetchSchema": "Отримати схему",
+      "fetching": "Отримання схеми…",
+      "needUrl": "Спочатку вкажіть URL запиту",
+      "fetchHint": "Завантажує схему через інтроспекцію для автодоповнення та документації",
+      "fetched": "Схему завантажено, типів: {count}",
+      "fetchFailed": "Не вдалося завантажити схему: {message}",
+      "docs": "Документація",
+      "docsNeedSchema": "Спочатку отримайте схему",
+      "variables": "Змінні (JSON)",
+      "root": "Схема",
+      "search": "Пошук типів і полів",
+      "noResults": "Нічого не знайдено",
+      "fields": "Поля",
+      "inputFields": "Поля введення",
+      "values": "Значення",
+      "possibleTypes": "Можливі типи",
+      "deprecated": "Застаріле"
     }
   },
   "RichEditor": {

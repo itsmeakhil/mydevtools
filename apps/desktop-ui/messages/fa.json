@@ -2394,6 +2394,26 @@
       "loaded": "ردیف‌های بارگذاری‌شده از {file}: {count}",
       "parseFailed": "خواندن فایل داده ممکن نشد: {message}",
       "runFailed": "اجرا ناموفق بود: {message}"
+    },
+    "graphql": {
+      "sentAs": "به‌صورت <json></json> همراه با <shape></shape> ارسال می‌شود.",
+      "fetchSchema": "دریافت طرح‌واره",
+      "fetching": "در حال دریافت طرح‌واره…",
+      "needUrl": "ابتدا URL درخواست را تنظیم کنید",
+      "fetchHint": "طرح‌واره را با درون‌نگری برای تکمیل خودکار و مستندات بارگیری می‌کند",
+      "fetched": "طرح‌واره بارگیری شد: {count} نوع",
+      "fetchFailed": "بارگیری طرح‌واره ممکن نشد: {message}",
+      "docs": "مستندات",
+      "docsNeedSchema": "ابتدا طرح‌واره را دریافت کنید",
+      "variables": "متغیرها (JSON)",
+      "root": "طرح‌واره",
+      "search": "جستجوی انواع و فیلدها",
+      "noResults": "موردی یافت نشد",
+      "fields": "فیلدها",
+      "inputFields": "فیلدهای ورودی",
+      "values": "مقادیر",
+      "possibleTypes": "انواع ممکن",
+      "deprecated": "منسوخ"
     }
   },
   "RichEditor": {
