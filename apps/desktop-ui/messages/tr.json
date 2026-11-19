@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "Kod oluştur",
       "dialogTitle": "Kod oluştur",
-      "languageCurl": "cURL",
-      "languageJavaScript": "JavaScript (fetch)",
-      "languagePython": "Python (requests)",
-      "languageGo": "Go",
       "copy": "Kopyala",
       "errorGenerating": "Kod oluşturma hatası"
     },

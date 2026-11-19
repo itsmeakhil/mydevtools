@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "코드 생성",
       "dialogTitle": "코드 생성",
-      "languageCurl": "cURL",
-      "languageJavaScript": "JavaScript (fetch)",
-      "languagePython": "Python (requests)",
-      "languageGo": "Go",
       "copy": "복사",
       "errorGenerating": "코드 생성 중 오류가 발생했습니다"
     },

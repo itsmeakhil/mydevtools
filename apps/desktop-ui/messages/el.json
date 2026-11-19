@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "Δημιουργία κώδικα",
       "dialogTitle": "Δημιουργία κώδικα",
-      "languageCurl": "μπούκλα",
-      "languageJavaScript": "JavaScript (ανάκτηση)",
-      "languagePython": "Python (αιτήματα)",
-      "languageGo": "Πάω",
       "copy": "Αντίγραφο",
       "errorGenerating": "Σφάλμα κατά τη δημιουργία κωδικού"
     },

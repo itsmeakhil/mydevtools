@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "Generera kod",
       "dialogTitle": "Generera kod",
-      "languageCurl": "cURL",
-      "languageJavaScript": "JavaScript (fetch)",
-      "languagePython": "Python (requests)",
-      "languageGo": "Go",
       "copy": "Kopiera",
       "errorGenerating": "Fel vid kodgenerering"
     },

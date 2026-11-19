@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "コードを生成",
       "dialogTitle": "コードを生成",
-      "languageCurl": "cURL",
-      "languageJavaScript": "JavaScript (fetch)",
-      "languagePython": "Python (requests)",
-      "languageGo": "Go",
       "copy": "コピー",
       "errorGenerating": "コード生成エラー"
     },

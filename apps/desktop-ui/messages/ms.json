@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "Jana kod",
       "dialogTitle": "Jana kod",
-      "languageCurl": "cURL",
-      "languageJavaScript": "JavaScript (fetch)",
-      "languagePython": "Python (requests)",
-      "languageGo": "Go",
       "copy": "Salin",
       "errorGenerating": "Ralat menjana kod"
     },

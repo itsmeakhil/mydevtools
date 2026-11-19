@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "Generovat kód",
       "dialogTitle": "Generovat kód",
-      "languageCurl": "cURL",
-      "languageJavaScript": "JavaScript (fetch)",
-      "languagePython": "Python (requests)",
-      "languageGo": "Go",
       "copy": "Kopírovat",
       "errorGenerating": "Chyba při generování kódu"
     },

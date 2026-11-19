@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "کد تولید کنید",
       "dialogTitle": "کد تولید کنید",
-      "languageCurl": "CURL",
-      "languageJavaScript": "جاوا اسکریپت (واکشی)",
-      "languagePython": "پایتون (درخواست ها)",
-      "languageGo": "برو",
       "copy": "کپی کنید",
       "errorGenerating": "خطا در تولید کد"
     },

@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "生成代码",
       "dialogTitle": "生成代码",
-      "languageCurl": "cURL",
-      "languageJavaScript": "JavaScript（fetch）",
-      "languagePython": "Python（requests）",
-      "languageGo": "Go",
       "copy": "复制",
       "errorGenerating": "生成代码出错"
     },

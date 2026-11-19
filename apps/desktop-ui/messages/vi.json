@@ -2019,10 +2019,6 @@
     "codeGenerator": {
       "triggerTitle": "Tạo mã",
       "dialogTitle": "Tạo mã",
-      "languageCurl": "cURL",
-      "languageJavaScript": "JavaScript (fetch)",
-      "languagePython": "Python (requests)",
-      "languageGo": "Go",
       "copy": "Sao chép",
       "errorGenerating": "Lỗi khi tạo mã"
     },
