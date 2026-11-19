@@ -465,9 +465,11 @@ mod tests {
             let _l = listener;
             std::future::pending::<()>().await
         });
-        assert!(bind(Some(port)).await.is_err());
+        assert!(tokio::net::TcpStream::connect(("127.0.0.1", port)).await.is_ok());
         shutdown(Running { port, task }).await;
-        let rebound = bind(Some(port)).await;
-        assert!(rebound.is_ok(), "{:?}", rebound.err());
+        // Probe with connect, not a re-bind: parallel tests' client sockets can be
+        // handed this freed ephemeral port and make a bind fail spuriously.
+        let err = tokio::net::TcpStream::connect(("127.0.0.1", port)).await.unwrap_err();
+        assert_eq!(err.kind(), std::io::ErrorKind::ConnectionRefused);
     }
 }
