@@ -1877,7 +1877,8 @@
         "response": "wird beim Senden aus der vorherigen Antwort gelesen",
         "secret": "geheim, wird beim Senden aufgelöst",
         "missing": "weder in der Umgebung, der Sammlung noch global definiert"
-      }
+      },
+      "cancel": "Abbrechen"
     },
     "requestTabs": {
       "params": "Parameter",
@@ -1946,7 +1947,13 @@
         "label": "Antwort mit JSONPath filtern",
         "invalid": "Ungültiger JSONPath",
         "matches": "{count, plural, =0 {Keine Treffer} one {# Treffer} other {# Treffer}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Verbunden. Warte auf Nachrichten…",
+      "streamEmpty": "Der Stream endete ohne Nachrichten.",
+      "linesTab": "Zeilen",
+      "linesTruncated": "Die ersten {count} Zeilen werden angezeigt.",
+      "lineInvalid": "Kein gültiges JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Neue Registerkarte",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Passwort",
       "proxyBypass": "Proxy umgehen für",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock-Server…",
+      "title": "Mock-Server",
+      "description": "Stellt die gespeicherten Beispiele von {name} auf 127.0.0.1 bereit. Ein Pfadsegment wie :id passt auf jeden Wert.",
+      "running": "Läuft auf Port {port}",
+      "stopped": "Gestoppt",
+      "port": "Port",
+      "latency": "Latenz (ms)",
+      "start": "Starten",
+      "apply": "Übernehmen",
+      "stop": "Stoppen",
+      "copyUrl": "URL kopieren",
+      "urlCopied": "Mock-URL kopiert — hänge den Anfragepfad an",
+      "requests": "Anfragen",
+      "clear": "Leeren",
+      "empty": "Noch keine Anfragen",
+      "noMatch": "Kein Treffer",
+      "portInUse": "Port {port} wird bereits verwendet",
+      "invalidPort": "Gib einen Port zwischen 1024 und 65535 ein",
+      "failed": "Mock-Server-Fehler"
+    },
+    "plugins": {
+      "title": "Plugins",
+      "description": "Plugins führen bei jeder gesendeten Anfrage JavaScript aus. Füge nur Code hinzu, dem du vertraust.",
+      "empty": "Keine Plugins installiert",
+      "toggle": "{name} aktivieren",
+      "delete": "{name} löschen",
+      "name": "Name",
+      "source": "Quellcode",
+      "add": "Plugin hinzufügen"
+    },
+    "openApiSync": {
+      "menuItem": "Mit OpenAPI-Spezifikation synchronisieren…",
+      "title": "Mit OpenAPI-Spezifikation synchronisieren",
+      "description": "Vergleicht diese Sammlung mit der neuesten Version ihrer Spezifikation. Deine Werte, Authentifizierung, Skripte, Tests, Dokumentation und Beispiele bleiben erhalten.",
+      "url": "Spezifikations-URL",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Vergleichen",
+      "chooseFile": "Datei wählen…",
+      "noChanges": "Diese Sammlung entspricht bereits der Spezifikation.",
+      "added": "Neu in der Spezifikation ({count})",
+      "changed": "Geändert ({count})",
+      "removed": "Nicht in der Spezifikation ({count})",
+      "removedHint": "Anfragen, die die Spezifikation nicht mehr enthält oder die du selbst hinzugefügt hast. Zum Löschen ankreuzen.",
+      "paramsAdded": "Neue Query-Parameter: {names}",
+      "headersAdded": "Neue Header: {names}",
+      "bodyType": "Body-Typ geändert",
+      "bodyFields": "Neue Body-Felder",
+      "apply": "Übernehmen ({count})",
+      "applied": "Sammlung mit der Spezifikation synchronisiert",
+      "failed": "Sammlung konnte nicht synchronisiert werden",
+      "loadFailed": "Spezifikation konnte nicht gelesen werden: {message}",
+      "cancel": "Abbrechen"
+    },
+    "cookieJar": {
+      "title": "Cookie-Speicher",
+      "description": "Cookies aus Antworten, die mit Anfragen mit passender Domain und passendem Pfad gesendet werden. HttpOnly-Cookies funktionieren auch.",
+      "summary": "Cookies: {cookies} · Domains: {domains}",
+      "import": "Importieren",
+      "export": "Exportieren",
+      "exportJson": "Als JSON exportieren",
+      "exportNetscape": "Als cookies.txt exportieren",
+      "clearAll": "Alle löschen",
+      "clearedDomain": "Cookies für {domain} gelöscht",
+      "cleared": "Cookie-Speicher geleert",
+      "empty": "Der Speicher ist leer. Sende eine Anfrage, die ein Cookie setzt, um ihn zu füllen.",
+      "path": "Pfad",
+      "expires": "Läuft ab",
+      "imported": "Importierte Cookies: {count}",
+      "importEmpty": "Keine Cookies in der Datei gefunden (JSON oder cookies.txt)",
+      "importFailed": "Cookies konnten nicht importiert werden: {message}",
+      "clearDomainLabel": "Cookies für {domain} löschen",
+      "deleteLabel": "Cookie {name} löschen"
     }
   },
   "RichEditor": {

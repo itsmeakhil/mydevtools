@@ -1877,7 +1877,8 @@
         "response": "čte se z předchozí odpovědi při odeslání",
         "secret": "tajné, vyřeší se při odeslání",
         "missing": "není definováno v prostředí, kolekci ani globálních proměnných"
-      }
+      },
+      "cancel": "Zrušit"
     },
     "requestTabs": {
       "params": "Parametry",
@@ -1946,7 +1947,13 @@
         "label": "Filtrovat odpověď pomocí JSONPath",
         "invalid": "Neplatná cesta JSONPath",
         "matches": "{count, plural, =0 {Žádné shody} one {# shoda} few {# shody} many {# shody} other {# shod}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Připojeno. Čeká se na zprávy…",
+      "streamEmpty": "Stream skončil bez jediné zprávy.",
+      "linesTab": "Řádky",
+      "linesTruncated": "Zobrazuje se prvních {count} řádků.",
+      "lineInvalid": "Neplatný JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Nová karta",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Heslo",
       "proxyBypass": "Bez proxy pro",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock server…",
+      "title": "Mock server",
+      "description": "Poskytuje uložené příklady kolekce {name} na 127.0.0.1. Segment cesty jako :id odpovídá libovolné hodnotě.",
+      "running": "Běží na portu {port}",
+      "stopped": "Zastaveno",
+      "port": "Port",
+      "latency": "Latence (ms)",
+      "start": "Spustit",
+      "apply": "Použít",
+      "stop": "Zastavit",
+      "copyUrl": "Kopírovat URL",
+      "urlCopied": "URL mocku zkopírována — připojte cestu požadavku",
+      "requests": "Požadavky",
+      "clear": "Vymazat",
+      "empty": "Zatím žádné požadavky",
+      "noMatch": "Bez shody",
+      "portInUse": "Port {port} je již používán",
+      "invalidPort": "Zadejte port mezi 1024 a 65535",
+      "failed": "Chyba mock serveru"
+    },
+    "plugins": {
+      "title": "Pluginy",
+      "description": "Pluginy spouštějí JavaScript u každého odeslaného požadavku. Přidávejte jen kód, kterému důvěřujete.",
+      "empty": "Žádné nainstalované pluginy",
+      "toggle": "Povolit {name}",
+      "delete": "Smazat {name}",
+      "name": "Název",
+      "source": "Zdrojový kód",
+      "add": "Přidat plugin"
+    },
+    "openApiSync": {
+      "menuItem": "Synchronizovat ze specifikace OpenAPI…",
+      "title": "Synchronizovat ze specifikace OpenAPI",
+      "description": "Porovná tuto kolekci s nejnovější verzí její specifikace. Vaše hodnoty, ověření, skripty, testy, dokumentace a příklady zůstanou zachovány.",
+      "url": "URL specifikace",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Porovnat",
+      "chooseFile": "Vybrat soubor…",
+      "noChanges": "Tato kolekce už odpovídá specifikaci.",
+      "added": "Nové ve specifikaci ({count})",
+      "changed": "Změněno ({count})",
+      "removed": "Není ve specifikaci ({count})",
+      "removedHint": "Požadavky, které specifikace už nemá, nebo které jste přidali sami. Zaškrtnutím je smažete.",
+      "paramsAdded": "Nové parametry dotazu: {names}",
+      "headersAdded": "Nové hlavičky: {names}",
+      "bodyType": "Změnil se typ těla",
+      "bodyFields": "Nová pole těla",
+      "apply": "Použít ({count})",
+      "applied": "Kolekce synchronizována se specifikací",
+      "failed": "Kolekci se nepodařilo synchronizovat",
+      "loadFailed": "Specifikaci se nepodařilo načíst: {message}",
+      "cancel": "Zrušit"
+    },
+    "cookieJar": {
+      "title": "Úložiště cookies",
+      "description": "Cookies uložené z odpovědí a odesílané s požadavky, jejichž doména a cesta odpovídají. Fungují i cookies HttpOnly.",
+      "summary": "Cookies: {cookies} · Domény: {domains}",
+      "import": "Importovat",
+      "export": "Exportovat",
+      "exportJson": "Exportovat jako JSON",
+      "exportNetscape": "Exportovat jako cookies.txt",
+      "clearAll": "Vymazat vše",
+      "clearedDomain": "Cookies pro {domain} vymazány",
+      "cleared": "Úložiště cookies vymazáno",
+      "empty": "Úložiště je prázdné. Odešlete požadavek, který nastaví cookie.",
+      "path": "Cesta",
+      "expires": "Vyprší",
+      "imported": "Importováno cookies: {count}",
+      "importEmpty": "V souboru nebyly nalezeny žádné cookies (JSON nebo cookies.txt)",
+      "importFailed": "Cookies se nepodařilo importovat: {message}",
+      "clearDomainLabel": "Vymazat cookies pro {domain}",
+      "deleteLabel": "Smazat cookie {name}"
     }
   },
   "RichEditor": {

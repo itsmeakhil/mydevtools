@@ -1877,7 +1877,8 @@
         "response": "يُقرأ من الاستجابة السابقة عند الإرسال",
         "secret": "سرّي، يُحَل عند الإرسال",
         "missing": "غير معرّف في البيئة أو المجموعة أو المتغيرات العامة"
-      }
+      },
+      "cancel": "إلغاء"
     },
     "requestTabs": {
       "params": "معاملات",
@@ -1946,7 +1947,13 @@
         "label": "تصفية الاستجابة باستخدام JSONPath",
         "invalid": "JSONPath غير صالح",
         "matches": "{count, plural, =0 {لا توجد نتائج} zero {لا توجد نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجة} other {# نتيجة}}"
-      }
+      },
+      "streamTab": "البث",
+      "streamWaiting": "متصل. بانتظار الرسائل…",
+      "streamEmpty": "انتهى البث دون أي رسائل.",
+      "linesTab": "الأسطر",
+      "linesTruncated": "يتم عرض أول {count} سطر.",
+      "lineInvalid": "ليس JSON صالحًا: {message}"
     },
     "tabBar": {
       "addTabAria": "تبويب جديد",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "كلمة المرور",
       "proxyBypass": "تجاوز الوكيل لـ",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "خادم المحاكاة…",
+      "title": "خادم المحاكاة",
+      "description": "يقدّم الأمثلة المحفوظة لـ {name} على 127.0.0.1. يطابق جزء مسار مثل ‎:id أي قيمة.",
+      "running": "يعمل على المنفذ {port}",
+      "stopped": "متوقف",
+      "port": "المنفذ",
+      "latency": "زمن التأخير (مللي ثانية)",
+      "start": "تشغيل",
+      "apply": "تطبيق",
+      "stop": "إيقاف",
+      "copyUrl": "نسخ الرابط",
+      "urlCopied": "تم نسخ رابط المحاكاة — أضف مسار الطلب",
+      "requests": "الطلبات",
+      "clear": "مسح",
+      "empty": "لا توجد طلبات بعد",
+      "noMatch": "لا تطابق",
+      "portInUse": "المنفذ {port} مستخدم بالفعل",
+      "invalidPort": "أدخل منفذًا بين 1024 و65535",
+      "failed": "خطأ في خادم المحاكاة"
+    },
+    "plugins": {
+      "title": "الإضافات",
+      "description": "تشغّل الإضافات JavaScript على كل طلب ترسله. لا تضف إلا شيفرة تثق بها.",
+      "empty": "لا توجد إضافات مثبتة",
+      "toggle": "تفعيل {name}",
+      "delete": "حذف {name}",
+      "name": "الاسم",
+      "source": "الشيفرة المصدرية",
+      "add": "إضافة إضافة"
+    },
+    "openApiSync": {
+      "menuItem": "مزامنة من مواصفة OpenAPI…",
+      "title": "مزامنة من مواصفة OpenAPI",
+      "description": "قارن هذه المجموعة بأحدث إصدار من مواصفتها. تُحفظ قيمك والمصادقة والسكربتات والاختبارات والتوثيق والأمثلة.",
+      "url": "رابط المواصفة",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "مقارنة",
+      "chooseFile": "اختيار ملف…",
+      "noChanges": "هذه المجموعة مطابقة للمواصفة بالفعل.",
+      "added": "جديد في المواصفة ({count})",
+      "changed": "تغيّر ({count})",
+      "removed": "غير موجود في المواصفة ({count})",
+      "removedHint": "طلبات لم تعد في المواصفة، أو أضفتها بنفسك. حدّد أحدها لحذفه.",
+      "paramsAdded": "معاملات استعلام جديدة: {names}",
+      "headersAdded": "ترويسات جديدة: {names}",
+      "bodyType": "تغيّر نوع المتن",
+      "bodyFields": "حقول متن جديدة",
+      "apply": "تطبيق ({count})",
+      "applied": "تمت مزامنة المجموعة مع المواصفة",
+      "failed": "تعذّرت مزامنة المجموعة",
+      "loadFailed": "تعذّرت قراءة المواصفة: {message}",
+      "cancel": "إلغاء"
+    },
+    "cookieJar": {
+      "title": "وعاء ملفات تعريف الارتباط",
+      "description": "ملفات تعريف ارتباط محفوظة من الاستجابات وتُرسل مع الطلبات التي يطابق نطاقها ومسارها. ملفات HttpOnly تعمل أيضًا.",
+      "summary": "ملفات تعريف الارتباط: {cookies} · النطاقات: {domains}",
+      "import": "استيراد",
+      "export": "تصدير",
+      "exportJson": "تصدير بصيغة JSON",
+      "exportNetscape": "تصدير بصيغة cookies.txt",
+      "clearAll": "مسح الكل",
+      "clearedDomain": "تم مسح ملفات تعريف الارتباط لـ {domain}",
+      "cleared": "تم إفراغ الوعاء",
+      "empty": "الوعاء فارغ. أرسل طلبًا يضبط ملف تعريف ارتباط لملئه.",
+      "path": "المسار",
+      "expires": "تنتهي في",
+      "imported": "ملفات تعريف الارتباط المستوردة: {count}",
+      "importEmpty": "لم يُعثر على ملفات تعريف ارتباط في ذلك الملف (JSON أو cookies.txt)",
+      "importFailed": "تعذّر استيراد ملفات تعريف الارتباط: {message}",
+      "clearDomainLabel": "مسح ملفات تعريف الارتباط لـ {domain}",
+      "deleteLabel": "حذف ملف تعريف الارتباط {name}"
     }
   },
   "RichEditor": {

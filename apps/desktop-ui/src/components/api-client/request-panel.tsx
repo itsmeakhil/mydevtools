@@ -449,7 +449,7 @@ function RequestPanelImpl({
                         className="h-9 px-4 border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive"
                     >
                         <X className="h-4 w-4 mr-2" />
-                        Cancel
+                        {t("cancel")}
                     </Button>
                 ) : (
                 <>

@@ -1877,7 +1877,8 @@
         "response": "read from the previous response on send",
         "secret": "secret, resolved on send",
         "missing": "not defined in the environment, collection or globals"
-      }
+      },
+      "cancel": "Cancel"
     },
     "requestTabs": {
       "params": "Params",
@@ -1946,7 +1947,13 @@
         "label": "Filter response with JSONPath",
         "invalid": "Invalid JSONPath",
         "matches": "{count, plural, =0 {No matches} one {# match} other {# matches}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Connected. Waiting for messages…",
+      "streamEmpty": "The stream ended without any messages.",
+      "linesTab": "Lines",
+      "linesTruncated": "Showing the first {count} lines.",
+      "lineInvalid": "Not valid JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "New tab",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Password",
       "proxyBypass": "Skip the proxy for",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock server…",
+      "title": "Mock server",
+      "description": "Serves the saved examples of {name} on 127.0.0.1. A path segment like :id matches any value.",
+      "running": "Running on port {port}",
+      "stopped": "Stopped",
+      "port": "Port",
+      "latency": "Latency (ms)",
+      "start": "Start",
+      "apply": "Apply",
+      "stop": "Stop",
+      "copyUrl": "Copy URL",
+      "urlCopied": "Mock URL copied — append the request path",
+      "requests": "Requests",
+      "clear": "Clear",
+      "empty": "No requests yet",
+      "noMatch": "No match",
+      "portInUse": "Port {port} is already in use",
+      "invalidPort": "Enter a port between 1024 and 65535",
+      "failed": "Mock server error"
+    },
+    "plugins": {
+      "title": "Plugins",
+      "description": "Plugins run JavaScript on every request you send. Only add code you trust.",
+      "empty": "No plugins installed",
+      "toggle": "Enable {name}",
+      "delete": "Delete {name}",
+      "name": "Name",
+      "source": "Source",
+      "add": "Add plugin"
+    },
+    "openApiSync": {
+      "menuItem": "Sync from OpenAPI spec…",
+      "title": "Sync from OpenAPI spec",
+      "description": "Compare this collection with the latest version of its spec. Your values, auth, scripts, tests, docs and examples are kept.",
+      "url": "Spec URL",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Compare",
+      "chooseFile": "Choose file…",
+      "noChanges": "This collection already matches the spec.",
+      "added": "New in the spec ({count})",
+      "changed": "Changed ({count})",
+      "removed": "Not in the spec ({count})",
+      "removedHint": "Requests the spec no longer has, or that you added yourself. Tick one to delete it.",
+      "paramsAdded": "New query params: {names}",
+      "headersAdded": "New headers: {names}",
+      "bodyType": "Body type changed",
+      "bodyFields": "New body fields",
+      "apply": "Apply ({count})",
+      "applied": "Collection synced with the spec",
+      "failed": "Couldn't sync the collection",
+      "loadFailed": "Couldn't read the spec: {message}",
+      "cancel": "Cancel"
+    },
+    "cookieJar": {
+      "title": "Cookie jar",
+      "description": "Cookies saved from responses and sent with requests whose domain and path match. HttpOnly cookies work too.",
+      "summary": "Cookies: {cookies} · Domains: {domains}",
+      "import": "Import",
+      "export": "Export",
+      "exportJson": "Export as JSON",
+      "exportNetscape": "Export as cookies.txt",
+      "clearAll": "Clear all",
+      "clearedDomain": "Cleared cookies for {domain}",
+      "cleared": "Cookie jar cleared",
+      "empty": "The jar is empty. Send a request that sets a cookie to fill it.",
+      "path": "Path",
+      "expires": "Expires",
+      "imported": "Cookies imported: {count}",
+      "importEmpty": "No cookies found in that file (JSON or cookies.txt)",
+      "importFailed": "Couldn't import cookies: {message}",
+      "clearDomainLabel": "Clear cookies for {domain}",
+      "deleteLabel": "Delete cookie {name}"
     }
   },
   "RichEditor": {

@@ -1877,7 +1877,8 @@
         "response": "lu depuis la réponse précédente à l'envoi",
         "secret": "secret, résolu à l'envoi",
         "missing": "non définie dans l'environnement, la collection ni les globales"
-      }
+      },
+      "cancel": "Annuler"
     },
     "requestTabs": {
       "params": "Paramètres",
@@ -1946,7 +1947,13 @@
         "label": "Filtrer la réponse avec JSONPath",
         "invalid": "JSONPath invalide",
         "matches": "{count, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}}"
-      }
+      },
+      "streamTab": "Flux",
+      "streamWaiting": "Connecté. En attente de messages…",
+      "streamEmpty": "Le flux s'est terminé sans aucun message.",
+      "linesTab": "Lignes",
+      "linesTruncated": "Affichage des {count} premières lignes.",
+      "lineInvalid": "JSON non valide : {message}"
     },
     "tabBar": {
       "addTabAria": "Nouvel onglet",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Mot de passe",
       "proxyBypass": "Ne pas utiliser le proxy pour",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Serveur fictif…",
+      "title": "Serveur fictif",
+      "description": "Sert les exemples enregistrés de {name} sur 127.0.0.1. Un segment de chemin comme :id correspond à n'importe quelle valeur.",
+      "running": "En cours sur le port {port}",
+      "stopped": "Arrêté",
+      "port": "Port",
+      "latency": "Latence (ms)",
+      "start": "Démarrer",
+      "apply": "Appliquer",
+      "stop": "Arrêter",
+      "copyUrl": "Copier l'URL",
+      "urlCopied": "URL fictive copiée — ajoutez le chemin de la requête",
+      "requests": "Requêtes",
+      "clear": "Effacer",
+      "empty": "Aucune requête pour l'instant",
+      "noMatch": "Aucune correspondance",
+      "portInUse": "Le port {port} est déjà utilisé",
+      "invalidPort": "Saisissez un port entre 1024 et 65535",
+      "failed": "Erreur du serveur fictif"
+    },
+    "plugins": {
+      "title": "Extensions",
+      "description": "Les extensions exécutent du JavaScript à chaque requête envoyée. N'ajoutez que du code de confiance.",
+      "empty": "Aucune extension installée",
+      "toggle": "Activer {name}",
+      "delete": "Supprimer {name}",
+      "name": "Nom",
+      "source": "Code source",
+      "add": "Ajouter une extension"
+    },
+    "openApiSync": {
+      "menuItem": "Synchroniser depuis la spécification OpenAPI…",
+      "title": "Synchroniser depuis la spécification OpenAPI",
+      "description": "Compare cette collection à la dernière version de sa spécification. Vos valeurs, authentification, scripts, tests, documentation et exemples sont conservés.",
+      "url": "URL de la spécification",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Comparer",
+      "chooseFile": "Choisir un fichier…",
+      "noChanges": "Cette collection correspond déjà à la spécification.",
+      "added": "Nouveau dans la spécification ({count})",
+      "changed": "Modifié ({count})",
+      "removed": "Absent de la spécification ({count})",
+      "removedHint": "Requêtes que la spécification n'a plus, ou que vous avez ajoutées. Cochez-en une pour la supprimer.",
+      "paramsAdded": "Nouveaux paramètres de requête : {names}",
+      "headersAdded": "Nouveaux en-têtes : {names}",
+      "bodyType": "Type de corps modifié",
+      "bodyFields": "Nouveaux champs du corps",
+      "apply": "Appliquer ({count})",
+      "applied": "Collection synchronisée avec la spécification",
+      "failed": "Impossible de synchroniser la collection",
+      "loadFailed": "Impossible de lire la spécification : {message}",
+      "cancel": "Annuler"
+    },
+    "cookieJar": {
+      "title": "Bocal à cookies",
+      "description": "Cookies enregistrés à partir des réponses et envoyés avec les requêtes dont le domaine et le chemin correspondent. Les cookies HttpOnly fonctionnent aussi.",
+      "summary": "Cookies : {cookies} · Domaines : {domains}",
+      "import": "Importer",
+      "export": "Exporter",
+      "exportJson": "Exporter en JSON",
+      "exportNetscape": "Exporter en cookies.txt",
+      "clearAll": "Tout effacer",
+      "clearedDomain": "Cookies de {domain} effacés",
+      "cleared": "Bocal à cookies vidé",
+      "empty": "Le bocal est vide. Envoyez une requête qui définit un cookie pour le remplir.",
+      "path": "Chemin",
+      "expires": "Expire",
+      "imported": "Cookies importés : {count}",
+      "importEmpty": "Aucun cookie trouvé dans ce fichier (JSON ou cookies.txt)",
+      "importFailed": "Impossible d'importer les cookies : {message}",
+      "clearDomainLabel": "Effacer les cookies de {domain}",
+      "deleteLabel": "Supprimer le cookie {name}"
     }
   },
   "RichEditor": {

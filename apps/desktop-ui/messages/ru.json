@@ -1877,7 +1877,8 @@
         "response": "берётся из предыдущего ответа при отправке",
         "secret": "секрет, подставляется при отправке",
         "missing": "не задана ни в окружении, ни в коллекции, ни в глобальных"
-      }
+      },
+      "cancel": "Отмена"
     },
     "requestTabs": {
       "params": "Параметры",
@@ -1946,7 +1947,13 @@
         "label": "Фильтровать ответ с помощью JSONPath",
         "invalid": "Недопустимый JSONPath",
         "matches": "{count, plural, =0 {Нет совпадений} one {# совпадение} few {# совпадения} many {# совпадений} other {# совпадения}}"
-      }
+      },
+      "streamTab": "Поток",
+      "streamWaiting": "Подключено. Ожидание сообщений…",
+      "streamEmpty": "Поток завершился без сообщений.",
+      "linesTab": "Строки",
+      "linesTruncated": "Показаны первые {count} строк.",
+      "lineInvalid": "Некорректный JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Новая вкладка",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Пароль",
       "proxyBypass": "Не использовать прокси для",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock-сервер…",
+      "title": "Mock-сервер",
+      "description": "Отдаёт сохранённые примеры коллекции {name} на 127.0.0.1. Сегмент пути вида :id совпадает с любым значением.",
+      "running": "Работает на порту {port}",
+      "stopped": "Остановлен",
+      "port": "Порт",
+      "latency": "Задержка (мс)",
+      "start": "Запустить",
+      "apply": "Применить",
+      "stop": "Остановить",
+      "copyUrl": "Копировать URL",
+      "urlCopied": "URL mock-сервера скопирован — добавьте путь запроса",
+      "requests": "Запросы",
+      "clear": "Очистить",
+      "empty": "Запросов пока нет",
+      "noMatch": "Нет совпадения",
+      "portInUse": "Порт {port} уже занят",
+      "invalidPort": "Укажите порт от 1024 до 65535",
+      "failed": "Ошибка mock-сервера"
+    },
+    "plugins": {
+      "title": "Плагины",
+      "description": "Плагины выполняют JavaScript при каждом отправленном запросе. Добавляйте только код, которому доверяете.",
+      "empty": "Плагины не установлены",
+      "toggle": "Включить {name}",
+      "delete": "Удалить {name}",
+      "name": "Название",
+      "source": "Исходный код",
+      "add": "Добавить плагин"
+    },
+    "openApiSync": {
+      "menuItem": "Синхронизировать со спецификацией OpenAPI…",
+      "title": "Синхронизация со спецификацией OpenAPI",
+      "description": "Сравните эту коллекцию с последней версией её спецификации. Ваши значения, авторизация, скрипты, тесты, документация и примеры сохранятся.",
+      "url": "URL спецификации",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Сравнить",
+      "chooseFile": "Выбрать файл…",
+      "noChanges": "Коллекция уже соответствует спецификации.",
+      "added": "Новое в спецификации ({count})",
+      "changed": "Изменено ({count})",
+      "removed": "Нет в спецификации ({count})",
+      "removedHint": "Запросы, которых больше нет в спецификации или которые вы добавили сами. Отметьте, чтобы удалить.",
+      "paramsAdded": "Новые параметры запроса: {names}",
+      "headersAdded": "Новые заголовки: {names}",
+      "bodyType": "Изменился тип тела",
+      "bodyFields": "Новые поля тела",
+      "apply": "Применить ({count})",
+      "applied": "Коллекция синхронизирована со спецификацией",
+      "failed": "Не удалось синхронизировать коллекцию",
+      "loadFailed": "Не удалось прочитать спецификацию: {message}",
+      "cancel": "Отмена"
+    },
+    "cookieJar": {
+      "title": "Хранилище cookie",
+      "description": "Cookie, сохранённые из ответов и отправляемые с запросами с подходящим доменом и путём. Cookie с HttpOnly тоже работают.",
+      "summary": "Cookie: {cookies} · Домены: {domains}",
+      "import": "Импорт",
+      "export": "Экспорт",
+      "exportJson": "Экспорт в JSON",
+      "exportNetscape": "Экспорт в cookies.txt",
+      "clearAll": "Очистить всё",
+      "clearedDomain": "Cookie для {domain} удалены",
+      "cleared": "Хранилище cookie очищено",
+      "empty": "Хранилище пусто. Отправьте запрос, который устанавливает cookie.",
+      "path": "Путь",
+      "expires": "Истекает",
+      "imported": "Импортировано cookie: {count}",
+      "importEmpty": "В файле не найдено cookie (JSON или cookies.txt)",
+      "importFailed": "Не удалось импортировать cookie: {message}",
+      "clearDomainLabel": "Удалить cookie для {domain}",
+      "deleteLabel": "Удалить cookie {name}"
     }
   },
   "RichEditor": {

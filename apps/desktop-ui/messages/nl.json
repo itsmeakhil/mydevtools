@@ -1877,7 +1877,8 @@
         "response": "wordt bij verzenden uit het vorige antwoord gelezen",
         "secret": "geheim, wordt bij verzenden ingevuld",
         "missing": "niet gedefinieerd in de omgeving, collectie of globale variabelen"
-      }
+      },
+      "cancel": "Annuleren"
     },
     "requestTabs": {
       "params": "Parameters",
@@ -1946,7 +1947,13 @@
         "label": "Antwoord filteren met JSONPath",
         "invalid": "Ongeldig JSONPath",
         "matches": "{count, plural, =0 {Geen resultaten} one {# resultaat} other {# resultaten}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Verbonden. Wachten op berichten…",
+      "streamEmpty": "De stream eindigde zonder berichten.",
+      "linesTab": "Regels",
+      "linesTruncated": "De eerste {count} regels worden getoond.",
+      "lineInvalid": "Geen geldige JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Nieuw tabblad",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Wachtwoord",
       "proxyBypass": "Proxy overslaan voor",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mockserver…",
+      "title": "Mockserver",
+      "description": "Serveert de opgeslagen voorbeelden van {name} op 127.0.0.1. Een padsegment zoals :id komt overeen met elke waarde.",
+      "running": "Actief op poort {port}",
+      "stopped": "Gestopt",
+      "port": "Poort",
+      "latency": "Vertraging (ms)",
+      "start": "Starten",
+      "apply": "Toepassen",
+      "stop": "Stoppen",
+      "copyUrl": "URL kopiëren",
+      "urlCopied": "Mock-URL gekopieerd — voeg het verzoekpad toe",
+      "requests": "Verzoeken",
+      "clear": "Wissen",
+      "empty": "Nog geen verzoeken",
+      "noMatch": "Geen overeenkomst",
+      "portInUse": "Poort {port} is al in gebruik",
+      "invalidPort": "Voer een poort tussen 1024 en 65535 in",
+      "failed": "Fout in mockserver"
+    },
+    "plugins": {
+      "title": "Plug-ins",
+      "description": "Plug-ins voeren JavaScript uit bij elk verzoek dat je verstuurt. Voeg alleen code toe die je vertrouwt.",
+      "empty": "Geen plug-ins geïnstalleerd",
+      "toggle": "{name} inschakelen",
+      "delete": "{name} verwijderen",
+      "name": "Naam",
+      "source": "Broncode",
+      "add": "Plug-in toevoegen"
+    },
+    "openApiSync": {
+      "menuItem": "Synchroniseren vanuit OpenAPI-specificatie…",
+      "title": "Synchroniseren vanuit OpenAPI-specificatie",
+      "description": "Vergelijk deze collectie met de nieuwste versie van de specificatie. Je waarden, authenticatie, scripts, tests, documentatie en voorbeelden blijven behouden.",
+      "url": "Specificatie-URL",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Vergelijken",
+      "chooseFile": "Bestand kiezen…",
+      "noChanges": "Deze collectie komt al overeen met de specificatie.",
+      "added": "Nieuw in de specificatie ({count})",
+      "changed": "Gewijzigd ({count})",
+      "removed": "Niet in de specificatie ({count})",
+      "removedHint": "Verzoeken die de specificatie niet meer heeft, of die je zelf hebt toegevoegd. Vink er een aan om die te verwijderen.",
+      "paramsAdded": "Nieuwe queryparameters: {names}",
+      "headersAdded": "Nieuwe headers: {names}",
+      "bodyType": "Body-type gewijzigd",
+      "bodyFields": "Nieuwe body-velden",
+      "apply": "Toepassen ({count})",
+      "applied": "Collectie gesynchroniseerd met de specificatie",
+      "failed": "Kan de collectie niet synchroniseren",
+      "loadFailed": "Kan de specificatie niet lezen: {message}",
+      "cancel": "Annuleren"
+    },
+    "cookieJar": {
+      "title": "Cookiepot",
+      "description": "Cookies die uit antwoorden zijn opgeslagen en worden meegestuurd met verzoeken waarvan domein en pad overeenkomen. HttpOnly-cookies werken ook.",
+      "summary": "Cookies: {cookies} · Domeinen: {domains}",
+      "import": "Importeren",
+      "export": "Exporteren",
+      "exportJson": "Exporteren als JSON",
+      "exportNetscape": "Exporteren als cookies.txt",
+      "clearAll": "Alles wissen",
+      "clearedDomain": "Cookies voor {domain} gewist",
+      "cleared": "Cookiepot geleegd",
+      "empty": "De pot is leeg. Stuur een verzoek dat een cookie zet om hem te vullen.",
+      "path": "Pad",
+      "expires": "Verloopt",
+      "imported": "Geïmporteerde cookies: {count}",
+      "importEmpty": "Geen cookies gevonden in dat bestand (JSON of cookies.txt)",
+      "importFailed": "Kan cookies niet importeren: {message}",
+      "clearDomainLabel": "Cookies voor {domain} wissen",
+      "deleteLabel": "Cookie {name} verwijderen"
     }
   },
   "RichEditor": {

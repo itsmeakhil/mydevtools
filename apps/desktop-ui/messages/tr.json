@@ -1877,7 +1877,8 @@
         "response": "gönderimde önceki yanıttan okunur",
         "secret": "gizli, gönderimde çözümlenir",
         "missing": "ortamda, koleksiyonda veya genel değişkenlerde tanımlı değil"
-      }
+      },
+      "cancel": "İptal"
     },
     "requestTabs": {
       "params": "Parametreler",
@@ -1946,7 +1947,13 @@
         "label": "Yanıtı JSONPath ile filtrele",
         "invalid": "Geçersiz JSONPath",
         "matches": "{count, plural, =0 {Eşleşme yok} one {# eşleşme} other {# eşleşme}}"
-      }
+      },
+      "streamTab": "Akış",
+      "streamWaiting": "Bağlandı. Mesajlar bekleniyor…",
+      "streamEmpty": "Akış hiç mesaj olmadan sona erdi.",
+      "linesTab": "Satırlar",
+      "linesTruncated": "İlk {count} satır gösteriliyor.",
+      "lineInvalid": "Geçerli JSON değil: {message}"
     },
     "tabBar": {
       "addTabAria": "Yeni sekme",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Parola",
       "proxyBypass": "Proxy'yi şunlar için atla",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Sahte sunucu…",
+      "title": "Sahte sunucu",
+      "description": "{name} koleksiyonunun kayıtlı örneklerini 127.0.0.1 üzerinde sunar. :id gibi bir yol parçası herhangi bir değerle eşleşir.",
+      "running": "{port} bağlantı noktasında çalışıyor",
+      "stopped": "Durduruldu",
+      "port": "Bağlantı noktası",
+      "latency": "Gecikme (ms)",
+      "start": "Başlat",
+      "apply": "Uygula",
+      "stop": "Durdur",
+      "copyUrl": "URL'yi kopyala",
+      "urlCopied": "Sahte URL kopyalandı — istek yolunu ekleyin",
+      "requests": "İstekler",
+      "clear": "Temizle",
+      "empty": "Henüz istek yok",
+      "noMatch": "Eşleşme yok",
+      "portInUse": "{port} bağlantı noktası zaten kullanımda",
+      "invalidPort": "1024 ile 65535 arasında bir bağlantı noktası girin",
+      "failed": "Sahte sunucu hatası"
+    },
+    "plugins": {
+      "title": "Eklentiler",
+      "description": "Eklentiler gönderdiğiniz her istekte JavaScript çalıştırır. Yalnızca güvendiğiniz kodu ekleyin.",
+      "empty": "Yüklü eklenti yok",
+      "toggle": "{name} eklentisini etkinleştir",
+      "delete": "{name} eklentisini sil",
+      "name": "Ad",
+      "source": "Kaynak kod",
+      "add": "Eklenti ekle"
+    },
+    "openApiSync": {
+      "menuItem": "OpenAPI belirtiminden eşitle…",
+      "title": "OpenAPI belirtiminden eşitle",
+      "description": "Bu koleksiyonu belirtimin en son sürümüyle karşılaştırın. Değerleriniz, kimlik doğrulama, betikler, testler, belgeler ve örnekler korunur.",
+      "url": "Belirtim URL'si",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Karşılaştır",
+      "chooseFile": "Dosya seç…",
+      "noChanges": "Bu koleksiyon zaten belirtimle eşleşiyor.",
+      "added": "Belirtimde yeni ({count})",
+      "changed": "Değişti ({count})",
+      "removed": "Belirtimde yok ({count})",
+      "removedHint": "Belirtimde artık olmayan ya da kendi eklediğiniz istekler. Silmek için işaretleyin.",
+      "paramsAdded": "Yeni sorgu parametreleri: {names}",
+      "headersAdded": "Yeni üst bilgiler: {names}",
+      "bodyType": "Gövde türü değişti",
+      "bodyFields": "Yeni gövde alanları",
+      "apply": "Uygula ({count})",
+      "applied": "Koleksiyon belirtimle eşitlendi",
+      "failed": "Koleksiyon eşitlenemedi",
+      "loadFailed": "Belirtim okunamadı: {message}",
+      "cancel": "İptal"
+    },
+    "cookieJar": {
+      "title": "Çerez kavanozu",
+      "description": "Yanıtlardan kaydedilen ve alan adı ile yolu eşleşen isteklerle gönderilen çerezler. HttpOnly çerezler de çalışır.",
+      "summary": "Çerezler: {cookies} · Alan adları: {domains}",
+      "import": "İçe aktar",
+      "export": "Dışa aktar",
+      "exportJson": "JSON olarak dışa aktar",
+      "exportNetscape": "cookies.txt olarak dışa aktar",
+      "clearAll": "Tümünü temizle",
+      "clearedDomain": "{domain} çerezleri temizlendi",
+      "cleared": "Çerez kavanozu boşaltıldı",
+      "empty": "Kavanoz boş. Doldurmak için çerez ayarlayan bir istek gönderin.",
+      "path": "Yol",
+      "expires": "Bitiş",
+      "imported": "İçe aktarılan çerezler: {count}",
+      "importEmpty": "Dosyada çerez bulunamadı (JSON veya cookies.txt)",
+      "importFailed": "Çerezler içe aktarılamadı: {message}",
+      "clearDomainLabel": "{domain} çerezlerini temizle",
+      "deleteLabel": "{name} çerezini sil"
     }
   },
   "RichEditor": {

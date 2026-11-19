@@ -1877,7 +1877,8 @@
         "response": "letto dalla risposta precedente all'invio",
         "secret": "segreto, risolto all'invio",
         "missing": "non definita nell'ambiente, nella raccolta o nelle globali"
-      }
+      },
+      "cancel": "Annulla"
     },
     "requestTabs": {
       "params": "Param",
@@ -1946,7 +1947,13 @@
         "label": "Filtra la risposta con JSONPath",
         "invalid": "JSONPath non valido",
         "matches": "{count, plural, =0 {Nessuna corrispondenza} one {# corrispondenza} other {# corrispondenze}}"
-      }
+      },
+      "streamTab": "Flusso",
+      "streamWaiting": "Connesso. In attesa di messaggi…",
+      "streamEmpty": "Il flusso è terminato senza messaggi.",
+      "linesTab": "Righe",
+      "linesTruncated": "Vengono mostrate le prime {count} righe.",
+      "lineInvalid": "JSON non valido: {message}"
     },
     "tabBar": {
       "addTabAria": "Nuova scheda",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Password",
       "proxyBypass": "Non usare il proxy per",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Server mock…",
+      "title": "Server mock",
+      "description": "Fornisce gli esempi salvati di {name} su 127.0.0.1. Un segmento di percorso come :id corrisponde a qualsiasi valore.",
+      "running": "In esecuzione sulla porta {port}",
+      "stopped": "Arrestato",
+      "port": "Porta",
+      "latency": "Latenza (ms)",
+      "start": "Avvia",
+      "apply": "Applica",
+      "stop": "Arresta",
+      "copyUrl": "Copia URL",
+      "urlCopied": "URL mock copiato — aggiungi il percorso della richiesta",
+      "requests": "Richieste",
+      "clear": "Cancella",
+      "empty": "Ancora nessuna richiesta",
+      "noMatch": "Nessuna corrispondenza",
+      "portInUse": "La porta {port} è già in uso",
+      "invalidPort": "Inserisci una porta tra 1024 e 65535",
+      "failed": "Errore del server mock"
+    },
+    "plugins": {
+      "title": "Plugin",
+      "description": "I plugin eseguono JavaScript a ogni richiesta inviata. Aggiungi solo codice di cui ti fidi.",
+      "empty": "Nessun plugin installato",
+      "toggle": "Attiva {name}",
+      "delete": "Elimina {name}",
+      "name": "Nome",
+      "source": "Codice sorgente",
+      "add": "Aggiungi plugin"
+    },
+    "openApiSync": {
+      "menuItem": "Sincronizza dalla specifica OpenAPI…",
+      "title": "Sincronizza dalla specifica OpenAPI",
+      "description": "Confronta questa raccolta con l'ultima versione della sua specifica. Valori, autenticazione, script, test, documentazione ed esempi vengono mantenuti.",
+      "url": "URL della specifica",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Confronta",
+      "chooseFile": "Scegli file…",
+      "noChanges": "Questa raccolta corrisponde già alla specifica.",
+      "added": "Nuovo nella specifica ({count})",
+      "changed": "Modificato ({count})",
+      "removed": "Non nella specifica ({count})",
+      "removedHint": "Richieste che la specifica non contiene più o che hai aggiunto tu. Selezionane una per eliminarla.",
+      "paramsAdded": "Nuovi parametri di query: {names}",
+      "headersAdded": "Nuove intestazioni: {names}",
+      "bodyType": "Tipo di corpo cambiato",
+      "bodyFields": "Nuovi campi del corpo",
+      "apply": "Applica ({count})",
+      "applied": "Raccolta sincronizzata con la specifica",
+      "failed": "Impossibile sincronizzare la raccolta",
+      "loadFailed": "Impossibile leggere la specifica: {message}",
+      "cancel": "Annulla"
+    },
+    "cookieJar": {
+      "title": "Barattolo dei cookie",
+      "description": "Cookie salvati dalle risposte e inviati con le richieste il cui dominio e percorso corrispondono. Funzionano anche i cookie HttpOnly.",
+      "summary": "Cookie: {cookies} · Domini: {domains}",
+      "import": "Importa",
+      "export": "Esporta",
+      "exportJson": "Esporta come JSON",
+      "exportNetscape": "Esporta come cookies.txt",
+      "clearAll": "Cancella tutto",
+      "clearedDomain": "Cookie di {domain} cancellati",
+      "cleared": "Barattolo dei cookie svuotato",
+      "empty": "Il barattolo è vuoto. Invia una richiesta che imposta un cookie per riempirlo.",
+      "path": "Percorso",
+      "expires": "Scade",
+      "imported": "Cookie importati: {count}",
+      "importEmpty": "Nessun cookie trovato nel file (JSON o cookies.txt)",
+      "importFailed": "Impossibile importare i cookie: {message}",
+      "clearDomainLabel": "Cancella i cookie di {domain}",
+      "deleteLabel": "Elimina il cookie {name}"
     }
   },
   "RichEditor": {

@@ -1877,7 +1877,8 @@
         "response": "leses fra forrige svar ved sending",
         "secret": "hemmelig, løses ved sending",
         "missing": "ikke definert i miljøet, samlingen eller de globale"
-      }
+      },
+      "cancel": "Avbryt"
     },
     "requestTabs": {
       "params": "Parametere",
@@ -1946,7 +1947,13 @@
         "label": "Filtrer svaret med JSONPath",
         "invalid": "Ugyldig JSONPath",
         "matches": "{count, plural, =0 {Ingen treff} one {# treff} other {# treff}}"
-      }
+      },
+      "streamTab": "Strøm",
+      "streamWaiting": "Tilkoblet. Venter på meldinger…",
+      "streamEmpty": "Strømmen avsluttet uten meldinger.",
+      "linesTab": "Linjer",
+      "linesTruncated": "Viser de første {count} linjene.",
+      "lineInvalid": "Ikke gyldig JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Ny fane",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Passord",
       "proxyBypass": "Hopp over proxyen for",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock-server…",
+      "title": "Mock-server",
+      "description": "Leverer de lagrede eksemplene fra {name} på 127.0.0.1. Et stisegment som :id samsvarer med enhver verdi.",
+      "running": "Kjører på port {port}",
+      "stopped": "Stoppet",
+      "port": "Port",
+      "latency": "Forsinkelse (ms)",
+      "start": "Start",
+      "apply": "Bruk",
+      "stop": "Stopp",
+      "copyUrl": "Kopier URL",
+      "urlCopied": "Mock-URL kopiert — legg til forespørselsstien",
+      "requests": "Forespørsler",
+      "clear": "Tøm",
+      "empty": "Ingen forespørsler ennå",
+      "noMatch": "Ingen treff",
+      "portInUse": "Port {port} er allerede i bruk",
+      "invalidPort": "Skriv inn en port mellom 1024 og 65535",
+      "failed": "Feil i mock-server"
+    },
+    "plugins": {
+      "title": "Programtillegg",
+      "description": "Programtillegg kjører JavaScript på hver forespørsel du sender. Legg bare til kode du stoler på.",
+      "empty": "Ingen programtillegg installert",
+      "toggle": "Aktiver {name}",
+      "delete": "Slett {name}",
+      "name": "Navn",
+      "source": "Kildekode",
+      "add": "Legg til programtillegg"
+    },
+    "openApiSync": {
+      "menuItem": "Synkroniser fra OpenAPI-spesifikasjon…",
+      "title": "Synkroniser fra OpenAPI-spesifikasjon",
+      "description": "Sammenlign denne samlingen med den nyeste versjonen av spesifikasjonen. Verdiene, autentiseringen, skriptene, testene, dokumentasjonen og eksemplene dine beholdes.",
+      "url": "Spesifikasjons-URL",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Sammenlign",
+      "chooseFile": "Velg fil…",
+      "noChanges": "Denne samlingen samsvarer allerede med spesifikasjonen.",
+      "added": "Nytt i spesifikasjonen ({count})",
+      "changed": "Endret ({count})",
+      "removed": "Ikke i spesifikasjonen ({count})",
+      "removedHint": "Forespørsler spesifikasjonen ikke lenger har, eller som du har lagt til selv. Kryss av for å slette.",
+      "paramsAdded": "Nye spørreparametere: {names}",
+      "headersAdded": "Nye headere: {names}",
+      "bodyType": "Body-typen er endret",
+      "bodyFields": "Nye body-felt",
+      "apply": "Bruk ({count})",
+      "applied": "Samlingen er synkronisert med spesifikasjonen",
+      "failed": "Kunne ikke synkronisere samlingen",
+      "loadFailed": "Kunne ikke lese spesifikasjonen: {message}",
+      "cancel": "Avbryt"
+    },
+    "cookieJar": {
+      "title": "Informasjonskapselkrukke",
+      "description": "Informasjonskapsler lagret fra svar og sendt med forespørsler der domene og sti samsvarer. HttpOnly-kapsler fungerer også.",
+      "summary": "Informasjonskapsler: {cookies} · Domener: {domains}",
+      "import": "Importer",
+      "export": "Eksporter",
+      "exportJson": "Eksporter som JSON",
+      "exportNetscape": "Eksporter som cookies.txt",
+      "clearAll": "Fjern alle",
+      "clearedDomain": "Informasjonskapsler for {domain} fjernet",
+      "cleared": "Krukken er tømt",
+      "empty": "Krukken er tom. Send en forespørsel som setter en informasjonskapsel for å fylle den.",
+      "path": "Sti",
+      "expires": "Utløper",
+      "imported": "Importerte informasjonskapsler: {count}",
+      "importEmpty": "Fant ingen informasjonskapsler i filen (JSON eller cookies.txt)",
+      "importFailed": "Kunne ikke importere informasjonskapsler: {message}",
+      "clearDomainLabel": "Fjern informasjonskapsler for {domain}",
+      "deleteLabel": "Slett informasjonskapselen {name}"
     }
   },
   "RichEditor": {

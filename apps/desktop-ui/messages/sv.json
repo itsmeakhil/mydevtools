@@ -1877,7 +1877,8 @@
         "response": "läses från föregående svar vid sändning",
         "secret": "hemlig, löses vid sändning",
         "missing": "inte definierad i miljön, samlingen eller de globala"
-      }
+      },
+      "cancel": "Avbryt"
     },
     "requestTabs": {
       "params": "Parametrar",
@@ -1946,7 +1947,13 @@
         "label": "Filtrera svaret med JSONPath",
         "invalid": "Ogiltig JSONPath",
         "matches": "{count, plural, =0 {Inga träffar} one {# träff} other {# träffar}}"
-      }
+      },
+      "streamTab": "Ström",
+      "streamWaiting": "Ansluten. Väntar på meddelanden…",
+      "streamEmpty": "Strömmen avslutades utan några meddelanden.",
+      "linesTab": "Rader",
+      "linesTruncated": "Visar de första {count} raderna.",
+      "lineInvalid": "Ogiltig JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Ny flik",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Lösenord",
       "proxyBypass": "Hoppa över proxyn för",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mockserver…",
+      "title": "Mockserver",
+      "description": "Serverar de sparade exemplen från {name} på 127.0.0.1. Ett sökvägssegment som :id matchar valfritt värde.",
+      "running": "Körs på port {port}",
+      "stopped": "Stoppad",
+      "port": "Port",
+      "latency": "Fördröjning (ms)",
+      "start": "Starta",
+      "apply": "Tillämpa",
+      "stop": "Stoppa",
+      "copyUrl": "Kopiera URL",
+      "urlCopied": "Mock-URL kopierad — lägg till begärans sökväg",
+      "requests": "Begäranden",
+      "clear": "Rensa",
+      "empty": "Inga begäranden än",
+      "noMatch": "Ingen matchning",
+      "portInUse": "Port {port} används redan",
+      "invalidPort": "Ange en port mellan 1024 och 65535",
+      "failed": "Fel i mockserver"
+    },
+    "plugins": {
+      "title": "Tillägg",
+      "description": "Tillägg kör JavaScript vid varje begäran du skickar. Lägg bara till kod du litar på.",
+      "empty": "Inga tillägg installerade",
+      "toggle": "Aktivera {name}",
+      "delete": "Ta bort {name}",
+      "name": "Namn",
+      "source": "Källkod",
+      "add": "Lägg till tillägg"
+    },
+    "openApiSync": {
+      "menuItem": "Synkronisera från OpenAPI-specifikation…",
+      "title": "Synkronisera från OpenAPI-specifikation",
+      "description": "Jämför samlingen med den senaste versionen av specifikationen. Dina värden, autentisering, skript, tester, dokumentation och exempel behålls.",
+      "url": "Specifikations-URL",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Jämför",
+      "chooseFile": "Välj fil…",
+      "noChanges": "Samlingen matchar redan specifikationen.",
+      "added": "Nytt i specifikationen ({count})",
+      "changed": "Ändrat ({count})",
+      "removed": "Inte i specifikationen ({count})",
+      "removedHint": "Förfrågningar som specifikationen inte längre har, eller som du lagt till själv. Markera en för att ta bort den.",
+      "paramsAdded": "Nya frågeparametrar: {names}",
+      "headersAdded": "Nya headers: {names}",
+      "bodyType": "Body-typen har ändrats",
+      "bodyFields": "Nya body-fält",
+      "apply": "Tillämpa ({count})",
+      "applied": "Samlingen synkroniserad med specifikationen",
+      "failed": "Det gick inte att synkronisera samlingen",
+      "loadFailed": "Det gick inte att läsa specifikationen: {message}",
+      "cancel": "Avbryt"
+    },
+    "cookieJar": {
+      "title": "Kakburk",
+      "description": "Kakor sparade från svar och skickade med förfrågningar vars domän och sökväg matchar. HttpOnly-kakor fungerar också.",
+      "summary": "Kakor: {cookies} · Domäner: {domains}",
+      "import": "Importera",
+      "export": "Exportera",
+      "exportJson": "Exportera som JSON",
+      "exportNetscape": "Exportera som cookies.txt",
+      "clearAll": "Rensa alla",
+      "clearedDomain": "Kakor för {domain} rensade",
+      "cleared": "Kakburken tömd",
+      "empty": "Burken är tom. Skicka en förfrågan som sätter en kaka för att fylla den.",
+      "path": "Sökväg",
+      "expires": "Upphör",
+      "imported": "Importerade kakor: {count}",
+      "importEmpty": "Inga kakor hittades i filen (JSON eller cookies.txt)",
+      "importFailed": "Det gick inte att importera kakor: {message}",
+      "clearDomainLabel": "Rensa kakor för {domain}",
+      "deleteLabel": "Ta bort kakan {name}"
     }
   },
   "RichEditor": {

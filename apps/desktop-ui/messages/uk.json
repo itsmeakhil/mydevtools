@@ -1877,7 +1877,8 @@
         "response": "береться з попередньої відповіді під час надсилання",
         "secret": "секрет, підставляється під час надсилання",
         "missing": "не визначена ні в середовищі, ні в колекції, ні серед глобальних"
-      }
+      },
+      "cancel": "Скасувати"
     },
     "requestTabs": {
       "params": "Параметри",
@@ -1946,7 +1947,13 @@
         "label": "Фільтрувати відповідь за JSONPath",
         "invalid": "Недійсний JSONPath",
         "matches": "{count, plural, =0 {Немає збігів} one {# збіг} few {# збіги} many {# збігів} other {# збігу}}"
-      }
+      },
+      "streamTab": "Потік",
+      "streamWaiting": "Підключено. Очікування повідомлень…",
+      "streamEmpty": "Потік завершився без повідомлень.",
+      "linesTab": "Рядки",
+      "linesTruncated": "Показано перші {count} рядків.",
+      "lineInvalid": "Некоректний JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Нова вкладка",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Пароль",
       "proxyBypass": "Не використовувати проксі для",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock-сервер…",
+      "title": "Mock-сервер",
+      "description": "Віддає збережені приклади колекції {name} на 127.0.0.1. Сегмент шляху на кшталт :id збігається з будь-яким значенням.",
+      "running": "Працює на порту {port}",
+      "stopped": "Зупинено",
+      "port": "Порт",
+      "latency": "Затримка (мс)",
+      "start": "Запустити",
+      "apply": "Застосувати",
+      "stop": "Зупинити",
+      "copyUrl": "Копіювати URL",
+      "urlCopied": "URL mock-сервера скопійовано — додайте шлях запиту",
+      "requests": "Запити",
+      "clear": "Очистити",
+      "empty": "Запитів ще немає",
+      "noMatch": "Немає збігу",
+      "portInUse": "Порт {port} уже зайнятий",
+      "invalidPort": "Вкажіть порт від 1024 до 65535",
+      "failed": "Помилка mock-сервера"
+    },
+    "plugins": {
+      "title": "Плагіни",
+      "description": "Плагіни виконують JavaScript під час кожного надісланого запиту. Додавайте лише код, якому довіряєте.",
+      "empty": "Плагіни не встановлено",
+      "toggle": "Увімкнути {name}",
+      "delete": "Видалити {name}",
+      "name": "Назва",
+      "source": "Вихідний код",
+      "add": "Додати плагін"
+    },
+    "openApiSync": {
+      "menuItem": "Синхронізувати зі специфікацією OpenAPI…",
+      "title": "Синхронізація зі специфікацією OpenAPI",
+      "description": "Порівняйте цю колекцію з останньою версією її специфікації. Ваші значення, автентифікація, скрипти, тести, документація та приклади збережуться.",
+      "url": "URL специфікації",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Порівняти",
+      "chooseFile": "Вибрати файл…",
+      "noChanges": "Колекція вже відповідає специфікації.",
+      "added": "Нове в специфікації ({count})",
+      "changed": "Змінено ({count})",
+      "removed": "Немає в специфікації ({count})",
+      "removedHint": "Запити, яких більше немає в специфікації або які ви додали самі. Позначте, щоб видалити.",
+      "paramsAdded": "Нові параметри запиту: {names}",
+      "headersAdded": "Нові заголовки: {names}",
+      "bodyType": "Змінився тип тіла",
+      "bodyFields": "Нові поля тіла",
+      "apply": "Застосувати ({count})",
+      "applied": "Колекцію синхронізовано зі специфікацією",
+      "failed": "Не вдалося синхронізувати колекцію",
+      "loadFailed": "Не вдалося прочитати специфікацію: {message}",
+      "cancel": "Скасувати"
+    },
+    "cookieJar": {
+      "title": "Сховище cookie",
+      "description": "Cookie, збережені з відповідей і надіслані із запитами з відповідним доменом і шляхом. Cookie з HttpOnly теж працюють.",
+      "summary": "Cookie: {cookies} · Домени: {domains}",
+      "import": "Імпорт",
+      "export": "Експорт",
+      "exportJson": "Експорт у JSON",
+      "exportNetscape": "Експорт у cookies.txt",
+      "clearAll": "Очистити все",
+      "clearedDomain": "Cookie для {domain} видалено",
+      "cleared": "Сховище cookie очищено",
+      "empty": "Сховище порожнє. Надішліть запит, який встановлює cookie.",
+      "path": "Шлях",
+      "expires": "Спливає",
+      "imported": "Імпортовано cookie: {count}",
+      "importEmpty": "У файлі не знайдено cookie (JSON або cookies.txt)",
+      "importFailed": "Не вдалося імпортувати cookie: {message}",
+      "clearDomainLabel": "Очистити cookie для {domain}",
+      "deleteLabel": "Видалити cookie {name}"
     }
   },
   "RichEditor": {

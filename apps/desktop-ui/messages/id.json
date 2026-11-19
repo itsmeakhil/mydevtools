@@ -1877,7 +1877,8 @@
         "response": "dibaca dari respons sebelumnya saat dikirim",
         "secret": "rahasia, diisi saat dikirim",
         "missing": "tidak didefinisikan di lingkungan, koleksi, atau global"
-      }
+      },
+      "cancel": "Batal"
     },
     "requestTabs": {
       "params": "parameter",
@@ -1946,7 +1947,13 @@
         "label": "Saring respons dengan JSONPath",
         "invalid": "JSONPath tidak valid",
         "matches": "{count, plural, =0 {Tidak ada hasil} other {# hasil}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Terhubung. Menunggu pesan…",
+      "streamEmpty": "Stream berakhir tanpa pesan apa pun.",
+      "linesTab": "Baris",
+      "linesTruncated": "Menampilkan {count} baris pertama.",
+      "lineInvalid": "Bukan JSON yang valid: {message}"
     },
     "tabBar": {
       "addTabAria": "New tab",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Kata sandi",
       "proxyBypass": "Lewati proxy untuk",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Server tiruan…",
+      "title": "Server tiruan",
+      "description": "Menyajikan contoh tersimpan dari {name} di 127.0.0.1. Segmen jalur seperti :id cocok dengan nilai apa pun.",
+      "running": "Berjalan di port {port}",
+      "stopped": "Berhenti",
+      "port": "Port",
+      "latency": "Latensi (ms)",
+      "start": "Mulai",
+      "apply": "Terapkan",
+      "stop": "Hentikan",
+      "copyUrl": "Salin URL",
+      "urlCopied": "URL tiruan disalin — tambahkan jalur permintaan",
+      "requests": "Permintaan",
+      "clear": "Bersihkan",
+      "empty": "Belum ada permintaan",
+      "noMatch": "Tidak cocok",
+      "portInUse": "Port {port} sudah digunakan",
+      "invalidPort": "Masukkan port antara 1024 dan 65535",
+      "failed": "Kesalahan server tiruan"
+    },
+    "plugins": {
+      "title": "Plugin",
+      "description": "Plugin menjalankan JavaScript pada setiap permintaan yang Anda kirim. Hanya tambahkan kode yang Anda percayai.",
+      "empty": "Belum ada plugin terpasang",
+      "toggle": "Aktifkan {name}",
+      "delete": "Hapus {name}",
+      "name": "Nama",
+      "source": "Kode sumber",
+      "add": "Tambah plugin"
+    },
+    "openApiSync": {
+      "menuItem": "Sinkronkan dari spesifikasi OpenAPI…",
+      "title": "Sinkronkan dari spesifikasi OpenAPI",
+      "description": "Bandingkan koleksi ini dengan versi terbaru spesifikasinya. Nilai, autentikasi, skrip, tes, dokumentasi, dan contoh Anda tetap disimpan.",
+      "url": "URL spesifikasi",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Bandingkan",
+      "chooseFile": "Pilih file…",
+      "noChanges": "Koleksi ini sudah sesuai dengan spesifikasi.",
+      "added": "Baru di spesifikasi ({count})",
+      "changed": "Berubah ({count})",
+      "removed": "Tidak ada di spesifikasi ({count})",
+      "removedHint": "Permintaan yang tidak lagi ada di spesifikasi, atau yang Anda tambahkan sendiri. Centang untuk menghapusnya.",
+      "paramsAdded": "Parameter kueri baru: {names}",
+      "headersAdded": "Header baru: {names}",
+      "bodyType": "Tipe body berubah",
+      "bodyFields": "Field body baru",
+      "apply": "Terapkan ({count})",
+      "applied": "Koleksi disinkronkan dengan spesifikasi",
+      "failed": "Tidak dapat menyinkronkan koleksi",
+      "loadFailed": "Tidak dapat membaca spesifikasi: {message}",
+      "cancel": "Batal"
+    },
+    "cookieJar": {
+      "title": "Wadah cookie",
+      "description": "Cookie yang disimpan dari respons dan dikirim bersama permintaan dengan domain dan path yang cocok. Cookie HttpOnly juga berfungsi.",
+      "summary": "Cookie: {cookies} · Domain: {domains}",
+      "import": "Impor",
+      "export": "Ekspor",
+      "exportJson": "Ekspor sebagai JSON",
+      "exportNetscape": "Ekspor sebagai cookies.txt",
+      "clearAll": "Hapus semua",
+      "clearedDomain": "Cookie untuk {domain} dihapus",
+      "cleared": "Wadah cookie dikosongkan",
+      "empty": "Wadah kosong. Kirim permintaan yang menetapkan cookie untuk mengisinya.",
+      "path": "Path",
+      "expires": "Kedaluwarsa",
+      "imported": "Cookie diimpor: {count}",
+      "importEmpty": "Tidak ada cookie di file itu (JSON atau cookies.txt)",
+      "importFailed": "Tidak dapat mengimpor cookie: {message}",
+      "clearDomainLabel": "Hapus cookie untuk {domain}",
+      "deleteLabel": "Hapus cookie {name}"
     }
   },
   "RichEditor": {

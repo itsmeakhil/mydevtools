@@ -1877,7 +1877,8 @@
         "response": "送信時に前回のレスポンスから取得",
         "secret": "シークレット、送信時に解決",
         "missing": "環境・コレクション・グローバルのいずれにも定義されていません"
-      }
+      },
+      "cancel": "キャンセル"
     },
     "requestTabs": {
       "params": "パラメータ",
@@ -1946,7 +1947,13 @@
         "label": "JSONPath でレスポンスを絞り込む",
         "invalid": "無効な JSONPath",
         "matches": "{count, plural, =0 {一致なし} other {# 件一致}}"
-      }
+      },
+      "streamTab": "ストリーム",
+      "streamWaiting": "接続しました。メッセージを待っています…",
+      "streamEmpty": "メッセージがないままストリームが終了しました。",
+      "linesTab": "行",
+      "linesTruncated": "最初の {count} 行を表示しています。",
+      "lineInvalid": "有効な JSON ではありません: {message}"
     },
     "tabBar": {
       "addTabAria": "新しいタブ",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "パスワード",
       "proxyBypass": "プロキシを使わないホスト",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "モックサーバー…",
+      "title": "モックサーバー",
+      "description": "{name} の保存済みサンプルを 127.0.0.1 で提供します。:id のようなパスセグメントは任意の値に一致します。",
+      "running": "ポート {port} で実行中",
+      "stopped": "停止中",
+      "port": "ポート",
+      "latency": "遅延 (ms)",
+      "start": "開始",
+      "apply": "適用",
+      "stop": "停止",
+      "copyUrl": "URL をコピー",
+      "urlCopied": "モック URL をコピーしました — リクエストのパスを付け加えてください",
+      "requests": "リクエスト",
+      "clear": "クリア",
+      "empty": "まだリクエストはありません",
+      "noMatch": "一致なし",
+      "portInUse": "ポート {port} は既に使用されています",
+      "invalidPort": "1024 から 65535 のポートを入力してください",
+      "failed": "モックサーバーのエラー"
+    },
+    "plugins": {
+      "title": "プラグイン",
+      "description": "プラグインは送信するすべてのリクエストで JavaScript を実行します。信頼できるコードだけを追加してください。",
+      "empty": "インストール済みのプラグインはありません",
+      "toggle": "{name} を有効にする",
+      "delete": "{name} を削除",
+      "name": "名前",
+      "source": "ソースコード",
+      "add": "プラグインを追加"
+    },
+    "openApiSync": {
+      "menuItem": "OpenAPI 仕様から同期…",
+      "title": "OpenAPI 仕様から同期",
+      "description": "このコレクションを仕様の最新版と比較します。入力した値、認証、スクリプト、テスト、ドキュメント、例はそのまま残ります。",
+      "url": "仕様の URL",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "比較",
+      "chooseFile": "ファイルを選択…",
+      "noChanges": "このコレクションはすでに仕様と一致しています。",
+      "added": "仕様に追加 ({count})",
+      "changed": "変更 ({count})",
+      "removed": "仕様にない ({count})",
+      "removedHint": "仕様からなくなったリクエスト、または自分で追加したリクエストです。削除するものにチェックを入れてください。",
+      "paramsAdded": "新しいクエリパラメータ: {names}",
+      "headersAdded": "新しいヘッダー: {names}",
+      "bodyType": "ボディの種類が変更されました",
+      "bodyFields": "新しいボディのフィールド",
+      "apply": "適用 ({count})",
+      "applied": "コレクションを仕様と同期しました",
+      "failed": "コレクションを同期できませんでした",
+      "loadFailed": "仕様を読み込めませんでした: {message}",
+      "cancel": "キャンセル"
+    },
+    "cookieJar": {
+      "title": "Cookie ジャー",
+      "description": "レスポンスから保存され、ドメインとパスが一致するリクエストに付けて送信される Cookie です。HttpOnly Cookie も使えます。",
+      "summary": "Cookie: {cookies} · ドメイン: {domains}",
+      "import": "インポート",
+      "export": "エクスポート",
+      "exportJson": "JSON でエクスポート",
+      "exportNetscape": "cookies.txt でエクスポート",
+      "clearAll": "すべて消去",
+      "clearedDomain": "{domain} の Cookie を消去しました",
+      "cleared": "Cookie ジャーを空にしました",
+      "empty": "ジャーは空です。Cookie を設定するリクエストを送信すると追加されます。",
+      "path": "パス",
+      "expires": "有効期限",
+      "imported": "インポートした Cookie: {count}",
+      "importEmpty": "ファイルに Cookie が見つかりません (JSON または cookies.txt)",
+      "importFailed": "Cookie をインポートできませんでした: {message}",
+      "clearDomainLabel": "{domain} の Cookie を消去",
+      "deleteLabel": "Cookie {name} を削除"
     }
   },
   "RichEditor": {

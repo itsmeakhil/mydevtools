@@ -1877,7 +1877,8 @@
         "response": "보낼 때 이전 응답에서 읽음",
         "secret": "비밀 값, 보낼 때 확인됨",
         "missing": "환경, 컬렉션, 전역 어디에도 정의되지 않음"
-      }
+      },
+      "cancel": "취소"
     },
     "requestTabs": {
       "params": "매개변수",
@@ -1946,7 +1947,13 @@
         "label": "JSONPath로 응답 필터링",
         "invalid": "잘못된 JSONPath",
         "matches": "{count, plural, =0 {일치 항목 없음} other {#개 일치}}"
-      }
+      },
+      "streamTab": "스트림",
+      "streamWaiting": "연결되었습니다. 메시지를 기다리는 중…",
+      "streamEmpty": "메시지 없이 스트림이 종료되었습니다.",
+      "linesTab": "줄",
+      "linesTruncated": "처음 {count}줄을 표시합니다.",
+      "lineInvalid": "올바른 JSON이 아닙니다: {message}"
     },
     "tabBar": {
       "addTabAria": "새 탭",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "비밀번호",
       "proxyBypass": "프록시를 건너뛸 호스트",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "모의 서버…",
+      "title": "모의 서버",
+      "description": "{name}의 저장된 예제를 127.0.0.1에서 제공합니다. :id 같은 경로 세그먼트는 어떤 값과도 일치합니다.",
+      "running": "포트 {port}에서 실행 중",
+      "stopped": "중지됨",
+      "port": "포트",
+      "latency": "지연 시간 (ms)",
+      "start": "시작",
+      "apply": "적용",
+      "stop": "중지",
+      "copyUrl": "URL 복사",
+      "urlCopied": "모의 URL을 복사했습니다 — 요청 경로를 덧붙이세요",
+      "requests": "요청",
+      "clear": "지우기",
+      "empty": "아직 요청이 없습니다",
+      "noMatch": "일치 없음",
+      "portInUse": "포트 {port}은(는) 이미 사용 중입니다",
+      "invalidPort": "1024에서 65535 사이의 포트를 입력하세요",
+      "failed": "모의 서버 오류"
+    },
+    "plugins": {
+      "title": "플러그인",
+      "description": "플러그인은 보내는 모든 요청에서 JavaScript를 실행합니다. 신뢰할 수 있는 코드만 추가하세요.",
+      "empty": "설치된 플러그인이 없습니다",
+      "toggle": "{name} 사용",
+      "delete": "{name} 삭제",
+      "name": "이름",
+      "source": "소스 코드",
+      "add": "플러그인 추가"
+    },
+    "openApiSync": {
+      "menuItem": "OpenAPI 명세에서 동기화…",
+      "title": "OpenAPI 명세에서 동기화",
+      "description": "이 컬렉션을 명세의 최신 버전과 비교합니다. 입력한 값, 인증, 스크립트, 테스트, 문서, 예시는 유지됩니다.",
+      "url": "명세 URL",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "비교",
+      "chooseFile": "파일 선택…",
+      "noChanges": "이 컬렉션은 이미 명세와 일치합니다.",
+      "added": "명세에 새로 추가됨 ({count})",
+      "changed": "변경됨 ({count})",
+      "removed": "명세에 없음 ({count})",
+      "removedHint": "명세에 더 이상 없거나 직접 추가한 요청입니다. 삭제하려면 선택하세요.",
+      "paramsAdded": "새 쿼리 매개변수: {names}",
+      "headersAdded": "새 헤더: {names}",
+      "bodyType": "본문 유형이 변경됨",
+      "bodyFields": "새 본문 필드",
+      "apply": "적용 ({count})",
+      "applied": "컬렉션을 명세와 동기화했습니다",
+      "failed": "컬렉션을 동기화할 수 없습니다",
+      "loadFailed": "명세를 읽을 수 없습니다: {message}",
+      "cancel": "취소"
+    },
+    "cookieJar": {
+      "title": "쿠키 저장소",
+      "description": "응답에서 저장되어 도메인과 경로가 일치하는 요청에 함께 전송되는 쿠키입니다. HttpOnly 쿠키도 작동합니다.",
+      "summary": "쿠키: {cookies} · 도메인: {domains}",
+      "import": "가져오기",
+      "export": "내보내기",
+      "exportJson": "JSON으로 내보내기",
+      "exportNetscape": "cookies.txt로 내보내기",
+      "clearAll": "모두 지우기",
+      "clearedDomain": "{domain}의 쿠키를 지웠습니다",
+      "cleared": "쿠키 저장소를 비웠습니다",
+      "empty": "저장소가 비어 있습니다. 쿠키를 설정하는 요청을 보내면 채워집니다.",
+      "path": "경로",
+      "expires": "만료",
+      "imported": "가져온 쿠키: {count}",
+      "importEmpty": "파일에서 쿠키를 찾을 수 없습니다 (JSON 또는 cookies.txt)",
+      "importFailed": "쿠키를 가져올 수 없습니다: {message}",
+      "clearDomainLabel": "{domain}의 쿠키 지우기",
+      "deleteLabel": "쿠키 {name} 삭제"
     }
   },
   "RichEditor": {

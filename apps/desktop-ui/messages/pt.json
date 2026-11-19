@@ -1877,7 +1877,8 @@
         "response": "lido da resposta anterior ao enviar",
         "secret": "secreto, resolvido ao enviar",
         "missing": "não definida no ambiente, na coleção nem nas globais"
-      }
+      },
+      "cancel": "Cancelar"
     },
     "requestTabs": {
       "params": "Parâmetros",
@@ -1946,7 +1947,13 @@
         "label": "Filtrar resposta com JSONPath",
         "invalid": "JSONPath inválido",
         "matches": "{count, plural, =0 {Nenhum resultado} one {# resultado} other {# resultados}}"
-      }
+      },
+      "streamTab": "Fluxo",
+      "streamWaiting": "Ligado. A aguardar mensagens…",
+      "streamEmpty": "O fluxo terminou sem quaisquer mensagens.",
+      "linesTab": "Linhas",
+      "linesTruncated": "A mostrar as primeiras {count} linhas.",
+      "lineInvalid": "JSON inválido: {message}"
     },
     "tabBar": {
       "addTabAria": "Novo separador",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Palavra-passe",
       "proxyBypass": "Não usar o proxy para",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Servidor simulado…",
+      "title": "Servidor simulado",
+      "description": "Serve os exemplos guardados de {name} em 127.0.0.1. Um segmento de caminho como :id corresponde a qualquer valor.",
+      "running": "Em execução na porta {port}",
+      "stopped": "Parado",
+      "port": "Porta",
+      "latency": "Latência (ms)",
+      "start": "Iniciar",
+      "apply": "Aplicar",
+      "stop": "Parar",
+      "copyUrl": "Copiar URL",
+      "urlCopied": "URL simulado copiado — acrescente o caminho do pedido",
+      "requests": "Pedidos",
+      "clear": "Limpar",
+      "empty": "Ainda não há pedidos",
+      "noMatch": "Sem correspondência",
+      "portInUse": "A porta {port} já está a ser utilizada",
+      "invalidPort": "Introduza uma porta entre 1024 e 65535",
+      "failed": "Erro do servidor simulado"
+    },
+    "plugins": {
+      "title": "Plugins",
+      "description": "Os plugins executam JavaScript em cada pedido enviado. Adicione apenas código em que confia.",
+      "empty": "Nenhum plugin instalado",
+      "toggle": "Ativar {name}",
+      "delete": "Eliminar {name}",
+      "name": "Nome",
+      "source": "Código-fonte",
+      "add": "Adicionar plugin"
+    },
+    "openApiSync": {
+      "menuItem": "Sincronizar a partir da especificação OpenAPI…",
+      "title": "Sincronizar a partir da especificação OpenAPI",
+      "description": "Compare esta coleção com a versão mais recente da especificação. Os seus valores, autenticação, scripts, testes, documentação e exemplos são mantidos.",
+      "url": "URL da especificação",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Comparar",
+      "chooseFile": "Escolher ficheiro…",
+      "noChanges": "Esta coleção já corresponde à especificação.",
+      "added": "Novo na especificação ({count})",
+      "changed": "Alterado ({count})",
+      "removed": "Fora da especificação ({count})",
+      "removedHint": "Pedidos que a especificação já não tem, ou que adicionou. Marque um para o eliminar.",
+      "paramsAdded": "Novos parâmetros de consulta: {names}",
+      "headersAdded": "Novos cabeçalhos: {names}",
+      "bodyType": "O tipo de corpo mudou",
+      "bodyFields": "Novos campos do corpo",
+      "apply": "Aplicar ({count})",
+      "applied": "Coleção sincronizada com a especificação",
+      "failed": "Não foi possível sincronizar a coleção",
+      "loadFailed": "Não foi possível ler a especificação: {message}",
+      "cancel": "Cancelar"
+    },
+    "cookieJar": {
+      "title": "Frasco de cookies",
+      "description": "Cookies guardados das respostas e enviados com os pedidos cujo domínio e caminho correspondem. Os cookies HttpOnly também funcionam.",
+      "summary": "Cookies: {cookies} · Domínios: {domains}",
+      "import": "Importar",
+      "export": "Exportar",
+      "exportJson": "Exportar como JSON",
+      "exportNetscape": "Exportar como cookies.txt",
+      "clearAll": "Limpar tudo",
+      "clearedDomain": "Cookies de {domain} limpos",
+      "cleared": "Frasco de cookies esvaziado",
+      "empty": "O frasco está vazio. Envie um pedido que defina um cookie para o preencher.",
+      "path": "Caminho",
+      "expires": "Expira",
+      "imported": "Cookies importados: {count}",
+      "importEmpty": "Nenhum cookie encontrado nesse ficheiro (JSON ou cookies.txt)",
+      "importFailed": "Não foi possível importar os cookies: {message}",
+      "clearDomainLabel": "Limpar cookies de {domain}",
+      "deleteLabel": "Eliminar o cookie {name}"
     }
   },
   "RichEditor": {

@@ -1877,7 +1877,8 @@
         "response": "odczytywane z poprzedniej odpowiedzi przy wysyłaniu",
         "secret": "sekret, rozwiązywany przy wysyłaniu",
         "missing": "nie zdefiniowano w środowisku, kolekcji ani zmiennych globalnych"
-      }
+      },
+      "cancel": "Anuluj"
     },
     "requestTabs": {
       "params": "Params",
@@ -1946,7 +1947,13 @@
         "label": "Filtruj odpowiedź za pomocą JSONPath",
         "invalid": "Nieprawidłowa ścieżka JSONPath",
         "matches": "{count, plural, =0 {Brak wyników} one {# wynik} few {# wyniki} many {# wyników} other {# wyniku}}"
-      }
+      },
+      "streamTab": "Strumień",
+      "streamWaiting": "Połączono. Oczekiwanie na wiadomości…",
+      "streamEmpty": "Strumień zakończył się bez żadnych wiadomości.",
+      "linesTab": "Wiersze",
+      "linesTruncated": "Wyświetlono pierwsze {count} wierszy.",
+      "lineInvalid": "Nieprawidłowy JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "New tab",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Hasło",
       "proxyBypass": "Pomiń proxy dla",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Serwer mock…",
+      "title": "Serwer mock",
+      "description": "Udostępnia zapisane przykłady kolekcji {name} na 127.0.0.1. Segment ścieżki taki jak :id pasuje do dowolnej wartości.",
+      "running": "Działa na porcie {port}",
+      "stopped": "Zatrzymany",
+      "port": "Port",
+      "latency": "Opóźnienie (ms)",
+      "start": "Uruchom",
+      "apply": "Zastosuj",
+      "stop": "Zatrzymaj",
+      "copyUrl": "Kopiuj URL",
+      "urlCopied": "Skopiowano URL mocka — dopisz ścieżkę żądania",
+      "requests": "Żądania",
+      "clear": "Wyczyść",
+      "empty": "Brak żądań",
+      "noMatch": "Brak dopasowania",
+      "portInUse": "Port {port} jest już używany",
+      "invalidPort": "Podaj port od 1024 do 65535",
+      "failed": "Błąd serwera mock"
+    },
+    "plugins": {
+      "title": "Wtyczki",
+      "description": "Wtyczki uruchamiają JavaScript przy każdym wysyłanym żądaniu. Dodawaj tylko kod, któremu ufasz.",
+      "empty": "Brak zainstalowanych wtyczek",
+      "toggle": "Włącz {name}",
+      "delete": "Usuń {name}",
+      "name": "Nazwa",
+      "source": "Kod źródłowy",
+      "add": "Dodaj wtyczkę"
+    },
+    "openApiSync": {
+      "menuItem": "Synchronizuj ze specyfikacji OpenAPI…",
+      "title": "Synchronizuj ze specyfikacji OpenAPI",
+      "description": "Porównaj tę kolekcję z najnowszą wersją jej specyfikacji. Twoje wartości, uwierzytelnianie, skrypty, testy, dokumentacja i przykłady zostaną zachowane.",
+      "url": "URL specyfikacji",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Porównaj",
+      "chooseFile": "Wybierz plik…",
+      "noChanges": "Ta kolekcja jest już zgodna ze specyfikacją.",
+      "added": "Nowe w specyfikacji ({count})",
+      "changed": "Zmienione ({count})",
+      "removed": "Brak w specyfikacji ({count})",
+      "removedHint": "Żądania, których specyfikacja już nie zawiera, lub dodane przez Ciebie. Zaznacz, aby usunąć.",
+      "paramsAdded": "Nowe parametry zapytania: {names}",
+      "headersAdded": "Nowe nagłówki: {names}",
+      "bodyType": "Zmienił się typ treści",
+      "bodyFields": "Nowe pola treści",
+      "apply": "Zastosuj ({count})",
+      "applied": "Kolekcja zsynchronizowana ze specyfikacją",
+      "failed": "Nie udało się zsynchronizować kolekcji",
+      "loadFailed": "Nie udało się odczytać specyfikacji: {message}",
+      "cancel": "Anuluj"
+    },
+    "cookieJar": {
+      "title": "Słoik ciasteczek",
+      "description": "Ciasteczka zapisane z odpowiedzi i wysyłane z żądaniami o pasującej domenie i ścieżce. Ciasteczka HttpOnly też działają.",
+      "summary": "Ciasteczka: {cookies} · Domeny: {domains}",
+      "import": "Importuj",
+      "export": "Eksportuj",
+      "exportJson": "Eksportuj jako JSON",
+      "exportNetscape": "Eksportuj jako cookies.txt",
+      "clearAll": "Wyczyść wszystko",
+      "clearedDomain": "Wyczyszczono ciasteczka dla {domain}",
+      "cleared": "Słoik ciasteczek opróżniony",
+      "empty": "Słoik jest pusty. Wyślij żądanie ustawiające ciasteczko, aby go wypełnić.",
+      "path": "Ścieżka",
+      "expires": "Wygasa",
+      "imported": "Zaimportowane ciasteczka: {count}",
+      "importEmpty": "Nie znaleziono ciasteczek w tym pliku (JSON lub cookies.txt)",
+      "importFailed": "Nie udało się zaimportować ciasteczek: {message}",
+      "clearDomainLabel": "Wyczyść ciasteczka dla {domain}",
+      "deleteLabel": "Usuń ciasteczko {name}"
     }
   },
   "RichEditor": {

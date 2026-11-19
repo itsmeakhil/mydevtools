@@ -1877,7 +1877,8 @@
         "response": "được đọc từ phản hồi trước khi gửi",
         "secret": "bí mật, được thay khi gửi",
         "missing": "chưa được định nghĩa trong môi trường, bộ sưu tập hay biến toàn cục"
-      }
+      },
+      "cancel": "Hủy"
     },
     "requestTabs": {
       "params": "Tham số",
@@ -1946,7 +1947,13 @@
         "label": "Lọc phản hồi bằng JSONPath",
         "invalid": "JSONPath không hợp lệ",
         "matches": "{count, plural, =0 {Không có kết quả} other {# kết quả}}"
-      }
+      },
+      "streamTab": "Luồng",
+      "streamWaiting": "Đã kết nối. Đang chờ tin nhắn…",
+      "streamEmpty": "Luồng đã kết thúc mà không có tin nhắn nào.",
+      "linesTab": "Dòng",
+      "linesTruncated": "Đang hiển thị {count} dòng đầu tiên.",
+      "lineInvalid": "Không phải JSON hợp lệ: {message}"
     },
     "tabBar": {
       "addTabAria": "Tab mới",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Mật khẩu",
       "proxyBypass": "Bỏ qua proxy cho",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Máy chủ giả lập…",
+      "title": "Máy chủ giả lập",
+      "description": "Phục vụ các ví dụ đã lưu của {name} trên 127.0.0.1. Một đoạn đường dẫn như :id khớp với mọi giá trị.",
+      "running": "Đang chạy trên cổng {port}",
+      "stopped": "Đã dừng",
+      "port": "Cổng",
+      "latency": "Độ trễ (ms)",
+      "start": "Bắt đầu",
+      "apply": "Áp dụng",
+      "stop": "Dừng",
+      "copyUrl": "Sao chép URL",
+      "urlCopied": "Đã sao chép URL giả lập — thêm đường dẫn yêu cầu vào sau",
+      "requests": "Yêu cầu",
+      "clear": "Xóa",
+      "empty": "Chưa có yêu cầu nào",
+      "noMatch": "Không khớp",
+      "portInUse": "Cổng {port} đã được sử dụng",
+      "invalidPort": "Nhập cổng từ 1024 đến 65535",
+      "failed": "Lỗi máy chủ giả lập"
+    },
+    "plugins": {
+      "title": "Plugin",
+      "description": "Plugin chạy JavaScript trên mọi yêu cầu bạn gửi. Chỉ thêm mã bạn tin tưởng.",
+      "empty": "Chưa cài plugin nào",
+      "toggle": "Bật {name}",
+      "delete": "Xóa {name}",
+      "name": "Tên",
+      "source": "Mã nguồn",
+      "add": "Thêm plugin"
+    },
+    "openApiSync": {
+      "menuItem": "Đồng bộ từ đặc tả OpenAPI…",
+      "title": "Đồng bộ từ đặc tả OpenAPI",
+      "description": "So sánh bộ sưu tập này với phiên bản mới nhất của đặc tả. Giá trị, xác thực, script, kiểm thử, tài liệu và ví dụ của bạn được giữ nguyên.",
+      "url": "URL đặc tả",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "So sánh",
+      "chooseFile": "Chọn tệp…",
+      "noChanges": "Bộ sưu tập này đã khớp với đặc tả.",
+      "added": "Mới trong đặc tả ({count})",
+      "changed": "Đã thay đổi ({count})",
+      "removed": "Không có trong đặc tả ({count})",
+      "removedHint": "Các yêu cầu không còn trong đặc tả hoặc do bạn tự thêm. Đánh dấu để xóa.",
+      "paramsAdded": "Tham số truy vấn mới: {names}",
+      "headersAdded": "Header mới: {names}",
+      "bodyType": "Loại body đã thay đổi",
+      "bodyFields": "Trường body mới",
+      "apply": "Áp dụng ({count})",
+      "applied": "Đã đồng bộ bộ sưu tập với đặc tả",
+      "failed": "Không thể đồng bộ bộ sưu tập",
+      "loadFailed": "Không thể đọc đặc tả: {message}",
+      "cancel": "Hủy"
+    },
+    "cookieJar": {
+      "title": "Hộp cookie",
+      "description": "Cookie được lưu từ phản hồi và gửi kèm các yêu cầu có tên miền và đường dẫn khớp. Cookie HttpOnly cũng hoạt động.",
+      "summary": "Cookie: {cookies} · Tên miền: {domains}",
+      "import": "Nhập",
+      "export": "Xuất",
+      "exportJson": "Xuất dạng JSON",
+      "exportNetscape": "Xuất dạng cookies.txt",
+      "clearAll": "Xóa tất cả",
+      "clearedDomain": "Đã xóa cookie của {domain}",
+      "cleared": "Đã làm trống hộp cookie",
+      "empty": "Hộp đang trống. Gửi một yêu cầu đặt cookie để thêm vào.",
+      "path": "Đường dẫn",
+      "expires": "Hết hạn",
+      "imported": "Cookie đã nhập: {count}",
+      "importEmpty": "Không tìm thấy cookie trong tệp (JSON hoặc cookies.txt)",
+      "importFailed": "Không thể nhập cookie: {message}",
+      "clearDomainLabel": "Xóa cookie của {domain}",
+      "deleteLabel": "Xóa cookie {name}"
     }
   },
   "RichEditor": {

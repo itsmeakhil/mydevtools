@@ -162,6 +162,8 @@ export interface ApiResponse {
     error?: string
     /** What was actually sent and when (desktop proxy only). In memory only — it holds auth headers. */
     timeline?: ResponseTimeline
+    /** Live messages of an SSE stream or GraphQL subscription, oldest first. */
+    streamEvents?: import("@/lib/api-client/sse").StreamEvent[]
 }
 
 /** One request the proxy sent: the original, a redirect hop, or a digest retry. */

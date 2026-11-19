@@ -478,6 +478,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
     let method = input["method"].as_str().unwrap_or("GET").to_string();
     let headers = input["headers"].as_object().cloned().unwrap_or_default();
     let body = input["body"].as_str().map(str::to_string);
+    let insecure = input["verifySsl"].as_bool() == Some(false);
 
     let id = STREAM_ID.fetch_add(1, Ordering::Relaxed);
     let (cancel_tx, mut cancel_rx) = tokio::sync::watch::channel(false);
@@ -487,10 +488,11 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
         let emit = |v: Value| {
             let _ = channel.send(v);
         };
-        let client = match client_for(&parsed, &net, false) {
+        let client = match client_for(&parsed, &net, insecure) {
             Ok(c) => c,
             Err(e) => {
                 emit(json!({ "kind": "error", "message": e }));
+                streams().remove(&id);
                 return;
             }
         };
@@ -498,6 +500,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
             Ok(m) => m,
             Err(e) => {
                 emit(json!({ "kind": "error", "message": e.to_string() }));
+                streams().remove(&id);
                 return;
             }
         };
@@ -529,11 +532,18 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
             "headers": resp_headers,
         }));
         let mut stream = response.bytes_stream();
+        let mut pending: Vec<u8> = Vec::new();
         loop {
             tokio::select! {
                 _ = cancel_rx.changed() => break,
                 chunk = stream.next() => match chunk {
-                    Some(Ok(bytes)) => emit(json!({ "kind": "chunk", "data": String::from_utf8_lossy(&bytes) })),
+                    Some(Ok(bytes)) => {
+                        pending.extend_from_slice(&bytes);
+                        let text = take_utf8(&mut pending);
+                        if !text.is_empty() {
+                            emit(json!({ "kind": "chunk", "data": text }));
+                        }
+                    }
                     Some(Err(e)) => {
                         emit(json!({ "kind": "error", "message": e.to_string() }));
                         break;
@@ -542,11 +552,30 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
                 },
             }
         }
+        if !pending.is_empty() {
+            emit(json!({ "kind": "chunk", "data": String::from_utf8_lossy(&pending) }));
+        }
         emit(json!({ "kind": "end" }));
         streams().remove(&id);
     });
 
     Ok(id)
+}
+
+/// Drain the decodable prefix of `pending`, keeping a multi-byte character
+/// split across network chunks for the next call (lossy only for bytes that
+/// are invalid UTF-8, never for a split character).
+fn take_utf8(pending: &mut Vec<u8>) -> String {
+    let keep = match std::str::from_utf8(pending) {
+        Ok(_) => 0,
+        // error_len() == None: the input ends mid-character.
+        Err(e) if e.error_len().is_none() => pending.len() - e.valid_up_to(),
+        Err(_) => 0,
+    };
+    let tail = pending.split_off(pending.len() - keep);
+    let text = String::from_utf8_lossy(pending).into_owned();
+    *pending = tail;
+    text
 }
 
 pub fn cancel_stream(id: u64) {
@@ -558,6 +587,22 @@ pub fn cancel_stream(id: u64) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn take_utf8_keeps_a_character_split_across_chunks() {
+        let euro = "€".as_bytes(); // 3 bytes
+        let mut pending = b"a".to_vec();
+        pending.extend_from_slice(&euro[..2]);
+        assert_eq!(take_utf8(&mut pending), "a");
+        assert_eq!(pending, euro[..2].to_vec());
+        pending.extend_from_slice(&euro[2..]);
+        assert_eq!(take_utf8(&mut pending), "€");
+        assert!(pending.is_empty());
+        // Genuinely invalid bytes are replaced, not held forever.
+        let mut bad = vec![b'x', 0xff, b'y'];
+        assert_eq!(take_utf8(&mut bad), "x\u{fffd}y");
+        assert!(bad.is_empty());
+    }
     use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
     /// One-shot HTTP server: answers every connection with `reply(request_head)`.

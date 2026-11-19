@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem, TREE_DRAG_MIME } from "./collection-item"
-import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy, Settings2, Lock, BookOpen } from "lucide-react"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy, Settings2, Lock, BookOpen, RefreshCw } from "lucide-react"
 import { filterTree, moveDestinations, resolveDrop, type DropPosition } from "@/lib/api-client/collection-tree"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
@@ -16,6 +16,14 @@ import type { HistoryRequest } from "../types"
 // Runner (+ csv/junit libs) only loads when a run is opened.
 const CollectionRunnerDialog = dynamic(
     () => import("../collection-runner-dialog").then((m) => ({ default: m.CollectionRunnerDialog })),
+    { ssr: false, loading: () => null },
+)
+const MockServerDialog = dynamic(
+    () => import("../mock-server-dialog").then((m) => ({ default: m.MockServerDialog })),
+    { ssr: false, loading: () => null },
+)
+const OpenApiSyncDialog = dynamic(
+    () => import("./openapi-sync-dialog").then((m) => ({ default: m.OpenApiSyncDialog })),
     { ssr: false, loading: () => null },
 )
 import { useWorkspacesContext } from "../context/workspaces-context"
@@ -97,6 +105,8 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
         [moveTo],
     )
     const [moveSource, setMoveSource] = React.useState<Collection["items"][number] | null>(null)
+    const [syncTarget, setSyncTarget] = React.useState<Collection | null>(null)
+    const tSync = useTranslations("ApiClient.openApiSync")
     const [collectionDropTarget, setCollectionDropTarget] = React.useState<string | null>(null)
 
     const onDuplicateItem = React.useCallback(
@@ -153,6 +163,8 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
     const [targetParentId, setTargetParentId] = React.useState<string | null>(null)
     const [targetCollectionId, setTargetCollectionId] = React.useState<string | null>(null)
     const [runnerCollection, setRunnerCollection] = React.useState<Collection | null>(null)
+    const [mockCollection, setMockCollection] = React.useState<Collection | null>(null)
+    const tMock = useTranslations("ApiClient.mockServer")
     const [defaultsTarget, setDefaultsTarget] = React.useState<DefaultsTarget | null>(null)
     const editFolderDefaults = React.useCallback((item: CollectionFolder) => setDefaultsTarget({ kind: "folder", item }), [])
     const tDefaults = useTranslations("ApiClient.collectionDefaults")
@@ -558,6 +570,12 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                             <Server className="h-4 w-4 mr-2" />
                                                             Copy mock URL
                                                         </DropdownMenuItem>
+                                                        {desktop && (
+                                                            <DropdownMenuItem onClick={() => setMockCollection(collection)}>
+                                                                <Server className="h-4 w-4 mr-2" />
+                                                                {tMock("menu")}
+                                                            </DropdownMenuItem>
+                                                        )}
                                                         <DropdownMenuItem
                                                             onClick={async () => {
                                                                 if (typeof window === "undefined") return
@@ -600,6 +618,10 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                             <Globe className="h-4 w-4 mr-2" />
                                                             Publish as public mock
                                                         </DropdownMenuItem>}
+                                                        <DropdownMenuItem onClick={() => setSyncTarget(collection)}>
+                                                            <RefreshCw className="h-4 w-4 mr-2" />
+                                                            {tSync("menuItem")}
+                                                        </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/postman").then((m) => m.downloadCollectionAsPostman(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
                                                             Export (Postman v2.1)
@@ -863,7 +885,17 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 onOpenChange={(o) => { if (!o) setRunnerCollection(null) }}
                 collection={runnerCollection}
             />
+            {mockCollection && (
+                <MockServerDialog collection={mockCollection} onOpenChange={(o) => { if (!o) setMockCollection(null) }} />
+            )}
             <WorkspacesDialog open={workspaceDialogOpen} onOpenChange={setWorkspaceDialogOpen} />
+            {syncTarget && (
+                <OpenApiSyncDialog
+                    // Live object, so "Apply" re-diffs against edits made while the dialog is open.
+                    collection={collections.find((c) => c.id === syncTarget.id) ?? null}
+                    onOpenChange={(o) => { if (!o) setSyncTarget(null) }}
+                />
+            )}
             <Dialog open={moveSource !== null} onOpenChange={(o) => { if (!o) setMoveSource(null) }}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>

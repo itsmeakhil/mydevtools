@@ -1877,7 +1877,8 @@
         "response": "se lee de la respuesta anterior al enviar",
         "secret": "secreto, se resuelve al enviar",
         "missing": "no definida en el entorno, la colección ni las globales"
-      }
+      },
+      "cancel": "Cancelar"
     },
     "requestTabs": {
       "params": "Parámetros",
@@ -1946,7 +1947,13 @@
         "label": "Filtrar respuesta con JSONPath",
         "invalid": "JSONPath no válido",
         "matches": "{count, plural, =0 {Sin coincidencias} one {# coincidencia} other {# coincidencias}}"
-      }
+      },
+      "streamTab": "Flujo",
+      "streamWaiting": "Conectado. Esperando mensajes…",
+      "streamEmpty": "El flujo terminó sin ningún mensaje.",
+      "linesTab": "Líneas",
+      "linesTruncated": "Se muestran las primeras {count} líneas.",
+      "lineInvalid": "JSON no válido: {message}"
     },
     "tabBar": {
       "addTabAria": "Nueva pestaña",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Contraseña",
       "proxyBypass": "No usar el proxy para",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Servidor simulado…",
+      "title": "Servidor simulado",
+      "description": "Sirve los ejemplos guardados de {name} en 127.0.0.1. Un segmento de ruta como :id coincide con cualquier valor.",
+      "running": "En ejecución en el puerto {port}",
+      "stopped": "Detenido",
+      "port": "Puerto",
+      "latency": "Latencia (ms)",
+      "start": "Iniciar",
+      "apply": "Aplicar",
+      "stop": "Detener",
+      "copyUrl": "Copiar URL",
+      "urlCopied": "URL simulada copiada — añade la ruta de la petición",
+      "requests": "Peticiones",
+      "clear": "Borrar",
+      "empty": "Aún no hay peticiones",
+      "noMatch": "Sin coincidencia",
+      "portInUse": "El puerto {port} ya está en uso",
+      "invalidPort": "Introduce un puerto entre 1024 y 65535",
+      "failed": "Error del servidor simulado"
+    },
+    "plugins": {
+      "title": "Complementos",
+      "description": "Los complementos ejecutan JavaScript en cada petición que envías. Añade solo código de confianza.",
+      "empty": "No hay complementos instalados",
+      "toggle": "Activar {name}",
+      "delete": "Eliminar {name}",
+      "name": "Nombre",
+      "source": "Código fuente",
+      "add": "Añadir complemento"
+    },
+    "openApiSync": {
+      "menuItem": "Sincronizar desde la especificación OpenAPI…",
+      "title": "Sincronizar desde la especificación OpenAPI",
+      "description": "Compara esta colección con la última versión de su especificación. Se conservan tus valores, autenticación, scripts, pruebas, documentación y ejemplos.",
+      "url": "URL de la especificación",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Comparar",
+      "chooseFile": "Elegir archivo…",
+      "noChanges": "Esta colección ya coincide con la especificación.",
+      "added": "Nuevo en la especificación ({count})",
+      "changed": "Cambiado ({count})",
+      "removed": "No está en la especificación ({count})",
+      "removedHint": "Peticiones que la especificación ya no tiene o que añadiste tú. Marca una para eliminarla.",
+      "paramsAdded": "Nuevos parámetros de consulta: {names}",
+      "headersAdded": "Nuevas cabeceras: {names}",
+      "bodyType": "Cambió el tipo de cuerpo",
+      "bodyFields": "Nuevos campos del cuerpo",
+      "apply": "Aplicar ({count})",
+      "applied": "Colección sincronizada con la especificación",
+      "failed": "No se pudo sincronizar la colección",
+      "loadFailed": "No se pudo leer la especificación: {message}",
+      "cancel": "Cancelar"
+    },
+    "cookieJar": {
+      "title": "Tarro de cookies",
+      "description": "Cookies guardadas de las respuestas y enviadas con las peticiones cuyo dominio y ruta coinciden. Las cookies HttpOnly también funcionan.",
+      "summary": "Cookies: {cookies} · Dominios: {domains}",
+      "import": "Importar",
+      "export": "Exportar",
+      "exportJson": "Exportar como JSON",
+      "exportNetscape": "Exportar como cookies.txt",
+      "clearAll": "Borrar todo",
+      "clearedDomain": "Cookies de {domain} borradas",
+      "cleared": "Tarro de cookies vaciado",
+      "empty": "El tarro está vacío. Envía una petición que establezca una cookie para llenarlo.",
+      "path": "Ruta",
+      "expires": "Caduca",
+      "imported": "Cookies importadas: {count}",
+      "importEmpty": "No se encontraron cookies en ese archivo (JSON o cookies.txt)",
+      "importFailed": "No se pudieron importar las cookies: {message}",
+      "clearDomainLabel": "Borrar cookies de {domain}",
+      "deleteLabel": "Eliminar la cookie {name}"
     }
   },
   "RichEditor": {

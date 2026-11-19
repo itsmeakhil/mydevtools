@@ -1877,7 +1877,8 @@
         "response": "es llegeix de la resposta anterior en enviar",
         "secret": "secret, es resol en enviar",
         "missing": "no definida a l'entorn, a la col·lecció ni a les globals"
-      }
+      },
+      "cancel": "Cancel·la"
     },
     "requestTabs": {
       "params": "Params",
@@ -1946,7 +1947,13 @@
         "label": "Filtra la resposta amb JSONPath",
         "invalid": "JSONPath no vàlid",
         "matches": "{count, plural, =0 {Cap coincidència} one {# coincidència} other {# coincidències}}"
-      }
+      },
+      "streamTab": "Flux",
+      "streamWaiting": "Connectat. S'esperen missatges…",
+      "streamEmpty": "El flux ha acabat sense cap missatge.",
+      "linesTab": "Línies",
+      "linesTruncated": "Es mostren les primeres {count} línies.",
+      "lineInvalid": "JSON no vàlid: {message}"
     },
     "tabBar": {
       "addTabAria": "Pestanya nova",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Contrasenya",
       "proxyBypass": "No fer servir el servidor intermediari per a",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Servidor simulat…",
+      "title": "Servidor simulat",
+      "description": "Serveix els exemples desats de {name} a 127.0.0.1. Un segment de camí com :id coincideix amb qualsevol valor.",
+      "running": "En marxa al port {port}",
+      "stopped": "Aturat",
+      "port": "Port",
+      "latency": "Latència (ms)",
+      "start": "Inicia",
+      "apply": "Aplica",
+      "stop": "Atura",
+      "copyUrl": "Copia l'URL",
+      "urlCopied": "S'ha copiat l'URL simulat — afegeix-hi el camí de la petició",
+      "requests": "Peticions",
+      "clear": "Neteja",
+      "empty": "Encara no hi ha peticions",
+      "noMatch": "Cap coincidència",
+      "portInUse": "El port {port} ja està en ús",
+      "invalidPort": "Introdueix un port entre 1024 i 65535",
+      "failed": "Error del servidor simulat"
+    },
+    "plugins": {
+      "title": "Connectors",
+      "description": "Els connectors executen JavaScript a cada petició que envies. Afegeix només codi de confiança.",
+      "empty": "No hi ha cap connector instal·lat",
+      "toggle": "Activa {name}",
+      "delete": "Suprimeix {name}",
+      "name": "Nom",
+      "source": "Codi font",
+      "add": "Afegeix un connector"
+    },
+    "openApiSync": {
+      "menuItem": "Sincronitza des de l'especificació OpenAPI…",
+      "title": "Sincronitza des de l'especificació OpenAPI",
+      "description": "Compara aquesta col·lecció amb la darrera versió de la seva especificació. Es conserven els teus valors, l'autenticació, els scripts, les proves, la documentació i els exemples.",
+      "url": "URL de l'especificació",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Compara",
+      "chooseFile": "Tria un fitxer…",
+      "noChanges": "Aquesta col·lecció ja coincideix amb l'especificació.",
+      "added": "Nou a l'especificació ({count})",
+      "changed": "Canviat ({count})",
+      "removed": "No és a l'especificació ({count})",
+      "removedHint": "Peticions que l'especificació ja no té, o que vas afegir tu. Marca'n una per eliminar-la.",
+      "paramsAdded": "Paràmetres de consulta nous: {names}",
+      "headersAdded": "Capçaleres noves: {names}",
+      "bodyType": "Ha canviat el tipus de cos",
+      "bodyFields": "Camps de cos nous",
+      "apply": "Aplica ({count})",
+      "applied": "Col·lecció sincronitzada amb l'especificació",
+      "failed": "No s'ha pogut sincronitzar la col·lecció",
+      "loadFailed": "No s'ha pogut llegir l'especificació: {message}",
+      "cancel": "Cancel·la"
+    },
+    "cookieJar": {
+      "title": "Pot de galetes",
+      "description": "Galetes desades de les respostes i enviades amb les peticions el domini i el camí de les quals coincideixen. També funcionen les galetes HttpOnly.",
+      "summary": "Galetes: {cookies} · Dominis: {domains}",
+      "import": "Importa",
+      "export": "Exporta",
+      "exportJson": "Exporta com a JSON",
+      "exportNetscape": "Exporta com a cookies.txt",
+      "clearAll": "Esborra-ho tot",
+      "clearedDomain": "S'han esborrat les galetes de {domain}",
+      "cleared": "S'ha buidat el pot de galetes",
+      "empty": "El pot és buit. Envia una petició que estableixi una galeta per omplir-lo.",
+      "path": "Camí",
+      "expires": "Caduca",
+      "imported": "Galetes importades: {count}",
+      "importEmpty": "No s'han trobat galetes en aquest fitxer (JSON o cookies.txt)",
+      "importFailed": "No s'han pogut importar les galetes: {message}",
+      "clearDomainLabel": "Esborra les galetes de {domain}",
+      "deleteLabel": "Elimina la galeta {name}"
     }
   },
   "RichEditor": {

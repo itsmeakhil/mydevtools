@@ -1877,7 +1877,8 @@
         "response": "διαβάζεται από την προηγούμενη απόκριση κατά την αποστολή",
         "secret": "μυστικό, επιλύεται κατά την αποστολή",
         "missing": "δεν ορίζεται στο περιβάλλον, τη συλλογή ή τις καθολικές"
-      }
+      },
+      "cancel": "Ακύρωση"
     },
     "requestTabs": {
       "params": "Params",
@@ -1946,7 +1947,13 @@
         "label": "Φιλτράρισμα απόκρισης με JSONPath",
         "invalid": "Μη έγκυρο JSONPath",
         "matches": "{count, plural, =0 {Κανένα αποτέλεσμα} one {# αποτέλεσμα} other {# αποτελέσματα}}"
-      }
+      },
+      "streamTab": "Ροή",
+      "streamWaiting": "Συνδέθηκε. Αναμονή για μηνύματα…",
+      "streamEmpty": "Η ροή τελείωσε χωρίς μηνύματα.",
+      "linesTab": "Γραμμές",
+      "linesTruncated": "Εμφανίζονται οι πρώτες {count} γραμμές.",
+      "lineInvalid": "Μη έγκυρο JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Νέα καρτέλα",
@@ -2286,6 +2293,80 @@
       "proxyPassword": "Κωδικός πρόσβασης",
       "proxyBypass": "Παράκαμψη του διακομιστή μεσολάβησης για",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock server…",
+      "title": "Mock server",
+      "description": "Εξυπηρετεί τα αποθηκευμένα παραδείγματα της συλλογής {name} στο 127.0.0.1. Ένα τμήμα διαδρομής όπως :id ταιριάζει με οποιαδήποτε τιμή.",
+      "running": "Εκτελείται στη θύρα {port}",
+      "stopped": "Σταματημένος",
+      "port": "Θύρα",
+      "latency": "Καθυστέρηση (ms)",
+      "start": "Έναρξη",
+      "apply": "Εφαρμογή",
+      "stop": "Διακοπή",
+      "copyUrl": "Αντιγραφή URL",
+      "urlCopied": "Το URL του mock αντιγράφηκε — προσθέστε τη διαδρομή του αιτήματος",
+      "requests": "Αιτήματα",
+      "clear": "Εκκαθάριση",
+      "empty": "Δεν υπάρχουν ακόμη αιτήματα",
+      "noMatch": "Καμία αντιστοιχία",
+      "portInUse": "Η θύρα {port} χρησιμοποιείται ήδη",
+      "invalidPort": "Εισαγάγετε θύρα από 1024 έως 65535",
+      "failed": "Σφάλμα mock server"
+    },
+    "plugins": {
+      "title": "Πρόσθετα",
+      "description": "Τα πρόσθετα εκτελούν JavaScript σε κάθε αίτημα που στέλνετε. Προσθέστε μόνο κώδικα που εμπιστεύεστε.",
+      "empty": "Δεν υπάρχουν εγκατεστημένα πρόσθετα",
+      "toggle": "Ενεργοποίηση {name}",
+      "delete": "Διαγραφή {name}",
+      "name": "Όνομα",
+      "source": "Πηγαίος κώδικας",
+      "add": "Προσθήκη πρόσθετου"
+    },
+    "openApiSync": {
+      "menuItem": "Συγχρονισμός από προδιαγραφή OpenAPI…",
+      "title": "Συγχρονισμός από προδιαγραφή OpenAPI",
+      "description": "Σύγκρινε αυτή τη συλλογή με την πιο πρόσφατη έκδοση της προδιαγραφής της. Οι τιμές, η πιστοποίηση, τα σενάρια, οι δοκιμές, η τεκμηρίωση και τα παραδείγματά σου διατηρούνται.",
+      "url": "URL προδιαγραφής",
+      "urlPlaceholder": "https://api.example.com/openapi.json",
+      "compare": "Σύγκριση",
+      "chooseFile": "Επιλογή αρχείου…",
+      "noChanges": "Η συλλογή ταιριάζει ήδη με την προδιαγραφή.",
+      "added": "Νέα στην προδιαγραφή ({count})",
+      "changed": "Αλλαγμένα ({count})",
+      "removed": "Εκτός προδιαγραφής ({count})",
+      "removedHint": "Αιτήματα που δεν υπάρχουν πια στην προδιαγραφή ή που πρόσθεσες εσύ. Επίλεξε ένα για διαγραφή.",
+      "paramsAdded": "Νέες παράμετροι ερωτήματος: {names}",
+      "headersAdded": "Νέες κεφαλίδες: {names}",
+      "bodyType": "Άλλαξε ο τύπος σώματος",
+      "bodyFields": "Νέα πεδία σώματος",
+      "apply": "Εφαρμογή ({count})",
+      "applied": "Η συλλογή συγχρονίστηκε με την προδιαγραφή",
+      "failed": "Δεν ήταν δυνατός ο συγχρονισμός της συλλογής",
+      "loadFailed": "Δεν ήταν δυνατή η ανάγνωση της προδιαγραφής: {message}",
+      "cancel": "Ακύρωση"
+    },
+    "cookieJar": {
+      "title": "Δοχείο cookies",
+      "description": "Cookies που αποθηκεύονται από αποκρίσεις και στέλνονται με αιτήματα με ίδιο τομέα και διαδρομή. Λειτουργούν και τα HttpOnly cookies.",
+      "summary": "Cookies: {cookies} · Τομείς: {domains}",
+      "import": "Εισαγωγή",
+      "export": "Εξαγωγή",
+      "exportJson": "Εξαγωγή ως JSON",
+      "exportNetscape": "Εξαγωγή ως cookies.txt",
+      "clearAll": "Εκκαθάριση όλων",
+      "clearedDomain": "Διαγράφηκαν τα cookies για {domain}",
+      "cleared": "Το δοχείο cookies άδειασε",
+      "empty": "Το δοχείο είναι άδειο. Στείλε ένα αίτημα που ορίζει cookie για να το γεμίσεις.",
+      "path": "Διαδρομή",
+      "expires": "Λήγει",
+      "imported": "Εισήχθησαν cookies: {count}",
+      "importEmpty": "Δεν βρέθηκαν cookies στο αρχείο (JSON ή cookies.txt)",
+      "importFailed": "Δεν ήταν δυνατή η εισαγωγή cookies: {message}",
+      "clearDomainLabel": "Διαγραφή cookies για {domain}",
+      "deleteLabel": "Διαγραφή cookie {name}"
     }
   },
   "RichEditor": {
