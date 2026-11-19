@@ -15,8 +15,8 @@ import type {
     CollectionRequest,
 } from "@/components/api-client/types"
 import type { ScriptContext, ScriptResult } from "@/lib/api-client/script-run"
-import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { digestCredentials } from "@/lib/auth/digest"
+import { applyHeaderAuth, applyPayloadAuth } from "@/lib/api-client/apply-auth"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
 import { ensureFreshToken } from "@/lib/oauth2"
@@ -44,6 +44,8 @@ interface RunnerInput {
     bail?: boolean
     /** Pause between requests. */
     delayMs?: number
+    /** Run only these request ids (default: every request). */
+    only?: ReadonlySet<string>
 }
 
 /** A request counts as failed on a network error, a script error or any failed test/assertion. */
@@ -52,7 +54,7 @@ export function requestFailed(r: RequestRunResult): boolean {
 }
 
 /** Flatten a (possibly nested) collection into request order, optionally rooted at a folder. */
-function walkRequests(items: Array<CollectionFolder | CollectionRequest>, out: CollectionRequest[]): void {
+export function walkRequests(items: Array<CollectionFolder | CollectionRequest>, out: CollectionRequest[]): void {
     for (const item of items) {
         if ("type" in item && item.type === "folder") {
             walkRequests(item.items, out)
@@ -196,20 +198,18 @@ async function executeRequest(args: {
         headersObj[substitute(k)] = substitute(v)
     }
 
-    // Auth.
-    if (req.auth.type === "bearer" && req.auth.token) {
-        headersObj["Authorization"] = `Bearer ${substitute(req.auth.token).trim()}`
-    } else if (req.auth.type === "basic" && req.auth.username && req.auth.password) {
-        headersObj["Authorization"] = `Basic ${encodeBasicCredentials(
-            substitute(req.auth.username).trim(),
-            substitute(req.auth.password),
-        )}`
-    } else if (req.auth.type === "api-key" && req.auth.apiKeyKey && req.auth.apiKeyValue) {
-        const key = substitute(req.auth.apiKeyKey).trim()
-        const val = substitute(req.auth.apiKeyValue).trim()
-        if (req.auth.apiKeyLocation === "query") urlObj.searchParams.append(key, val)
-        else headersObj[key] = val
-    } else if (req.auth.type === "oauth2" && req.auth.oauth2) {
+    // Auth (header/URL); body-hashing signers run after the body is built.
+    if (req.auth.type === "ntlm" || req.auth.type === "spnego") {
+        result.networkError = `${req.auth.type === "ntlm" ? "NTLM" : "SPNEGO"} auth is not supported in the collection runner`
+        return result
+    }
+    try {
+        await applyHeaderAuth(req.auth, { headers: headersObj, url: urlObj }, substitute)
+    } catch (e) {
+        result.networkError = `JWT signing failed: ${(e as Error).message}`
+        return result
+    }
+    if (req.auth.type === "oauth2" && req.auth.oauth2) {
         try {
             const fresh = await ensureFreshToken(req.auth.oauth2)
             if (fresh.accessToken) {
@@ -293,6 +293,18 @@ async function executeRequest(args: {
                 headersObj["Content-Type"] = req.body.type === "xml" ? "application/xml" : "text/plain"
             }
         }
+    }
+
+    try {
+        await applyPayloadAuth(req.auth, {
+            method: workMethod,
+            url: urlObj,
+            headers: headersObj,
+            body: typeof bodyPayload === "string" ? bodyPayload : (bodyContent ?? ""),
+        })
+    } catch (e) {
+        result.networkError = `Auth signing failed: ${(e as Error).message}`
+        return result
     }
 
     // Send.
@@ -399,8 +411,9 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
         : opts.collection.items
     if (!rootItems) return []
 
-    const requests: CollectionRequest[] = []
-    walkRequests(rootItems, requests)
+    const all: CollectionRequest[] = []
+    walkRequests(rootItems, all)
+    const requests = opts.only ? all.filter((r) => opts.only!.has(r.id)) : all
     const iterations = opts.dataRows && opts.dataRows.length > 0
         ? opts.dataRows.length
         : Math.max(1, opts.iterations || 1)
