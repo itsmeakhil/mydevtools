@@ -688,6 +688,12 @@ export function useCollections() {
         }
     }
 
+    /** Replace one collection's item tree in a single commit (OpenAPI "Sync from spec"). */
+    const replaceItems = (collectionId: string, nextItems: Collection["items"], ops: object[], failMsg: string): Promise<boolean> => {
+        const target = allCollections.find((c) => c.id === collectionId)
+        return target ? commitItems(target, nextItems, ops, failMsg) : Promise.resolve(false)
+    }
+
     /** Copy a request or folder (fresh ids throughout) right below the original. */
     const duplicateItem = async (itemId: string, name: string, failMsg: string): Promise<boolean> => {
         const at = locate(allCollections, itemId)
@@ -1088,6 +1094,7 @@ export function useCollections() {
         duplicateItem,
         duplicateCollection,
         moveItem,
+        replaceItems,
         setCollectionWorkspace,
         isLoading
     }

@@ -193,7 +193,8 @@ function applyServerVariables(template: string, variables?: Record<string, { def
     return template.replace(/\{(\w+)\}/g, (m, k) => variables[k]?.default ?? m)
 }
 
-function pickBaseUrl(spec: OpenAPISpec): string {
+export function openApiBaseUrl(raw: object): string {
+    const spec = raw as OpenAPISpec
     // OpenAPI 3
     if (spec.servers && spec.servers.length > 0) {
         const first = spec.servers[0]
@@ -349,7 +350,7 @@ function buildRequest(
     }
 }
 
-function parseSpec(raw: string | object): OpenAPISpec {
+export function parseOpenApiSpec(raw: string | object): OpenAPISpec {
     if (typeof raw === "object" && raw !== null) return raw as OpenAPISpec
     const text = String(raw).trim()
     if (text.startsWith("{") || text.startsWith("[")) {
@@ -365,14 +366,14 @@ function parseSpec(raw: string | object): OpenAPISpec {
 }
 
 export function importOpenApiSpec(raw: string | object): Collection {
-    const spec = parseSpec(raw)
+    const spec = parseOpenApiSpec(raw)
     if (!spec.openapi && !spec.swagger) {
         throw new Error("Not an OpenAPI/Swagger spec (missing openapi/swagger key)")
     }
     if (!spec.paths || typeof spec.paths !== "object") {
         throw new Error("OpenAPI spec has no paths")
     }
-    const baseUrl = pickBaseUrl(spec)
+    const baseUrl = openApiBaseUrl(spec)
     const folders = new Map<string, Array<CollectionFolder | CollectionRequest>>()
     const rootless: Array<CollectionFolder | CollectionRequest> = []
 

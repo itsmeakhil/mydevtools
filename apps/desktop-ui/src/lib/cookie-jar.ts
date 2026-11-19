@@ -205,3 +205,86 @@ export function clearCookies(domain?: string): void {
 export function exportJar(): StoredCookie[] {
     return [...readJar().cookies]
 }
+
+/** Netscape `cookies.txt` (curl `-b`/`-c`, browser extensions). Our cookies always match subdomains. */
+export function toNetscapeCookies(cookies: StoredCookie[]): string {
+    const lines = cookies.map((c) => [
+        `${c.httpOnly ? "#HttpOnly_" : ""}.${normaliseDomain(c.domain)}`,
+        "TRUE",
+        c.path || "/",
+        c.secure ? "TRUE" : "FALSE",
+        c.expires != null ? String(Math.floor(c.expires / 1000)) : "0",
+        c.name,
+        c.value,
+    ].join("\t"))
+    return ["# Netscape HTTP Cookie File", ...lines, ""].join("\n")
+}
+
+function sameSiteOf(v: unknown): StoredCookie["sameSite"] {
+    const l = String(v ?? "").toLowerCase()
+    return l === "strict" ? "Strict" : l === "lax" ? "Lax" : l === "none" || l === "no_restriction" ? "None" : undefined
+}
+
+/**
+ * Parse a cookie file: our JSON export, a browser-extension JSON export
+ * (`expirationDate` in seconds), or Netscape `cookies.txt`. Rows without a
+ * name or domain are skipped.
+ */
+export function parseCookieFile(text: string): StoredCookie[] {
+    const trimmed = text.trim()
+    const out: StoredCookie[] = []
+    if (trimmed.startsWith("[") || trimmed.startsWith("{")) {
+        let data: unknown
+        try { data = JSON.parse(trimmed) } catch { return [] }
+        const rows = Array.isArray(data) ? data : (data as { cookies?: unknown }).cookies
+        if (!Array.isArray(rows)) return []
+        for (const r of rows as Record<string, unknown>[]) {
+            if (!r || typeof r.name !== "string" || !r.name || typeof r.domain !== "string" || !r.domain) continue
+            const expires = typeof r.expires === "number" ? r.expires
+                : typeof r.expirationDate === "number" ? Math.round(r.expirationDate * 1000) : undefined
+            out.push({
+                name: r.name,
+                value: typeof r.value === "string" ? r.value : "",
+                domain: normaliseDomain(r.domain),
+                path: typeof r.path === "string" && r.path ? r.path : "/",
+                expires,
+                secure: r.secure === true || undefined,
+                httpOnly: r.httpOnly === true || undefined,
+                sameSite: sameSiteOf(r.sameSite),
+            })
+        }
+        return out
+    }
+    for (const raw of trimmed.split(/\r?\n/)) {
+        let line = raw
+        let httpOnly = false
+        if (line.startsWith("#HttpOnly_")) { line = line.slice(10); httpOnly = true }
+        if (!line || line.startsWith("#")) continue
+        const f = line.split("\t")
+        if (f.length < 7 || !f[0] || !f[5]) continue
+        const exp = Number(f[4])
+        out.push({
+            name: f[5],
+            value: f.slice(6).join("\t"),
+            domain: normaliseDomain(f[0]),
+            path: f[2] || "/",
+            expires: Number.isFinite(exp) && exp > 0 ? exp * 1000 : undefined,
+            secure: f[3].toUpperCase() === "TRUE" || undefined,
+            httpOnly: httpOnly || undefined,
+        })
+    }
+    return out
+}
+
+/** Upsert cookies into the jar (expired ones skipped). Returns how many were stored. */
+export function importCookies(cookies: StoredCookie[]): number {
+    const jar = readJar()
+    let n = 0
+    for (const c of cookies) {
+        if (isExpired(c)) continue
+        upsert(jar, c)
+        n++
+    }
+    writeJar(jar)
+    return n
+}
