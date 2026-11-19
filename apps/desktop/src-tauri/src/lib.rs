@@ -72,6 +72,32 @@ async fn proxy_grpc(input: serde_json::Value) -> Result<serde_json::Value, Strin
     Ok(http::grpc::proxy_grpc(input).await)
 }
 
+#[tauri::command]
+async fn grpc_stream_start(
+    input: serde_json::Value,
+    channel: tauri::ipc::Channel<serde_json::Value>,
+) -> Result<u64, String> {
+    let emit: http::grpc::Emit = std::sync::Arc::new(move |v| {
+        let _ = channel.send(v);
+    });
+    http::grpc::stream_start(input, emit).await
+}
+
+#[tauri::command]
+fn grpc_stream_send(id: u64, frame: String) -> Result<(), String> {
+    http::grpc::stream_send(id, &frame)
+}
+
+#[tauri::command]
+fn grpc_stream_end(id: u64) -> Result<(), String> {
+    http::grpc::stream_end(id)
+}
+
+#[tauri::command]
+fn grpc_stream_cancel(id: u64) {
+    http::grpc::stream_cancel(id)
+}
+
 /// Registry of opened folder-collection dirs, stored as a JSON file in the app
 /// data dir. localStorage is origin-scoped (dev server vs installed app have
 /// different origins), so it silently "forgets" registered folders — this doesn't.
@@ -206,6 +232,10 @@ pub fn run() {
             mock_server_status,
             mock_server_clear_log,
             proxy_grpc,
+            grpc_stream_start,
+            grpc_stream_send,
+            grpc_stream_end,
+            grpc_stream_cancel,
             fs_allow_collection_dir,
             file_collections_registry_load,
             file_collections_registry_save,
