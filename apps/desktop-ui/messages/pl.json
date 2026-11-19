@@ -2367,6 +2367,33 @@
       "importFailed": "Nie udało się zaimportować ciasteczek: {message}",
       "clearDomainLabel": "Wyczyść ciasteczka dla {domain}",
       "deleteLabel": "Usuń ciasteczko {name}"
+    },
+    "runner": {
+      "title": "Uruchom kolekcję: {name}",
+      "description": "Wysyła wybrane żądania po kolei. Skrypty, słoik ciasteczek, odświeżanie OAuth i zmienne działają dokładnie tak jak przy zwykłym wysłaniu.",
+      "iterations": "Iteracje",
+      "iterationsFromData": "Liczba iteracji ustawiona przez plik danych na {count}",
+      "dataFile": "Plik danych (CSV lub tablica JSON)",
+      "choose": "Wybierz",
+      "removeDataFile": "Usuń plik danych",
+      "noDataFile": "Brak",
+      "delay": "Opóźnienie między żądaniami (ms)",
+      "bail": "Zatrzymaj przy pierwszym błędzie",
+      "requests": "Żądania: {selected} z {total}",
+      "selectAll": "Wszystkie",
+      "selectNone": "Żadne",
+      "run": "Uruchom",
+      "abort": "Przerwij",
+      "clear": "Wyczyść",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Raport HTML",
+      "passed": "Zaliczone: {count}",
+      "failed": "Niezaliczone: {count}",
+      "networkErrors": "Błędy sieci: {count}",
+      "empty": "Wybierz żądania i kliknij Uruchom.",
+      "loaded": "Wiersze wczytane z {file}: {count}",
+      "parseFailed": "Nie udało się odczytać pliku danych: {message}",
+      "runFailed": "Uruchomienie nie powiodło się: {message}"
     }
   },
   "RichEditor": {

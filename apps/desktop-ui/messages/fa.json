@@ -2367,6 +2367,33 @@
       "importFailed": "درون‌ریزی کوکی‌ها ممکن نشد: {message}",
       "clearDomainLabel": "پاک کردن کوکی‌های {domain}",
       "deleteLabel": "حذف کوکی {name}"
+    },
+    "runner": {
+      "title": "اجرای مجموعه: {name}",
+      "description": "درخواست‌های انتخاب‌شده را به ترتیب ارسال می‌کند. اسکریپت‌ها، ظرف کوکی، تمدید OAuth و متغیرها دقیقاً مانند یک ارسال عادی کار می‌کنند.",
+      "iterations": "تکرارها",
+      "iterationsFromData": "تعداد تکرار با فایل داده روی {count} تنظیم شد",
+      "dataFile": "فایل داده (CSV یا آرایهٔ JSON)",
+      "choose": "انتخاب",
+      "removeDataFile": "حذف فایل داده",
+      "noDataFile": "هیچ",
+      "delay": "تأخیر بین درخواست‌ها (میلی‌ثانیه)",
+      "bail": "توقف در اولین خطا",
+      "requests": "درخواست‌ها: {selected} از {total}",
+      "selectAll": "همه",
+      "selectNone": "هیچ‌کدام",
+      "run": "اجرا",
+      "abort": "لغو",
+      "clear": "پاک کردن",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "گزارش HTML",
+      "passed": "موفق: {count}",
+      "failed": "ناموفق: {count}",
+      "networkErrors": "خطاهای شبکه: {count}",
+      "empty": "درخواست‌ها را انتخاب کنید و روی اجرا کلیک کنید.",
+      "loaded": "ردیف‌های بارگذاری‌شده از {file}: {count}",
+      "parseFailed": "خواندن فایل داده ممکن نشد: {message}",
+      "runFailed": "اجرا ناموفق بود: {message}"
     }
   },
   "RichEditor": {

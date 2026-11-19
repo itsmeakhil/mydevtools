@@ -2367,6 +2367,33 @@
       "importFailed": "Çerezler içe aktarılamadı: {message}",
       "clearDomainLabel": "{domain} çerezlerini temizle",
       "deleteLabel": "{name} çerezini sil"
+    },
+    "runner": {
+      "title": "Koleksiyonu çalıştır: {name}",
+      "description": "Seçili istekleri sırayla gönderir. Betikler, çerez kavanozu, OAuth yenileme ve değişkenler normal bir gönderimdekiyle tamamen aynı çalışır.",
+      "iterations": "Yinelemeler",
+      "iterationsFromData": "Yineleme sayısı veri dosyasına göre {count} olarak ayarlandı",
+      "dataFile": "Veri dosyası (CSV veya JSON dizisi)",
+      "choose": "Seç",
+      "removeDataFile": "Veri dosyasını kaldır",
+      "noDataFile": "Yok",
+      "delay": "İstekler arası gecikme (ms)",
+      "bail": "İlk hatada dur",
+      "requests": "İstekler: {total} içinden {selected}",
+      "selectAll": "Tümü",
+      "selectNone": "Hiçbiri",
+      "run": "Çalıştır",
+      "abort": "Durdur",
+      "clear": "Temizle",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML raporu",
+      "passed": "Başarılı: {count}",
+      "failed": "Başarısız: {count}",
+      "networkErrors": "Ağ hataları: {count}",
+      "empty": "İstekleri seçip Çalıştır'a tıklayın.",
+      "loaded": "{file} dosyasından yüklenen satırlar: {count}",
+      "parseFailed": "Veri dosyası okunamadı: {message}",
+      "runFailed": "Çalıştırma başarısız: {message}"
     }
   },
   "RichEditor": {

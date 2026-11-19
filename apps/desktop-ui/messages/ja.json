@@ -2367,6 +2367,33 @@
       "importFailed": "Cookie をインポートできませんでした: {message}",
       "clearDomainLabel": "{domain} の Cookie を消去",
       "deleteLabel": "Cookie {name} を削除"
+    },
+    "runner": {
+      "title": "コレクションを実行: {name}",
+      "description": "選択したリクエストを順番に送信します。スクリプト、Cookie ジャー、OAuth の更新、変数は通常の送信とまったく同じように動作します。",
+      "iterations": "反復回数",
+      "iterationsFromData": "データファイルにより反復回数は {count} に設定されました",
+      "dataFile": "データファイル (CSV または JSON 配列)",
+      "choose": "選択",
+      "removeDataFile": "データファイルを削除",
+      "noDataFile": "なし",
+      "delay": "リクエスト間の待機時間 (ms)",
+      "bail": "最初の失敗で停止",
+      "requests": "リクエスト: {total} 件中 {selected} 件",
+      "selectAll": "すべて",
+      "selectNone": "なし",
+      "run": "実行",
+      "abort": "中止",
+      "clear": "クリア",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML レポート",
+      "passed": "成功: {count}",
+      "failed": "失敗: {count}",
+      "networkErrors": "ネットワークエラー: {count}",
+      "empty": "リクエストを選んで「実行」をクリックしてください。",
+      "loaded": "{file} から読み込んだ行: {count}",
+      "parseFailed": "データファイルを読み込めませんでした: {message}",
+      "runFailed": "実行に失敗しました: {message}"
     }
   },
   "RichEditor": {

@@ -2367,6 +2367,33 @@
       "importFailed": "Impossible d'importer les cookies : {message}",
       "clearDomainLabel": "Effacer les cookies de {domain}",
       "deleteLabel": "Supprimer le cookie {name}"
+    },
+    "runner": {
+      "title": "Exécuter la collection : {name}",
+      "description": "Envoie les requêtes sélectionnées dans l'ordre. Les scripts, la boîte à cookies, le renouvellement OAuth et les variables fonctionnent exactement comme lors d'un envoi normal.",
+      "iterations": "Itérations",
+      "iterationsFromData": "Itérations fixées à {count} par le fichier de données",
+      "dataFile": "Fichier de données (CSV ou tableau JSON)",
+      "choose": "Choisir",
+      "removeDataFile": "Retirer le fichier de données",
+      "noDataFile": "Aucun",
+      "delay": "Délai entre les requêtes (ms)",
+      "bail": "Arrêter au premier échec",
+      "requests": "Requêtes : {selected} sur {total}",
+      "selectAll": "Toutes",
+      "selectNone": "Aucune",
+      "run": "Exécuter",
+      "abort": "Interrompre",
+      "clear": "Effacer",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Rapport HTML",
+      "passed": "Réussis : {count}",
+      "failed": "Échoués : {count}",
+      "networkErrors": "Erreurs réseau : {count}",
+      "empty": "Choisissez des requêtes puis cliquez sur Exécuter.",
+      "loaded": "Lignes chargées depuis {file} : {count}",
+      "parseFailed": "Impossible de lire le fichier de données : {message}",
+      "runFailed": "Échec de l'exécution : {message}"
     }
   },
   "RichEditor": {

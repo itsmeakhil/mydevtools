@@ -2367,6 +2367,33 @@
       "importFailed": "Tidak dapat mengimpor cookie: {message}",
       "clearDomainLabel": "Hapus cookie untuk {domain}",
       "deleteLabel": "Hapus cookie {name}"
+    },
+    "runner": {
+      "title": "Jalankan koleksi: {name}",
+      "description": "Mengirim permintaan terpilih secara berurutan. Skrip, wadah cookie, penyegaran OAuth, dan variabel bekerja persis seperti pengiriman biasa.",
+      "iterations": "Iterasi",
+      "iterationsFromData": "Iterasi diatur ke {count} oleh file data",
+      "dataFile": "File data (CSV atau array JSON)",
+      "choose": "Pilih",
+      "removeDataFile": "Hapus file data",
+      "noDataFile": "Tidak ada",
+      "delay": "Jeda antar permintaan (ms)",
+      "bail": "Berhenti pada kegagalan pertama",
+      "requests": "Permintaan: {selected} dari {total}",
+      "selectAll": "Semua",
+      "selectNone": "Tidak ada",
+      "run": "Jalankan",
+      "abort": "Batalkan",
+      "clear": "Bersihkan",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Laporan HTML",
+      "passed": "Lulus: {count}",
+      "failed": "Gagal: {count}",
+      "networkErrors": "Kesalahan jaringan: {count}",
+      "empty": "Pilih permintaan lalu klik Jalankan.",
+      "loaded": "Baris dimuat dari {file}: {count}",
+      "parseFailed": "Tidak dapat membaca file data: {message}",
+      "runFailed": "Gagal menjalankan: {message}"
     }
   },
   "RichEditor": {

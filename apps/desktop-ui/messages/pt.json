@@ -2367,6 +2367,33 @@
       "importFailed": "Não foi possível importar os cookies: {message}",
       "clearDomainLabel": "Limpar cookies de {domain}",
       "deleteLabel": "Eliminar o cookie {name}"
+    },
+    "runner": {
+      "title": "Executar coleção: {name}",
+      "description": "Envia os pedidos selecionados por ordem. Scripts, frasco de cookies, renovação de OAuth e variáveis funcionam exatamente como num envio normal.",
+      "iterations": "Iterações",
+      "iterationsFromData": "Iterações definidas como {count} pelo ficheiro de dados",
+      "dataFile": "Ficheiro de dados (CSV ou matriz JSON)",
+      "choose": "Escolher",
+      "removeDataFile": "Remover ficheiro de dados",
+      "noDataFile": "Nenhum",
+      "delay": "Intervalo entre pedidos (ms)",
+      "bail": "Parar na primeira falha",
+      "requests": "Pedidos: {selected} de {total}",
+      "selectAll": "Todos",
+      "selectNone": "Nenhum",
+      "run": "Executar",
+      "abort": "Interromper",
+      "clear": "Limpar",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Relatório HTML",
+      "passed": "Aprovados: {count}",
+      "failed": "Falhados: {count}",
+      "networkErrors": "Erros de rede: {count}",
+      "empty": "Escolha os pedidos e clique em Executar.",
+      "loaded": "Linhas carregadas de {file}: {count}",
+      "parseFailed": "Não foi possível ler o ficheiro de dados: {message}",
+      "runFailed": "A execução falhou: {message}"
     }
   },
   "RichEditor": {

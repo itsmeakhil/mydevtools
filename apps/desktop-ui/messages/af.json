@@ -2367,6 +2367,33 @@
       "importFailed": "Kon nie koekies invoer nie: {message}",
       "clearDomainLabel": "Vee koekies vir {domain} uit",
       "deleteLabel": "Skrap koekie {name}"
+    },
+    "runner": {
+      "title": "Voer versameling uit: {name}",
+      "description": "Stuur die gekose versoeke in volgorde. Skrifte, koekiehouer, OAuth-hernuwing en veranderlikes werk presies soos by 'n gewone versending.",
+      "iterations": "Herhalings",
+      "iterationsFromData": "Herhalings op {count} gestel deur die datalêer",
+      "dataFile": "Datalêer (CSV of JSON-skikking)",
+      "choose": "Kies",
+      "removeDataFile": "Verwyder datalêer",
+      "noDataFile": "Geen",
+      "delay": "Vertraging tussen versoeke (ms)",
+      "bail": "Stop by die eerste mislukking",
+      "requests": "Versoeke: {selected} van {total}",
+      "selectAll": "Almal",
+      "selectNone": "Geen",
+      "run": "Voer uit",
+      "abort": "Staak",
+      "clear": "Maak skoon",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML-verslag",
+      "passed": "Geslaag: {count}",
+      "failed": "Misluk: {count}",
+      "networkErrors": "Netwerkfoute: {count}",
+      "empty": "Kies versoeke en klik Voer uit.",
+      "loaded": "Rye gelaai uit {file}: {count}",
+      "parseFailed": "Kon nie die datalêer lees nie: {message}",
+      "runFailed": "Uitvoering het misluk: {message}"
     }
   },
   "RichEditor": {

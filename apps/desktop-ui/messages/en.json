@@ -2367,6 +2367,33 @@
       "importFailed": "Couldn't import cookies: {message}",
       "clearDomainLabel": "Clear cookies for {domain}",
       "deleteLabel": "Delete cookie {name}"
+    },
+    "runner": {
+      "title": "Run collection: {name}",
+      "description": "Sends the selected requests in order. Scripts, cookie jar, OAuth refresh and variables work exactly as in a normal send.",
+      "iterations": "Iterations",
+      "iterationsFromData": "Iterations set to {count} by the data file",
+      "dataFile": "Data file (CSV or JSON array)",
+      "choose": "Choose",
+      "removeDataFile": "Remove data file",
+      "noDataFile": "None",
+      "delay": "Delay between requests (ms)",
+      "bail": "Stop at the first failure",
+      "requests": "Requests: {selected} of {total}",
+      "selectAll": "All",
+      "selectNone": "None",
+      "run": "Run",
+      "abort": "Abort",
+      "clear": "Clear",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML report",
+      "passed": "Passed: {count}",
+      "failed": "Failed: {count}",
+      "networkErrors": "Network errors: {count}",
+      "empty": "Choose requests and click Run.",
+      "loaded": "Rows loaded from {file}: {count}",
+      "parseFailed": "Couldn't read the data file: {message}",
+      "runFailed": "Run failed: {message}"
     }
   },
   "RichEditor": {

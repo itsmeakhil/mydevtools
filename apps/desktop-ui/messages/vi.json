@@ -2367,6 +2367,33 @@
       "importFailed": "Không thể nhập cookie: {message}",
       "clearDomainLabel": "Xóa cookie của {domain}",
       "deleteLabel": "Xóa cookie {name}"
+    },
+    "runner": {
+      "title": "Chạy bộ sưu tập: {name}",
+      "description": "Gửi các yêu cầu đã chọn theo thứ tự. Script, hũ cookie, làm mới OAuth và biến hoạt động giống hệt như khi gửi bình thường.",
+      "iterations": "Số lần lặp",
+      "iterationsFromData": "Số lần lặp được đặt thành {count} theo tệp dữ liệu",
+      "dataFile": "Tệp dữ liệu (CSV hoặc mảng JSON)",
+      "choose": "Chọn",
+      "removeDataFile": "Gỡ tệp dữ liệu",
+      "noDataFile": "Không có",
+      "delay": "Độ trễ giữa các yêu cầu (ms)",
+      "bail": "Dừng ở lỗi đầu tiên",
+      "requests": "Yêu cầu: {selected} trên {total}",
+      "selectAll": "Tất cả",
+      "selectNone": "Không chọn",
+      "run": "Chạy",
+      "abort": "Hủy",
+      "clear": "Xóa",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Báo cáo HTML",
+      "passed": "Đạt: {count}",
+      "failed": "Không đạt: {count}",
+      "networkErrors": "Lỗi mạng: {count}",
+      "empty": "Chọn yêu cầu rồi nhấn Chạy.",
+      "loaded": "Số dòng tải từ {file}: {count}",
+      "parseFailed": "Không đọc được tệp dữ liệu: {message}",
+      "runFailed": "Chạy thất bại: {message}"
     }
   },
   "RichEditor": {

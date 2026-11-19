@@ -2367,6 +2367,33 @@
       "importFailed": "无法导入 Cookie：{message}",
       "clearDomainLabel": "清除 {domain} 的 Cookie",
       "deleteLabel": "删除 Cookie {name}"
+    },
+    "runner": {
+      "title": "运行集合：{name}",
+      "description": "按顺序发送所选请求。脚本、Cookie 罐、OAuth 刷新和变量的行为与普通发送完全相同。",
+      "iterations": "迭代次数",
+      "iterationsFromData": "数据文件已将迭代次数设为 {count}",
+      "dataFile": "数据文件（CSV 或 JSON 数组）",
+      "choose": "选择",
+      "removeDataFile": "移除数据文件",
+      "noDataFile": "无",
+      "delay": "请求间隔（毫秒）",
+      "bail": "首次失败时停止",
+      "requests": "请求：{selected} / {total}",
+      "selectAll": "全选",
+      "selectNone": "全不选",
+      "run": "运行",
+      "abort": "中止",
+      "clear": "清除",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML 报告",
+      "passed": "通过：{count}",
+      "failed": "失败：{count}",
+      "networkErrors": "网络错误：{count}",
+      "empty": "选择请求后点击“运行”。",
+      "loaded": "从 {file} 加载的行数：{count}",
+      "parseFailed": "无法读取数据文件：{message}",
+      "runFailed": "运行失败：{message}"
     }
   },
   "RichEditor": {

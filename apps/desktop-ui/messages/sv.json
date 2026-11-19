@@ -2367,6 +2367,33 @@
       "importFailed": "Det gick inte att importera kakor: {message}",
       "clearDomainLabel": "Rensa kakor för {domain}",
       "deleteLabel": "Ta bort kakan {name}"
+    },
+    "runner": {
+      "title": "Kör samling: {name}",
+      "description": "Skickar de valda begärandena i ordning. Skript, kakburk, OAuth-förnyelse och variabler fungerar precis som vid en vanlig sändning.",
+      "iterations": "Iterationer",
+      "iterationsFromData": "Iterationer satta till {count} av datafilen",
+      "dataFile": "Datafil (CSV eller JSON-array)",
+      "choose": "Välj",
+      "removeDataFile": "Ta bort datafil",
+      "noDataFile": "Ingen",
+      "delay": "Fördröjning mellan begäranden (ms)",
+      "bail": "Stoppa vid första felet",
+      "requests": "Begäranden: {selected} av {total}",
+      "selectAll": "Alla",
+      "selectNone": "Inga",
+      "run": "Kör",
+      "abort": "Avbryt",
+      "clear": "Rensa",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML-rapport",
+      "passed": "Godkända: {count}",
+      "failed": "Misslyckade: {count}",
+      "networkErrors": "Nätverksfel: {count}",
+      "empty": "Välj begäranden och klicka på Kör.",
+      "loaded": "Rader inlästa från {file}: {count}",
+      "parseFailed": "Kunde inte läsa datafilen: {message}",
+      "runFailed": "Körningen misslyckades: {message}"
     }
   },
   "RichEditor": {

@@ -2367,6 +2367,33 @@
       "importFailed": "Cookies konnten nicht importiert werden: {message}",
       "clearDomainLabel": "Cookies für {domain} löschen",
       "deleteLabel": "Cookie {name} löschen"
+    },
+    "runner": {
+      "title": "Sammlung ausführen: {name}",
+      "description": "Sendet die ausgewählten Anfragen nacheinander. Skripte, Cookie-Speicher, OAuth-Erneuerung und Variablen verhalten sich genau wie beim normalen Senden.",
+      "iterations": "Durchläufe",
+      "iterationsFromData": "Durchläufe durch die Datendatei auf {count} gesetzt",
+      "dataFile": "Datendatei (CSV oder JSON-Array)",
+      "choose": "Auswählen",
+      "removeDataFile": "Datendatei entfernen",
+      "noDataFile": "Keine",
+      "delay": "Pause zwischen Anfragen (ms)",
+      "bail": "Beim ersten Fehler anhalten",
+      "requests": "Anfragen: {selected} von {total}",
+      "selectAll": "Alle",
+      "selectNone": "Keine",
+      "run": "Ausführen",
+      "abort": "Abbrechen",
+      "clear": "Leeren",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML-Bericht",
+      "passed": "Bestanden: {count}",
+      "failed": "Fehlgeschlagen: {count}",
+      "networkErrors": "Netzwerkfehler: {count}",
+      "empty": "Wähle Anfragen aus und klicke auf Ausführen.",
+      "loaded": "Aus {file} geladene Zeilen: {count}",
+      "parseFailed": "Datendatei konnte nicht gelesen werden: {message}",
+      "runFailed": "Ausführung fehlgeschlagen: {message}"
     }
   },
   "RichEditor": {

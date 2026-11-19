@@ -2367,6 +2367,33 @@
       "importFailed": "No s'han pogut importar les galetes: {message}",
       "clearDomainLabel": "Esborra les galetes de {domain}",
       "deleteLabel": "Elimina la galeta {name}"
+    },
+    "runner": {
+      "title": "Executa la col·lecció: {name}",
+      "description": "Envia les peticions seleccionades en ordre. Els scripts, el pot de galetes, la renovació d'OAuth i les variables funcionen igual que en un enviament normal.",
+      "iterations": "Iteracions",
+      "iterationsFromData": "Iteracions fixades a {count} pel fitxer de dades",
+      "dataFile": "Fitxer de dades (CSV o matriu JSON)",
+      "choose": "Tria",
+      "removeDataFile": "Elimina el fitxer de dades",
+      "noDataFile": "Cap",
+      "delay": "Retard entre peticions (ms)",
+      "bail": "Atura't a la primera fallada",
+      "requests": "Peticions: {selected} de {total}",
+      "selectAll": "Totes",
+      "selectNone": "Cap",
+      "run": "Executa",
+      "abort": "Interromp",
+      "clear": "Neteja",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Informe HTML",
+      "passed": "Superades: {count}",
+      "failed": "Fallades: {count}",
+      "networkErrors": "Errors de xarxa: {count}",
+      "empty": "Tria peticions i fes clic a Executa.",
+      "loaded": "Files carregades de {file}: {count}",
+      "parseFailed": "No s'ha pogut llegir el fitxer de dades: {message}",
+      "runFailed": "L'execució ha fallat: {message}"
     }
   },
   "RichEditor": {

@@ -2367,6 +2367,33 @@
       "importFailed": "Tidak dapat mengimport kuki: {message}",
       "clearDomainLabel": "Kosongkan kuki untuk {domain}",
       "deleteLabel": "Padam kuki {name}"
+    },
+    "runner": {
+      "title": "Jalankan koleksi: {name}",
+      "description": "Menghantar permintaan yang dipilih mengikut urutan. Skrip, balang kuki, penyegaran OAuth dan pemboleh ubah berfungsi sama seperti penghantaran biasa.",
+      "iterations": "Lelaran",
+      "iterationsFromData": "Lelaran ditetapkan kepada {count} oleh fail data",
+      "dataFile": "Fail data (CSV atau tatasusunan JSON)",
+      "choose": "Pilih",
+      "removeDataFile": "Alih keluar fail data",
+      "noDataFile": "Tiada",
+      "delay": "Kelewatan antara permintaan (ms)",
+      "bail": "Berhenti pada kegagalan pertama",
+      "requests": "Permintaan: {selected} daripada {total}",
+      "selectAll": "Semua",
+      "selectNone": "Tiada",
+      "run": "Jalankan",
+      "abort": "Batalkan",
+      "clear": "Kosongkan",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Laporan HTML",
+      "passed": "Lulus: {count}",
+      "failed": "Gagal: {count}",
+      "networkErrors": "Ralat rangkaian: {count}",
+      "empty": "Pilih permintaan dan klik Jalankan.",
+      "loaded": "Baris dimuatkan daripada {file}: {count}",
+      "parseFailed": "Tidak dapat membaca fail data: {message}",
+      "runFailed": "Larian gagal: {message}"
     }
   },
   "RichEditor": {

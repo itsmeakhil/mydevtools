@@ -2367,6 +2367,33 @@
       "importFailed": "Cookies se nepodařilo importovat: {message}",
       "clearDomainLabel": "Vymazat cookies pro {domain}",
       "deleteLabel": "Smazat cookie {name}"
+    },
+    "runner": {
+      "title": "Spustit kolekci: {name}",
+      "description": "Odešle vybrané požadavky popořadě. Skripty, úložiště cookies, obnova OAuth a proměnné fungují stejně jako při běžném odeslání.",
+      "iterations": "Iterace",
+      "iterationsFromData": "Počet iterací nastaven datovým souborem na {count}",
+      "dataFile": "Datový soubor (CSV nebo pole JSON)",
+      "choose": "Vybrat",
+      "removeDataFile": "Odebrat datový soubor",
+      "noDataFile": "Žádný",
+      "delay": "Prodleva mezi požadavky (ms)",
+      "bail": "Zastavit při prvním selhání",
+      "requests": "Požadavky: {selected} z {total}",
+      "selectAll": "Vše",
+      "selectNone": "Nic",
+      "run": "Spustit",
+      "abort": "Přerušit",
+      "clear": "Vymazat",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Zpráva HTML",
+      "passed": "Úspěšné: {count}",
+      "failed": "Neúspěšné: {count}",
+      "networkErrors": "Chyby sítě: {count}",
+      "empty": "Vyberte požadavky a klikněte na Spustit.",
+      "loaded": "Řádky načtené ze souboru {file}: {count}",
+      "parseFailed": "Datový soubor nelze přečíst: {message}",
+      "runFailed": "Spuštění selhalo: {message}"
     }
   },
   "RichEditor": {

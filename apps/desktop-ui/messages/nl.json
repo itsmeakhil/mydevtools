@@ -2367,6 +2367,33 @@
       "importFailed": "Kan cookies niet importeren: {message}",
       "clearDomainLabel": "Cookies voor {domain} wissen",
       "deleteLabel": "Cookie {name} verwijderen"
+    },
+    "runner": {
+      "title": "Collectie uitvoeren: {name}",
+      "description": "Verstuurt de geselecteerde verzoeken op volgorde. Scripts, cookiepot, OAuth-vernieuwing en variabelen werken precies zoals bij een normale verzending.",
+      "iterations": "Herhalingen",
+      "iterationsFromData": "Herhalingen door het gegevensbestand op {count} gezet",
+      "dataFile": "Gegevensbestand (CSV of JSON-array)",
+      "choose": "Kiezen",
+      "removeDataFile": "Gegevensbestand verwijderen",
+      "noDataFile": "Geen",
+      "delay": "Pauze tussen verzoeken (ms)",
+      "bail": "Stoppen bij de eerste fout",
+      "requests": "Verzoeken: {selected} van {total}",
+      "selectAll": "Alle",
+      "selectNone": "Geen",
+      "run": "Uitvoeren",
+      "abort": "Afbreken",
+      "clear": "Wissen",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML-rapport",
+      "passed": "Geslaagd: {count}",
+      "failed": "Mislukt: {count}",
+      "networkErrors": "Netwerkfouten: {count}",
+      "empty": "Kies verzoeken en klik op Uitvoeren.",
+      "loaded": "Rijen geladen uit {file}: {count}",
+      "parseFailed": "Kan het gegevensbestand niet lezen: {message}",
+      "runFailed": "Uitvoeren mislukt: {message}"
     }
   },
   "RichEditor": {

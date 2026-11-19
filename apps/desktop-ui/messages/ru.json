@@ -2367,6 +2367,33 @@
       "importFailed": "Не удалось импортировать cookie: {message}",
       "clearDomainLabel": "Удалить cookie для {domain}",
       "deleteLabel": "Удалить cookie {name}"
+    },
+    "runner": {
+      "title": "Запуск коллекции: {name}",
+      "description": "Отправляет выбранные запросы по порядку. Скрипты, хранилище cookies, обновление OAuth и переменные работают так же, как при обычной отправке.",
+      "iterations": "Итерации",
+      "iterationsFromData": "Число итераций задано файлом данных: {count}",
+      "dataFile": "Файл данных (CSV или массив JSON)",
+      "choose": "Выбрать",
+      "removeDataFile": "Убрать файл данных",
+      "noDataFile": "Нет",
+      "delay": "Пауза между запросами (мс)",
+      "bail": "Остановиться при первой ошибке",
+      "requests": "Запросы: {selected} из {total}",
+      "selectAll": "Все",
+      "selectNone": "Ни одного",
+      "run": "Запустить",
+      "abort": "Прервать",
+      "clear": "Очистить",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Отчёт HTML",
+      "passed": "Пройдено: {count}",
+      "failed": "Не пройдено: {count}",
+      "networkErrors": "Сетевые ошибки: {count}",
+      "empty": "Выберите запросы и нажмите «Запустить».",
+      "loaded": "Строк загружено из {file}: {count}",
+      "parseFailed": "Не удалось прочитать файл данных: {message}",
+      "runFailed": "Запуск не удался: {message}"
     }
   },
   "RichEditor": {

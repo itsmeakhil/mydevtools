@@ -2367,6 +2367,33 @@
       "importFailed": "Не вдалося імпортувати cookie: {message}",
       "clearDomainLabel": "Очистити cookie для {domain}",
       "deleteLabel": "Видалити cookie {name}"
+    },
+    "runner": {
+      "title": "Запуск колекції: {name}",
+      "description": "Надсилає вибрані запити по черзі. Скрипти, сховище cookies, оновлення OAuth і змінні працюють так само, як під час звичайного надсилання.",
+      "iterations": "Ітерації",
+      "iterationsFromData": "Кількість ітерацій задано файлом даних: {count}",
+      "dataFile": "Файл даних (CSV або масив JSON)",
+      "choose": "Вибрати",
+      "removeDataFile": "Прибрати файл даних",
+      "noDataFile": "Немає",
+      "delay": "Пауза між запитами (мс)",
+      "bail": "Зупинитися на першій помилці",
+      "requests": "Запити: {selected} з {total}",
+      "selectAll": "Усі",
+      "selectNone": "Жодного",
+      "run": "Запустити",
+      "abort": "Перервати",
+      "clear": "Очистити",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Звіт HTML",
+      "passed": "Пройдено: {count}",
+      "failed": "Не пройдено: {count}",
+      "networkErrors": "Мережеві помилки: {count}",
+      "empty": "Виберіть запити й натисніть «Запустити».",
+      "loaded": "Рядків завантажено з {file}: {count}",
+      "parseFailed": "Не вдалося прочитати файл даних: {message}",
+      "runFailed": "Запуск не вдався: {message}"
     }
   },
   "RichEditor": {

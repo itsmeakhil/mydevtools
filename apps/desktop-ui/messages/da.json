@@ -2367,6 +2367,33 @@
       "importFailed": "Cookies kunne ikke importeres: {message}",
       "clearDomainLabel": "Ryd cookies for {domain}",
       "deleteLabel": "Slet cookie {name}"
+    },
+    "runner": {
+      "title": "Kør samling: {name}",
+      "description": "Sender de valgte forespørgsler i rækkefølge. Scripts, cookiekrukke, OAuth-fornyelse og variabler virker præcis som ved en normal afsendelse.",
+      "iterations": "Gentagelser",
+      "iterationsFromData": "Gentagelser sat til {count} af datafilen",
+      "dataFile": "Datafil (CSV eller JSON-array)",
+      "choose": "Vælg",
+      "removeDataFile": "Fjern datafil",
+      "noDataFile": "Ingen",
+      "delay": "Pause mellem forespørgsler (ms)",
+      "bail": "Stop ved første fejl",
+      "requests": "Forespørgsler: {selected} af {total}",
+      "selectAll": "Alle",
+      "selectNone": "Ingen",
+      "run": "Kør",
+      "abort": "Afbryd",
+      "clear": "Ryd",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML-rapport",
+      "passed": "Bestået: {count}",
+      "failed": "Fejlet: {count}",
+      "networkErrors": "Netværksfejl: {count}",
+      "empty": "Vælg forespørgsler, og klik på Kør.",
+      "loaded": "Rækker indlæst fra {file}: {count}",
+      "parseFailed": "Kunne ikke læse datafilen: {message}",
+      "runFailed": "Kørslen mislykkedes: {message}"
     }
   },
   "RichEditor": {

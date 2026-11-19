@@ -2367,6 +2367,33 @@
       "importFailed": "Kunne ikke importere informasjonskapsler: {message}",
       "clearDomainLabel": "Fjern informasjonskapsler for {domain}",
       "deleteLabel": "Slett informasjonskapselen {name}"
+    },
+    "runner": {
+      "title": "Kjør samling: {name}",
+      "description": "Sender de valgte forespørslene i rekkefølge. Skript, informasjonskapselkrukke, OAuth-fornying og variabler fungerer akkurat som ved en vanlig sending.",
+      "iterations": "Gjentakelser",
+      "iterationsFromData": "Gjentakelser satt til {count} av datafilen",
+      "dataFile": "Datafil (CSV eller JSON-matrise)",
+      "choose": "Velg",
+      "removeDataFile": "Fjern datafil",
+      "noDataFile": "Ingen",
+      "delay": "Pause mellom forespørsler (ms)",
+      "bail": "Stopp ved første feil",
+      "requests": "Forespørsler: {selected} av {total}",
+      "selectAll": "Alle",
+      "selectNone": "Ingen",
+      "run": "Kjør",
+      "abort": "Avbryt",
+      "clear": "Tøm",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "HTML-rapport",
+      "passed": "Bestått: {count}",
+      "failed": "Mislyktes: {count}",
+      "networkErrors": "Nettverksfeil: {count}",
+      "empty": "Velg forespørsler og klikk Kjør.",
+      "loaded": "Rader lastet fra {file}: {count}",
+      "parseFailed": "Kunne ikke lese datafilen: {message}",
+      "runFailed": "Kjøringen mislyktes: {message}"
     }
   },
   "RichEditor": {

@@ -2367,6 +2367,33 @@
       "importFailed": "Δεν ήταν δυνατή η εισαγωγή cookies: {message}",
       "clearDomainLabel": "Διαγραφή cookies για {domain}",
       "deleteLabel": "Διαγραφή cookie {name}"
+    },
+    "runner": {
+      "title": "Εκτέλεση συλλογής: {name}",
+      "description": "Στέλνει τα επιλεγμένα αιτήματα με τη σειρά. Τα σενάρια, το βάζο cookies, η ανανέωση OAuth και οι μεταβλητές λειτουργούν ακριβώς όπως σε μια κανονική αποστολή.",
+      "iterations": "Επαναλήψεις",
+      "iterationsFromData": "Οι επαναλήψεις ορίστηκαν σε {count} από το αρχείο δεδομένων",
+      "dataFile": "Αρχείο δεδομένων (CSV ή πίνακας JSON)",
+      "choose": "Επιλογή",
+      "removeDataFile": "Αφαίρεση αρχείου δεδομένων",
+      "noDataFile": "Κανένα",
+      "delay": "Καθυστέρηση μεταξύ αιτημάτων (ms)",
+      "bail": "Διακοπή στην πρώτη αποτυχία",
+      "requests": "Αιτήματα: {selected} από {total}",
+      "selectAll": "Όλα",
+      "selectNone": "Κανένα",
+      "run": "Εκτέλεση",
+      "abort": "Ματαίωση",
+      "clear": "Εκκαθάριση",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Αναφορά HTML",
+      "passed": "Επιτυχή: {count}",
+      "failed": "Αποτυχημένα: {count}",
+      "networkErrors": "Σφάλματα δικτύου: {count}",
+      "empty": "Επιλέξτε αιτήματα και πατήστε Εκτέλεση.",
+      "loaded": "Γραμμές από {file}: {count}",
+      "parseFailed": "Δεν ήταν δυνατή η ανάγνωση του αρχείου δεδομένων: {message}",
+      "runFailed": "Η εκτέλεση απέτυχε: {message}"
     }
   },
   "RichEditor": {

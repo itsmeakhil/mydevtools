@@ -2367,6 +2367,33 @@
       "importFailed": "No se pudieron importar las cookies: {message}",
       "clearDomainLabel": "Borrar cookies de {domain}",
       "deleteLabel": "Eliminar la cookie {name}"
+    },
+    "runner": {
+      "title": "Ejecutar colección: {name}",
+      "description": "Envía las peticiones seleccionadas en orden. Los scripts, el tarro de cookies, la renovación de OAuth y las variables funcionan igual que en un envío normal.",
+      "iterations": "Iteraciones",
+      "iterationsFromData": "Iteraciones fijadas en {count} por el archivo de datos",
+      "dataFile": "Archivo de datos (CSV o array JSON)",
+      "choose": "Elegir",
+      "removeDataFile": "Quitar archivo de datos",
+      "noDataFile": "Ninguno",
+      "delay": "Retardo entre peticiones (ms)",
+      "bail": "Detener en el primer fallo",
+      "requests": "Peticiones: {selected} de {total}",
+      "selectAll": "Todas",
+      "selectNone": "Ninguna",
+      "run": "Ejecutar",
+      "abort": "Cancelar",
+      "clear": "Borrar",
+      "exportJunit": "JUnit XML",
+      "exportHtml": "Informe HTML",
+      "passed": "Superadas: {count}",
+      "failed": "Fallidas: {count}",
+      "networkErrors": "Errores de red: {count}",
+      "empty": "Elige peticiones y haz clic en Ejecutar.",
+      "loaded": "Filas cargadas de {file}: {count}",
+      "parseFailed": "No se pudo leer el archivo de datos: {message}",
+      "runFailed": "La ejecución falló: {message}"
     }
   },
   "RichEditor": {
