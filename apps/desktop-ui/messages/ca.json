@@ -2286,6 +2286,37 @@
       "proxyPassword": "Contrasenya",
       "proxyBypass": "No fer servir el servidor intermediari per a",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Servidor simulat…",
+      "title": "Servidor simulat",
+      "description": "Serveix els exemples desats de {name} a 127.0.0.1. Un segment de camí com :id coincideix amb qualsevol valor.",
+      "running": "En marxa al port {port}",
+      "stopped": "Aturat",
+      "port": "Port",
+      "latency": "Latència (ms)",
+      "start": "Inicia",
+      "apply": "Aplica",
+      "stop": "Atura",
+      "copyUrl": "Copia l'URL",
+      "urlCopied": "S'ha copiat l'URL simulat — afegeix-hi el camí de la petició",
+      "requests": "Peticions",
+      "clear": "Neteja",
+      "empty": "Encara no hi ha peticions",
+      "noMatch": "Cap coincidència",
+      "portInUse": "El port {port} ja està en ús",
+      "invalidPort": "Introdueix un port entre 1024 i 65535",
+      "failed": "Error del servidor simulat"
+    },
+    "plugins": {
+      "title": "Connectors",
+      "description": "Els connectors executen JavaScript a cada petició que envies. Afegeix només codi de confiança.",
+      "empty": "No hi ha cap connector instal·lat",
+      "toggle": "Activa {name}",
+      "delete": "Suprimeix {name}",
+      "name": "Nom",
+      "source": "Codi font",
+      "add": "Afegeix un connector"
     }
   },
   "RichEditor": {

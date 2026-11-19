@@ -2286,6 +2286,37 @@
       "proxyPassword": "パスワード",
       "proxyBypass": "プロキシを使わないホスト",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "モックサーバー…",
+      "title": "モックサーバー",
+      "description": "{name} の保存済みサンプルを 127.0.0.1 で提供します。:id のようなパスセグメントは任意の値に一致します。",
+      "running": "ポート {port} で実行中",
+      "stopped": "停止中",
+      "port": "ポート",
+      "latency": "遅延 (ms)",
+      "start": "開始",
+      "apply": "適用",
+      "stop": "停止",
+      "copyUrl": "URL をコピー",
+      "urlCopied": "モック URL をコピーしました — リクエストのパスを付け加えてください",
+      "requests": "リクエスト",
+      "clear": "クリア",
+      "empty": "まだリクエストはありません",
+      "noMatch": "一致なし",
+      "portInUse": "ポート {port} は既に使用されています",
+      "invalidPort": "1024 から 65535 のポートを入力してください",
+      "failed": "モックサーバーのエラー"
+    },
+    "plugins": {
+      "title": "プラグイン",
+      "description": "プラグインは送信するすべてのリクエストで JavaScript を実行します。信頼できるコードだけを追加してください。",
+      "empty": "インストール済みのプラグインはありません",
+      "toggle": "{name} を有効にする",
+      "delete": "{name} を削除",
+      "name": "名前",
+      "source": "ソースコード",
+      "add": "プラグインを追加"
     }
   },
   "RichEditor": {

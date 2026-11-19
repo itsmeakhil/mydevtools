@@ -2286,6 +2286,37 @@
       "proxyPassword": "Kata laluan",
       "proxyBypass": "Langkau proksi untuk",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Pelayan olok-olok…",
+      "title": "Pelayan olok-olok",
+      "description": "Menyajikan contoh tersimpan {name} pada 127.0.0.1. Segmen laluan seperti :id sepadan dengan sebarang nilai.",
+      "running": "Berjalan pada port {port}",
+      "stopped": "Dihentikan",
+      "port": "Port",
+      "latency": "Kependaman (ms)",
+      "start": "Mula",
+      "apply": "Guna",
+      "stop": "Henti",
+      "copyUrl": "Salin URL",
+      "urlCopied": "URL olok-olok disalin — tambah laluan permintaan",
+      "requests": "Permintaan",
+      "clear": "Kosongkan",
+      "empty": "Belum ada permintaan",
+      "noMatch": "Tiada padanan",
+      "portInUse": "Port {port} sudah digunakan",
+      "invalidPort": "Masukkan port antara 1024 dan 65535",
+      "failed": "Ralat pelayan olok-olok"
+    },
+    "plugins": {
+      "title": "Pemalam",
+      "description": "Pemalam menjalankan JavaScript pada setiap permintaan yang anda hantar. Tambah hanya kod yang anda percayai.",
+      "empty": "Tiada pemalam dipasang",
+      "toggle": "Dayakan {name}",
+      "delete": "Padam {name}",
+      "name": "Nama",
+      "source": "Kod sumber",
+      "add": "Tambah pemalam"
     }
   },
   "RichEditor": {

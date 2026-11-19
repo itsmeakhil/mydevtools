@@ -2286,6 +2286,37 @@
       "proxyPassword": "Mot de passe",
       "proxyBypass": "Ne pas utiliser le proxy pour",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Serveur fictif…",
+      "title": "Serveur fictif",
+      "description": "Sert les exemples enregistrés de {name} sur 127.0.0.1. Un segment de chemin comme :id correspond à n'importe quelle valeur.",
+      "running": "En cours sur le port {port}",
+      "stopped": "Arrêté",
+      "port": "Port",
+      "latency": "Latence (ms)",
+      "start": "Démarrer",
+      "apply": "Appliquer",
+      "stop": "Arrêter",
+      "copyUrl": "Copier l'URL",
+      "urlCopied": "URL fictive copiée — ajoutez le chemin de la requête",
+      "requests": "Requêtes",
+      "clear": "Effacer",
+      "empty": "Aucune requête pour l'instant",
+      "noMatch": "Aucune correspondance",
+      "portInUse": "Le port {port} est déjà utilisé",
+      "invalidPort": "Saisissez un port entre 1024 et 65535",
+      "failed": "Erreur du serveur fictif"
+    },
+    "plugins": {
+      "title": "Extensions",
+      "description": "Les extensions exécutent du JavaScript à chaque requête envoyée. N'ajoutez que du code de confiance.",
+      "empty": "Aucune extension installée",
+      "toggle": "Activer {name}",
+      "delete": "Supprimer {name}",
+      "name": "Nom",
+      "source": "Code source",
+      "add": "Ajouter une extension"
     }
   },
   "RichEditor": {

@@ -2286,6 +2286,37 @@
       "proxyPassword": "密码",
       "proxyBypass": "以下主机不使用代理",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "模拟服务器…",
+      "title": "模拟服务器",
+      "description": "在 127.0.0.1 上提供 {name} 的已保存示例。像 :id 这样的路径段可匹配任意值。",
+      "running": "正在端口 {port} 上运行",
+      "stopped": "已停止",
+      "port": "端口",
+      "latency": "延迟（毫秒）",
+      "start": "启动",
+      "apply": "应用",
+      "stop": "停止",
+      "copyUrl": "复制 URL",
+      "urlCopied": "已复制模拟 URL — 请追加请求路径",
+      "requests": "请求",
+      "clear": "清除",
+      "empty": "暂无请求",
+      "noMatch": "无匹配",
+      "portInUse": "端口 {port} 已被占用",
+      "invalidPort": "请输入 1024 到 65535 之间的端口",
+      "failed": "模拟服务器错误"
+    },
+    "plugins": {
+      "title": "插件",
+      "description": "插件会在你发送的每个请求上运行 JavaScript。只添加你信任的代码。",
+      "empty": "未安装插件",
+      "toggle": "启用 {name}",
+      "delete": "删除 {name}",
+      "name": "名称",
+      "source": "源代码",
+      "add": "添加插件"
     }
   },
   "RichEditor": {

@@ -2286,6 +2286,37 @@
       "proxyPassword": "Wagwoord",
       "proxyBypass": "Slaan die instaanbediener oor vir",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Nabootsbediener…",
+      "title": "Nabootsbediener",
+      "description": "Bedien die gestoorde voorbeelde van {name} op 127.0.0.1. 'n Padsegment soos :id pas by enige waarde.",
+      "running": "Loop op poort {port}",
+      "stopped": "Gestop",
+      "port": "Poort",
+      "latency": "Vertraging (ms)",
+      "start": "Begin",
+      "apply": "Pas toe",
+      "stop": "Stop",
+      "copyUrl": "Kopieer URL",
+      "urlCopied": "Nabootsings-URL gekopieer — voeg die versoekpad by",
+      "requests": "Versoeke",
+      "clear": "Maak skoon",
+      "empty": "Nog geen versoeke nie",
+      "noMatch": "Geen passing nie",
+      "portInUse": "Poort {port} is reeds in gebruik",
+      "invalidPort": "Voer 'n poort tussen 1024 en 65535 in",
+      "failed": "Nabootsbedienerfout"
+    },
+    "plugins": {
+      "title": "Inproppe",
+      "description": "Inproppe voer JavaScript uit op elke versoek wat jy stuur. Voeg slegs kode by wat jy vertrou.",
+      "empty": "Geen inproppe geïnstalleer nie",
+      "toggle": "Aktiveer {name}",
+      "delete": "Skrap {name}",
+      "name": "Naam",
+      "source": "Bronkode",
+      "add": "Voeg inprop by"
     }
   },
   "RichEditor": {

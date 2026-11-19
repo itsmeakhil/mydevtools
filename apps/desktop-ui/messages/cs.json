@@ -2286,6 +2286,37 @@
       "proxyPassword": "Heslo",
       "proxyBypass": "Bez proxy pro",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock server…",
+      "title": "Mock server",
+      "description": "Poskytuje uložené příklady kolekce {name} na 127.0.0.1. Segment cesty jako :id odpovídá libovolné hodnotě.",
+      "running": "Běží na portu {port}",
+      "stopped": "Zastaveno",
+      "port": "Port",
+      "latency": "Latence (ms)",
+      "start": "Spustit",
+      "apply": "Použít",
+      "stop": "Zastavit",
+      "copyUrl": "Kopírovat URL",
+      "urlCopied": "URL mocku zkopírována — připojte cestu požadavku",
+      "requests": "Požadavky",
+      "clear": "Vymazat",
+      "empty": "Zatím žádné požadavky",
+      "noMatch": "Bez shody",
+      "portInUse": "Port {port} je již používán",
+      "invalidPort": "Zadejte port mezi 1024 a 65535",
+      "failed": "Chyba mock serveru"
+    },
+    "plugins": {
+      "title": "Pluginy",
+      "description": "Pluginy spouštějí JavaScript u každého odeslaného požadavku. Přidávejte jen kód, kterému důvěřujete.",
+      "empty": "Žádné nainstalované pluginy",
+      "toggle": "Povolit {name}",
+      "delete": "Smazat {name}",
+      "name": "Název",
+      "source": "Zdrojový kód",
+      "add": "Přidat plugin"
     }
   },
   "RichEditor": {

@@ -2286,6 +2286,37 @@
       "proxyPassword": "Kata sandi",
       "proxyBypass": "Lewati proxy untuk",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Server tiruan…",
+      "title": "Server tiruan",
+      "description": "Menyajikan contoh tersimpan dari {name} di 127.0.0.1. Segmen jalur seperti :id cocok dengan nilai apa pun.",
+      "running": "Berjalan di port {port}",
+      "stopped": "Berhenti",
+      "port": "Port",
+      "latency": "Latensi (ms)",
+      "start": "Mulai",
+      "apply": "Terapkan",
+      "stop": "Hentikan",
+      "copyUrl": "Salin URL",
+      "urlCopied": "URL tiruan disalin — tambahkan jalur permintaan",
+      "requests": "Permintaan",
+      "clear": "Bersihkan",
+      "empty": "Belum ada permintaan",
+      "noMatch": "Tidak cocok",
+      "portInUse": "Port {port} sudah digunakan",
+      "invalidPort": "Masukkan port antara 1024 dan 65535",
+      "failed": "Kesalahan server tiruan"
+    },
+    "plugins": {
+      "title": "Plugin",
+      "description": "Plugin menjalankan JavaScript pada setiap permintaan yang Anda kirim. Hanya tambahkan kode yang Anda percayai.",
+      "empty": "Belum ada plugin terpasang",
+      "toggle": "Aktifkan {name}",
+      "delete": "Hapus {name}",
+      "name": "Nama",
+      "source": "Kode sumber",
+      "add": "Tambah plugin"
     }
   },
   "RichEditor": {

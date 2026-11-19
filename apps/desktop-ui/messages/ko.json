@@ -2286,6 +2286,37 @@
       "proxyPassword": "비밀번호",
       "proxyBypass": "프록시를 건너뛸 호스트",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "모의 서버…",
+      "title": "모의 서버",
+      "description": "{name}의 저장된 예제를 127.0.0.1에서 제공합니다. :id 같은 경로 세그먼트는 어떤 값과도 일치합니다.",
+      "running": "포트 {port}에서 실행 중",
+      "stopped": "중지됨",
+      "port": "포트",
+      "latency": "지연 시간 (ms)",
+      "start": "시작",
+      "apply": "적용",
+      "stop": "중지",
+      "copyUrl": "URL 복사",
+      "urlCopied": "모의 URL을 복사했습니다 — 요청 경로를 덧붙이세요",
+      "requests": "요청",
+      "clear": "지우기",
+      "empty": "아직 요청이 없습니다",
+      "noMatch": "일치 없음",
+      "portInUse": "포트 {port}은(는) 이미 사용 중입니다",
+      "invalidPort": "1024에서 65535 사이의 포트를 입력하세요",
+      "failed": "모의 서버 오류"
+    },
+    "plugins": {
+      "title": "플러그인",
+      "description": "플러그인은 보내는 모든 요청에서 JavaScript를 실행합니다. 신뢰할 수 있는 코드만 추가하세요.",
+      "empty": "설치된 플러그인이 없습니다",
+      "toggle": "{name} 사용",
+      "delete": "{name} 삭제",
+      "name": "이름",
+      "source": "소스 코드",
+      "add": "플러그인 추가"
     }
   },
   "RichEditor": {

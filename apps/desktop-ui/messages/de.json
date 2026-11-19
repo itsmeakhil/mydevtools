@@ -2286,6 +2286,37 @@
       "proxyPassword": "Passwort",
       "proxyBypass": "Proxy umgehen für",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock-Server…",
+      "title": "Mock-Server",
+      "description": "Stellt die gespeicherten Beispiele von {name} auf 127.0.0.1 bereit. Ein Pfadsegment wie :id passt auf jeden Wert.",
+      "running": "Läuft auf Port {port}",
+      "stopped": "Gestoppt",
+      "port": "Port",
+      "latency": "Latenz (ms)",
+      "start": "Starten",
+      "apply": "Übernehmen",
+      "stop": "Stoppen",
+      "copyUrl": "URL kopieren",
+      "urlCopied": "Mock-URL kopiert — hänge den Anfragepfad an",
+      "requests": "Anfragen",
+      "clear": "Leeren",
+      "empty": "Noch keine Anfragen",
+      "noMatch": "Kein Treffer",
+      "portInUse": "Port {port} wird bereits verwendet",
+      "invalidPort": "Gib einen Port zwischen 1024 und 65535 ein",
+      "failed": "Mock-Server-Fehler"
+    },
+    "plugins": {
+      "title": "Plugins",
+      "description": "Plugins führen bei jeder gesendeten Anfrage JavaScript aus. Füge nur Code hinzu, dem du vertraust.",
+      "empty": "Keine Plugins installiert",
+      "toggle": "{name} aktivieren",
+      "delete": "{name} löschen",
+      "name": "Name",
+      "source": "Quellcode",
+      "add": "Plugin hinzufügen"
     }
   },
   "RichEditor": {

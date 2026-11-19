@@ -2286,6 +2286,37 @@
       "proxyPassword": "Password",
       "proxyBypass": "Non usare il proxy per",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Server mock…",
+      "title": "Server mock",
+      "description": "Fornisce gli esempi salvati di {name} su 127.0.0.1. Un segmento di percorso come :id corrisponde a qualsiasi valore.",
+      "running": "In esecuzione sulla porta {port}",
+      "stopped": "Arrestato",
+      "port": "Porta",
+      "latency": "Latenza (ms)",
+      "start": "Avvia",
+      "apply": "Applica",
+      "stop": "Arresta",
+      "copyUrl": "Copia URL",
+      "urlCopied": "URL mock copiato — aggiungi il percorso della richiesta",
+      "requests": "Richieste",
+      "clear": "Cancella",
+      "empty": "Ancora nessuna richiesta",
+      "noMatch": "Nessuna corrispondenza",
+      "portInUse": "La porta {port} è già in uso",
+      "invalidPort": "Inserisci una porta tra 1024 e 65535",
+      "failed": "Errore del server mock"
+    },
+    "plugins": {
+      "title": "Plugin",
+      "description": "I plugin eseguono JavaScript a ogni richiesta inviata. Aggiungi solo codice di cui ti fidi.",
+      "empty": "Nessun plugin installato",
+      "toggle": "Attiva {name}",
+      "delete": "Elimina {name}",
+      "name": "Nome",
+      "source": "Codice sorgente",
+      "add": "Aggiungi plugin"
     }
   },
   "RichEditor": {
