@@ -2286,6 +2286,37 @@
       "proxyPassword": "Passord",
       "proxyBypass": "Hopp over proxyen for",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mock-server…",
+      "title": "Mock-server",
+      "description": "Leverer de lagrede eksemplene fra {name} på 127.0.0.1. Et stisegment som :id samsvarer med enhver verdi.",
+      "running": "Kjører på port {port}",
+      "stopped": "Stoppet",
+      "port": "Port",
+      "latency": "Forsinkelse (ms)",
+      "start": "Start",
+      "apply": "Bruk",
+      "stop": "Stopp",
+      "copyUrl": "Kopier URL",
+      "urlCopied": "Mock-URL kopiert — legg til forespørselsstien",
+      "requests": "Forespørsler",
+      "clear": "Tøm",
+      "empty": "Ingen forespørsler ennå",
+      "noMatch": "Ingen treff",
+      "portInUse": "Port {port} er allerede i bruk",
+      "invalidPort": "Skriv inn en port mellom 1024 og 65535",
+      "failed": "Feil i mock-server"
+    },
+    "plugins": {
+      "title": "Programtillegg",
+      "description": "Programtillegg kjører JavaScript på hver forespørsel du sender. Legg bare til kode du stoler på.",
+      "empty": "Ingen programtillegg installert",
+      "toggle": "Aktiver {name}",
+      "delete": "Slett {name}",
+      "name": "Navn",
+      "source": "Kildekode",
+      "add": "Legg til programtillegg"
     }
   },
   "RichEditor": {

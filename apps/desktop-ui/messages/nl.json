@@ -2286,6 +2286,37 @@
       "proxyPassword": "Wachtwoord",
       "proxyBypass": "Proxy overslaan voor",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mockserver…",
+      "title": "Mockserver",
+      "description": "Serveert de opgeslagen voorbeelden van {name} op 127.0.0.1. Een padsegment zoals :id komt overeen met elke waarde.",
+      "running": "Actief op poort {port}",
+      "stopped": "Gestopt",
+      "port": "Poort",
+      "latency": "Vertraging (ms)",
+      "start": "Starten",
+      "apply": "Toepassen",
+      "stop": "Stoppen",
+      "copyUrl": "URL kopiëren",
+      "urlCopied": "Mock-URL gekopieerd — voeg het verzoekpad toe",
+      "requests": "Verzoeken",
+      "clear": "Wissen",
+      "empty": "Nog geen verzoeken",
+      "noMatch": "Geen overeenkomst",
+      "portInUse": "Poort {port} is al in gebruik",
+      "invalidPort": "Voer een poort tussen 1024 en 65535 in",
+      "failed": "Fout in mockserver"
+    },
+    "plugins": {
+      "title": "Plug-ins",
+      "description": "Plug-ins voeren JavaScript uit bij elk verzoek dat je verstuurt. Voeg alleen code toe die je vertrouwt.",
+      "empty": "Geen plug-ins geïnstalleerd",
+      "toggle": "{name} inschakelen",
+      "delete": "{name} verwijderen",
+      "name": "Naam",
+      "source": "Broncode",
+      "add": "Plug-in toevoegen"
     }
   },
   "RichEditor": {

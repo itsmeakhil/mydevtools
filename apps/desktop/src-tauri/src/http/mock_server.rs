@@ -467,6 +467,7 @@ mod tests {
         });
         assert!(bind(Some(port)).await.is_err());
         shutdown(Running { port, task }).await;
-        assert!(bind(Some(port)).await.is_ok());
+        let rebound = bind(Some(port)).await;
+        assert!(rebound.is_ok(), "{:?}", rebound.err());
     }
 }

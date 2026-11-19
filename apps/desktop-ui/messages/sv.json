@@ -2286,6 +2286,37 @@
       "proxyPassword": "Lösenord",
       "proxyBypass": "Hoppa över proxyn för",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Mockserver…",
+      "title": "Mockserver",
+      "description": "Serverar de sparade exemplen från {name} på 127.0.0.1. Ett sökvägssegment som :id matchar valfritt värde.",
+      "running": "Körs på port {port}",
+      "stopped": "Stoppad",
+      "port": "Port",
+      "latency": "Fördröjning (ms)",
+      "start": "Starta",
+      "apply": "Tillämpa",
+      "stop": "Stoppa",
+      "copyUrl": "Kopiera URL",
+      "urlCopied": "Mock-URL kopierad — lägg till begärans sökväg",
+      "requests": "Begäranden",
+      "clear": "Rensa",
+      "empty": "Inga begäranden än",
+      "noMatch": "Ingen matchning",
+      "portInUse": "Port {port} används redan",
+      "invalidPort": "Ange en port mellan 1024 och 65535",
+      "failed": "Fel i mockserver"
+    },
+    "plugins": {
+      "title": "Tillägg",
+      "description": "Tillägg kör JavaScript vid varje begäran du skickar. Lägg bara till kod du litar på.",
+      "empty": "Inga tillägg installerade",
+      "toggle": "Aktivera {name}",
+      "delete": "Ta bort {name}",
+      "name": "Namn",
+      "source": "Källkod",
+      "add": "Lägg till tillägg"
     }
   },
   "RichEditor": {

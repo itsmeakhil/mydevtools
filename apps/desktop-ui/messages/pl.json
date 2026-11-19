@@ -2286,6 +2286,37 @@
       "proxyPassword": "Hasło",
       "proxyBypass": "Pomiń proxy dla",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Serwer mock…",
+      "title": "Serwer mock",
+      "description": "Udostępnia zapisane przykłady kolekcji {name} na 127.0.0.1. Segment ścieżki taki jak :id pasuje do dowolnej wartości.",
+      "running": "Działa na porcie {port}",
+      "stopped": "Zatrzymany",
+      "port": "Port",
+      "latency": "Opóźnienie (ms)",
+      "start": "Uruchom",
+      "apply": "Zastosuj",
+      "stop": "Zatrzymaj",
+      "copyUrl": "Kopiuj URL",
+      "urlCopied": "Skopiowano URL mocka — dopisz ścieżkę żądania",
+      "requests": "Żądania",
+      "clear": "Wyczyść",
+      "empty": "Brak żądań",
+      "noMatch": "Brak dopasowania",
+      "portInUse": "Port {port} jest już używany",
+      "invalidPort": "Podaj port od 1024 do 65535",
+      "failed": "Błąd serwera mock"
+    },
+    "plugins": {
+      "title": "Wtyczki",
+      "description": "Wtyczki uruchamiają JavaScript przy każdym wysyłanym żądaniu. Dodawaj tylko kod, któremu ufasz.",
+      "empty": "Brak zainstalowanych wtyczek",
+      "toggle": "Włącz {name}",
+      "delete": "Usuń {name}",
+      "name": "Nazwa",
+      "source": "Kod źródłowy",
+      "add": "Dodaj wtyczkę"
     }
   },
   "RichEditor": {

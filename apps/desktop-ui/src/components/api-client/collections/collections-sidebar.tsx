@@ -18,6 +18,10 @@ const CollectionRunnerDialog = dynamic(
     () => import("../collection-runner-dialog").then((m) => ({ default: m.CollectionRunnerDialog })),
     { ssr: false, loading: () => null },
 )
+const MockServerDialog = dynamic(
+    () => import("../mock-server-dialog").then((m) => ({ default: m.MockServerDialog })),
+    { ssr: false, loading: () => null },
+)
 import { useWorkspacesContext } from "../context/workspaces-context"
 import { WorkspacesDialog } from "../workspaces-dialog"
 import { Briefcase } from "lucide-react"
@@ -153,6 +157,8 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
     const [targetParentId, setTargetParentId] = React.useState<string | null>(null)
     const [targetCollectionId, setTargetCollectionId] = React.useState<string | null>(null)
     const [runnerCollection, setRunnerCollection] = React.useState<Collection | null>(null)
+    const [mockCollection, setMockCollection] = React.useState<Collection | null>(null)
+    const tMock = useTranslations("ApiClient.mockServer")
     const [defaultsTarget, setDefaultsTarget] = React.useState<DefaultsTarget | null>(null)
     const editFolderDefaults = React.useCallback((item: CollectionFolder) => setDefaultsTarget({ kind: "folder", item }), [])
     const tDefaults = useTranslations("ApiClient.collectionDefaults")
@@ -558,6 +564,12 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                             <Server className="h-4 w-4 mr-2" />
                                                             Copy mock URL
                                                         </DropdownMenuItem>
+                                                        {desktop && (
+                                                            <DropdownMenuItem onClick={() => setMockCollection(collection)}>
+                                                                <Server className="h-4 w-4 mr-2" />
+                                                                {tMock("menu")}
+                                                            </DropdownMenuItem>
+                                                        )}
                                                         <DropdownMenuItem
                                                             onClick={async () => {
                                                                 if (typeof window === "undefined") return
@@ -863,6 +875,9 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 onOpenChange={(o) => { if (!o) setRunnerCollection(null) }}
                 collection={runnerCollection}
             />
+            {mockCollection && (
+                <MockServerDialog collection={mockCollection} onOpenChange={(o) => { if (!o) setMockCollection(null) }} />
+            )}
             <WorkspacesDialog open={workspaceDialogOpen} onOpenChange={setWorkspaceDialogOpen} />
             <Dialog open={moveSource !== null} onOpenChange={(o) => { if (!o) setMoveSource(null) }}>
                 <DialogContent className="sm:max-w-[425px]">

@@ -2286,6 +2286,37 @@
       "proxyPassword": "كلمة المرور",
       "proxyBypass": "تجاوز الوكيل لـ",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "خادم المحاكاة…",
+      "title": "خادم المحاكاة",
+      "description": "يقدّم الأمثلة المحفوظة لـ {name} على 127.0.0.1. يطابق جزء مسار مثل ‎:id أي قيمة.",
+      "running": "يعمل على المنفذ {port}",
+      "stopped": "متوقف",
+      "port": "المنفذ",
+      "latency": "زمن التأخير (مللي ثانية)",
+      "start": "تشغيل",
+      "apply": "تطبيق",
+      "stop": "إيقاف",
+      "copyUrl": "نسخ الرابط",
+      "urlCopied": "تم نسخ رابط المحاكاة — أضف مسار الطلب",
+      "requests": "الطلبات",
+      "clear": "مسح",
+      "empty": "لا توجد طلبات بعد",
+      "noMatch": "لا تطابق",
+      "portInUse": "المنفذ {port} مستخدم بالفعل",
+      "invalidPort": "أدخل منفذًا بين 1024 و65535",
+      "failed": "خطأ في خادم المحاكاة"
+    },
+    "plugins": {
+      "title": "الإضافات",
+      "description": "تشغّل الإضافات JavaScript على كل طلب ترسله. لا تضف إلا شيفرة تثق بها.",
+      "empty": "لا توجد إضافات مثبتة",
+      "toggle": "تفعيل {name}",
+      "delete": "حذف {name}",
+      "name": "الاسم",
+      "source": "الشيفرة المصدرية",
+      "add": "إضافة إضافة"
     }
   },
   "RichEditor": {

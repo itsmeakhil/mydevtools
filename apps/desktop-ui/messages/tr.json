@@ -2286,6 +2286,37 @@
       "proxyPassword": "Parola",
       "proxyBypass": "Proxy'yi şunlar için atla",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Sahte sunucu…",
+      "title": "Sahte sunucu",
+      "description": "{name} koleksiyonunun kayıtlı örneklerini 127.0.0.1 üzerinde sunar. :id gibi bir yol parçası herhangi bir değerle eşleşir.",
+      "running": "{port} bağlantı noktasında çalışıyor",
+      "stopped": "Durduruldu",
+      "port": "Bağlantı noktası",
+      "latency": "Gecikme (ms)",
+      "start": "Başlat",
+      "apply": "Uygula",
+      "stop": "Durdur",
+      "copyUrl": "URL'yi kopyala",
+      "urlCopied": "Sahte URL kopyalandı — istek yolunu ekleyin",
+      "requests": "İstekler",
+      "clear": "Temizle",
+      "empty": "Henüz istek yok",
+      "noMatch": "Eşleşme yok",
+      "portInUse": "{port} bağlantı noktası zaten kullanımda",
+      "invalidPort": "1024 ile 65535 arasında bir bağlantı noktası girin",
+      "failed": "Sahte sunucu hatası"
+    },
+    "plugins": {
+      "title": "Eklentiler",
+      "description": "Eklentiler gönderdiğiniz her istekte JavaScript çalıştırır. Yalnızca güvendiğiniz kodu ekleyin.",
+      "empty": "Yüklü eklenti yok",
+      "toggle": "{name} eklentisini etkinleştir",
+      "delete": "{name} eklentisini sil",
+      "name": "Ad",
+      "source": "Kaynak kod",
+      "add": "Eklenti ekle"
     }
   },
   "RichEditor": {

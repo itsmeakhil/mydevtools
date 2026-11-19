@@ -2286,6 +2286,37 @@
       "proxyPassword": "Contraseña",
       "proxyBypass": "No usar el proxy para",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Servidor simulado…",
+      "title": "Servidor simulado",
+      "description": "Sirve los ejemplos guardados de {name} en 127.0.0.1. Un segmento de ruta como :id coincide con cualquier valor.",
+      "running": "En ejecución en el puerto {port}",
+      "stopped": "Detenido",
+      "port": "Puerto",
+      "latency": "Latencia (ms)",
+      "start": "Iniciar",
+      "apply": "Aplicar",
+      "stop": "Detener",
+      "copyUrl": "Copiar URL",
+      "urlCopied": "URL simulada copiada — añade la ruta de la petición",
+      "requests": "Peticiones",
+      "clear": "Borrar",
+      "empty": "Aún no hay peticiones",
+      "noMatch": "Sin coincidencia",
+      "portInUse": "El puerto {port} ya está en uso",
+      "invalidPort": "Introduce un puerto entre 1024 y 65535",
+      "failed": "Error del servidor simulado"
+    },
+    "plugins": {
+      "title": "Complementos",
+      "description": "Los complementos ejecutan JavaScript en cada petición que envías. Añade solo código de confianza.",
+      "empty": "No hay complementos instalados",
+      "toggle": "Activar {name}",
+      "delete": "Eliminar {name}",
+      "name": "Nombre",
+      "source": "Código fuente",
+      "add": "Añadir complemento"
     }
   },
   "RichEditor": {

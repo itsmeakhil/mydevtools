@@ -2286,6 +2286,37 @@
       "proxyPassword": "Mật khẩu",
       "proxyBypass": "Bỏ qua proxy cho",
       "proxyBypassPlaceholder": "localhost, *.internal.example"
+    },
+    "mockServer": {
+      "menu": "Máy chủ giả lập…",
+      "title": "Máy chủ giả lập",
+      "description": "Phục vụ các ví dụ đã lưu của {name} trên 127.0.0.1. Một đoạn đường dẫn như :id khớp với mọi giá trị.",
+      "running": "Đang chạy trên cổng {port}",
+      "stopped": "Đã dừng",
+      "port": "Cổng",
+      "latency": "Độ trễ (ms)",
+      "start": "Bắt đầu",
+      "apply": "Áp dụng",
+      "stop": "Dừng",
+      "copyUrl": "Sao chép URL",
+      "urlCopied": "Đã sao chép URL giả lập — thêm đường dẫn yêu cầu vào sau",
+      "requests": "Yêu cầu",
+      "clear": "Xóa",
+      "empty": "Chưa có yêu cầu nào",
+      "noMatch": "Không khớp",
+      "portInUse": "Cổng {port} đã được sử dụng",
+      "invalidPort": "Nhập cổng từ 1024 đến 65535",
+      "failed": "Lỗi máy chủ giả lập"
+    },
+    "plugins": {
+      "title": "Plugin",
+      "description": "Plugin chạy JavaScript trên mọi yêu cầu bạn gửi. Chỉ thêm mã bạn tin tưởng.",
+      "empty": "Chưa cài plugin nào",
+      "toggle": "Bật {name}",
+      "delete": "Xóa {name}",
+      "name": "Tên",
+      "source": "Mã nguồn",
+      "add": "Thêm plugin"
     }
   },
   "RichEditor": {
