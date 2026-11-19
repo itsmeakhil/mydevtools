@@ -1877,7 +1877,8 @@
         "response": "được đọc từ phản hồi trước khi gửi",
         "secret": "bí mật, được thay khi gửi",
         "missing": "chưa được định nghĩa trong môi trường, bộ sưu tập hay biến toàn cục"
-      }
+      },
+      "cancel": "Hủy"
     },
     "requestTabs": {
       "params": "Tham số",
@@ -1946,7 +1947,13 @@
         "label": "Lọc phản hồi bằng JSONPath",
         "invalid": "JSONPath không hợp lệ",
         "matches": "{count, plural, =0 {Không có kết quả} other {# kết quả}}"
-      }
+      },
+      "streamTab": "Luồng",
+      "streamWaiting": "Đã kết nối. Đang chờ tin nhắn…",
+      "streamEmpty": "Luồng đã kết thúc mà không có tin nhắn nào.",
+      "linesTab": "Dòng",
+      "linesTruncated": "Đang hiển thị {count} dòng đầu tiên.",
+      "lineInvalid": "Không phải JSON hợp lệ: {message}"
     },
     "tabBar": {
       "addTabAria": "Tab mới",

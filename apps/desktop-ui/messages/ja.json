@@ -1877,7 +1877,8 @@
         "response": "送信時に前回のレスポンスから取得",
         "secret": "シークレット、送信時に解決",
         "missing": "環境・コレクション・グローバルのいずれにも定義されていません"
-      }
+      },
+      "cancel": "キャンセル"
     },
     "requestTabs": {
       "params": "パラメータ",
@@ -1946,7 +1947,13 @@
         "label": "JSONPath でレスポンスを絞り込む",
         "invalid": "無効な JSONPath",
         "matches": "{count, plural, =0 {一致なし} other {# 件一致}}"
-      }
+      },
+      "streamTab": "ストリーム",
+      "streamWaiting": "接続しました。メッセージを待っています…",
+      "streamEmpty": "メッセージがないままストリームが終了しました。",
+      "linesTab": "行",
+      "linesTruncated": "最初の {count} 行を表示しています。",
+      "lineInvalid": "有効な JSON ではありません: {message}"
     },
     "tabBar": {
       "addTabAria": "新しいタブ",

@@ -56,6 +56,9 @@ import { signJwt } from "@/lib/auth/jwt-bearer"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
 import { evaluateAssertions } from "@/lib/api-client/assertions"
 import { collectionNet } from "@/lib/api-client/network-settings"
+import { streamSse, wantsEventStream, type StreamEvent } from "@/lib/api-client/sse"
+import { isSubscriptionOperation, toWebSocketUrl } from "@/lib/api-client/graphql-operation"
+import { subscribeGraphqlWs } from "@/lib/graphql-subscriptions"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { withFolderDefaults, findRequestAncestors, findRequestContext, listInheritedHeaders } from "@/lib/folder-inheritance"
@@ -911,6 +914,96 @@ function ApiClientInner() {
                 return
             }
 
+            // ── Live streams: SSE (`Accept: text/event-stream`) and GraphQL subscriptions ──
+            // Messages land on the sending tab's response as they arrive; Cancel stops them.
+            const gql = sendTab.body.type === "graphql" && bodyContent
+                ? JSON.parse(bodyContent) as { query: string; variables?: Record<string, unknown> }
+                : null
+            const isSubscription = !!gql && isSubscriptionOperation(gql.query)
+            if (isSubscription || wantsEventStream(headersObj)) {
+                const tabId = sendTab.id
+                const started = performance.now()
+                const open = (r: Pick<ApiResponse, "status" | "statusText" | "headers">) => updateTab(tabId, {
+                    response: { ...r, body: "", time: Math.round(performance.now() - started), size: 0, streamEvents: [] },
+                })
+                const append = (events: StreamEvent[]) => updateTab(tabId, (tab) => tab.response ? {
+                    // ponytail: keeps the newest 1000 in memory; add a "save transcript" if people need more.
+                    response: { ...tab.response, streamEvents: [...(tab.response.streamEvents ?? []), ...events].slice(-1000) },
+                } : {})
+                let streamError: string | undefined
+                let raw = ""
+                if (gql && isSubscription) {
+                    streamError = await new Promise<string | undefined>((resolve) => {
+                        let acked = false
+                        const handle = subscribeGraphqlWs({
+                            url: toWebSocketUrl(urlObj.toString()),
+                            query: gql.query,
+                            variables: gql.variables,
+                            // Browsers can't set WebSocket headers; graphql-ws servers read auth from here.
+                            connectionParams: headersObj,
+                            onNext: (data, errors) => append([{
+                                event: errors?.length ? "error" : "next",
+                                data: JSON.stringify(errors?.length ? { data, errors } : data, null, 2),
+                                timestamp: Date.now(),
+                            }]),
+                            // A graphql-ws `error` ends the operation; no `complete` follows it.
+                            // Before the ack, `ready` rejects with the reason instead.
+                            onError: (e) => {
+                                if (!acked) return
+                                append([{ event: "error", data: e.message, timestamp: Date.now() }])
+                                handle.close()
+                                resolve(undefined)
+                            },
+                            onComplete: () => resolve(undefined),
+                        })
+                        handle.ready.then(
+                            () => { acked = true; open({ status: 101, statusText: "Switching Protocols", headers: {} }) },
+                            (e: Error) => resolve(e.message),
+                        )
+                        controller.signal.addEventListener("abort", () => { handle.close(); resolve(undefined) }, { once: true })
+                    })
+                } else {
+                    const r = await streamSse({
+                        input: {
+                            url: urlObj.toString(),
+                            method: workMethod,
+                            headers: headersObj,
+                            body: typeof bodyPayload === "string" ? bodyPayload : (bodyContent ?? undefined),
+                            verifySsl: sendTab.verifySsl,
+                            net: collectionNet({ certs: sendCollection?.clientCerts, caPaths: sendCollection?.caPaths }, substituteAll),
+                        },
+                        signal: controller.signal,
+                        onMeta: open,
+                        onEvents: append,
+                    })
+                    streamError = r.error
+                    raw = r.raw
+                }
+                updateTab(tabId, (tab) => ({
+                    isLoading: false,
+                    response: !tab.response
+                        ? (streamError ? { status: 0, statusText: API_CLIENT_ERROR_STATUS_TEXT, headers: {}, body: streamError, time: 0, size: 0, error: streamError } : null)
+                        : {
+                            ...tab.response,
+                            body: raw,
+                            streamEvents: streamError
+                                ? [...(tab.response.streamEvents ?? []), { event: "error", data: streamError, timestamp: Date.now() }]
+                                : tab.response.streamEvents,
+                        },
+                }))
+                addHistoryItem({
+                    method: workMethod as RequestMethod,
+                    url: sendTab.url,
+                    params: sendTab.params,
+                    headers: sendTab.headers,
+                    body: sendTab.body,
+                    auth: sendTab.auth,
+                    preRequestScript: sendTab.preRequestScript,
+                    testScript: sendTab.testScript,
+                }, historyName(sendTab.name, workMethod, sendTab.url), streamError ? 0 : (isSubscription ? 101 : 200))
+                return
+            }
+
             // Plugins: onBeforeSend lets installed plugins mutate URL / headers / body.
             const pluginRequest = {
                 method: workMethod,
@@ -1165,6 +1258,7 @@ function ApiClientInner() {
         activeTab,
         collections,
         updateActiveTab,
+        updateTab,
         isMobile,
         formatJson,
         runScript,

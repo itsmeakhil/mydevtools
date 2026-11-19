@@ -1877,7 +1877,8 @@
         "response": "læses fra det forrige svar ved afsendelse",
         "secret": "hemmelig, opløses ved afsendelse",
         "missing": "ikke defineret i miljøet, samlingen eller de globale"
-      }
+      },
+      "cancel": "Annuller"
     },
     "requestTabs": {
       "params": "Params",
@@ -1946,7 +1947,13 @@
         "label": "Filtrer svar med JSONPath",
         "invalid": "Ugyldig JSONPath",
         "matches": "{count, plural, =0 {Ingen match} one {# match} other {# match}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Forbundet. Venter på beskeder…",
+      "streamEmpty": "Streamen sluttede uden nogen beskeder.",
+      "linesTab": "Linjer",
+      "linesTruncated": "Viser de første {count} linjer.",
+      "lineInvalid": "Ikke gyldig JSON: {message}"
     },
     "tabBar": {
       "addTabAria": "Ny fane",

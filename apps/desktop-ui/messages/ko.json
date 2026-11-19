@@ -1877,7 +1877,8 @@
         "response": "보낼 때 이전 응답에서 읽음",
         "secret": "비밀 값, 보낼 때 확인됨",
         "missing": "환경, 컬렉션, 전역 어디에도 정의되지 않음"
-      }
+      },
+      "cancel": "취소"
     },
     "requestTabs": {
       "params": "매개변수",
@@ -1946,7 +1947,13 @@
         "label": "JSONPath로 응답 필터링",
         "invalid": "잘못된 JSONPath",
         "matches": "{count, plural, =0 {일치 항목 없음} other {#개 일치}}"
-      }
+      },
+      "streamTab": "스트림",
+      "streamWaiting": "연결되었습니다. 메시지를 기다리는 중…",
+      "streamEmpty": "메시지 없이 스트림이 종료되었습니다.",
+      "linesTab": "줄",
+      "linesTruncated": "처음 {count}줄을 표시합니다.",
+      "lineInvalid": "올바른 JSON이 아닙니다: {message}"
     },
     "tabBar": {
       "addTabAria": "새 탭",

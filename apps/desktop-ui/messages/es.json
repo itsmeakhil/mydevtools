@@ -1877,7 +1877,8 @@
         "response": "se lee de la respuesta anterior al enviar",
         "secret": "secreto, se resuelve al enviar",
         "missing": "no definida en el entorno, la colección ni las globales"
-      }
+      },
+      "cancel": "Cancelar"
     },
     "requestTabs": {
       "params": "Parámetros",
@@ -1946,7 +1947,13 @@
         "label": "Filtrar respuesta con JSONPath",
         "invalid": "JSONPath no válido",
         "matches": "{count, plural, =0 {Sin coincidencias} one {# coincidencia} other {# coincidencias}}"
-      }
+      },
+      "streamTab": "Flujo",
+      "streamWaiting": "Conectado. Esperando mensajes…",
+      "streamEmpty": "El flujo terminó sin ningún mensaje.",
+      "linesTab": "Líneas",
+      "linesTruncated": "Se muestran las primeras {count} líneas.",
+      "lineInvalid": "JSON no válido: {message}"
     },
     "tabBar": {
       "addTabAria": "Nueva pestaña",

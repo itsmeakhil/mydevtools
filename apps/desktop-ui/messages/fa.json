@@ -1877,7 +1877,8 @@
         "response": "هنگام ارسال از پاسخ قبلی خوانده می‌شود",
         "secret": "محرمانه، هنگام ارسال جایگزین می‌شود",
         "missing": "در محیط، مجموعه یا متغیرهای سراسری تعریف نشده است"
-      }
+      },
+      "cancel": "لغو"
     },
     "requestTabs": {
       "params": "پارامترها",
@@ -1946,7 +1947,13 @@
         "label": "فیلتر پاسخ با JSONPath",
         "invalid": "JSONPath نامعتبر",
         "matches": "{count, plural, =0 {موردی یافت نشد} one {# مورد} other {# مورد}}"
-      }
+      },
+      "streamTab": "جریان",
+      "streamWaiting": "متصل شد. در انتظار پیام‌ها…",
+      "streamEmpty": "جریان بدون هیچ پیامی پایان یافت.",
+      "linesTab": "خطوط",
+      "linesTruncated": "نمایش {count} خط نخست.",
+      "lineInvalid": "JSON نامعتبر: {message}"
     },
     "tabBar": {
       "addTabAria": "برگه جدید",

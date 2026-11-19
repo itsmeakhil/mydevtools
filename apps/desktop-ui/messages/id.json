@@ -1877,7 +1877,8 @@
         "response": "dibaca dari respons sebelumnya saat dikirim",
         "secret": "rahasia, diisi saat dikirim",
         "missing": "tidak didefinisikan di lingkungan, koleksi, atau global"
-      }
+      },
+      "cancel": "Batal"
     },
     "requestTabs": {
       "params": "parameter",
@@ -1946,7 +1947,13 @@
         "label": "Saring respons dengan JSONPath",
         "invalid": "JSONPath tidak valid",
         "matches": "{count, plural, =0 {Tidak ada hasil} other {# hasil}}"
-      }
+      },
+      "streamTab": "Stream",
+      "streamWaiting": "Terhubung. Menunggu pesan…",
+      "streamEmpty": "Stream berakhir tanpa pesan apa pun.",
+      "linesTab": "Baris",
+      "linesTruncated": "Menampilkan {count} baris pertama.",
+      "lineInvalid": "Bukan JSON yang valid: {message}"
     },
     "tabBar": {
       "addTabAria": "New tab",

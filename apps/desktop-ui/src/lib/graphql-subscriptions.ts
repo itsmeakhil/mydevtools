@@ -99,10 +99,11 @@ export function subscribeGraphqlWs(opts: SubscribeOptions): SubscriptionHandle {
         ready,
         close() {
             if (closed) return
-            try {
-                ws.send(JSON.stringify({ id: subscriptionId, type: "complete" }))
-                ws.close(1000)
-            } catch { /* noop */ }
+            // Still connecting: send() would throw and skip close(), leaving the socket to subscribe anyway.
+            if (acked && ws.readyState === WebSocket.OPEN) {
+                try { ws.send(JSON.stringify({ id: subscriptionId, type: "complete" })) } catch { /* noop */ }
+            }
+            try { ws.close(1000) } catch { /* noop */ }
         },
     }
 }

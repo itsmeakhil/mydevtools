@@ -1877,7 +1877,8 @@
         "response": "es llegeix de la resposta anterior en enviar",
         "secret": "secret, es resol en enviar",
         "missing": "no definida a l'entorn, a la col·lecció ni a les globals"
-      }
+      },
+      "cancel": "Cancel·la"
     },
     "requestTabs": {
       "params": "Params",
@@ -1946,7 +1947,13 @@
         "label": "Filtra la resposta amb JSONPath",
         "invalid": "JSONPath no vàlid",
         "matches": "{count, plural, =0 {Cap coincidència} one {# coincidència} other {# coincidències}}"
-      }
+      },
+      "streamTab": "Flux",
+      "streamWaiting": "Connectat. S'esperen missatges…",
+      "streamEmpty": "El flux ha acabat sense cap missatge.",
+      "linesTab": "Línies",
+      "linesTruncated": "Es mostren les primeres {count} línies.",
+      "lineInvalid": "JSON no vàlid: {message}"
     },
     "tabBar": {
       "addTabAria": "Pestanya nova",
