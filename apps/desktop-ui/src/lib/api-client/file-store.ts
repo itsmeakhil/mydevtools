@@ -242,7 +242,8 @@ function serializeRequestObj(req: CollectionRequest): object {
         params: stripKvIds(req.params),
         headers: stripKvIds(req.headers),
         body: body?.type === "none" ? undefined : body,
-        auth: req.auth?.type === "none" ? undefined : redactAuth(req.auth).auth,
+        // Omitted = inherit (the format's default); `none` is written so it stays explicit.
+        auth: !req.auth || req.auth.type === "inherit" ? undefined : redactAuth(req.auth).auth,
         timeoutMs: req.timeoutMs,
         useCookieJar: req.useCookieJar === false ? false : undefined,
         omitHeaders: req.omitHeaders?.length ? req.omitHeaders : undefined,
@@ -387,7 +388,7 @@ function parseRequest(
         params: restoreKvIds(doc.params as KeyValueItem[]),
         headers: restoreKvIds(doc.headers as KeyValueItem[]),
         body,
-        auth: (doc.auth as CollectionRequest["auth"]) ?? { type: "none" },
+        auth: (doc.auth as CollectionRequest["auth"]) ?? { type: "inherit" },
         timeoutMs: doc.timeoutMs as number | undefined,
         useCookieJar: doc.useCookieJar === false ? false : undefined,
         omitHeaders: Array.isArray(doc.omitHeaders) ? doc.omitHeaders.filter((k): k is string => typeof k === "string") : undefined,

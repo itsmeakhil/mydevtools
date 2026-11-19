@@ -5,8 +5,8 @@
  *
  * Behaviour matches Postman:
  *   - Headers from ancestors are PREPENDED; request-level headers override on key collision.
- *   - Auth: request-level wins; `inherit` (and legacy `none`) take the nearest
- *     ancestor's auth; an `inherit` with nothing to inherit sends no auth.
+ *   - Auth: request-level wins; `inherit` takes the nearest ancestor's auth
+ *     (none to inherit = no auth); `none` is an explicit "send no auth".
  *   - Scripts: ancestor scripts run BEFORE the request's own (concatenated with newlines),
  *               so chaining envOverlay mutations cascades naturally.
  */
@@ -91,9 +91,9 @@ export function applyFolderInheritance<R extends Pick<CollectionRequest, "header
     request: R,
     ancestors: InheritedDefaults[],
 ): R {
-    // Nearest-ancestor-first auth: request wins; `inherit`/`none` look outward.
+    // Nearest-ancestor-first auth: request wins; only `inherit` looks outward.
     let resolvedAuth = request.auth
-    if (resolvedAuth.type === "none" || resolvedAuth.type === "inherit") {
+    if (resolvedAuth.type === "inherit") {
         for (let i = ancestors.length - 1; i >= 0; i--) {
             const a = ancestors[i].defaultAuth
             if (a && a.type !== "none" && a.type !== "inherit") { resolvedAuth = a; break }

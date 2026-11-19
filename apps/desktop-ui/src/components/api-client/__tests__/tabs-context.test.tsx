@@ -35,7 +35,7 @@ describe("createNewTab", () => {
         expect(Array.isArray(tab.params)).toBe(true)
         expect(Array.isArray(tab.headers)).toBe(true)
         expect(tab.body.type).toBe("none")
-        expect(tab.auth.type).toBe("none")
+        expect(tab.auth.type).toBe("inherit")
     })
 
     it("creates tabs with unique IDs", () => {
@@ -145,5 +145,17 @@ describe("resolveActiveTabId", () => {
 
     it("falls back to the first tab when the stored id has no tab", () => {
         expect(resolveActiveTabId(tabs, "gone")).toBe("a")
+    })
+})
+
+describe("restoreTabs", () => {
+    it("turns legacy `none` auth into `inherit` once, and keeps explicit `none` after", async () => {
+        const { createNewTab, restoreTabs } = await import("../context/tabs-context")
+        const tab = { ...createNewTab(), auth: { type: "none" as const }, response: { status: 200 } as never, isLoading: true }
+        const legacy = restoreTabs([tab, { ...tab, auth: { type: "bearer", token: "t" } }], true)
+        expect(legacy.map((t) => t.auth.type)).toEqual(["inherit", "bearer"])
+        expect(legacy[0].response).toBeNull()
+        expect(legacy[0].isLoading).toBe(false)
+        expect(restoreTabs([tab], false)[0].auth.type).toBe("none")
     })
 })

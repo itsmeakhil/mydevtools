@@ -97,7 +97,7 @@ Keys are written in this order; unknown keys are ignored.
 | `headers` | key-value list | Request headers. |
 | `omitHeaders` | string[] | Inherited header names this request does **not** send. |
 | `body` | object | See [Body](#body). |
-| `auth` | object | See [Auth](#auth). Omitted = none. |
+| `auth` | object | See [Auth](#auth). Omitted = `inherit`. |
 | `defaultHeaders` | key-value list | Manifest / `folder.yaml` only. |
 | `defaultAuth` | auth object | Manifest / `folder.yaml` only. |
 | `variables` | key-value list | Manifest only: collection variables. |
@@ -139,13 +139,14 @@ body:
 
 ```yaml
 auth:
-  type: bearer          # inherit | bearer | basic | api-key | oauth2 | aws-sigv4 | hawk | digest | ntlm | jwt-bearer | spnego
+  type: bearer          # inherit | none | bearer | basic | api-key | oauth2 | aws-sigv4 | hawk | digest | ntlm | jwt-bearer | spnego
   token: '{{token}}'
 ```
 
 | `type` | Fields |
 |---|---|
 | `inherit` | Use the nearest folder/collection `defaultAuth`. Omitted auth behaves the same. |
+| `none` | Send no auth, even when a folder or the collection has a `defaultAuth`. |
 | `bearer` | `token` |
 | `basic` | `username`, `password` |
 | `api-key` | `apiKeyKey`, `apiKeyValue`, `apiKeyLocation: header\|query` |
@@ -218,7 +219,7 @@ request files):
   on a name clash, and the request's own `headers` win over all. A request
   drops an inherited header by listing its name in `omitHeaders`.
 - **Auth**: the request's own auth wins; `inherit` (or no auth) takes the
-  nearest ancestor's `defaultAuth`.
+  nearest ancestor's `defaultAuth`; `none` sends no auth.
 - **Scripts**: ancestor scripts run before the request's own, outermost first.
 
 ## Scripts

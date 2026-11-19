@@ -67,6 +67,20 @@ describe("file-store", () => {
         expect(canonicalTree(parsed)).toEqual(canonicalTree(col))
     })
 
+    test("explicit none survives a round-trip; inherit is written as omitted auth", () => {
+        const col: Collection = {
+            id: "c", name: "C",
+            items: [request({ id: "n", name: "No auth", auth: { type: "none" } }), request({ id: "i", name: "Inherit", auth: { type: "inherit" } })],
+        }
+        const files = serializeCollection(col)
+        const inheritFile = files.find((f) => f.content.includes("name: Inherit"))!
+        expect(inheritFile.content).not.toMatch(/^auth:/m)
+        const auths = Object.fromEntries(
+            (parseCollection(files).collection.items as CollectionRequest[]).map((r) => [r.name, r.auth.type]),
+        )
+        expect(auths).toEqual({ "No auth": "none", Inherit: "inherit" })
+    })
+
     test("collection-level defaults and variables round-trip through the manifest", () => {
         const col: Collection = {
             ...collection(),

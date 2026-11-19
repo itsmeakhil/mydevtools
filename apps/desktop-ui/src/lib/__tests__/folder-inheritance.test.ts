@@ -51,13 +51,15 @@ describe("applyFolderInheritance", () => {
         ])
     })
 
-    it("inherits ancestor auth only when request auth is none", () => {
+    it("inherits ancestor auth only when request auth is inherit; none sends no auth", () => {
         const ancestor: CollectionFolder = {
             id: "f1", name: "Root", type: "folder", items: [],
             defaultAuth: { type: "bearer", token: "shared" },
         }
+        const inheritReq = applyFolderInheritance(req("r", "x", { auth: { type: "inherit" } }), [ancestor])
+        expect(inheritReq.auth).toEqual({ type: "bearer", token: "shared" })
         const noneReq = applyFolderInheritance(req("r", "x", { auth: { type: "none" } }), [ancestor])
-        expect(noneReq.auth).toEqual({ type: "bearer", token: "shared" })
+        expect(noneReq.auth).toEqual({ type: "none" })
 
         const overrideReq = applyFolderInheritance(
             req("r", "x", { auth: { type: "bearer", token: "own" } }),

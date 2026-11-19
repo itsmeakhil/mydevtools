@@ -243,7 +243,7 @@ describe("Insomnia v4 import", () => {
 
         const bogus = reqs(collection.items)[5]
         expect(bogus.method).toBe("PURGE")
-        expect(bogus.auth).toEqual({ type: "none" })
+        expect(bogus.auth).toEqual({ type: "inherit" }) // no authentication = inherit from folder
         expect(bogus.body).toEqual({ type: "none", content: "" })
     })
 

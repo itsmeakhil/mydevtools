@@ -36,7 +36,9 @@ function makeScriptEvent(listen: "prerequest" | "test", script: string): Postman
 }
 
 function exportAuth(auth: RequestAuth): unknown {
-    if (!auth || auth.type === "none") return undefined
+    // No auth key = Postman's inherit-from-parent; `noauth` is its explicit "no auth".
+    if (!auth || auth.type === "inherit") return undefined
+    if (auth.type === "none") return { type: "noauth" }
     if (auth.type === "bearer") {
         return {
             type: "bearer",
