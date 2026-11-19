@@ -544,7 +544,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => setRunnerCollection(collection)}>
                                                             <Play className="h-4 w-4 mr-2" />
-                                                            Run collection
+                                                            {t("runCollection")}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem
                                                             onClick={async () => {
@@ -561,14 +561,14 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                                         baseUrl = `${window.location.origin}/api/mock/${collection.id}/`
                                                                     }
                                                                     await navigator.clipboard.writeText(baseUrl)
-                                                                    toast.success("Mock URL copied — append the request path to invoke")
+                                                                    toast.success(t("mockUrlCopied"))
                                                                 } catch (e) {
-                                                                    toast.error((e as Error)?.message || "Could not copy to clipboard")
+                                                                    toast.error((e as Error)?.message || t("copyFailed"))
                                                                 }
                                                             }}
                                                         >
                                                             <Server className="h-4 w-4 mr-2" />
-                                                            Copy mock URL
+                                                            {t("copyMockUrl")}
                                                         </DropdownMenuItem>
                                                         {desktop && (
                                                             <DropdownMenuItem onClick={() => setMockCollection(collection)}>
@@ -582,14 +582,14 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                                 try {
                                                                     const url = await buildShareUrl(window.location.origin, collection)
                                                                     await navigator.clipboard.writeText(url)
-                                                                    toast.success("Share link copied — recipient sees a read-only snapshot")
+                                                                    toast.success(t("shareLinkCopied"))
                                                                 } catch (e) {
                                                                     toast.error((e as Error).message)
                                                                 }
                                                             }}
                                                         >
                                                             <Link2 className="h-4 w-4 mr-2" />
-                                                            Copy share link
+                                                            {t("copyShareLink")}
                                                         </DropdownMenuItem>
                                                         {/* Public mocks need a hosted origin — desktop is offline-only. */}
                                                         {!isDesktop() && <DropdownMenuItem
@@ -624,19 +624,19 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/postman").then((m) => m.downloadCollectionAsPostman(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
-                                                            Export (Postman v2.1)
+                                                            {t("exportAs", { format: "Postman v2.1" })}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/openapi").then((m) => m.downloadCollectionAsOpenApi(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
-                                                            Export (OpenAPI 3.0)
+                                                            {t("exportAs", { format: "OpenAPI 3.0" })}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/har").then((m) => m.downloadCollectionAsHar(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
-                                                            Export (HAR 1.2)
+                                                            {t("exportAs", { format: "HAR 1.2" })}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/insomnia").then((m) => m.downloadCollectionAsInsomnia(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
-                                                            Export (Insomnia v4)
+                                                            {t("exportAs", { format: "Insomnia v4" })}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem
                                                             onClick={async () => {
@@ -706,7 +706,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                             <input
                                 type="text"
-                                placeholder="Search history..."
+                                placeholder={t("searchHistory")}
                                 value={historySearch}
                                 onChange={(e) => setHistorySearch(e.target.value)}
                                 className="w-full h-8 pl-8 pr-7 text-[13px] bg-card border border-input rounded-md outline-none placeholder:text-muted-foreground/80 focus:border-primary focus:ring-[3px] focus:ring-primary/25 transition-[border-color,box-shadow]"

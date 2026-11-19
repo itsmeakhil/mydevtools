@@ -69,7 +69,7 @@ export function ImportCurlDialog({ onImport, open: openProp, onOpenChange, showT
                 </div>
                 <DialogFooter className="flex-col-reverse gap-2 sm:flex-row">
                     <Button variant="outline" onClick={() => handleImport("replace-current")} disabled={!curl.trim()}>
-                        Replace current tab
+                        {t("replaceTab")}
                     </Button>
                     <Button onClick={() => handleImport("new-tab")} disabled={!curl.trim()}>
                         {t("import")}

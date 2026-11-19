@@ -40,6 +40,7 @@ export function useEnvironments() {
     // Globals: one list in the local preferences doc, below collection variables.
     const [globals, setGlobals] = React.useState<EnvironmentVariable[]>([])
     const tGlobals = useTranslations("ApiClient.globals")
+    const te = useTranslations("ApiClient.environmentToasts")
 
     React.useEffect(() => {
         if (loading || !user) return
@@ -116,7 +117,7 @@ export function useEnvironments() {
                 if (!cancelled) setEnvironments(envs)
             } catch (error) {
                 console.error("Error fetching environments:", error)
-                toast.error("Failed to load environments")
+                toast.error(te("loadFailed"))
             } finally {
                 if (!cancelled) setIsLoading(false)
             }
@@ -211,11 +212,11 @@ export function useEnvironments() {
             const created = (await res.json()) as Environment
             setEnvironments((prev) => sortEnvs([...prev, created]))
             broadcastApiClientUpdate("environments")
-            toast.success("Environment created")
+            toast.success(te("created"))
             return created.id
         } catch (e) {
             console.error("Error creating environment", e)
-            toast.error("Failed to create environment")
+            toast.error(te("createFailed"))
             return ""
         }
     }
@@ -233,7 +234,7 @@ export function useEnvironments() {
             broadcastApiClientUpdate("environments")
         } catch (e) {
             console.error("Error updating environment", e)
-            toast.error("Failed to update environment")
+            toast.error(te("updateFailed"))
         }
     }
 
@@ -247,10 +248,10 @@ export function useEnvironments() {
                 setActiveEnvId(null)
             }
             broadcastApiClientUpdate("environments")
-            toast.success("Environment deleted")
+            toast.success(te("deleted"))
         } catch (e) {
             console.error("Error deleting environment", e)
-            toast.error("Failed to delete environment")
+            toast.error(te("deleteFailed"))
         }
     }
 

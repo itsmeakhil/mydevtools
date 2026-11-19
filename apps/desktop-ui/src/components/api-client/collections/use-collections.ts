@@ -60,6 +60,7 @@ export function useCollections() {
     const secretWarnedRef = React.useRef(new Set<string>())
     const cipherKey = useCipherKey()
     const tf = useTranslations("ApiClient.fileSync")
+    const tc = useTranslations("ApiClient.collectionToasts")
     type FileSyncKey = Parameters<typeof tf>[0]
     /** Why a live-linked Bruno write was refused (or failed), in the user's language. */
     const brunoWriteMessage = (e: unknown): string => {
@@ -111,7 +112,7 @@ export function useCollections() {
                 console.error(`Failed to read folder collection at ${path}`, e)
                 if (!failedFilePathsRef.current.has(path)) {
                     failedFilePathsRef.current.add(path)
-                    toast.error(`Couldn't read folder collection: ${path}`)
+                    toast.error(tc("readFolderFailed", { path }))
                 }
             }
         }
@@ -202,11 +203,11 @@ export function useCollections() {
         if (!secretWarnedRef.current.has(target.id) && countLiteralAuthSecrets(next) > 0) {
             secretWarnedRef.current.add(target.id)
             toast.warning(
-                "Credentials typed directly are not saved into collection files — keep them in the encrypted vault as {{vault.NAME}} tokens",
+                tc("secretsWarning", { token: "{{vault.NAME}}" }),
                 {
                     duration: 10000,
                     action: {
-                        label: "Move to vault",
+                        label: tc("moveToVault"),
                         onClick: () => void moveFileCollectionSecrets(target.id),
                     },
                 }
@@ -227,7 +228,7 @@ export function useCollections() {
         } catch (e) {
             setFileCollections((cur) => cur.map((c) => (c.id === target.id ? target : c)))
             console.error("Error writing folder collection", e)
-            toast.error(`Failed to write collection files: ${e instanceof Error ? e.message : String(e)}`)
+            toast.error(tc("writeFilesFailed", { message: e instanceof Error ? e.message : String(e) }))
             return false
         }
     }
@@ -240,15 +241,11 @@ export function useCollections() {
             const { collection: moved, moved: count } = await moveCollectionSecretsToVault(target, cipherKey)
             if (count === 0) return
             if (await mutateFileCollection(target, moved.items)) {
-                toast.success(
-                    count === 1
-                        ? "1 credential moved to the vault"
-                        : `${count} credentials moved to the vault`
-                )
+                toast.success(tc("movedToVault", { count }))
             }
         } catch (e) {
             console.error("Error moving credentials to vault", e)
-            toast.error(e instanceof Error ? e.message : "Failed to move credentials to the vault")
+            toast.error(e instanceof Error ? e.message : tc("moveToVaultFailed"))
         }
     }
 
@@ -304,7 +301,7 @@ export function useCollections() {
                 if (!cancelled) setCollections(cols)
             } catch (error) {
                 console.error("Error fetching collections:", error)
-                toast.error("Failed to load collections")
+                toast.error(tc("loadFailed"))
             } finally {
                 if (!cancelled) setIsLoading(false)
             }
@@ -423,7 +420,7 @@ export function useCollections() {
         } catch (e) {
             setCollections(prev)
             console.error("Error adding folder", e)
-            toast.error("Failed to add folder")
+            toast.error(tc("addFolderFailed"))
         }
     }
 
@@ -444,7 +441,7 @@ export function useCollections() {
             const { loadCollectionRegistry, saveCollectionRegistry } = await import("@/lib/desktop/collection-files")
             await saveCollectionRegistry((await loadCollectionRegistry()).filter((p) => p !== fileCol.source!.path))
             setFileCollections((cur) => cur.filter((c) => c.id !== itemId))
-            toast.success("Folder collection removed from list (files kept)")
+            toast.success(tc("folderRemoved"))
             return
         }
 
@@ -459,11 +456,11 @@ export function useCollections() {
                 try {
                     await authedFetch(`/api/backend/api-client/collections/${itemId}`, { method: "DELETE" })
                     broadcastApiClientUpdate("collections")
-                    toast.success("Collection deleted")
+                    toast.success(tc("deleted", { count: 1 }))
                 } catch (e) {
                     setCollections(prev)
                     console.error("Error deleting collection", e)
-                    toast.error("Failed to delete collection")
+                    toast.error(tc("deleteFailed", { count: 1 }))
                 }
             }
             return
@@ -487,7 +484,7 @@ export function useCollections() {
         } catch (e) {
             setCollections(prev)
             console.error("Error deleting item", e)
-            toast.error("Failed to delete item")
+            toast.error(tc("deleteItemFailed"))
         }
     }
 
@@ -503,7 +500,7 @@ export function useCollections() {
                 ? [...targetCollection.items, request]
                 : addItemToParent(targetCollection.items, parentId, request)
             const ok = await mutateFileCollection(targetCollection, nextItems)
-            if (ok) toast.success("Request saved")
+            if (ok) toast.success(tc("requestSaved"))
             return ok
         }
 
@@ -526,12 +523,12 @@ export function useCollections() {
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             broadcastApiClientUpdate("collections")
-            toast.success("Request saved")
+            toast.success(tc("requestSaved"))
             return true
         } catch (e) {
             setCollections(prev)
             console.error("Error saving request", e)
-            toast.error("Failed to save request")
+            toast.error(tc("saveFailed"))
             return false
         }
     }
@@ -661,7 +658,7 @@ export function useCollections() {
         } catch (e) {
             setCollections(prev)
             console.error("Error renaming folder", e)
-            toast.error("Failed to rename folder")
+            toast.error(tc("renameFolderFailed"))
         }
     }
 
@@ -859,11 +856,11 @@ export function useCollections() {
             }
             setCollections((prev) => sortCollections([...prev, final]))
             broadcastApiClientUpdate("collections")
-            if (!quiet) toast.success(`Imported "${incoming.name}"`)
+            if (!quiet) toast.success(tc("imported", { name: incoming.name }))
             return final
         } catch (e) {
             console.error("Error importing collection", e)
-            toast.error("Failed to import collection")
+            toast.error(tc("importFailed"))
             return null
         }
     }
@@ -879,11 +876,11 @@ export function useCollections() {
             const created = (await res.json()) as Collection
             setCollections((prev) => sortCollections([...prev, created]))
             broadcastApiClientUpdate("collections")
-            toast.success("Collection created")
+            toast.success(tc("created"))
             return created
         } catch (e) {
             console.error("Error creating collection", e)
-            toast.error("Failed to create collection")
+            toast.error(tc("createFailed"))
         }
     }
 
@@ -940,7 +937,7 @@ export function useCollections() {
             setFileCollections((cur) => cur.filter((c) => !fileIds.has(c.id)))
             ids = ids.filter((id) => !fileIds.has(id))
             if (ids.length === 0) {
-                toast.success("Folder collections removed from list (files kept)")
+                toast.success(tc("foldersRemoved"))
                 return
             }
         }
@@ -979,11 +976,11 @@ export function useCollections() {
             // Handle results with appropriate feedback
             if (failedIds.length === 0) {
                 // All successful
-                toast.success(ids.length === 1 ? "Collection deleted" : `${ids.length} collections deleted`)
+                toast.success(tc("deleted", { count: ids.length }))
             } else if (successfulIds.length === 0) {
                 // All failed
                 console.error("Failed to delete collections:", failedIds)
-                toast.error(ids.length === 1 ? "Failed to delete collection" : "Failed to delete collections")
+                toast.error(tc("deleteFailed", { count: ids.length }))
                 throw new Error("All collections failed to delete")
             } else {
                 // Partial failure
@@ -992,13 +989,13 @@ export function useCollections() {
                     .filter(Boolean)
                     .join(", ")
                 console.error("Partial failure deleting collections:", failedIds)
-                toast.error(`Deleted ${successfulIds.length} of ${ids.length} collections. Failed: ${failedNames || "unknown"}`)
+                toast.error(tc("partialDelete", { done: successfulIds.length, total: ids.length, names: failedNames || "?" }))
                 throw new Error(`Partial failure: ${failedIds.length} collections failed to delete`)
             }
         } catch (error) {
             console.error("Failed to delete collections:", error)
             if (!(error instanceof Error) || !error.message.includes("Partial failure")) {
-                toast.error("Failed to delete collections")
+                toast.error(tc("deleteFailed", { count: ids.length }))
             }
             throw error // Re-throw so caller knows deletion failed
         }
@@ -1037,7 +1034,7 @@ export function useCollections() {
 
             const registry = await loadCollectionRegistry()
             if (registry.includes(path)) {
-                toast.info("This folder collection is already open")
+                toast.info(tc("alreadyOpen"))
                 const open = fileCollections.find((c) => c.source?.path === path)
                 return open ? { collection: open, environments: [] } : null
             }
@@ -1067,11 +1064,11 @@ export function useCollections() {
 
             await saveCollectionRegistry([...registry, path])
             setFileCollections((cur) => [...cur.filter((c) => c.id !== col.id), col])
-            toast.success(`Opened folder collection "${col.name}"`)
+            toast.success(tc("opened", { name: col.name }))
             return { collection: col, environments: [] }
         } catch (e) {
             console.error("Error opening folder collection", e)
-            toast.error(`Couldn't open folder as collection: ${e instanceof Error ? e.message : String(e)}`)
+            toast.error(tc("openFailed", { message: e instanceof Error ? e.message : String(e) }))
             return null
         }
     }

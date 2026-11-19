@@ -266,7 +266,7 @@ function RequestTabsImpl({
                     {body.type === "json" && (
                         jsonValidation.valid
                             ? <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                            : <div className="h-1.5 w-1.5 rounded-full bg-destructive" title="Invalid JSON" />
+                            : <div className="h-1.5 w-1.5 rounded-full bg-destructive" title={t("invalidJson")} />
                     )}
                     {body.type !== "none" && body.type !== "json" && (
                         <div className="h-1.5 w-1.5 rounded-full bg-primary" />
@@ -406,9 +406,9 @@ function RequestTabsImpl({
                             <div className="overflow-x-auto">
                             <div className="grid grid-cols-[40px_1fr_160px_1fr_44px] gap-2 px-3 py-2 border-b border-border bg-muted/50 text-[12px] font-medium text-muted-foreground min-w-[480px]">
                                 <div />
-                                <div>Key</div>
-                                <div>Type</div>
-                                <div>Value</div>
+                                <div>{tBody("key")}</div>
+                                <div>{tBody("type")}</div>
+                                <div>{tBody("value")}</div>
                                 <div />
                             </div>
                             <div className="p-3 space-y-2 flex-1 min-h-0 overflow-auto custom-scrollbar min-w-[480px]">
@@ -421,7 +421,7 @@ function RequestTabsImpl({
                                             />
                                         </div>
                                         <Input
-                                            placeholder="Key"
+                                            placeholder={tBody("key")}
                                             value={item.key}
                                             onChange={(e) => updateFormDataItem(item.id, { key: e.target.value })}
                                         />
@@ -439,8 +439,8 @@ function RequestTabsImpl({
                                                 <SelectValue />
                                             </SelectTrigger>
                                             <SelectContent>
-                                                <SelectItem value="text">Text</SelectItem>
-                                                <SelectItem value="file">File</SelectItem>
+                                                <SelectItem value="text">{tBody("text")}</SelectItem>
+                                                <SelectItem value="file">{tBody("file")}</SelectItem>
                                             </SelectContent>
                                         </Select>
                                         {item.valueType === "file" ? (
@@ -448,7 +448,7 @@ function RequestTabsImpl({
                                                 <Input
                                                     readOnly
                                                     value={item.fileName ?? ""}
-                                                    placeholder="No file chosen"
+                                                    placeholder={tBody("noFile")}
                                                     className="truncate"
                                                 />
                                                 <label className="inline-flex">
@@ -457,12 +457,12 @@ function RequestTabsImpl({
                                                         className="hidden"
                                                         onChange={(e) => void handleFileSelect(item.id, e.target.files?.[0] ?? null)}
                                                     />
-                                                    <Button type="button" variant="outline" size="sm">Choose</Button>
+                                                    <Button type="button" variant="outline" size="sm">{tBody("choose")}</Button>
                                                 </label>
                                             </div>
                                         ) : (
                                             <Input
-                                                placeholder="Value"
+                                                placeholder={tBody("value")}
                                                 value={item.value}
                                                 onChange={(e) => updateFormDataItem(item.id, { value: e.target.value })}
                                             />
@@ -491,8 +491,8 @@ function RequestTabsImpl({
                             <div className="overflow-x-auto">
                             <div className="grid grid-cols-[40px_1fr_1fr_44px] gap-2 px-3 py-2 border-b border-border bg-muted/50 text-[12px] font-medium text-muted-foreground min-w-[360px]">
                                 <div />
-                                <div>Key</div>
-                                <div>Value</div>
+                                <div>{tBody("key")}</div>
+                                <div>{tBody("value")}</div>
                                 <div />
                             </div>
                             <div className="p-3 space-y-2 flex-1 min-h-0 overflow-auto custom-scrollbar min-w-[360px]">
@@ -505,12 +505,12 @@ function RequestTabsImpl({
                                             />
                                         </div>
                                         <Input
-                                            placeholder="Key"
+                                            placeholder={tBody("key")}
                                             value={item.key}
                                             onChange={(e) => updateUrlEncodedItem(item.id, "key", e.target.value)}
                                         />
                                         <Input
-                                            placeholder="Value"
+                                            placeholder={tBody("value")}
                                             value={item.value}
                                             onChange={(e) => updateUrlEncodedItem(item.id, "value", e.target.value)}
                                         />
