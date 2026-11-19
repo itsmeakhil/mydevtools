@@ -46,6 +46,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
     const { importCollection, openFolderCollection } = useCollectionsActions()
     const { addEnvironment, updateEnvironment } = useEnvironmentsActions()
     const tf = useTranslations("ApiClient.fileSync")
+    const t = useTranslations("ApiClient.importDialog")
     const [text, setText] = React.useState("")
     const [busy, setBusy] = React.useState(false)
     // isDesktop() is false during SSR — gate behind a mounted flag to avoid hydration mismatch.
@@ -79,7 +80,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                 const env = importPostmanEnvironment(text)
                 const envId = await addEnvironment(env.name)
                 if (envId) await updateEnvironment(envId, { variables: env.variables })
-                toast.success(`Imported environment "${env.name}" (${env.variables.length} variables)`)
+                toast.success(t("envImported", { name: env.name, count: env.variables.length }))
                 onOpenChange(false)
                 setText("")
                 return
@@ -118,7 +119,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                 setText("")
             }
         } catch (err) {
-            toast.error(`Import failed: ${(err as Error).message}`)
+            toast.error(t("failed", { message: (err as Error).message }))
         } finally {
             setBusy(false)
         }
@@ -128,11 +129,8 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
         <Dialog open={open} onOpenChange={(o) => { if (!busy) onOpenChange(o) }}>
             <DialogContent className="sm:max-w-[640px] max-h-[85vh] flex flex-col">
                 <DialogHeader>
-                    <DialogTitle>Import collection</DialogTitle>
-                    <DialogDescription>
-                        Paste a Postman, Insomnia or Bruno export, an OpenAPI spec or a HAR file,
-                        or pick one from disk. Format is auto-detected.
-                    </DialogDescription>
+                    <DialogTitle>{t("title")}</DialogTitle>
+                    <DialogDescription>{t("description")}</DialogDescription>
                 </DialogHeader>
 
                 <div className="flex flex-col gap-3 flex-1 min-h-0">
@@ -145,7 +143,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                                 onChange={(e) => void handleFile(e.target.files?.[0] ?? null)}
                             />
                             <Button type="button" variant="outline" size="sm" asChild>
-                                <span>Choose file</span>
+                                <span>{t("chooseFile")}</span>
                             </Button>
                         </label>
                         {desktop && (
@@ -154,25 +152,25 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                             </Button>
                         )}
                         <div className="text-xs text-muted-foreground">
-                            Detected: <span className={
+                            {t("detected")} <span className={
                                 canImport ? "text-success font-semibold" : "text-muted-foreground"
                             }>
-                                {FORMAT_LABEL[detected]}
+                                {detected === "curl" ? t("formatCurl") : detected === "unknown" ? t("formatUnknown") : FORMAT_LABEL[detected]}
                             </span>
                         </div>
                     </div>
                     <Textarea
                         className="flex-1 min-h-[300px] font-mono text-xs"
-                        placeholder="Paste collection JSON here…"
+                        placeholder={t("placeholder")}
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                     />
                 </div>
 
                 <DialogFooter>
-                    <Button variant="outline" onClick={() => onOpenChange(false)} disabled={busy}>Cancel</Button>
+                    <Button variant="outline" onClick={() => onOpenChange(false)} disabled={busy}>{t("cancel")}</Button>
                     <Button onClick={handleImport} disabled={!canImport || busy}>
-                        {busy ? "Importing…" : "Import"}
+                        {busy ? t("importing") : t("import")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

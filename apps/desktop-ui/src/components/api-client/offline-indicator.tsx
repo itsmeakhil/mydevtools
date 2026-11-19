@@ -6,8 +6,10 @@ import { cn } from "@/lib/utils"
 import { drainQueue, listQueue, subscribe, type QueuedMutation } from "@/lib/offline/queue"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 export function OfflineIndicator() {
+    const t = useTranslations("ApiClient.offline")
     const [online, setOnline] = React.useState(typeof window !== "undefined" ? navigator.onLine : true)
     const [queue, setQueue] = React.useState<QueuedMutation[]>([])
     const [draining, setDraining] = React.useState(false)
@@ -33,10 +35,10 @@ export function OfflineIndicator() {
         try {
             const result = await drainQueue((path, init) => apiFetch(path, init))
             if (result.succeeded > 0) {
-                toast.success(`Replayed ${result.succeeded} pending change${result.succeeded === 1 ? "" : "s"}`)
+                toast.success(t("replayed", { count: result.succeeded }))
             }
             if (result.failed > 0 && reason === "manual") {
-                toast.error("Some changes still failed — will retry")
+                toast.error(t("stillFailing"))
             }
         } finally { setDraining(false) }
     }
@@ -54,10 +56,10 @@ export function OfflineIndicator() {
                     "h-7 px-2.5 rounded-full text-xs flex items-center gap-1.5 transition-colors",
                     online ? "bg-warning/[0.12] text-warning hover:bg-warning/[0.18]" : "bg-destructive/[0.12] text-destructive hover:bg-destructive/[0.18]",
                 )}
-                title={online ? "Replay pending changes" : "You are offline"}
+                title={online ? t("replayTitle") : t("offlineTitle")}
             >
                 {online ? <Cloud className="h-3.5 w-3.5" /> : <CloudOff className="h-3.5 w-3.5" />}
-                <span className="font-medium">{online ? "Pending" : "Offline"}</span>
+                <span className="font-medium">{online ? t("pending") : t("offline")}</span>
                 {queue.length > 0 && (
                     <span className="tabular-nums">{queue.length}</span>
                 )}

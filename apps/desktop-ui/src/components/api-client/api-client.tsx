@@ -120,6 +120,7 @@ function ApiClientInner() {
     const tNav = useTranslations("Navigation")
     const tNet = useTranslations("ApiClient.network")
     const tPlugins = useTranslations("ApiClient.plugins")
+    const tSave = useTranslations("ApiClient.saveExample")
     const { tabs, activeTabId, activeTab } = useTabs()
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab, updateTab } = useTabsActions()
 
@@ -214,7 +215,7 @@ function ApiClientInner() {
             },
         }
         updateActiveTab({ examples: [...(activeTab.examples ?? []), example] })
-        toast.success(`Saved example "${name}"`)
+        toast.success(tSave("saved", { name }))
     }
 
     const handleDeleteExample = React.useCallback((id: string) => {
@@ -234,7 +235,7 @@ function ApiClientInner() {
             },
             isLoading: false,
         })
-        toast.success(`Loaded example "${example.name}"`)
+        toast.success(tSave("loaded", { name: example.name }))
     }, [updateActiveTab])
 
     // One stable setter per RequestTabs field. Inline `(v) => updateActiveTab({...})`
@@ -601,7 +602,7 @@ function ApiClientInner() {
             try {
                 await applyHeaderAuth(sendTab.auth, { headers: headersObj, url: urlObj }, substituteAll)
             } catch (err) {
-                toast.error(`JWT signing failed: ${(err as Error).message}`)
+                toast.error(t("toasts.jwtFailed", { message: (err as Error).message }))
                 updateActiveTab({ isLoading: false })
                 return
             }
@@ -625,7 +626,7 @@ function ApiClientInner() {
                         headersObj["Authorization"] = `${tokenType} ${fresh.accessToken}`
                     }
                 } catch (err) {
-                    toast.error(`OAuth token refresh failed: ${(err as Error).message}`)
+                    toast.error(t("toasts.oauthRefreshFailed", { message: (err as Error).message }))
                     updateActiveTab({ isLoading: false })
                     return
                 }
@@ -733,7 +734,7 @@ function ApiClientInner() {
                         try {
                             variables = JSON.parse(substituteAll(rawVars))
                         } catch (e) {
-                            toast.error(`Invalid GraphQL variables JSON: ${(e as Error).message}`)
+                            toast.error(t("toasts.invalidGraphqlVars", { message: (e as Error).message }))
                             updateActiveTab({ isLoading: false })
                             return
                         }
@@ -759,7 +760,7 @@ function ApiClientInner() {
             try {
                 await applyPayloadAuth(sendTab.auth, { method: workMethod, url: urlObj, headers: headersObj, body: bodyForSigning })
             } catch (signErr) {
-                toast.error(`Auth signing failed: ${(signErr as Error).message}`)
+                toast.error(t("toasts.authSigningFailed", { message: (signErr as Error).message }))
                 updateActiveTab({ isLoading: false })
                 return
             }

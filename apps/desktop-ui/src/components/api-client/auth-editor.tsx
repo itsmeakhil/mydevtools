@@ -36,6 +36,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
     const tGrant = useTranslations("ApiClient.oauth2Grants")
     const tDigest = useTranslations("ApiClient.digestAuth")
     const tInherit = useTranslations("ApiClient.collectionDefaults.inherit")
+    const tA = useTranslations("ApiClient.authFields")
 
     /** Build a clean RequestAuth when the user switches type, so stale
      *  bearer-token / basic-password fields don't ride along into the next request. */
@@ -164,7 +165,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                 : grant === "refresh_token" ? await refreshAccessToken(auth.oauth2)
                 : await fetchClientCredentialsToken(auth.oauth2)
             setAuth({ ...auth, oauth2: fresh })
-            toast.success("Access token retrieved")
+            toast.success(tA("tokenRetrieved"))
         } catch (err) {
             toast.error((err as Error).message)
         } finally {
@@ -177,7 +178,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
         try {
             const fresh = await refreshAccessToken(auth.oauth2)
             setAuth({ ...auth, oauth2: fresh })
-            toast.success("Access token refreshed")
+            toast.success(tA("tokenRefreshed"))
         } catch (err) {
             toast.error((err as Error).message)
         } finally {
@@ -292,7 +293,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                 {auth.type === "oauth2" && (
                     <div className="space-y-4 max-w-xl animate-in fade-in duration-200">
                         <div className="space-y-2">
-                            <Label>Grant type</Label>
+                            <Label>{tA("grantType")}</Label>
                             <Select
                                 value={auth.oauth2?.grantType ?? "client_credentials"}
                                 onValueChange={(v) => updateOAuthConfig({ grantType: v as OAuth2GrantType })}
@@ -301,8 +302,8 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="client_credentials">Client Credentials</SelectItem>
-                                    <SelectItem value="authorization_code">Authorization Code (PKCE)</SelectItem>
+                                    <SelectItem value="client_credentials">{tA("grantClientCredentials")}</SelectItem>
+                                    <SelectItem value="authorization_code">{tA("grantAuthCode")}</SelectItem>
                                     <SelectItem value="password">{tGrant("grantPassword")}</SelectItem>
                                     <SelectItem value="refresh_token">{tGrant("grantRefreshToken")}</SelectItem>
                                 </SelectContent>
@@ -311,7 +312,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         {auth.oauth2?.grantType === "authorization_code" && (
                             <>
                                 <div className="space-y-2">
-                                    <Label>Authorization URL</Label>
+                                    <Label>{tA("authUrl")}</Label>
                                     <Input
                                         value={auth.oauth2?.authUrl ?? ""}
                                         onChange={(e) => updateOAuthConfig({ authUrl: e.target.value })}
@@ -321,7 +322,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 </div>
                                 <div className="space-y-2">
                                     <Label className="flex items-center justify-between gap-2">
-                                        <span>Redirect URI (register with provider)</span>
+                                        <span>{tA("redirectUri")}</span>
                                         <button
                                             type="button"
                                             className="text-xs underline text-muted-foreground hover:text-foreground"
@@ -330,7 +331,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                                 updateOAuthConfig({ redirectUri: `${window.location.origin}/oauth/callback` })
                                             }}
                                         >
-                                            Use default
+                                            {tA("useDefault")}
                                         </button>
                                     </Label>
                                     <Input
@@ -383,7 +384,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                             </div>
                         )}
                         <div className="space-y-2">
-                            <Label>Access Token URL</Label>
+                            <Label>{tA("tokenUrl")}</Label>
                             <Input
                                 value={auth.oauth2?.tokenUrl ?? ""}
                                 onChange={(e) => updateOAuthConfig({ tokenUrl: e.target.value })}
@@ -393,7 +394,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-2">
-                                <Label>Client ID</Label>
+                                <Label>{tA("clientId")}</Label>
                                 <Input
                                     value={auth.oauth2?.clientId ?? ""}
                                     onChange={(e) => updateOAuthConfig({ clientId: e.target.value })}
@@ -401,7 +402,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label>Client Secret</Label>
+                                <Label>{tA("clientSecret")}</Label>
                                 <Input
                                     type="password"
                                     value={auth.oauth2?.clientSecret ?? ""}
@@ -412,7 +413,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-2">
-                                <Label>Scope</Label>
+                                <Label>{tA("scope")}</Label>
                                 <Input
                                     value={auth.oauth2?.scope ?? ""}
                                     onChange={(e) => updateOAuthConfig({ scope: e.target.value })}
@@ -421,7 +422,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label>Audience (optional)</Label>
+                                <Label>{tA("audienceOptional")}</Label>
                                 <Input
                                     value={auth.oauth2?.audience ?? ""}
                                     onChange={(e) => updateOAuthConfig({ audience: e.target.value })}
@@ -443,11 +444,11 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                         (!auth.oauth2.authUrl || !auth.oauth2.redirectUri))
                                 }
                             >
-                                {tokenLoading ? "Working…" : "Get New Access Token"}
+                                {tokenLoading ? tA("working") : tA("getToken")}
                             </Button>
                             {auth.oauth2?.refreshToken && (
                                 <Button variant="outline" onClick={handleRefreshToken} disabled={tokenLoading}>
-                                    Refresh
+                                    {tA("refresh")}
                                 </Button>
                             )}
                             {auth.oauth2?.accessToken && (
@@ -456,23 +457,23 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                     onClick={() => updateOAuthConfig({ accessToken: undefined, refreshToken: undefined, expiresAt: undefined })}
                                     disabled={tokenLoading}
                                 >
-                                    Clear
+                                    {tA("clear")}
                                 </Button>
                             )}
                         </div>
                         {auth.oauth2?.accessToken && (
                             <div className="rounded-lg border border-border bg-muted/40 p-3 space-y-1 text-xs">
                                 <div className="flex items-center gap-2">
-                                    <span className="font-medium text-muted-foreground">Access token</span>
+                                    <span className="font-medium text-muted-foreground">{tA("accessToken")}</span>
                                     <span className="font-mono break-all">
                                         {auth.oauth2.accessToken.slice(0, 12)}…{auth.oauth2.accessToken.slice(-6)}
                                     </span>
                                 </div>
                                 {auth.oauth2.expiresAt && (
                                     <div className="text-muted-foreground">
-                                        Expires {new Date(auth.oauth2.expiresAt).toLocaleString()}
+                                        {tA("expires", { date: new Date(auth.oauth2.expiresAt).toLocaleString() })}
                                         {auth.oauth2.expiresAt < Date.now() && (
-                                            <span className="ml-2 text-destructive font-medium">(expired — will auto-refresh on send)</span>
+                                            <span className="ml-2 text-destructive font-medium">{tA("expired")}</span>
                                         )}
                                     </div>
                                 )}
@@ -484,7 +485,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                     <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label>Access Key ID</Label>
+                                <Label>{tA("accessKeyId")}</Label>
                                 <Input
                                     value={auth.awsSigV4?.accessKeyId ?? ""}
                                     onChange={(e) => updateAwsCfg({ accessKeyId: e.target.value })}
@@ -493,7 +494,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <Label>Secret Access Key</Label>
+                                <Label>{tA("secretAccessKey")}</Label>
                                 <Input
                                     type="password"
                                     value={auth.awsSigV4?.secretAccessKey ?? ""}
@@ -504,7 +505,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label>Region</Label>
+                                <Label>{tA("region")}</Label>
                                 <Input
                                     value={auth.awsSigV4?.region ?? ""}
                                     onChange={(e) => updateAwsCfg({ region: e.target.value })}
@@ -513,7 +514,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <Label>Service</Label>
+                                <Label>{tA("service")}</Label>
                                 <Input
                                     value={auth.awsSigV4?.service ?? ""}
                                     onChange={(e) => updateAwsCfg({ service: e.target.value })}
@@ -523,13 +524,13 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <Label>Session token (optional)</Label>
+                            <Label>{tA("sessionTokenOptional")}</Label>
                             <Input
                                 type="password"
                                 value={auth.awsSigV4?.sessionToken ?? ""}
                                 onChange={(e) => updateAwsCfg({ sessionToken: e.target.value })}
                                 className="font-mono text-[13px]"
-                                placeholder="STS / IAM Role temporary credentials"
+                                placeholder={tA("sessionTokenPlaceholder")}
                             />
                         </div>
                     </div>
@@ -546,7 +547,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <Label>Key</Label>
+                                <Label>{tA("key")}</Label>
                                 <Input
                                     type="password"
                                     value={auth.hawk?.key ?? ""}
@@ -557,7 +558,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label>Algorithm</Label>
+                                <Label>{tA("algorithm")}</Label>
                                 <Select
                                     value={auth.hawk?.algorithm ?? "sha256"}
                                     onValueChange={(v) => updateHawkCfg({ algorithm: v as "sha256" | "sha1" })}
@@ -586,7 +587,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 checked={!!auth.hawk?.includePayloadHash}
                                 onChange={(e) => updateHawkCfg({ includePayloadHash: e.target.checked })}
                             />
-                            Include payload hash
+                            {tA("includePayloadHash")}
                         </label>
                     </div>
                 )}
@@ -595,7 +596,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         <p className="text-[11px] text-muted-foreground">{tDigest("hint")}</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label>Username</Label>
+                                <Label>{t("labelUsername")}</Label>
                                 <Input
                                     value={auth.digest?.username ?? ""}
                                     onChange={(e) => updateDigestCfg({ username: e.target.value })}
@@ -603,7 +604,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <Label>Password</Label>
+                                <Label>{t("labelPassword")}</Label>
                                 <Input
                                     type="password"
                                     value={auth.digest?.password ?? ""}
@@ -614,7 +615,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label>Realm</Label>
+                                <Label>{tA("realm")}</Label>
                                 <Input
                                     value={auth.digest?.realm ?? ""}
                                     onChange={(e) => updateDigestCfg({ realm: e.target.value })}
@@ -645,7 +646,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 </Select>
                             </div>
                             <div className="space-y-1">
-                                <Label>Algorithm</Label>
+                                <Label>{tA("algorithm")}</Label>
                                 <Select
                                     value={auth.digest?.algorithm ?? "MD5"}
                                     onValueChange={(v) => updateDigestCfg({ algorithm: v as "MD5" | "SHA-256" })}
@@ -658,7 +659,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 </Select>
                             </div>
                             <div className="space-y-1">
-                                <Label>Opaque (optional)</Label>
+                                <Label>{tA("opaqueOptional")}</Label>
                                 <Input
                                     value={auth.digest?.opaque ?? ""}
                                     onChange={(e) => updateDigestCfg({ opaque: e.target.value })}
@@ -671,12 +672,11 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                 {auth.type === "ntlm" && (
                     <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                         <p className="text-[11px] text-muted-foreground">
-                            Three-step NTLMv2 handshake runs server-side on a pinned
-                            keepalive socket. Targets: IIS, SharePoint, Exchange-style endpoints.
+                            {tA("ntlmHint")}
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label>Username</Label>
+                                <Label>{t("labelUsername")}</Label>
                                 <Input
                                     value={auth.ntlm?.username ?? ""}
                                     onChange={(e) => updateNtlmCfg({ username: e.target.value })}
@@ -684,7 +684,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <Label>Password</Label>
+                                <Label>{t("labelPassword")}</Label>
                                 <Input
                                     type="password"
                                     value={auth.ntlm?.password ?? ""}
@@ -695,7 +695,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div className="space-y-1">
-                                <Label>Domain (optional)</Label>
+                                <Label>{tA("domainOptional")}</Label>
                                 <Input
                                     value={auth.ntlm?.domain ?? ""}
                                     onChange={(e) => updateNtlmCfg({ domain: e.target.value })}
@@ -704,7 +704,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <Label>Workstation (optional)</Label>
+                                <Label>{tA("workstationOptional")}</Label>
                                 <Input
                                     value={auth.ntlm?.workstation ?? ""}
                                     onChange={(e) => updateNtlmCfg({ workstation: e.target.value })}
@@ -718,11 +718,10 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                 {auth.type === "jwt-bearer" && (
                     <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                         <p className="text-[11px] text-muted-foreground">
-                            JWT is signed client-side at send time and attached as{" "}
-                            <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">Authorization: Bearer</code>.
+                            {tA.rich("jwtHint", { code: (chunks) => <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">{chunks}</code> })}
                         </p>
                         <div className="space-y-1">
-                            <Label>Algorithm</Label>
+                            <Label>{tA("algorithm")}</Label>
                             <Select
                                 value={auth.jwtBearer?.algorithm ?? "HS256"}
                                 onValueChange={(v) => updateJwtCfg({ algorithm: v as "HS256" | "HS384" | "HS512" | "RS256" | "ES256" })}
@@ -739,7 +738,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         </div>
                         {(auth.jwtBearer?.algorithm ?? "HS256").startsWith("HS") ? (
                             <div className="space-y-1">
-                                <Label>HMAC secret</Label>
+                                <Label>{tA("hmacSecret")}</Label>
                                 <Input
                                     type="password"
                                     value={auth.jwtBearer?.secret ?? ""}
@@ -749,7 +748,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                             </div>
                         ) : (
                             <div className="space-y-1">
-                                <Label>Private key (PKCS#8 PEM)</Label>
+                                <Label>{tA("privateKey")}</Label>
                                 <textarea
                                     value={auth.jwtBearer?.privateKeyPem ?? ""}
                                     onChange={(e) => updateJwtCfg({ privateKeyPem: e.target.value })}
@@ -761,20 +760,20 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                         )}
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div className="space-y-1">
-                                <Label>Issuer (iss)</Label>
+                                <Label>{tA("issuer")}</Label>
                                 <Input value={auth.jwtBearer?.issuer ?? ""} onChange={(e) => updateJwtCfg({ issuer: e.target.value })} className="h-9" />
                             </div>
                             <div className="space-y-1">
-                                <Label>Subject (sub)</Label>
+                                <Label>{tA("subject")}</Label>
                                 <Input value={auth.jwtBearer?.subject ?? ""} onChange={(e) => updateJwtCfg({ subject: e.target.value })} className="h-9" />
                             </div>
                             <div className="space-y-1">
-                                <Label>Audience (aud)</Label>
+                                <Label>{tA("audience")}</Label>
                                 <Input value={auth.jwtBearer?.audience ?? ""} onChange={(e) => updateJwtCfg({ audience: e.target.value })} className="h-9" />
                             </div>
                         </div>
                         <div className="space-y-1">
-                            <Label>TTL (seconds)</Label>
+                            <Label>{tA("ttl")}</Label>
                             <Input
                                 type="number"
                                 value={auth.jwtBearer?.ttlSeconds ?? 3600}
@@ -783,7 +782,7 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                             />
                         </div>
                         <div className="space-y-1">
-                            <Label>Extra claims (JSON)</Label>
+                            <Label>{tA("extraClaims")}</Label>
                             <textarea
                                 value={auth.jwtBearer?.extraClaimsJson ?? ""}
                                 onChange={(e) => updateJwtCfg({ extraClaimsJson: e.target.value })}
@@ -796,12 +795,10 @@ export function AuthEditor({ auth, setAuth, allowInherit }: AuthEditorProps) {
                 {auth.type === "spnego" && (
                     <div className="space-y-3 max-w-xl animate-in fade-in duration-200">
                         <p className="text-[11px] text-muted-foreground">
-                            Pre-acquired SPNEGO token (base64). Get one via{" "}
-                            <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">kinit</code> + a CLI helper.
-                            Routed through <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">/api/proxy-spnego</code>.
+                            {tA.rich("spnegoHint", { code: (chunks) => <code className="font-mono text-[0.95em] bg-foreground/[0.06] px-1 rounded-[4px]">{chunks}</code> })}
                         </p>
                         <div className="space-y-1">
-                            <Label>Negotiate token (base64)</Label>
+                            <Label>{tA("negotiateToken")}</Label>
                             <textarea
                                 value={auth.spnego?.token ?? ""}
                                 onChange={(e) => updateSpnegoCfg({ token: e.target.value })}

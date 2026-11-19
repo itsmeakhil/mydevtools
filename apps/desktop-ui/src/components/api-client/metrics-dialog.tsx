@@ -10,6 +10,7 @@ import { Trash2 } from "lucide-react"
 import {
     getMetrics, getLogs, getCounters, clearAll, subscribe, summariseMetrics,
 } from "@/lib/observability/metrics"
+import { useTranslations } from "next-intl"
 
 interface MetricsDialogProps {
     open: boolean
@@ -17,6 +18,7 @@ interface MetricsDialogProps {
 }
 
 export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
+    const t = useTranslations("ApiClient.metrics")
     const [tick, setTick] = React.useState(0)
     React.useEffect(() => subscribe(() => setTick((n) => n + 1)), [])
 
@@ -29,23 +31,21 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[820px] max-h-[85vh] flex flex-col">
                 <DialogHeader>
-                    <DialogTitle>Observability</DialogTitle>
-                    <DialogDescription>
-                        Live metrics + counter buffer across this session.
-                    </DialogDescription>
+                    <DialogTitle>{t("title")}</DialogTitle>
+                    <DialogDescription>{t("description")}</DialogDescription>
                 </DialogHeader>
 
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
-                    <Chip label="requests" value={summary.count} />
-                    <Chip label="ok" value={summary.ok} />
-                    <Chip label="fail" value={summary.fail} />
-                    <Chip label="avg" value={`${summary.avgMs.toFixed(0)}ms`} />
+                    <Chip label={t("requests")} value={summary.count} />
+                    <Chip label={t("ok")} value={summary.ok} />
+                    <Chip label={t("fail")} value={summary.fail} />
+                    <Chip label={t("avg")} value={`${summary.avgMs.toFixed(0)}ms`} />
                     <Chip label="p95" value={`${summary.p95Ms.toFixed(0)}ms`} />
                 </div>
 
                 {counters.length > 0 && (
                     <div className="border border-border rounded-xl p-3 text-xs bg-card">
-                        <div className="font-medium text-xs text-muted-foreground mb-2">Counters</div>
+                        <div className="font-medium text-xs text-muted-foreground mb-2">{t("counters")}</div>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
                             {counters.map(([k, v]) => (
                                 <div key={k} className="flex justify-between bg-muted/40 rounded-md px-2 py-1">
@@ -59,14 +59,14 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
 
                 <div className="flex items-center justify-end gap-2">
                     <Button size="sm" variant="ghost" onClick={() => clearAll()}>
-                        <Trash2 className="h-3.5 w-3.5 mr-1" /> Clear
+                        <Trash2 className="h-3.5 w-3.5 mr-1" /> {t("clear")}
                     </Button>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 min-h-0">
                     <div className="border border-border rounded-xl p-3 flex flex-col min-h-0 bg-card">
                         <div className="text-xs font-medium text-muted-foreground pb-2">
-                            Recent requests
+                            {t("recentRequests")}
                         </div>
                         <ScrollArea className="flex-1 min-h-0">
                             <div className="divide-y divide-border text-xs">
@@ -79,14 +79,14 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
                                     </div>
                                 ))}
                                 {metrics.length === 0 && (
-                                    <div className="text-center text-[13px] text-muted-foreground py-6">No requests yet.</div>
+                                    <div className="text-center text-[13px] text-muted-foreground py-6">{t("noRequests")}</div>
                                 )}
                             </div>
                         </ScrollArea>
                     </div>
                     <div className="border border-border rounded-xl p-3 flex flex-col min-h-0 bg-card">
                         <div className="text-xs font-medium text-muted-foreground pb-2">
-                            Recent logs
+                            {t("recentLogs")}
                         </div>
                         <ScrollArea className="flex-1 min-h-0">
                             <div className="divide-y divide-border text-xs">
@@ -103,7 +103,7 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
                                     </div>
                                 ))}
                                 {logs.length === 0 && (
-                                    <div className="text-center text-[13px] text-muted-foreground py-6">No logs yet.</div>
+                                    <div className="text-center text-[13px] text-muted-foreground py-6">{t("noLogs")}</div>
                                 )}
                             </div>
                         </ScrollArea>
@@ -117,7 +117,7 @@ export function MetricsDialog({ open, onOpenChange }: MetricsDialogProps) {
 function Chip({ label, value }: { label: string; value: string | number }) {
     return (
         <div className="border border-border rounded-xl px-3 py-2 bg-card flex flex-col">
-            <span className="text-[11px] font-medium text-muted-foreground capitalize">{label}</span>
+            <span className="text-[11px] font-medium text-muted-foreground">{label}</span>
             <span className="text-[15px] font-semibold tabular-nums">{value}</span>
         </div>
     )
