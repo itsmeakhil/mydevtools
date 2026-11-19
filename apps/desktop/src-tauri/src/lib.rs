@@ -1,3 +1,4 @@
+mod csp;
 mod db;
 mod dbtools;
 mod error;
@@ -145,6 +146,14 @@ pub fn run() {
                 }
                 r => eprintln!("terminal: shell integration disabled, resources unusable: {r:?}"),
             }
+
+            // Created here rather than from config so every asset response, worker
+            // scripts included, carries the CSP (see csp.rs).
+            let main = app.config().app.windows.iter().find(|w| w.label == "main")
+                .ok_or("main window config missing")?;
+            tauri::WebviewWindowBuilder::from_config(app.handle(), main)?
+                .on_web_resource_request(|_req, res| csp::apply(res))
+                .build()?;
 
             // window-state plugin restores the last saved geometry, which can be
             // wider/taller than the current monitor (smaller screen, unplugged
