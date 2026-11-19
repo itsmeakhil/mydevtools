@@ -262,7 +262,7 @@ function RequestTabsImpl({
                 </TabsTrigger>
                 <TabsTrigger value="auth" className="flex items-center gap-1.5">
                     {t("auth")}
-                    {auth.type !== "none" && (
+                    {auth.type !== "none" && auth.type !== "inherit" && (
                         <div className="h-1.5 w-1.5 rounded-full bg-primary" />
                     )}
                 </TabsTrigger>

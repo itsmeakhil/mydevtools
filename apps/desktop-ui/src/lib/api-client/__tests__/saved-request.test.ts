@@ -82,9 +82,11 @@ describe("withFolderDefaults", () => {
         expect(tab.headers).toEqual([])
     })
 
-    it("returns drafts unchanged", () => {
-        const tab = createNewTab()
-        expect(withFolderDefaults(tab, collections)).toBe(tab)
+    it("gives drafts no folder defaults; their inherit sends no auth", () => {
+        const tab = { ...createNewTab(), headers: [] }
+        const sent = withFolderDefaults(tab, collections)
+        expect(sent.headers).toEqual([])
+        expect(sent.auth).toEqual({ type: "none" })
     })
 })
 

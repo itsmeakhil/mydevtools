@@ -28,7 +28,7 @@ export function maskUrl(url: string): string {
 }
 
 const AUTH_LABEL: Record<RequestAuth["type"], string> = {
-    none: "Inherited", inherit: "Inherited", bearer: "Bearer token", basic: "Basic auth", "api-key": "API key",
+    none: "No auth", inherit: "Inherited", bearer: "Bearer token", basic: "Basic auth", "api-key": "API key",
     oauth2: "OAuth 2.0", "aws-sigv4": "AWS Signature v4", hawk: "Hawk", digest: "Digest", ntlm: "NTLM",
     "jwt-bearer": "JWT bearer", spnego: "SPNEGO / Kerberos",
 }

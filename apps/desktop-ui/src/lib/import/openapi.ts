@@ -263,15 +263,17 @@ function convertRequestBody(spec: OpenAPISpec, rb: RequestBodyOAS | Ref | undefi
 
 function authFromSpec(spec: OpenAPISpec, op: Operation): RequestAuth {
     const securityList = op.security ?? spec.security
-    if (!securityList || securityList.length === 0) return { type: "none" }
+    // `security: []` is the spec's explicit "no auth"; anything unstated or unresolvable inherits.
+    if (securityList?.length === 0) return { type: "none" }
+    if (!securityList) return { type: "inherit" }
     const schemes = spec.components?.securitySchemes ?? spec.securityDefinitions
-    if (!schemes) return { type: "none" }
+    if (!schemes) return { type: "inherit" }
     // Pick the first scheme of the first requirement.
     const first = securityList[0]
     const schemeName = Object.keys(first)[0]
-    if (!schemeName) return { type: "none" }
+    if (!schemeName) return { type: "none" } // `{}` requirement = auth optional
     const scheme = schemes[schemeName]
-    if (!scheme) return { type: "none" }
+    if (!scheme) return { type: "inherit" }
 
     if (scheme.type === "http" && scheme.scheme === "bearer") {
         return { type: "bearer", token: "" }
@@ -313,7 +315,7 @@ function authFromSpec(spec: OpenAPISpec, op: Operation): RequestAuth {
             }
         }
     }
-    return { type: "none" }
+    return { type: "inherit" } // unsupported scheme type (openIdConnect, mutualTLS…)
 }
 
 function buildRequest(

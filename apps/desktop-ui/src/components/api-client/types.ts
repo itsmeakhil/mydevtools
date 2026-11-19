@@ -95,7 +95,7 @@ export interface DigestConfig {
 }
 
 export interface RequestAuth {
-    /** `inherit` (and legacy `none`) use the nearest folder/collection auth at send time. */
+    /** `inherit` uses the nearest folder/collection auth at send time; `none` sends no auth. */
     type: "none" | "inherit" | "bearer" | "basic" | "api-key" | "oauth2" | "aws-sigv4" | "hawk" | "digest" | "ntlm" | "jwt-bearer" | "spnego"
     token?: string
     username?: string
