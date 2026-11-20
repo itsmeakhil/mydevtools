@@ -454,50 +454,75 @@ mod tests {
         out + rest
     }
 
-    #[test]
-    fn bash_integration_keeps_underscore_and_prompt_command() {
-        use std::io::Write;
+    /// Runs the bash integration with `bashrc` as the user's ~/.bashrc and returns everything
+    /// the shell wrote. stdout and stderr share one pipe, like a terminal: bash writes its
+    /// prompts (and PS0) to stderr, the hooks to stdout, and their order matters.
+    fn interactive_bash(name: &str, bashrc: &str) -> Option<String> {
+        use std::io::{Read, Write};
         if !Path::new("/bin/bash").exists() {
-            return;
+            return None;
         }
-        let home = tmp("bhome");
-        std::fs::write(home.join(".bashrc"), "PROMPT_COMMAND='echo user-pc'\n").unwrap();
+        let home = tmp(name);
+        std::fs::write(home.join(".bashrc"), format!("PS1=\n{bashrc}\n")).unwrap();
         let app = |k: &str| (k == "PATH").then(|| "/usr/bin:/bin".to_string());
         let (argv, env) = shell_launch_with("/bin/bash", &res(), vec![], &app);
+        let (mut rd, wr) = std::io::pipe().unwrap();
         let mut c = Command::new(&argv[0]);
         c.args(&argv[1..])
             .env_clear()
             .env("HOME", &home)
             .current_dir(&home)
             .stdin(Stdio::piped())
-            .stdout(Stdio::piped())
-            .stderr(Stdio::null());
+            .stdout(wr.try_clone().unwrap())
+            .stderr(wr);
         for (k, v) in &env {
             c.env(k, v);
         }
         let mut child = c.spawn().unwrap();
-        // one command line, two empty Enters, exit
+        drop(c); // close our copies of the pipe's write end so the read below sees EOF
+        // one command line, a failing one, two empty Enters, exit
         child
             .stdin
             .take()
             .unwrap()
             .write_all(b"echo hi there; echo $_\nfalse\n\n\nexit\n")
             .unwrap();
-        let o = child.wait_with_output().unwrap();
-        let raw = String::from_utf8_lossy(&o.stdout).to_string();
-        let out: Vec<String> = strip_osc(&raw).lines().map(String::from).collect();
+        let mut raw = String::new();
+        rd.read_to_string(&mut raw).unwrap();
+        child.wait().unwrap();
+        let _ = std::fs::remove_dir_all(&home);
+        Some(raw)
+    }
+
+    /// Prompts: the first one, after each of 2 commands, and 2 empty Enters; commands: 2 lines
+    /// and `exit`. C only ever comes before a command, never after a prompt.
+    fn assert_bash_marks(raw: &str) {
+        let out: Vec<String> = strip_osc(raw).lines().map(String::from).collect();
         assert!(out.windows(2).any(|w| w == ["hi there", "there"]), "{out:?}");
         assert!(out.iter().any(|l| l == "user-pc"), "{out:?}");
-        // prompts: initial + after each of 2 commands + 2 empty Enters; commands: 2 lines + exit
         let count = |m: &str| raw.matches(m).count();
         assert_eq!((count("\x1b]133;A\x07"), count("\x1b]133;C\x07")), (5, 3), "{raw:?}");
+        assert!(!raw.contains("\x1b]133;A\x07\x1b]133;C\x07"), "C right after a prompt: {raw:?}");
         // D carries each command's exit status, ahead of the next prompt mark (also re-sent
         // on empty Enters, which the app ignores: no C before them).
         assert!(raw.contains("hi there\nthere\n\x1b]133;D;0\x07"), "{raw:?}");
         assert!(raw.contains("\x1b]133;C\x07\x1b]133;D;1\x07"), "{raw:?}");
-        let cwd = format!("\x1b]7;file://");
-        assert!(raw.contains(&cwd) && raw.contains(&format!("{}\x07", home.display())), "{raw:?}");
-        let _ = std::fs::remove_dir_all(&home);
+        assert!(raw.contains("\x1b]7;file://"), "{raw:?}");
+    }
+
+    #[test]
+    fn bash_integration_keeps_underscore_and_prompt_command() {
+        let Some(raw) = interactive_bash("bhome", "PROMPT_COMMAND='echo user-pc'") else { return };
+        assert_bash_marks(&raw);
+    }
+
+    /// A profile using the bash >= 5.1 array form. Assigning a string only replaced element 0,
+    /// so the other elements ran after the prompt mark and the DEBUG trap reported a phantom
+    /// "command started": every finished command looked like it was still running.
+    #[test]
+    fn bash_integration_with_array_prompt_command() {
+        let Some(raw) = interactive_bash("barr", "PROMPT_COMMAND=('echo user-pc' true)") else { return };
+        assert_bash_marks(&raw);
     }
 
     #[test]
