@@ -149,6 +149,10 @@ impl StatusMap {
             .count()
     }
 
+    pub fn get(&self, id: &str) -> Option<TermStatus> {
+        self.status.get(id).copied()
+    }
+
     pub fn snapshot(&self) -> HashMap<String, TermStatus> {
         self.status.clone()
     }
@@ -177,7 +181,9 @@ pub fn apply_status_if_live(
     if let Some(c) = covers {
         statuses.set_program_covers(id, c);
     }
-    statuses.apply_from(id, source, s)
+    let t = statuses.apply_from(id, source, s)?;
+    state.status_changed(id, t.status);
+    Some(t)
 }
 
 /// AF_UNIX paths are capped (~104 bytes on macOS); fall back to a short /tmp dir.
@@ -205,25 +211,31 @@ fn ensure_private_dir(dir: &Path, uid: u32) -> Result<(), String> {
     Ok(())
 }
 
+/// Bind a 0600 socket at `path` (replacing a stale one) in a private, owned directory.
+#[cfg(unix)]
+pub fn bind_private(path: &Path) -> Result<tokio::net::UnixListener, String> {
+    use std::os::unix::fs::PermissionsExt;
+    if let Some(dir) = path.parent() {
+        ensure_private_dir(dir, unsafe { libc::getuid() })?;
+    }
+    let _ = std::fs::remove_file(path);
+    let listener = tokio::net::UnixListener::bind(path)
+        .map_err(|e| format!("bind {}: {e}", path.display()))?;
+    std::fs::set_permissions(path, std::fs::Permissions::from_mode(0o600))
+        .map_err(|e| format!("chmod socket: {e}"))?;
+    Ok(listener)
+}
+
 #[cfg(unix)]
 pub async fn serve(
     path: PathBuf,
     token: String,
     on_msg: impl Fn(HookMsg) + Send + Sync + 'static,
 ) -> Result<(), String> {
-    use std::os::unix::fs::PermissionsExt;
     use std::time::Duration;
     use tokio::io::{AsyncBufReadExt, AsyncReadExt, BufReader};
-    use tokio::net::UnixListener;
 
-    if let Some(dir) = path.parent() {
-        ensure_private_dir(dir, unsafe { libc::getuid() })?;
-    }
-    let _ = std::fs::remove_file(&path);
-    let listener =
-        UnixListener::bind(&path).map_err(|e| format!("bind {}: {e}", path.display()))?;
-    std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o600))
-        .map_err(|e| format!("chmod socket: {e}"))?;
+    let listener = bind_private(&path)?;
     let on_msg = Arc::new(on_msg);
     let token = Arc::new(token);
     loop {

@@ -98,16 +98,21 @@ pub struct Launch {
     /// Holds `terminal/` (bundled resources).
     pub res_dir: PathBuf,
     pub socket: PathBuf,
+    /// Control socket (`ctl.rs`) for `mdt-term`.
+    pub ctl_socket: PathBuf,
     pub settings: PathBuf,
 }
 
 impl Launch {
     /// The per-pane `MDT_*` env for `shell_launch`.
     pub fn pane_env(&self, id: &str, token: &str) -> Vec<(String, String)> {
+        let app_bin = std::env::current_exe().map(|p| p.display().to_string()).unwrap_or_default();
         vec![
             ("MDT_TERMINAL_ID".into(), id.into()),
             ("MDT_HOOK_SOCKET".into(), self.socket.display().to_string()),
             ("MDT_HOOK_TOKEN".into(), token.into()),
+            ("MDT_CTL_SOCKET".into(), self.ctl_socket.display().to_string()),
+            ("MDT_APP_BIN".into(), app_bin),
             (
                 "MDT_CLAUDE_SETTINGS".into(),
                 self.settings.display().to_string(),

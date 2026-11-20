@@ -1,3 +1,4 @@
+pub mod ctl;
 pub mod detect;
 pub mod env;
 pub mod git;

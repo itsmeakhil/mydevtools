@@ -187,7 +187,12 @@ pub fn run() {
             let _ = term.on_agent.set(std::sync::Arc::new(move |id, agent| {
                 let _ = handle.emit("terminal://agent", serde_json::json!({"id": id, "agent": agent}));
             }));
+            let handle = app.handle().clone();
+            let _ = term.on_spawn_child.set(std::sync::Arc::new(move |v| {
+                let _ = handle.emit("terminal://spawn-child", v);
+            }));
             let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
+            let ctl_socket = terminal::ctl::start(&socket, term.clone());
             // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
             // the binary (target/<profile>/resources), which resource_dir() resolves to.
             // Unresolvable / not absolute / scripts missing → no integration at all:
@@ -201,7 +206,7 @@ pub fn run() {
                             eprintln!("terminal: claude hooks settings not written: {e}");
                             dir.join("terminal/claude-hooks.json")
                         });
-                    let _ = term.launch.set(terminal::env::Launch { res_dir, socket, settings });
+                    let _ = term.launch.set(terminal::env::Launch { res_dir, socket, ctl_socket, settings });
                 }
                 r => eprintln!("terminal: shell integration disabled, resources unusable: {r:?}"),
             }
@@ -273,7 +278,8 @@ pub fn run() {
             terminal::notify::terminal_set_viewing,
             terminal::notify::terminal_set_strings,
             terminal::notify::app_quit_confirmed,
-            terminal::notify::app_quit_cancelled
+            terminal::notify::app_quit_cancelled,
+            terminal::ctl::terminal_set_project_prefs
         ]);
     #[cfg(target_os = "macos")]
     let builder = builder

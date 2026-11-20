@@ -59,6 +59,12 @@ pub struct SpawnRequest {
     /// process alone: never typed into the shell, never saved. Checked by `extra_env_ok`.
     #[serde(default)]
     pub env: std::collections::BTreeMap<String, String>,
+    /// Terminal project this pane belongs to (helper-pane opt-in is per project).
+    #[serde(default)]
+    pub project_id: Option<String>,
+    /// Pane that started this one over the control socket. Never set by the UI.
+    #[serde(skip)]
+    pub parent: Option<String>,
 }
 
 /// Variables that would change how the shell itself starts or what it runs are refused.
@@ -94,6 +100,9 @@ struct Inner {
 
 pub struct Session {
     pub project_name: String,
+    pub project_id: Option<String>,
+    /// Pane that started this one (ctl `run`); only it may drive this pane over the socket.
+    pub parent: Option<String>,
     cwd: String,
     /// Last directory the shell reported (OSC 7).
     live_cwd: Mutex<Option<String>>,
@@ -107,6 +116,11 @@ pub struct Session {
     pub agent_session: Mutex<Option<String>>,
     /// Rendered screen + agent status for `poll_agents`.
     det: Mutex<super::detect::Pane>,
+    /// False from a control-socket `send` until the pane's status next changes: until then
+    /// its status predates that input, so `wait` must not take it as an answer.
+    fresh: std::sync::atomic::AtomicBool,
+    /// `Some(code)` once the shell's last command finished (OSC 133 D); `None` while one runs.
+    last_cmd: Mutex<Option<Option<i32>>>,
 }
 
 fn b64(bytes: &[u8]) -> Value {
@@ -116,6 +130,30 @@ fn b64(bytes: &[u8]) -> Value {
 impl Session {
     fn exited(&self) -> bool {
         self.inner.lock().unwrap().exit.is_some()
+    }
+
+    /// `Some(exit code)` once the process has exited.
+    pub fn exit_status(&self) -> Option<Option<i32>> {
+        self.inner.lock().unwrap().exit
+    }
+
+    pub fn last_command(&self) -> Option<Option<i32>> {
+        *self.last_cmd.lock().unwrap()
+    }
+
+    pub fn fresh(&self) -> bool {
+        self.fresh.load(std::sync::atomic::Ordering::SeqCst)
+    }
+
+    /// Input from the control socket (a helper's command, `send`).
+    pub fn send(&self, bytes: &[u8]) -> Result<(), String> {
+        self.fresh.store(false, std::sync::atomic::Ordering::SeqCst);
+        self.write(bytes)
+    }
+
+    /// Last `lines` non-empty rows of the rendered screen.
+    pub fn tail(&self, lines: usize) -> String {
+        self.det.lock().unwrap().tail(lines)
     }
 
     /// The shell's current directory, else the one it started in.
@@ -208,6 +246,14 @@ pub struct TerminalState {
     pub on_status: std::sync::OnceLock<StatusFn>,
     /// Set once in `setup`; called when a pane's foreground agent changes.
     pub on_agent: std::sync::OnceLock<AgentFn>,
+    /// Set once in `setup`; told `{parent, id, name, cwd}` when a pane starts a helper (ctl `run`).
+    pub on_spawn_child: std::sync::OnceLock<Arc<dyn Fn(Value) + Send + Sync>>,
+    /// Projects whose agents may start helper panes (UI pref, `terminal_set_project_prefs`).
+    pub spawn_projects: Mutex<std::collections::HashSet<String>>,
+    /// Login shell for new panes (`$SHELL`).
+    pub shell: String,
+    /// Every status transition (`Some`) and exit/close (`None`) per pane, for ctl `wait`.
+    pub bus: tokio::sync::broadcast::Sender<(String, Option<super::hooks::TermStatus>)>,
 }
 
 /// (pane, status, program's message, how a long shell command ended)
@@ -234,6 +280,10 @@ impl Default for TerminalState {
             on_exit: std::sync::OnceLock::new(),
             on_status: std::sync::OnceLock::new(),
             on_agent: std::sync::OnceLock::new(),
+            on_spawn_child: std::sync::OnceLock::new(),
+            spawn_projects: Mutex::default(),
+            shell: std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".into()),
+            bus: tokio::sync::broadcast::channel(256).0,
         }
     }
 }
@@ -279,6 +329,8 @@ impl TerminalState {
 
         let session = Arc::new(Session {
             project_name: req.project_name,
+            project_id: req.project_id,
+            parent: req.parent,
             cwd: cwd.clone(),
             cwd_fallback,
             live_cwd: Mutex::new(None),
@@ -289,10 +341,13 @@ impl TerminalState {
             killer: Mutex::new(child.clone_killer()),
             agent_session: Mutex::new(None),
             det: Mutex::new(super::detect::Pane::new(req.rows, req.cols)),
+            fresh: true.into(),
+            last_cmd: Mutex::new(None),
         });
 
         let s = session.clone();
         let (id, on_exit, on_status) = (req.id.clone(), self.on_exit.get().cloned(), self.on_status.get().cloned());
+        let bus = self.bus.clone();
         std::thread::spawn(move || {
             let mut buf = [0u8; 8192];
             let mut scanner = super::osc::Scanner::default();
@@ -323,11 +378,13 @@ impl TerminalState {
                                 super::osc::Osc::Title(t) => s.det.lock().unwrap().set_title(t),
                                 super::osc::Osc::Progress(p) => s.det.lock().unwrap().set_progress(p),
                                 super::osc::Osc::CommandStart => {
+                                    *s.last_cmd.lock().unwrap() = None;
                                     s.det.lock().unwrap().take_agent_seen();
                                     commands.start(std::time::Instant::now());
                                     status(Shell, super::hooks::TermStatus::Running, None, None)
                                 }
                                 super::osc::Osc::CommandEnd(code) => {
+                                    *s.last_cmd.lock().unwrap() = Some(code);
                                     let agent = s.det.lock().unwrap().take_agent_seen();
                                     if let Some((st, cmd)) = commands.end(code, std::time::Instant::now(), agent) {
                                         status(Shell, st, None, Some(cmd))
@@ -349,10 +406,44 @@ impl TerminalState {
             if let Some(f) = on_exit {
                 f(&id);
             }
+            let _ = bus.send((id, None));
         });
 
         self.sessions.insert(req.id.clone(), session);
         Ok(SpawnResult { id: req.id, cwd, cwd_fallback, resume: None })
+    }
+
+    /// The user's shell with our integration (when set up) plus `req.env`, as the UI opens panes.
+    pub fn spawn_shell(&self, mut req: SpawnRequest) -> Result<SpawnResult, String> {
+        let extra = std::mem::take(&mut req.env);
+        if let Some((k, _)) = extra.iter().find(|(k, v)| !extra_env_ok(k, v)) {
+            return Err(format!("environment variable not allowed: {k}"));
+        }
+        let (argv, env) = match self.launch.get() {
+            Some(l) => super::env::shell_launch(&self.shell, &l.res_dir, l.pane_env(&req.id, &self.token)),
+            None => (vec![self.shell.clone(), "-l".into()], vec![]),
+        };
+        self.spawn(req, env.into_iter().chain(extra).collect(), argv)
+    }
+
+    /// Kill and forget a session; `wait`ers see it closed.
+    pub fn close(&self, id: &str) {
+        if let Some((_, s)) = self.sessions.remove(id) {
+            s.kill();
+        }
+        let _ = self.bus.send((id.to_string(), None));
+    }
+
+    pub fn status_of(&self, id: &str) -> Option<super::hooks::TermStatus> {
+        self.statuses.lock().unwrap().get(id)
+    }
+
+    /// A status transition was applied (see `hooks::apply_status_if_live`): wake `wait`ers.
+    pub fn status_changed(&self, id: &str, status: super::hooks::TermStatus) {
+        if let Some(s) = self.sessions.get(id) {
+            s.fresh.store(true, std::sync::atomic::Ordering::SeqCst);
+        }
+        let _ = self.bus.send((id.to_string(), Some(status)));
     }
 
     /// Every session still in the layout (exited ones included), for saving at quit.
@@ -415,6 +506,11 @@ impl TerminalState {
         });
     }
 
+    /// Panes `id` started over the control socket (exited ones too, until closed).
+    pub fn children(&self, id: &str) -> Vec<String> {
+        self.sessions.iter().filter(|e| e.parent.as_deref() == Some(id)).map(|e| e.key().clone()).collect()
+    }
+
     pub fn is_live(&self, id: &str) -> bool {
         self.sessions.get(id).is_some_and(|s| !s.exited())
     }
@@ -450,27 +546,17 @@ pub async fn terminal_spawn(
     if let Some(c) = restored.as_ref().and_then(|r| r.cwd.clone()).filter(is_dir).or(inherited.filter(is_dir)) {
         req.cwd = c;
     }
-    let extra = std::mem::take(&mut req.env);
-    if let Some((k, _)) = extra.iter().find(|(k, v)| !extra_env_ok(k, v)) {
-        return Err(format!("environment variable not allowed: {k}"));
-    }
     let resume = restored.as_ref().and_then(|r| r.resume.clone());
     if let Some(r) = restored {
         req.seed = super::restore::seed(&r.bytes);
     }
-    let shell = std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".into());
-    let (argv, env) = match state.launch.get() {
-        Some(l) => super::env::shell_launch(&shell, &l.res_dir, l.pane_env(&req.id, &state.token)),
-        None => (vec![shell, "-l".into()], vec![]),
-    };
-    let env = env.into_iter().chain(extra).collect();
-    state.spawn(req, env, argv).map(|r| SpawnResult { resume, ..r })
+    state.spawn_shell(req).map(|r| SpawnResult { resume, ..r })
 }
 
 /// Last lines of a pane's rendered screen (board previews); `lines` clamped to 1..=40.
 #[tauri::command]
 pub fn terminal_screen_tail(state: tauri::State<'_, Arc<TerminalState>>, id: String, lines: usize) -> Result<String, String> {
-    Ok(state.get(&id)?.det.lock().unwrap().tail(lines.clamp(1, 40)))
+    Ok(state.get(&id)?.tail(lines.clamp(1, 40)))
 }
 
 #[tauri::command]
@@ -505,9 +591,7 @@ pub async fn terminal_kill(
     state: tauri::State<'_, Arc<TerminalState>>,
     id: String,
 ) -> Result<(), String> {
-    if let Some((_, s)) = state.sessions.remove(&id) {
-        s.kill();
-    }
+    state.close(&id);
     super::notify::forget(&app, &id);
     Ok(())
 }
