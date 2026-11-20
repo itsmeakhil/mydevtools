@@ -114,6 +114,9 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   const termRef = React.useRef<XTerm | null>(null)
   const searchRef = React.useRef<SearchAddon | null>(null)
   const relayout = React.useRef(() => {})
+  /** GPU renderer on/off: hidden panes give their WebGL context back (WebKit caps live contexts at ~16). */
+  const gpu = React.useRef({ on: () => {}, off: () => {} })
+  const visibleRef = React.useRef(visible)
   const onShortcut = React.useRef<(a: PaneShortcut) => void>(() => {})
   const wantFocus = React.useRef(false)
   const fontSize = useTerminalStore((s) => s.fontSize)
@@ -244,20 +247,34 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       // xterm measures the font on open(); opening inside a display:none tab measures 0
       // and breaks fit, so open on first show. Writes before that are buffered.
       let opened = false
+      // GPU renderer; without WebGL2 or after a lost context the DOM renderer takes over.
+      let gl: InstanceType<typeof WebglAddon> | null = null
+      const gpuOn = () => {
+        if (gl || !opened) return
+        try {
+          const addon = new WebglAddon()
+          addon.onContextLoss(() => {
+            addon.dispose()
+            if (gl === addon) gl = null
+          })
+          term.loadAddon(addon)
+          gl = addon
+        } catch {
+          // no WebGL2 here: keep the DOM renderer
+        }
+      }
+      const gpuOff = () => {
+        gl?.dispose()
+        gl = null
+      }
+      gpu.current = { on: gpuOn, off: gpuOff }
       const shown = () => host.offsetWidth > 0 && host.offsetHeight > 0
       const layout = () => {
         if (!shown()) return
         if (!opened) {
           term.open(host)
           opened = true
-          // GPU renderer; on failure or a lost context the DOM renderer takes over.
-          try {
-            const gl = new WebglAddon()
-            gl.onContextLoss(() => gl.dispose())
-            term.loadAddon(gl)
-          } catch {
-            // no WebGL2 here: keep the DOM renderer
-          }
+          if (visibleRef.current) gpuOn()
           if (wantFocus.current) term.focus()
         }
         fit.fit()
@@ -299,6 +316,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         prompts.dispose()
         cwdMarks.dispose()
         relayout.current = () => {}
+        gpu.current = { on: () => {}, off: () => {} }
         onShortcut.current = () => {}
         searchRef.current = null
         termRef.current = null
@@ -394,6 +412,13 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     wantFocus.current = focused && visible
     if (wantFocus.current) termRef.current?.focus()
   }, [focused, visible])
+
+  // Only panes on screen hold a WebGL context; a hidden tab's panes fall back to the DOM renderer.
+  React.useEffect(() => {
+    visibleRef.current = visible
+    if (visible) gpu.current.on()
+    else gpu.current.off()
+  }, [visible])
 
   const onFocus = () => {
     if (useTerminalStore.getState().focusedTerminalId !== id) useTerminalStore.getState().focusTerminal(id)
