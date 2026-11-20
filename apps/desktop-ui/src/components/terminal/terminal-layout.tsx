@@ -13,7 +13,7 @@ import { useConfirm } from "@/components/confirm-dialog"
 import { useTabStore } from "@/store/tab-store"
 import { nextTabNumber, useTerminalStore, type TerminalProject } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
-import { needsYou } from "@/lib/terminal/status"
+import { needsAttention, needsYou } from "@/lib/terminal/status"
 import {
   isForeignEditable, matchShortcut, neighborPane, nextWaiting, singleFlight, tabIndexFor, tildify, type PaneRect,
 } from "@/lib/terminal/util"
@@ -120,7 +120,9 @@ function TabBar({ project }: { project: TerminalProject }) {
       <div role="tablist" aria-label={project.name} className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto">
         {project.tabs.map((tab, i) => {
           const active = tab.id === project.activeTabId
-          const waiting = leafIds(tab.layout).some((id) => statuses[id] === "waiting")
+          // Blocked outranks finished when a tab has both.
+          const tabStatuses = leafIds(tab.layout).map((id) => statuses[id])
+          const attention = tabStatuses.includes("waiting") ? "waiting" : tabStatuses.includes("done") ? "done" : null
           return (
             <div
               key={tab.id}
@@ -132,7 +134,7 @@ function TabBar({ project }: { project: TerminalProject }) {
                 dnd.draggingId === tab.id && "opacity-50",
               )}
             >
-              {waiting && <StatusDot status="waiting" />}
+              {attention && <StatusDot status={attention} />}
               {editing === tab.id ? (
                 <Input
                   autoFocus
@@ -297,7 +299,7 @@ export function TerminalLayout() {
   // Tell Rust which pane the user is looking at (suppresses its notification and clears waiting).
   // Re-sent when that pane turns waiting, because the user is already looking at it.
   const viewing = toolActive && windowFocused && focusedId && activeLeaves.includes(focusedId) ? focusedId : null
-  const viewingWaiting = viewing ? statuses[viewing] === "waiting" : false
+  const viewingWaiting = viewing ? needsAttention(statuses[viewing]) : false
   React.useEffect(() => {
     terminalSetViewing(viewing).catch(() => {}) // best effort: only affects notifications
   }, [viewing, viewingWaiting])

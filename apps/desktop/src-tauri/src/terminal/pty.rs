@@ -589,13 +589,13 @@ mod tests {
         st.spawn(req("a", "/tmp"), vec![], vec!["/bin/bash".into(), "-c".into(), script]).unwrap();
         let mut seen = vec![];
         let end = Instant::now() + Duration::from_secs(5);
-        while Instant::now() < end && !seen.contains(&TermStatus::Waiting) {
+        while Instant::now() < end && !seen.contains(&TermStatus::Done) {
             seen.extend(st.poll_agents(|_| false).into_iter().map(|(_, s)| s));
             std::thread::sleep(Duration::from_millis(100));
         }
         st.kill_all();
         let _ = std::fs::remove_dir_all(&dir);
         // An Idle may come first if a poll lands before the program's first output.
-        assert!(seen.ends_with(&[TermStatus::Running, TermStatus::Waiting]), "{seen:?}");
+        assert!(seen.ends_with(&[TermStatus::Running, TermStatus::Done]), "{seen:?}");
     }
 }

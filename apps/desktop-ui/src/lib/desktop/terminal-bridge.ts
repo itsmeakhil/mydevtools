@@ -38,8 +38,8 @@ export const terminalGitInfo = (path: string, withChanged: boolean) =>
 export const terminalStatuses = () => invoke<Record<string, TermStatus>>("terminal_statuses")
 export const terminalClearWaiting = (id: string) => invoke<void>("terminal_clear_waiting", { id })
 export const terminalSetViewing = (id: string | null) => invoke<void>("terminal_set_viewing", { id })
-export const terminalSetStrings = (waitingBody: string, quitTitle: string) =>
-  invoke<void>("terminal_set_strings", { waitingBody, quitTitle })
+export const terminalSetStrings = (waitingBody: string, doneBody: string, quitTitle: string) =>
+  invoke<void>("terminal_set_strings", { waitingBody, doneBody, quitTitle })
 export const appQuitConfirmed = () => invoke<void>("app_quit_confirmed")
 export const appQuitCancelled = () => invoke<void>("app_quit_cancelled")
 

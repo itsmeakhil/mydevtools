@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { toast } from "sonner"
 import { leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
-import type { TermStatus } from "@/lib/terminal/status"
+import { needsAttention, type TermStatus } from "@/lib/terminal/status"
 import { loadTerminalState, saveTerminalState, terminalKill } from "@/lib/desktop/terminal-bridge"
 import { clampFontSize, FONT_SIZE } from "@/lib/terminal/util"
 
@@ -356,7 +356,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       set((st) => {
         if (!find(st.projects, id)) return st
         const { [id]: was, ...attention } = st.attention
-        if (s === "waiting")
+        if (needsAttention(s))
           // Still waiting (e.g. a replay): keep when it started; a new reason replaces the old one.
           attention[id] = { since: was?.since ?? Date.now(), message: message || was?.message }
         if (s === "idle") {

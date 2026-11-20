@@ -97,7 +97,7 @@ export function useTerminalStatusListener() {
 
   useEffect(() => {
     if (!isDesktop()) return
-    terminalSetStrings(t("waitingBody"), t("quitTitle", { count: 2 })).catch(() => {})
+    terminalSetStrings(t("waitingBody"), t("doneBody"), t("quitTitle", { count: 2 })).catch(() => {})
   }, [t])
 
   useEffect(() => {
