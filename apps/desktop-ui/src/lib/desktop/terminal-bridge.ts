@@ -19,6 +19,8 @@ export const terminalSpawn = (req: {
   inheritCwdFrom?: string
   /** Extra environment for a fresh session (secrets for a CLI); Rust refuses shell-altering names. */
   env?: Record<string, string>
+  /** Lets Rust check the project's helper-pane opt-in for `mdt-term run`. */
+  projectId?: string
 }) =>
   invoke<{ id: string; cwd: string; cwdFallback: boolean; resume?: Resume }>("terminal_spawn", { req })
 
@@ -62,6 +64,9 @@ export const terminalSetStrings = (waitingBody: string, doneBody: string, failed
 /** Which notifications Rust shows (the Dock badge always counts), and whether they play a sound. */
 export const terminalSetNotify = (blocked: boolean, done: boolean, sound: boolean) =>
   invoke<void>("terminal_set_notify", { blocked, done, sound })
+/** Whether agents in this project may start helper panes; Rust refuses `run` for projects it wasn't told about. */
+export const terminalSetProjectPrefs = (projectId: string, agentsCanSpawn: boolean) =>
+  invoke<void>("terminal_set_project_prefs", { projectId, agentsCanSpawn })
 export const appQuitConfirmed = () => invoke<void>("app_quit_confirmed")
 export const appQuitCancelled = () => invoke<void>("app_quit_cancelled")
 
@@ -82,3 +87,9 @@ export const onClosePane = (cb: (p: { id: string }) => void) => on("terminal://c
 export const loadTerminalState = () => apiRequest<TerminalPersisted>("GET", "/api/v1/terminal/state")
 export const saveTerminalState = (state: TerminalPersisted) =>
   apiRequest<unknown>("PUT", "/api/v1/terminal/state", state).then(() => undefined)
+/** An agent started a helper pane (Rust already spawned its session under `id`). */
+export const onTerminalSpawnChild = (cb: (p: { parent: string; id: string; name: string | null; cwd: string }) => void) =>
+  on("terminal://spawn-child", cb)
+/** A helper pane was closed (drop its pane) or its process exited (keep it: output, exit banner). */
+export const onTerminalChildClosed = (cb: (p: { id: string; parent: string; reason: "closed" | "exited" }) => void) =>
+  on("terminal://child-closed", cb)

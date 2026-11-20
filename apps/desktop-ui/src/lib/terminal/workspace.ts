@@ -13,3 +13,5 @@ export function planWorkspace(ws: Workspace): PanePlan[] {
 
 /** Anything that runs a command, loads secrets or creates a worktree needs the file trusted first. */
 export const needsTrust = (ws: Workspace) => !!ws.worktree || !!ws.panes?.some((p) => p.command || p.env)
+/** A pane loads a saved environment but the vault is locked: open nothing rather than run without it. */
+export const needsUnlock = (plan: PanePlan[], unlocked: boolean) => !unlocked && plan.some((p) => p.envName)

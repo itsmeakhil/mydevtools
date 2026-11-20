@@ -5,6 +5,7 @@ use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::time::{Duration, Instant};
 use tauri::{AppHandle, Emitter, State};
 
 #[derive(Serialize, Clone, Copy, PartialEq, Eq, Debug)]
@@ -91,7 +92,14 @@ pub struct StatusMap {
     status: HashMap<String, TermStatus>,
     /// Per pane: the states an active program source reports itself (cleared at the next shell prompt).
     covers: HashMap<String, &'static [TermStatus]>,
+    /// Who set each pane's current status.
+    by: HashMap<String, Source>,
+    /// When the program last reported Done (a spinner left on screen just after is stale).
+    done_at: HashMap<String, Instant>,
 }
+
+/// After a program's Done, the screen's Running is taken as a stale spinner for this long.
+const AFTER_DONE: Duration = Duration::from_secs(2);
 
 impl StatusMap {
     pub fn apply(&mut self, id: &str, s: TermStatus) -> Option<Transition> {
@@ -99,6 +107,7 @@ impl StatusMap {
     }
 
     fn apply_inner(&mut self, id: &str, s: TermStatus, source: Source) -> Option<Transition> {
+        self.by.insert(id.to_string(), source);
         let prev = self.status.insert(id.to_string(), s);
         (prev != Some(s)).then(|| Transition { id: id.to_string(), status: s, entered_waiting: s.needs_you(), source })
     }
@@ -111,16 +120,39 @@ impl StatusMap {
     /// Arbitration: the program owns what it reports, the screen fills the rest, and the shell
     /// defers to an active program until its next prompt (which ends the program's claims).
     pub fn apply_from(&mut self, id: &str, source: Source, s: TermStatus) -> Option<Transition> {
+        self.apply_from_at(id, source, s, Instant::now())
+    }
+
+    /// `apply_from` at time `now`. A program covering only some states (Codex: Done) leaves
+    /// the screen to report the rest, so the screen may also end a status it set itself.
+    pub fn apply_from_at(&mut self, id: &str, source: Source, s: TermStatus, now: Instant) -> Option<Transition> {
         let covered = self.covers.get(id).copied();
+        if source == Source::Program && s == TermStatus::Done {
+            self.done_at.insert(id.to_string(), now);
+        }
+        // The screen detector reports edges only: any non-Running reading means the old turn's
+        // spinner is gone, so the next Running is a new turn and must not be dropped.
+        if source == Source::Screen && s != TermStatus::Running {
+            self.done_at.remove(id);
+        }
+        let just_done = self.done_at.get(id).is_some_and(|t| now.saturating_duration_since(*t) < AFTER_DONE);
         match source {
-            Source::Screen if covered.is_some_and(|c| c.contains(&s)) => None,
+            Source::Screen if s == TermStatus::Running && just_done => None,
+            Source::Screen if covered.is_some_and(|c| c.contains(&s)) && self.by.get(id) != Some(&Source::Screen) => None,
             Source::Shell if s == TermStatus::Idle => {
                 self.covers.remove(id);
+                self.done_at.remove(id);
                 self.apply_inner(id, s, source)
             }
             Source::Shell if covered.is_some() => None,
             _ => self.apply_inner(id, s, source),
         }
+    }
+
+    /// Input went to pane `id` (ctl send, the user typing): new work may start, so a Running
+    /// read from the screen is no longer taken as the last turn's leftover spinner.
+    pub fn new_input(&mut self, id: &str) {
+        self.done_at.remove(id);
     }
 
     /// The user looked at the pane: it no longer needs them.
@@ -134,6 +166,8 @@ impl StatusMap {
     /// Forget a terminal that was killed or exited; `Some` (as Idle) if it had a status.
     pub fn remove(&mut self, id: &str) -> Option<Transition> {
         self.covers.remove(id);
+        self.by.remove(id);
+        self.done_at.remove(id);
         self.status.remove(id).map(|_| Transition {
             id: id.to_string(),
             status: TermStatus::Idle,
@@ -147,6 +181,10 @@ impl StatusMap {
             .values()
             .filter(|s| s.needs_you())
             .count()
+    }
+
+    pub fn get(&self, id: &str) -> Option<TermStatus> {
+        self.status.get(id).copied()
     }
 
     pub fn snapshot(&self) -> HashMap<String, TermStatus> {
@@ -177,7 +215,9 @@ pub fn apply_status_if_live(
     if let Some(c) = covers {
         statuses.set_program_covers(id, c);
     }
-    statuses.apply_from(id, source, s)
+    let t = statuses.apply_from(id, source, s)?;
+    state.status_changed(id, t.status);
+    Some(t)
 }
 
 /// AF_UNIX paths are capped (~104 bytes on macOS); fall back to a short /tmp dir.
@@ -205,25 +245,31 @@ fn ensure_private_dir(dir: &Path, uid: u32) -> Result<(), String> {
     Ok(())
 }
 
+/// Bind a 0600 socket at `path` (replacing a stale one) in a private, owned directory.
+#[cfg(unix)]
+pub fn bind_private(path: &Path) -> Result<tokio::net::UnixListener, String> {
+    use std::os::unix::fs::PermissionsExt;
+    if let Some(dir) = path.parent() {
+        ensure_private_dir(dir, unsafe { libc::getuid() })?;
+    }
+    let _ = std::fs::remove_file(path);
+    let listener = tokio::net::UnixListener::bind(path)
+        .map_err(|e| format!("bind {}: {e}", path.display()))?;
+    std::fs::set_permissions(path, std::fs::Permissions::from_mode(0o600))
+        .map_err(|e| format!("chmod socket: {e}"))?;
+    Ok(listener)
+}
+
 #[cfg(unix)]
 pub async fn serve(
     path: PathBuf,
     token: String,
     on_msg: impl Fn(HookMsg) + Send + Sync + 'static,
 ) -> Result<(), String> {
-    use std::os::unix::fs::PermissionsExt;
     use std::time::Duration;
     use tokio::io::{AsyncBufReadExt, AsyncReadExt, BufReader};
-    use tokio::net::UnixListener;
 
-    if let Some(dir) = path.parent() {
-        ensure_private_dir(dir, unsafe { libc::getuid() })?;
-    }
-    let _ = std::fs::remove_file(&path);
-    let listener =
-        UnixListener::bind(&path).map_err(|e| format!("bind {}: {e}", path.display()))?;
-    std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o600))
-        .map_err(|e| format!("chmod socket: {e}"))?;
+    let listener = bind_private(&path)?;
     let on_msg = Arc::new(on_msg);
     let token = Arc::new(token);
     loop {
@@ -388,6 +434,52 @@ mod tests {
         // Back at the shell prompt: the program is gone, so are its claims.
         assert_eq!(m.apply_from("a", Source::Shell, Idle).unwrap().status, Idle);
         assert_eq!(m.apply_from("a", Source::Screen, Running).unwrap().status, Running);
+    }
+
+    /// Codex reports only Done (notify hook); the screen reads its spinner for Running.
+    #[test]
+    fn codex_does_not_stick_at_running_after_its_turn() {
+        use std::time::{Duration, Instant};
+        use TermStatus::*;
+        let t0 = Instant::now();
+        let mut m = StatusMap::default();
+        m.set_program_covers("a", &[Done]);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, t0).unwrap().status, Running);
+        assert_eq!(m.apply_from_at("a", Source::Program, Done, t0).unwrap().status, Done);
+        // A stale spinner still on screen just after the notify hook: not a new turn.
+        assert!(m.apply_from_at("a", Source::Screen, Running, t0 + Duration::from_millis(400)).is_none());
+        assert_eq!(m.get("a"), Some(Done));
+        // A real new turn later shows Running again, and its end on screen is let through
+        // (the screen set the current status, so it may also end it).
+        let later = t0 + Duration::from_secs(3);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, later).unwrap().status, Running);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Done, later).unwrap().status, Done);
+        // Once the program set the status, a covered screen reading is ignored again.
+        assert_eq!(m.apply_from_at("a", Source::Program, Waiting, later).unwrap().status, Waiting);
+        assert!(m.apply_from_at("a", Source::Screen, Done, later).is_none());
+    }
+
+    /// The screen detector is edge-triggered: a new turn's Running is reported once. When the
+    /// old turn's screen is gone or new input went in, that Running must not be dropped.
+    #[test]
+    fn a_new_codex_turn_right_after_done_shows_running() {
+        use std::time::{Duration, Instant};
+        use TermStatus::*;
+        let t0 = Instant::now();
+        let soon = t0 + Duration::from_millis(800);
+        for gone in [Idle, Done] {
+            let mut m = StatusMap::default();
+            m.set_program_covers("a", &[Done]);
+            m.apply_from_at("a", Source::Program, Done, t0);
+            // The old turn's screen settled (a covered or no-op reading still counts as evidence).
+            let _ = m.apply_from_at("a", Source::Screen, gone, t0 + Duration::from_millis(400));
+            assert_eq!(m.apply_from_at("a", Source::Screen, Running, soon).map(|t| t.status), Some(Running), "after screen {gone:?}");
+        }
+        let mut m = StatusMap::default();
+        m.set_program_covers("a", &[Done]);
+        m.apply_from_at("a", Source::Program, Done, t0);
+        m.new_input("a"); // ctl send / the user typed the next prompt
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, soon).map(|t| t.status), Some(Running));
     }
 
     #[test]

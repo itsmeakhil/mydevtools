@@ -5,11 +5,11 @@ import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { IconArrowsMinimize, IconChevronDown, IconChevronUp, IconPlayerPlay, IconRefresh, IconX } from "@tabler/icons-react"
 import { agentName, resumeCommand } from "@/lib/terminal/agents"
-import { blobToBase64, imageTooLarge, pngIn } from "@/lib/terminal/paste-image"
+import { blobToBase64, imageToPaste, imageTooLarge } from "@/lib/terminal/paste-image"
 import "@xterm/xterm/css/xterm.css"
 import type { IMarker, Terminal as XTerm } from "@xterm/xterm"
 import type { SearchAddon } from "@xterm/addon-search"
-import { terminalExists, useTerminalStore } from "@/store/terminal-store"
+import { terminalExists, useTerminalStore, withHelpers } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
 import {
   cwdFromOsc7, decodeOutput, duration, encodeInput, IMAGE_ADDON_OPTIONS, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
@@ -100,6 +100,7 @@ interface Props {
   id: string
   cwd: string
   projectName: string
+  projectId: string
   label: string
   status: TermStatus | undefined
   focused: boolean
@@ -109,7 +110,7 @@ interface Props {
   split: boolean
 }
 
-function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visible, split }: Props) {
+function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focused, visible, split }: Props) {
   const t = useTranslations("Terminal")
   const hostRef = React.useRef<HTMLDivElement>(null)
   const termRef = React.useRef<XTerm | null>(null)
@@ -318,8 +319,8 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
 
       // ⌘V with a screenshot on the clipboard: save it and type its path (agents take images as paths).
       const onPaste = (e: ClipboardEvent) => {
-        const png = pngIn(e.clipboardData?.files)
-        if (!png) return // text: xterm's own paste handles it
+        const png = imageToPaste(e.clipboardData)
+        if (!png) return // text (copied cells carry a picture too): xterm's own paste handles it
         e.preventDefault()
         e.stopPropagation()
         void pasteImageRef.current(png)
@@ -345,7 +346,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       try {
         const inheritCwdFrom = useTerminalStore.getState().cwdFrom[id]
         const env = useTerminalStore.getState().takeEnvOnStart(id)
-        const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName, inheritCwdFrom, env })
+        const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName, inheritCwdFrom, env, projectId })
         if (disposed) {
           // Closed mid-spawn: its kill may have reached Rust first, leaving this spawn an orphan PTY.
           // (A remount keeps the id in the store, so its session is left alone.)
@@ -387,7 +388,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       disposed = true
       cleanup()
     }
-  }, [id, cwd, projectName])
+  }, [id, cwd, projectName, projectId])
 
   React.useEffect(() => {
     if (termRef.current) termRef.current.options.macOptionIsMeta = optionAsMeta
@@ -446,7 +447,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
 
   const statusLabel = status === "waiting" ? t("statusWaiting") : status === "done" ? t("statusDone") : null
   const store = useTerminalStore.getState
-  const close = () => guardClose([id], () => store().closeTerminal(id))
+  const close = () => guardClose(withHelpers([id]), () => store().closeTerminal(id))
   // Blur ends a rename (saving it); Enter blurs, Escape blurs without saving.
   const discardRename = React.useRef(false)
   const endRename = () => {

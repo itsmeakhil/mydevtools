@@ -3,7 +3,7 @@ import { toast } from "sonner"
 import { cloneLayout, leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import { needsAttention, type StatusSource, type TermStatus } from "@/lib/terminal/status"
 import {
-  loadTerminalState, saveTerminalState, terminalKill, terminalProjectFileRead, terminalProjectFileWrite,
+  loadTerminalState, saveTerminalState, terminalKill, terminalSetProjectPrefs, terminalProjectFileRead, terminalProjectFileWrite,
   type CommandEnd, type Worktree,
 } from "@/lib/desktop/terminal-bridge"
 import { parseProjectConfig, serializeProjectConfig, type ProjectConfigV1, type Workspace } from "@/lib/terminal/project-config"
@@ -23,6 +23,8 @@ export interface TerminalProject {
   commands?: SavedCommand[]
   /** Saved tab layouts (split shape only), offered in the new-tab menu. */
   layouts?: SavedLayout[]
+  /** Agents in this project's panes may start helper panes (`mdt-term run`). Off by default. */
+  agentsCanSpawn?: boolean
 }
 
 export interface SavedLayout { name: string; layout: SplitNode }
@@ -93,6 +95,13 @@ interface TerminalState extends TerminalPersisted {
   cwds: Record<string, string>
   /** Pane maximized over its tab (⌘⇧↵); only honoured while it is also the focused pane. Not persisted. */
   zoomedId: string | null
+  /** Agent pane id → helper panes it started (one level deep); not persisted. */
+  children: Record<string, string[]>
+  /** Rust spawned a helper under `id`: put a pane for it next to `parent`. */
+  addHelper: (parent: string, id: string, name: string | null) => void
+  /** Rust says the helper was closed: drop its pane without asking. An exited one keeps its pane. Unknown ids are ignored. */
+  helperClosed: (id: string, reason: "closed" | "exited") => void
+  setAgentsCanSpawn: (projectId: string, on: boolean) => void
   /** New pane id → the pane whose current directory it opens in (read once at spawn); not persisted. */
   cwdFrom: Record<string, string>
   /** New pane id → command to run once its shell starts (read once at spawn); not persisted. */
@@ -140,7 +149,7 @@ interface TerminalState extends TerminalPersisted {
   moveTab: (projectId: string, fromId: string, toId: string) => void
   /** Custom pane name; blank clears it so the label falls back to the shell's window title. */
   renameTerminal: (terminalId: string, name: string) => void
-  split: (terminalId: string, dir: "row" | "col") => void
+  split: (terminalId: string, dir: "row" | "col", newId?: string) => void
   closeTerminal: (terminalId: string) => void
   /** Replace an exited pane with a fresh shell in the same slot, opening in its last directory. */
   restartTerminal: (terminalId: string) => void
@@ -164,6 +173,12 @@ const find = (projects: TerminalProject[], terminalId: string) => {
   return null
 }
 
+/** The panes that close with these: each one's helpers follow it. */
+export const withHelpers = (ids: string[]) => {
+  const { children } = useTerminalStore.getState()
+  return ids.flatMap((id) => [id, ...(children[id] ?? []).filter((c) => !ids.includes(c))])
+}
+
 /** Whether any project's layout still holds this terminal (false once its pane was closed). */
 export const terminalExists = (terminalId: string) => find(useTerminalStore.getState().projects, terminalId) !== null
 
@@ -181,6 +196,7 @@ const fileErrors = new Map<string, string>()
 
 export function resetTerminalSaveState() {
   fileErrors.clear()
+  fileEdits = Promise.resolve()
   clearTimeout(timer)
   inflight = null
   rerun = false
@@ -190,6 +206,14 @@ export function resetTerminalSaveState() {
 }
 
 const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e))
+
+/** Store messages, translated by the UI (`Terminal.<key>`); the store itself has no `t`. */
+type Say = (key: "configInvalid" | "configChanged", values: Record<string, string>) => string
+let say: Say = (key, v) => [key, ...Object.values(v)].join(": ")
+export const setTerminalSay = (fn: Say) => void (say = fn)
+const configPath = (p: TerminalProject) => `${p.path}/.mydevtools/terminal.json`
+/** Repo config edits run one at a time, each against what the previous one wrote. */
+let fileEdits: Promise<void> = Promise.resolve()
 
 export const useTerminalStore = create<TerminalState>((set, get) => {
   // Saves are serialized: at most one PUT in flight; changes arriving meanwhile
@@ -238,6 +262,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const agents = { ...s.agents }
       const runningSince = { ...s.runningSince }
       const sources = { ...s.sources }
+      const children: Record<string, string[]> = {}
+      for (const [parent, list] of Object.entries(s.children)) {
+        const kept = list.filter((c) => !ids.includes(c))
+        if (!ids.includes(parent) && kept.length) children[parent] = kept
+      }
       ids.forEach((id) => {
         delete runningSince[id]
         delete sources[id]
@@ -245,27 +274,52 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         delete attention[id]
         delete agents[id]
       })
-      return { statuses, attention, agents, runningSince, sources }
+      return { statuses, attention, agents, runningSince, sources, children }
     })
-  /** File-backed project: apply `fn` to its repo config and write the file back. False when not file-backed. */
+  /**
+   * File-backed project: apply `fn` to its repo config and write the file back. False when not file-backed.
+   * Never writes over what the user has on disk: refused while the file is invalid, and when it changed
+   * since it was read (e.g. a git pull) the edit is dropped and the file reloaded.
+   */
   const editFile = (projectId: string, fn: (c: ProjectConfigV1) => ProjectConfigV1) => {
-    const f = get().projectFiles[projectId]
     const p = get().projects.find((x) => x.id === projectId)
-    if (!f || !p) return false
-    // An edit the user makes here keeps a trusted file trusted; it never vouches for an untrusted one.
-    const wasTrusted = get().fileRunAllowed(projectId)
-    const config = fn(f.config)
-    const text = serializeProjectConfig(config)
-    set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash: "", pendingTrust: wasTrusted } } }))
-    void configHash(text).then((hash) => {
-      if (get().projectFiles[projectId]?.text !== text) return // a newer edit took over
-      set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash } } }))
-      if (wasTrusted) mutate((s) => ({ trusted: { ...s.trusted, [p.path]: hash } }))
-    })
-    terminalProjectFileWrite(p.path, text).catch((e) => {
-      toast.error(errMsg(e))
-      void get().loadProjectFile(projectId) // back to what's actually on disk
-    })
+    if (!p || !get().projectFiles[projectId]) return false
+    const invalid = fileErrors.get(projectId)
+    if (invalid !== undefined) {
+      toast.error(say("configInvalid", { path: configPath(p), error: invalid }))
+      return true
+    }
+    const edit = async () => {
+      let disk: string | null
+      try {
+        disk = await terminalProjectFileRead(p.path)
+      } catch (e) {
+        return void toast.error(errMsg(e))
+      }
+      const f = get().projectFiles[projectId]
+      if (!f) return
+      if (disk !== f.text) {
+        toast.error(say("configChanged", { path: configPath(p) }))
+        return get().loadProjectFile(projectId)
+      }
+      // An edit the user makes here keeps a trusted file trusted; it never vouches for an untrusted one.
+      const wasTrusted = get().fileRunAllowed(projectId)
+      const config = fn(f.config)
+      const text = serializeProjectConfig(config)
+      set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash: "", pendingTrust: wasTrusted } } }))
+      void configHash(text).then((hash) => {
+        if (get().projectFiles[projectId]?.text !== text) return // a newer edit took over
+        set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash } } }))
+        if (wasTrusted) mutate((s) => ({ trusted: { ...s.trusted, [p.path]: hash } }))
+      })
+      try {
+        await terminalProjectFileWrite(p.path, text)
+      } catch (e) {
+        toast.error(errMsg(e))
+        await get().loadProjectFile(projectId) // back to what's actually on disk
+      }
+    }
+    fileEdits = fileEdits.then(edit, edit)
     return true
   }
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
@@ -291,7 +345,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       })
       loadFailedOnce = false
       if (get().dirty) schedule()
-      get().projects.forEach((p) => void get().loadProjectFile(p.id))
+      get().projects.forEach((p) => {
+        void get().loadProjectFile(p.id)
+        // Rust only lets `run` through for projects it was told about.
+        terminalSetProjectPrefs(p.id, p.agentsCanSpawn === true).catch(() => {})
+      })
     } catch (e) {
       // Fail closed: stay unloaded so nothing is ever saved over real data.
       if (!loadFailedOnce) toast.error(errMsg(e))
@@ -300,7 +358,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, trusted: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, trusted: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, children: {}, runOnStart: {}, envOnStart: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -424,10 +482,10 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     loadProjectFile: async (projectId) => {
       const p = get().projects.find((x) => x.id === projectId)
       if (!p) return
-      const fail = (error: string) => {
+      const fail = (error: string, message = error) => {
         if (fileErrors.get(projectId) === error) return
         fileErrors.set(projectId, error)
-        toast.error(error)
+        toast.error(message)
       }
       let text: string | null
       try {
@@ -445,7 +503,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         return
       }
       const parsed = parseProjectConfig(text)
-      if (!parsed.ok) return fail(`${p.path}/.mydevtools/terminal.json: ${parsed.error}`)
+      if (!parsed.ok) return fail(parsed.error, say("configInvalid", { path: configPath(p), error: parsed.error }))
       fileErrors.delete(projectId)
       const file = { text, config: parsed.config, hash: await configHash(text) }
       set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: file } }))
@@ -521,10 +579,10 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       })))
     },
 
-    split: (terminalId, dir) => {
+    split: (terminalId, dir, id) => {
       const hit = find(get().projects, terminalId)
       if (!hit) return
-      const newId = uid()
+      const newId = id ?? uid()
       mutate(mapProject(hit.p.id, (p) => ({
         ...p,
         tabs: p.tabs.map((t) => (t.id === hit.t.id ? { ...t, layout: splitAt(t.layout, terminalId, dir, newId) } : t)),
@@ -532,18 +590,37 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       set((s) => ({ focusedTerminalId: newId, zoomedId: null, cwdFrom: { ...s.cwdFrom, [newId]: terminalId } }))
     },
 
+    addHelper: (parent, id, name) => {
+      if (find(get().projects, id)) return
+      if (!find(get().projects, parent)) return kill([id]) // Rust already spawned it; no pane will ever own it
+      const focused = get().focusedTerminalId
+      get().split(parent, "row", id)
+      set((s) => ({ focusedTerminalId: focused, children: { ...s.children, [parent]: [...(s.children[parent] ?? []), id] } }))
+      if (name) get().renameTerminal(id, name)
+    },
+
+    // Exited: the pane stays with its output and exit banner (the user closes it, or the agent does).
+    helperClosed: (id, reason) => void (reason === "closed" && get().closeTerminal(id)),
+
+    setAgentsCanSpawn: (projectId, on) => {
+      mutate(mapProject(projectId, (p) => ({ ...p, agentsCanSpawn: on })))
+      terminalSetProjectPrefs(projectId, on).catch((e) => toast.error(errMsg(e)))
+    },
+
+    // A parent takes its helpers with it.
     closeTerminal: (terminalId) => {
       const hit = find(get().projects, terminalId)
       if (!hit) return
-      kill([terminalId])
-      dropStatuses([terminalId])
-      const layout = removeLeaf(hit.t.layout, terminalId)
+      const ids = withHelpers([terminalId])
+      kill(ids)
+      dropStatuses(ids)
+      const layout = ids.reduce<SplitNode | null>((l, id) => l && removeLeaf(l, id), hit.t.layout)
       mutate(mapProject(hit.p.id, (p) => {
         if (!layout) {
           const tabs = p.tabs.filter((t) => t.id !== hit.t.id)
           return { ...p, tabs, activeTabId: p.activeTabId === hit.t.id ? (tabs[tabs.length - 1]?.id ?? null) : p.activeTabId }
         }
-        const { [terminalId]: _gone, ...names } = hit.t.terminalNames
+        const names = Object.fromEntries(Object.entries(hit.t.terminalNames).filter(([k]) => !ids.includes(k)))
         return { ...p, tabs: p.tabs.map((t) => (t.id === hit.t.id ? { ...t, layout, terminalNames: names } : t)) }
       }))
     },

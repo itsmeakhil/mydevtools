@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input"
 import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
 import { useConfirm } from "@/components/confirm-dialog"
 import { useTabStore } from "@/store/tab-store"
-import { nextTabNumber, useTerminalStore, type TerminalProject } from "@/store/terminal-store"
+import { nextTabNumber, useTerminalStore, withHelpers, type TerminalProject } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsAttention, needsYou } from "@/lib/terminal/status"
 import {
@@ -202,7 +202,7 @@ function TabBar({ project, isRepo, onWorktreeClosed }: {
               <button
                 type="button"
                 onClick={() =>
-                  guardClose(leafIds(tab.layout), () => {
+                  guardClose(withHelpers(leafIds(tab.layout)), () => {
                     S().closeTab(project.id, tab.id)
                     if (tab.worktree) onWorktreeClosed(tab.worktree)
                   })
@@ -341,10 +341,12 @@ export function TerminalLayout() {
   // Closing a pane with a running command or a waiting agent asks first.
   const guardClose = React.useCallback<CloseGuard>(
     async (ids, close) => {
-      if (!anyBusy(ids)) return close()
+      const kids = useTerminalStore.getState().children
+      const helpers = ids.filter((id) => kids[id]).reduce((n, id) => n + kids[id].length, 0)
+      if (!helpers && !anyBusy(ids)) return close()
       const ok = await confirm({
         title: t("closeRunningTitle"),
-        description: t("closeRunningBody"),
+        description: helpers ? t("closeWithHelpers") : t("closeRunningBody"),
         confirmLabel: t("close"),
         cancelLabel: t("cancel"),
         destructive: true,
@@ -364,7 +366,7 @@ export function TerminalLayout() {
     let gone = false
     onClosePane(({ id }) => {
       if (shortcutsBlocked(document.activeElement as HTMLElement | null)) return
-      if (visibleLeaves().includes(id)) guardRef.current([id], () => S().closeTerminal(id))
+      if (visibleLeaves().includes(id)) guardRef.current(withHelpers([id]), () => S().closeTerminal(id))
     })
       .then((u) => (gone ? u() : (unlisten = u)))
       .catch(() => {})
@@ -572,7 +574,7 @@ export function TerminalLayout() {
                         <SplitView
                           node={tab.layout}
                           path={[]}
-                          ctx={{ tab, cwd: tab.worktree?.path ?? p.path, projectName: p.name, visible: shown && toolActive && !boardOpen }}
+                          ctx={{ tab, cwd: tab.worktree?.path ?? p.path, projectName: p.name, projectId: p.id, visible: shown && toolActive && !boardOpen }}
                         />
                       </div>
                     )

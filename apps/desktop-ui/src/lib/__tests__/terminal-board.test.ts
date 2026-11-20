@@ -36,4 +36,10 @@ describe("boardColumns", () => {
   it("empty projects give empty columns", () => {
     expect(boardColumns([], {}, {}, {})).toEqual({ blocked: [], done: [], running: [], idle: [] })
   })
+
+  it("helper cards carry their parent id", () => {
+    const cols = boardColumns([project("p", ["a", "h"])], {}, {}, {}, { a: ["h"] })
+    expect(cols.idle.find((c) => c.id === "h")?.parentId).toBe("a")
+    expect(cols.idle.find((c) => c.id === "a")?.parentId).toBeUndefined()
+  })
 })

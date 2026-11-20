@@ -38,6 +38,7 @@ export function TerminalSettings({ open, onOpenChange }: { open: boolean; onOpen
   const prefs = useTerminalStore((s) => s.prefs)
   const fontSize = useTerminalStore((s) => s.fontSize)
   const optionAsMeta = useTerminalStore((s) => s.optionAsMeta)
+  const project = useTerminalStore((s) => s.projects.find((p) => p.id === s.activeProjectId) ?? s.projects[0])
   const st = useTerminalStore.getState
   const num = (n: number) => new Intl.NumberFormat(locale).format(n)
   // Font name commits on blur/Enter so every keystroke doesn't re-render all panes.
@@ -112,6 +113,18 @@ export function TerminalSettings({ open, onOpenChange }: { open: boolean; onOpen
           <Toggle id="term-nd" k="notifyDone" label={t("notifyDone")} />
           <Toggle id="term-ns" k="notifySound" label={t("notifySound")} />
         </section>
+        {project && (
+          <section className="grid gap-3 border-t border-border pt-3">
+            <h3 className="text-[11px] font-semibold text-muted-foreground">{project.name}</h3>
+            <Row label={t("agentsCanSpawn")} htmlFor="term-spawn" hint={t("agentsCanSpawnHint")}>
+              <Switch
+                id="term-spawn"
+                checked={project.agentsCanSpawn === true}
+                onCheckedChange={(v) => st().setAgentsCanSpawn(project.id, v)}
+              />
+            </Row>
+          </section>
+        )}
       </DialogContent>
     </Dialog>
   )

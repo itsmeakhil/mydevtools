@@ -1,4 +1,4 @@
-import { blobToBase64, imageTooLarge, MAX_IMAGE_BYTES, pngIn } from "@/lib/terminal/paste-image"
+import { blobToBase64, imageTooLarge, imageToPaste, MAX_IMAGE_BYTES, pngIn } from "@/lib/terminal/paste-image"
 
 describe("paste image", () => {
   it("encodes blobs as base64", async () => {
@@ -15,5 +15,12 @@ describe("paste image", () => {
     expect(pngIn([txt, png])).toBe(png)
     expect(pngIn([txt])).toBeUndefined()
     expect(pngIn(undefined)).toBeUndefined()
+  })
+  it("pastes text, not the image, when the clipboard has both (cells from Numbers, Excel, Slack)", () => {
+    const png = new File([new Uint8Array([137])], "s.png", { type: "image/png" })
+    expect(imageToPaste({ types: ["Files"], files: [png] })).toBe(png)
+    expect(imageToPaste({ types: ["text/plain", "text/html", "Files"], files: [png] })).toBeUndefined()
+    expect(imageToPaste({ types: ["text/plain"], files: [] })).toBeUndefined()
+    expect(imageToPaste(null)).toBeUndefined()
   })
 })

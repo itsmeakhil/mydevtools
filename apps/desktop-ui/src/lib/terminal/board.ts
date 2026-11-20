@@ -9,6 +9,8 @@ export interface Card {
   tabId: string
   tabName: string
   worktreeBranch?: string
+  /** Set on a helper pane: the agent pane that started it. */
+  parentId?: string
   /** Waiting/done: when it started needing you. */
   since?: number
   message?: string
@@ -25,7 +27,9 @@ export function boardColumns(
   statuses: Record<string, TermStatus>,
   attention: Record<string, Attention>,
   runningSince: Record<string, number>,
+  children: Record<string, string[]> = {},
 ): BoardColumns {
+  const parentOf = new Map(Object.entries(children).flatMap(([p, ids]) => ids.map((id) => [id, p] as const)))
   const cols: BoardColumns = { blocked: [], done: [], running: [], idle: [] }
   for (const p of projects)
     for (const tab of p.tabs)
@@ -33,6 +37,7 @@ export function boardColumns(
         const a = attention[id]
         const card: Card = {
           id, projectId: p.id, projectName: p.name, tabId: tab.id, tabName: tab.name,
+          ...(parentOf.has(id) && { parentId: parentOf.get(id) }),
           ...(tab.worktree && { worktreeBranch: tab.worktree.branch }),
           ...(a && { since: a.since, ...(a.message && { message: a.message }) }),
         }

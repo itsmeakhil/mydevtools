@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl"
 import { IconChevronDown, IconGitBranch, IconKey, IconTrash } from "@tabler/icons-react"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { envSetName, loadEnvSets, type EnvSet } from "@/lib/terminal/env-sets"
-import { needsTrust, planWorkspace } from "@/lib/terminal/workspace"
+import { needsTrust, needsUnlock, planWorkspace } from "@/lib/terminal/workspace"
 import type { ProjectConfigV1, Workspace } from "@/lib/terminal/project-config"
 import { toPaneEnv } from "@/lib/terminal/env-vars"
 import { toast } from "sonner"
@@ -30,13 +30,11 @@ type T = ReturnType<typeof useTranslations<"Terminal">>
 async function openWorkspace(project: TerminalProject, ws: Workspace, key: CryptoKey | null, t: T) {
   try {
     const plan = planWorkspace(ws)
-    let sets: EnvSet[] = []
-    if (plan.some((p) => p.envName)) {
-      if (key) sets = await loadEnvSets(key)
-      else toast.error(t("envLocked"))
-    }
+    // Running those panes' commands without their environment could hit the wrong target.
+    if (needsUnlock(plan, !!key)) return void toast.error(t("envLocked"))
+    const sets: EnvSet[] = key && plan.some((p) => p.envName) ? await loadEnvSets(key) : []
     const panes = plan.map((p) => {
-      if (!p.envName || !key) return { run: p.run }
+      if (!p.envName) return { run: p.run }
       const set = sets.find((s) => envSetName(s) === p.envName)
       if (!set) {
         toast.warning(t("envSetMissing", { name: p.envName }))
