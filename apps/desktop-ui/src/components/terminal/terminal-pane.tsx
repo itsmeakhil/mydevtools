@@ -21,7 +21,7 @@ import {
   ContextMenu, ContextMenuCheckboxItem, ContextMenuContent, ContextMenuItem, ContextMenuSeparator, ContextMenuShortcut,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
-import { StatusDot } from "./terminal-sidebar"
+import { AgentTag, StatusDot } from "./terminal-sidebar"
 import { useCloseGuard } from "./close-guard"
 
 const FONT = 'ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace'
@@ -96,6 +96,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   const onShortcut = React.useRef<(a: PaneShortcut) => void>(() => {})
   const wantFocus = React.useRef(false)
   const fontSize = useTerminalStore((s) => s.fontSize)
+  const agent = useTerminalStore((s) => s.agents[id])
   const optionAsMeta = useTerminalStore((s) => s.optionAsMeta)
   const zoomed = useTerminalStore((s) => s.zoomedId === id && s.focusedTerminalId === id)
   const guardClose = useCloseGuard()
@@ -395,14 +396,17 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
             className="h-5 min-w-0 flex-1 rounded bg-background px-1 text-[12px] text-foreground outline-none ring-1 ring-ring"
           />
         ) : (
-          <span
-            className={cn("min-w-0 truncate", focused && "text-foreground")}
-            title={label}
-            onDoubleClick={() => setRenaming(label)}
-          >
-            {label}
-            {statusLabel && ` · ${statusLabel}`}
-          </span>
+          <>
+            <AgentTag agent={agent} />
+            <span
+              className={cn("min-w-0 truncate", focused && "text-foreground")}
+              title={label}
+              onDoubleClick={() => setRenaming(label)}
+            >
+              {label}
+              {statusLabel && ` · ${statusLabel}`}
+            </span>
+          </>
         )}
         <span className="ml-auto flex shrink-0 items-center gap-0.5">
           {zoomed && (

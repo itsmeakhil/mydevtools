@@ -180,6 +180,19 @@ describe("terminal store", () => {
     expect(S().attention).toEqual({})
   })
 
+  it("setAgent tracks known panes only and closing forgets it", () => {
+    S().addProject("/x/a")
+    const id = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().setAgent(id, "codex")
+    S().setAgent("ghost", "codex")
+    expect(S().agents).toEqual({ [id]: "codex" })
+    S().setAgent(id, null)
+    expect(S().agents).toEqual({})
+    S().setAgent(id, "gemini")
+    S().closeTerminal(id)
+    expect(S().agents).toEqual({})
+  })
+
   it("attention keeps when waiting started and the latest reason, cleared on leaving waiting", () => {
     jest.setSystemTime(1_000)
     S().addProject("/x/a")

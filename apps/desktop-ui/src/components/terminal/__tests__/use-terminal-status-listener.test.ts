@@ -11,6 +11,7 @@ const mockCancelled = jest.fn()
 jest.mock("@/lib/desktop/terminal-bridge", () => ({
   onTerminalStatus: (cb: never) => mockListen("status")(cb),
   onTerminalFocus: (cb: never) => mockListen("focus")(cb),
+  onTerminalAgent: (cb: never) => mockListen("agent")(cb),
   onQuitRequested: (cb: never) => mockListen("quit")(cb),
   terminalStatuses: () => mockStatuses(),
   loadTerminalState: () => mockLoad(),
@@ -60,7 +61,7 @@ describe("subscribeTerminalAttention", () => {
     mockHandlers.status({ id: "a", status: "idle" } as never)
     expect(S().statuses).toEqual({})
     off()
-    expect(mockOff).toHaveBeenCalledTimes(3)
+    expect(mockOff).toHaveBeenCalledTimes(4) // status, agent, focus, quit
   })
 
   it("replays when a later load (e.g. retry) succeeds", async () => {

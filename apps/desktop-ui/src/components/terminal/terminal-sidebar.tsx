@@ -10,6 +10,7 @@ import { useTerminalStore, type TerminalProject, type TerminalTab } from "@/stor
 import { leafIds } from "@/lib/terminal/layout"
 import { needsYou, projectWaitingCount, type TermStatus } from "@/lib/terminal/status"
 import { ago } from "@/lib/terminal/util"
+import { agentName } from "@/lib/terminal/agents"
 import { cn } from "@/lib/utils"
 
 export function StatusDot({ status }: { status: TermStatus | undefined }) {
@@ -26,6 +27,14 @@ export function StatusDot({ status }: { status: TermStatus | undefined }) {
         status === "waiting" ? "bg-warning" : status === "done" ? "bg-primary" : status === "running" ? "bg-success" : "border border-muted-foreground/60",
       )}
     />
+  )
+}
+
+/** Which coding agent a pane is running (Codex, Gemini…). */
+export function AgentTag({ agent }: { agent: string | undefined }) {
+  if (!agent) return null
+  return (
+    <span className="shrink-0 rounded bg-foreground/[0.06] px-1 text-[11px] leading-4 text-muted-foreground">{agentName(agent)}</span>
   )
 }
 
@@ -82,6 +91,7 @@ function NeedsYouBox() {
   const titles = useTerminalStore((s) => s.titles)
   const focusTerminal = useTerminalStore((s) => s.focusTerminal)
   const attention = useTerminalStore((s) => s.attention)
+  const agents = useTerminalStore((s) => s.agents)
   const locale = useLocale()
   const items = React.useMemo(() => needsYou(projects, statuses), [projects, statuses])
   // Re-render each minute so "waiting 5 min" stays current.
@@ -120,6 +130,7 @@ function NeedsYouBox() {
                 <span className="min-w-0 truncate">
                   {it.projectName} / {labelOf(it.projectId, it.terminalId, it.terminalName)}
                 </span>
+                <AgentTag agent={agents[it.terminalId]} />
                 {a && <span className="ml-auto shrink-0 text-[11px] tabular-nums text-muted-foreground">{ago(a.since, now, locale)}</span>}
               </span>
               {a?.message && <span className="block truncate text-[12px] text-muted-foreground">{a.message}</span>}
@@ -132,9 +143,9 @@ function NeedsYouBox() {
 }
 
 const TerminalRow = React.memo(function TerminalRow({
-  id, projectId, tabId, label, status, active, onSelect,
+  id, projectId, tabId, label, status, agent, active, onSelect,
 }: {
-  id: string; projectId: string; tabId: string; label: string; status: TermStatus | undefined; active: boolean
+  id: string; projectId: string; tabId: string; label: string; status: TermStatus | undefined; agent: string | undefined; active: boolean
   onSelect: (id: string) => void
 }) {
   const t = useTranslations("Terminal")
@@ -182,18 +193,20 @@ const TerminalRow = React.memo(function TerminalRow({
     >
       <StatusDot status={status} />
       <span className="min-w-0 flex-1 truncate">{label}</span>
+      <AgentTag agent={agent} />
     </button>
   )
 })
 
 const ProjectRow = React.memo(function ProjectRow({
-  project, active, branch, waiting, statuses, titles, focusedId, onRemove,
+  project, active, branch, waiting, statuses, agents, titles, focusedId, onRemove,
 }: {
   project: TerminalProject
   active: boolean
   branch: string | null | undefined
   waiting: number
   statuses: Record<string, TermStatus>
+  agents: Record<string, string>
   titles: Record<string, string>
   focusedId: string | null
   onRemove: (p: TerminalProject) => void
@@ -258,7 +271,7 @@ const ProjectRow = React.memo(function ProjectRow({
             className="space-y-0.5 overflow-hidden px-2"
           >
             {rows.map((r) => (
-              <TerminalRow key={r.id} id={r.id} projectId={project.id} tabId={r.tabId} label={r.label} status={statuses[r.id]} active={r.id === focusedId} onSelect={focusTerminal} />
+              <TerminalRow key={r.id} id={r.id} projectId={project.id} tabId={r.tabId} label={r.label} status={statuses[r.id]} agent={agents[r.id]} active={r.id === focusedId} onSelect={focusTerminal} />
             ))}
           </motion.div>
         )}
@@ -274,6 +287,7 @@ export function TerminalSidebar({
   const projects = useTerminalStore((s) => s.projects)
   const statuses = useTerminalStore((s) => s.statuses)
   const titles = useTerminalStore((s) => s.titles)
+  const agents = useTerminalStore((s) => s.agents)
   const focusedId = useTerminalStore((s) => s.focusedTerminalId)
   const activeId = useTerminalStore((s) => s.activeProjectId) ?? projects[0]?.id
 
@@ -305,6 +319,7 @@ export function TerminalSidebar({
             branch={git[p.id]?.branch}
             waiting={projectWaitingCount(p, statuses)}
             statuses={statuses}
+            agents={agents}
             titles={titles}
             focusedId={focusedId}
             onRemove={onRemoveProject}

@@ -9,7 +9,7 @@ mod terminal;
 
 use router::ApiResponse;
 use state::AppState;
-use tauri::Manager;
+use tauri::{Emitter, Manager};
 use tauri_plugin_window_state::StateFlags;
 
 #[tauri::command]
@@ -181,6 +181,10 @@ pub fn run() {
                 }
             }));
             term.start_agent_poller();
+            let handle = app.handle().clone();
+            let _ = term.on_agent.set(std::sync::Arc::new(move |id, agent| {
+                let _ = handle.emit("terminal://agent", serde_json::json!({"id": id, "agent": agent}));
+            }));
             let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
             // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
             // the binary (target/<profile>/resources), which resource_dir() resolves to.
