@@ -98,9 +98,9 @@ interface TerminalState extends TerminalPersisted {
   /** Agent pane id → helper panes it started (one level deep); not persisted. */
   children: Record<string, string[]>
   /** Rust spawned a helper under `id`: put a pane for it next to `parent`. */
-  addHelper: (parent: string, id: string, name: string) => void
-  /** Rust says the helper is gone: drop its pane without asking. Unknown ids are ignored. */
-  helperClosed: (id: string) => void
+  addHelper: (parent: string, id: string, name: string | null) => void
+  /** Rust says the helper was closed: drop its pane without asking. An exited one keeps its pane. Unknown ids are ignored. */
+  helperClosed: (id: string, reason: "closed" | "exited") => void
   setAgentsCanSpawn: (projectId: string, on: boolean) => void
   /** New pane id → the pane whose current directory it opens in (read once at spawn); not persisted. */
   cwdFrom: Record<string, string>
@@ -196,6 +196,7 @@ const fileErrors = new Map<string, string>()
 
 export function resetTerminalSaveState() {
   fileErrors.clear()
+  fileEdits = Promise.resolve()
   clearTimeout(timer)
   inflight = null
   rerun = false
@@ -205,6 +206,14 @@ export function resetTerminalSaveState() {
 }
 
 const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e))
+
+/** Store messages, translated by the UI (`Terminal.<key>`); the store itself has no `t`. */
+type Say = (key: "configInvalid" | "configChanged", values: Record<string, string>) => string
+let say: Say = (key, v) => [key, ...Object.values(v)].join(": ")
+export const setTerminalSay = (fn: Say) => void (say = fn)
+const configPath = (p: TerminalProject) => `${p.path}/.mydevtools/terminal.json`
+/** Repo config edits run one at a time, each against what the previous one wrote. */
+let fileEdits: Promise<void> = Promise.resolve()
 
 export const useTerminalStore = create<TerminalState>((set, get) => {
   // Saves are serialized: at most one PUT in flight; changes arriving meanwhile
@@ -267,25 +276,50 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       })
       return { statuses, attention, agents, runningSince, sources, children }
     })
-  /** File-backed project: apply `fn` to its repo config and write the file back. False when not file-backed. */
+  /**
+   * File-backed project: apply `fn` to its repo config and write the file back. False when not file-backed.
+   * Never writes over what the user has on disk: refused while the file is invalid, and when it changed
+   * since it was read (e.g. a git pull) the edit is dropped and the file reloaded.
+   */
   const editFile = (projectId: string, fn: (c: ProjectConfigV1) => ProjectConfigV1) => {
-    const f = get().projectFiles[projectId]
     const p = get().projects.find((x) => x.id === projectId)
-    if (!f || !p) return false
-    // An edit the user makes here keeps a trusted file trusted; it never vouches for an untrusted one.
-    const wasTrusted = get().fileRunAllowed(projectId)
-    const config = fn(f.config)
-    const text = serializeProjectConfig(config)
-    set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash: "", pendingTrust: wasTrusted } } }))
-    void configHash(text).then((hash) => {
-      if (get().projectFiles[projectId]?.text !== text) return // a newer edit took over
-      set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash } } }))
-      if (wasTrusted) mutate((s) => ({ trusted: { ...s.trusted, [p.path]: hash } }))
-    })
-    terminalProjectFileWrite(p.path, text).catch((e) => {
-      toast.error(errMsg(e))
-      void get().loadProjectFile(projectId) // back to what's actually on disk
-    })
+    if (!p || !get().projectFiles[projectId]) return false
+    const invalid = fileErrors.get(projectId)
+    if (invalid !== undefined) {
+      toast.error(say("configInvalid", { path: configPath(p), error: invalid }))
+      return true
+    }
+    const edit = async () => {
+      let disk: string | null
+      try {
+        disk = await terminalProjectFileRead(p.path)
+      } catch (e) {
+        return void toast.error(errMsg(e))
+      }
+      const f = get().projectFiles[projectId]
+      if (!f) return
+      if (disk !== f.text) {
+        toast.error(say("configChanged", { path: configPath(p) }))
+        return get().loadProjectFile(projectId)
+      }
+      // An edit the user makes here keeps a trusted file trusted; it never vouches for an untrusted one.
+      const wasTrusted = get().fileRunAllowed(projectId)
+      const config = fn(f.config)
+      const text = serializeProjectConfig(config)
+      set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash: "", pendingTrust: wasTrusted } } }))
+      void configHash(text).then((hash) => {
+        if (get().projectFiles[projectId]?.text !== text) return // a newer edit took over
+        set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash } } }))
+        if (wasTrusted) mutate((s) => ({ trusted: { ...s.trusted, [p.path]: hash } }))
+      })
+      try {
+        await terminalProjectFileWrite(p.path, text)
+      } catch (e) {
+        toast.error(errMsg(e))
+        await get().loadProjectFile(projectId) // back to what's actually on disk
+      }
+    }
+    fileEdits = fileEdits.then(edit, edit)
     return true
   }
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
@@ -448,10 +482,10 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     loadProjectFile: async (projectId) => {
       const p = get().projects.find((x) => x.id === projectId)
       if (!p) return
-      const fail = (error: string) => {
+      const fail = (error: string, message = error) => {
         if (fileErrors.get(projectId) === error) return
         fileErrors.set(projectId, error)
-        toast.error(error)
+        toast.error(message)
       }
       let text: string | null
       try {
@@ -469,7 +503,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         return
       }
       const parsed = parseProjectConfig(text)
-      if (!parsed.ok) return fail(`${p.path}/.mydevtools/terminal.json: ${parsed.error}`)
+      if (!parsed.ok) return fail(parsed.error, say("configInvalid", { path: configPath(p), error: parsed.error }))
       fileErrors.delete(projectId)
       const file = { text, config: parsed.config, hash: await configHash(text) }
       set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: file } }))
@@ -562,10 +596,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const focused = get().focusedTerminalId
       get().split(parent, "row", id)
       set((s) => ({ focusedTerminalId: focused, children: { ...s.children, [parent]: [...(s.children[parent] ?? []), id] } }))
-      get().renameTerminal(id, name)
+      if (name) get().renameTerminal(id, name)
     },
 
-    helperClosed: (id) => get().closeTerminal(id),
+    // Exited: the pane stays with its output and exit banner (the user closes it, or the agent does).
+    helperClosed: (id, reason) => void (reason === "closed" && get().closeTerminal(id)),
 
     setAgentsCanSpawn: (projectId, on) => {
       mutate(mapProject(projectId, (p) => ({ ...p, agentsCanSpawn: on })))

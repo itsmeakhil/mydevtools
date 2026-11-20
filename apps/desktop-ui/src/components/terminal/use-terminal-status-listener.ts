@@ -20,7 +20,7 @@ import {
   terminalStatuses,
 } from "@/lib/desktop/terminal-bridge"
 import { useTabStore } from "@/store/tab-store"
-import { useTerminalStore } from "@/store/terminal-store"
+import { setTerminalSay, useTerminalStore } from "@/store/terminal-store"
 
 const S = () => useTerminalStore.getState()
 const TERMINAL_PATH = "/app/terminal"
@@ -43,7 +43,7 @@ export function subscribeTerminalAttention(onFocus: (id: string) => void, onQuit
     ))
   keep(onTerminalAgent(({ id, agent }) => S().setAgent(id, agent)))
   keep(onTerminalSpawnChild(({ parent, id, name }) => S().addHelper(parent, id, name)))
-  keep(onTerminalChildClosed(({ id }) => S().helperClosed(id)))
+  keep(onTerminalChildClosed(({ id, reason }) => S().helperClosed(id, reason)))
   keep(onTerminalFocus(({ id }) => onFocus(id)))
   keep(onQuitRequested(({ count }) => {
     // Start saving now so an edit made just before ⌘Q lands while the dialog is up.
@@ -111,6 +111,9 @@ export function useTerminalStatusListener() {
     if (!isDesktop()) return
     terminalSetNotify(notifyBlocked, notifyDone, notifySound).catch(() => {}) // best effort: only affects notifications
   }, [notifyBlocked, notifyDone, notifySound])
+
+  // The store toasts repo-config problems; it has no `t` of its own.
+  useEffect(() => setTerminalSay((key, values) => t(key, values)), [t])
 
   useEffect(() => {
     if (!isDesktop()) return

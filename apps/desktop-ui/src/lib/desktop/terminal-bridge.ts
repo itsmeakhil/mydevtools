@@ -88,7 +88,8 @@ export const loadTerminalState = () => apiRequest<TerminalPersisted>("GET", "/ap
 export const saveTerminalState = (state: TerminalPersisted) =>
   apiRequest<unknown>("PUT", "/api/v1/terminal/state", state).then(() => undefined)
 /** An agent started a helper pane (Rust already spawned its session under `id`). */
-export const onTerminalSpawnChild = (cb: (p: { parent: string; id: string; name: string; cwd: string }) => void) =>
+export const onTerminalSpawnChild = (cb: (p: { parent: string; id: string; name: string | null; cwd: string }) => void) =>
   on("terminal://spawn-child", cb)
-/** A helper pane was closed through the socket or exited. */
-export const onTerminalChildClosed = (cb: (p: { id: string; parent: string }) => void) => on("terminal://child-closed", cb)
+/** A helper pane was closed (drop its pane) or its process exited (keep it: output, exit banner). */
+export const onTerminalChildClosed = (cb: (p: { id: string; parent: string; reason: "closed" | "exited" }) => void) =>
+  on("terminal://child-closed", cb)

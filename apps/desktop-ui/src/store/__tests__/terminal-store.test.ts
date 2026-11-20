@@ -15,7 +15,7 @@ jest.mock("@/lib/desktop/terminal-bridge", () => ({
 jest.mock("sonner", () => ({ toast: { error: jest.fn() } }))
 
 import { toast } from "sonner"
-import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber, projectView, withHelpers } from "../terminal-store"
+import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber, projectView, withHelpers, setTerminalSay } from "../terminal-store"
 import { serializeProjectConfig } from "@/lib/terminal/project-config"
 import { DEFAULT_PREFS } from "@/lib/terminal/util"
 import { leafIds, LAYOUT_PRESETS } from "@/lib/terminal/layout"
@@ -30,6 +30,7 @@ beforeEach(() => {
   mockFileRead.mockReset().mockResolvedValue(null)
   mockFileWrite.mockReset().mockResolvedValue(undefined)
   resetTerminalSaveState()
+  setTerminalSay((key, v) => [key, ...Object.values(v)].join("|"))
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
   useTerminalStore.setState({ projectFiles: {}, trusted: {}, runOnStart: {}, envOnStart: {}, runningSince: {}, projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, children: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
@@ -241,6 +242,13 @@ describe("terminal store", () => {
 
   describe("repo config file", () => {
     const good = serializeProjectConfig({ version: 1, commands: [{ name: "Dev", command: "npm run dev" }] })
+    /** The file on disk: reads see what the last write put there. */
+    const fakeDisk = (text: string) => {
+      const disk = { text }
+      mockFileRead.mockImplementation(async () => disk.text)
+      mockFileWrite.mockImplementation(async (_p: string, t: string) => void (disk.text = t))
+      return disk
+    }
 
     it("commands come from the file when there is one", async () => {
       S().addProject("/x/a")
@@ -262,7 +270,55 @@ describe("terminal store", () => {
       await S().loadProjectFile(id)
       expect(projectView(S().projects[0], S().projectFiles).commands).toEqual([{ name: "Dev", command: "npm run dev" }])
       expect(toast.error).toHaveBeenCalledTimes(1)
+      // Translated in the UI (the store is handed the translator).
+      expect(toast.error).toHaveBeenCalledWith(expect.stringMatching(/^configInvalid\|\/x\/a\/\.mydevtools\/terminal\.json\|/))
       expect(mockFileWrite).not.toHaveBeenCalled()
+    })
+
+    it("never writes over a file that is invalid on disk", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      mockFileRead.mockResolvedValue(good)
+      await S().loadProjectFile(id)
+      mockFileRead.mockResolvedValue("{ broken")
+      await S().loadProjectFile(id)
+      ;(toast.error as jest.Mock).mockClear()
+      S().addCommand(id, { name: "Test", command: "npm test" })
+      S().removeCommand(id, 0)
+      await jest.advanceTimersByTimeAsync(0)
+      expect(mockFileWrite).not.toHaveBeenCalled()
+      expect(toast.error).toHaveBeenCalledWith(expect.stringMatching(/^configInvalid\|/))
+      expect(projectView(S().projects[0], S().projectFiles).commands).toEqual([{ name: "Dev", command: "npm run dev" }])
+    })
+
+    it("never writes over a file that changed on disk since it was read; reloads it instead", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      mockFileRead.mockResolvedValue(good)
+      await S().loadProjectFile(id)
+      const pulled = good.replace("npm run dev", "npm run start") // e.g. a git pull
+      mockFileRead.mockResolvedValue(pulled)
+      S().addCommand(id, { name: "Test", command: "npm test" })
+      await jest.advanceTimersByTimeAsync(0)
+      expect(mockFileWrite).not.toHaveBeenCalled()
+      expect(toast.error).toHaveBeenCalledWith("configChanged|/x/a/.mydevtools/terminal.json")
+      jest.useRealTimers() // the reload hashes the text (crypto.subtle resolves in real time)
+      for (let i = 0; i < 100 && S().projectFiles[id].text !== pulled; i++) await new Promise((r) => setTimeout(r, 5))
+      expect(S().projectFiles[id].text).toBe(pulled)
+    })
+
+    it("back-to-back edits all land in the file", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      const disk = fakeDisk(good)
+      await S().loadProjectFile(id)
+      S().addCommand(id, { name: "Test", command: "npm test" })
+      S().addCommand(id, { name: "Lint", command: "npm run lint" })
+      await jest.advanceTimersByTimeAsync(0)
+      expect(mockFileWrite).toHaveBeenCalledTimes(2)
+      expect(disk.text).toContain("npm test")
+      expect(disk.text).toContain("npm run lint")
+      expect(toast.error).not.toHaveBeenCalled()
     })
 
     it("edits to a file-backed project are written back to the file, not the local state", async () => {
@@ -295,7 +351,7 @@ describe("terminal store", () => {
     it("the app's own edits keep a trusted file trusted, but never trust an untrusted one", async () => {
       S().addProject("/x/a")
       const id = S().projects[0].id
-      mockFileRead.mockResolvedValue(good)
+      fakeDisk(good)
       await S().loadProjectFile(id)
       S().addCommand(id, { name: "Test", command: "npm test" })
       await jest.advanceTimersByTimeAsync(0)
@@ -303,7 +359,9 @@ describe("terminal store", () => {
       await S().trustProjectFile(id, S().projectFiles[id].text)
       S().addCommand(id, { name: "Lint", command: "npm run lint" })
       await jest.advanceTimersByTimeAsync(0)
+      expect(S().projectFiles[id].text).toContain("npm run lint")
       expect(S().fileRunAllowed(id)).toBe(true)
+      expect(toast.error).not.toHaveBeenCalled()
     })
 
     it("trust applies only to the exact text the user was shown", async () => {
@@ -659,11 +717,25 @@ describe("terminal store", () => {
       expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent])
       expect(S().children).toEqual({})
     })
+    it("spawn-child without a name (null from Rust) inserts the pane", () => {
+      const parent = setup()
+      expect(() => S().addHelper(parent, "h2", null)).not.toThrow()
+      expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent, "h2", "h1"])
+      expect("h2" in S().projects[0].tabs[0].terminalNames).toBe(false)
+    })
+    it("an exited helper keeps its pane (output, exit banner) until it is closed", () => {
+      const parent = setup()
+      S().helperClosed("h1", "exited")
+      expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent, "h1"])
+      expect(mockKill).not.toHaveBeenCalledWith("h1")
+      S().helperClosed("h1", "closed")
+      expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent])
+    })
     it("child-closed drops the leaf and ignores unknown ids", () => {
       const parent = setup()
-      S().helperClosed("ghost")
+      S().helperClosed("ghost", "closed")
       expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent, "h1"])
-      S().helperClosed("h1")
+      S().helperClosed("h1", "closed")
       expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent])
       expect(S().children).toEqual({})
       expect(mockKill).toHaveBeenCalledWith("h1")
