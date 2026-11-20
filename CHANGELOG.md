@@ -4,7 +4,7 @@ All notable changes to MyDevTools. Format follows [Keep a Changelog](https://kee
 
 ## [0.2.1] — Unreleased
 
-Mostly an API Client release: it closes most of the gap with Bruno for day-to-day use. The Terminal also gains find, restore after restart and agent status.
+Mostly an API Client release: it closes most of the gap with Bruno for day-to-day use. The Terminal becomes a place to run coding agents side by side: it shows which agent each pane runs and whether it needs you, starts tasks in their own git worktrees, and connects to your saved databases, environments and API requests.
 
 ### Changed — read before upgrading
 
@@ -53,7 +53,22 @@ Mostly an API Client release: it closes most of the gap with Bruno for day-to-da
 
 - Find in scrollback, zoom, clear, and faster GPU (WebGL) rendering.
 - Jump between prompts. The status bar shows the shell's current directory.
-- Agent status: panes show when a command is running and when an agent needs you.
+- Agent status: panes show when a command is running, when an agent is blocked on you, and when it has finished. Works for Claude and about 20 other coding agents (Codex, Gemini, opencode, Cursor, Amp and more), read from their screens using herdr's detection rules. (#442, #444)
+- The "needs you" list says why a pane is waiting and for how long, and puts blocked panes first. (#443)
+- Each pane shows which agent it is running. (#445)
+- Long shell commands (30 s or more) notify you when they finish or fail, with the exit code and how long they took. (#446)
+- Start an agent or a saved project command from the new-tab menu. (#447)
+- Start a task in its own git worktree, so agents working in parallel don't edit the same files. Closing the tab offers to remove the worktree; the branch is kept. (#448)
+- After a restart, a pane that was running Claude or Codex offers to resume that session. (#449)
+- Jump to any terminal pane from ⌘K anywhere in the app, and run terminal actions from it. (#450)
+- Terminal settings: font, line height, cursor, scrollback, copy on select, and which notifications to show. (#451)
+- Insert file paths from a file picker, quoted for the shell. (#452)
+- Layout presets (side by side, stacked, three columns, grid of four), and saving a tab's layout. (#453)
+- Screen reader announcements when a pane needs you, an optional screen reader mode, and a visible focus ring on the active pane. (#454)
+- A keyboard shortcut sheet (⌘/), and how long a busy pane has been running. (#455)
+- Open a saved database connection in its own CLI (`psql`, `mysql`, `sqlite3`, `redis-cli`), already signed in. (#457)
+- Open a terminal tab with an Environment Manager environment's variables set. (#458)
+- Run the current API Client request as `curl` in a terminal tab. (#459)
 - Terminals come back after a restart, with their scrollback and working directory.
 - Closing a pane that is running or waiting for you asks first.
 - Restart a pane whose shell has exited. It opens in the same directory.
@@ -72,11 +87,13 @@ Mostly an API Client release: it closes most of the gap with Bruno for day-to-da
 
 ### Security
 
+- Passwords and tokens handed to the Terminal (database CLIs, environments, API requests) reach only that pane's process as environment variables. They are never typed into the shell or its history, and never saved. Variables that would change how the shell starts, such as `PATH` or `LD_PRELOAD`, are refused. (#457–#459)
 - Upgraded Next.js from 16.4.3 to 16.4.6 to pick up a security fix. (#438)
 - Every webview page now has a Content Security Policy, which blocks scripts from sending data out through `import()`. (#435)
 
 ### Known limitations
 
+- Files dragged from Finder can't be dropped into a terminal pane; use **Insert file path…** in the pane's right-click menu.
 - Converting a PFX certificate uses the system `/usr/bin/openssl`, so it only works on macOS.
 
 ## [0.2.0]
