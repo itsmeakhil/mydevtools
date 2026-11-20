@@ -3388,6 +3388,7 @@
     "closeFind": "Suche schließen",
     "noMatches": "Keine Treffer",
     "closeRunningTitle": "Laufendes Terminal schließen?",
+    "closeTitle": "Terminal schließen?",
     "closeRunningBody": "Hier läuft noch etwas. Beim Schließen wird es beendet.",
     "agentsCanSpawn": "Agenten Hilfs-Panes starten lassen",
     "agentsCanSpawnHint": "Ein Agent in diesem Projekt kann Befehle in neuen Panes neben seinem eigenen ausführen. Helfer laufen mit dem vollen Zugriff deines Benutzers, außerhalb jeder Sandbox, in der der Agent selbst läuft (etwa der von Codex).",

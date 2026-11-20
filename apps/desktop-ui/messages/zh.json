@@ -3388,6 +3388,7 @@
     "closeFind": "关闭查找",
     "noMatches": "无匹配项",
     "closeRunningTitle": "关闭正在运行的终端？",
+    "closeTitle": "关闭终端？",
     "closeRunningBody": "这里仍有程序在运行。关闭将结束它。",
     "agentsCanSpawn": "允许智能体启动辅助窗格",
     "agentsCanSpawnHint": "允许此项目中的智能体在自己窗格旁的新窗格中运行命令。辅助窗格以你的用户的完整权限运行，不受智能体自身所在沙盒（例如 Codex 的沙盒）的限制。",

@@ -3388,6 +3388,7 @@
     "closeFind": "Zamknij wyszukiwanie",
     "noMatches": "Brak dopasowań",
     "closeRunningTitle": "Zamknąć działający terminal?",
+    "closeTitle": "Zamknąć terminal?",
     "closeRunningBody": "Coś tu wciąż działa. Zamknięcie to zakończy.",
     "agentsCanSpawn": "Pozwól agentom uruchamiać panele pomocnicze",
     "agentsCanSpawnHint": "Pozwala agentowi w tym projekcie uruchamiać polecenia w nowych panelach obok własnego. Panele pomocnicze działają z pełnym dostępem Twojego użytkownika, poza piaskownicą, w której działa sam agent (np. piaskownicą Codexa).",

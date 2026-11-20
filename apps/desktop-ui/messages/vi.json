@@ -3388,6 +3388,7 @@
     "closeFind": "Đóng tìm kiếm",
     "noMatches": "Không có kết quả",
     "closeRunningTitle": "Đóng terminal đang chạy?",
+    "closeTitle": "Đóng terminal?",
     "closeRunningBody": "Vẫn còn tiến trình đang chạy ở đây. Đóng sẽ kết thúc nó.",
     "agentsCanSpawn": "Cho phép tác tử mở ngăn trợ giúp",
     "agentsCanSpawnHint": "Cho phép tác tử trong dự án này chạy lệnh trong các ngăn mới bên cạnh ngăn của nó. Các ngăn trợ giúp chạy với toàn quyền của người dùng của bạn, bên ngoài mọi sandbox mà chính tác tử chạy trong đó (như sandbox của Codex).",

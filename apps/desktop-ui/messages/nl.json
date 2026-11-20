@@ -3388,6 +3388,7 @@
     "closeFind": "Zoeken sluiten",
     "noMatches": "Geen overeenkomsten",
     "closeRunningTitle": "Actieve terminal sluiten?",
+    "closeTitle": "Terminal sluiten?",
     "closeRunningBody": "Er draait hier nog iets. Sluiten beëindigt het.",
     "agentsCanSpawn": "Agents hulppanelen laten starten",
     "agentsCanSpawnHint": "Laat een agent in dit project opdrachten uitvoeren in nieuwe panelen naast het eigen paneel. Helpers draaien met de volledige toegang van je gebruiker, buiten elke sandbox waarin de agent zelf draait (zoals die van Codex).",

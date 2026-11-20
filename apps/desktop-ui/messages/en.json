@@ -3388,6 +3388,7 @@
     "closeFind": "Close find",
     "noMatches": "No matches",
     "closeRunningTitle": "Close running terminal?",
+    "closeTitle": "Close terminal?",
     "closeRunningBody": "Something is still running here. Closing will end it.",
     "agentsCanSpawn": "Let agents start helper panes",
     "agentsCanSpawnHint": "Lets an agent in this project run commands in new panes beside its own. Helpers run with your user's full access, outside any sandbox the agent itself runs in (such as Codex's).",

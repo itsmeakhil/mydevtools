@@ -3388,6 +3388,7 @@
     "closeFind": "Stäng sök",
     "noMatches": "Inga träffar",
     "closeRunningTitle": "Stäng terminal som körs?",
+    "closeTitle": "Stäng terminal?",
     "closeRunningBody": "Något körs fortfarande här. Om du stänger avslutas det.",
     "agentsCanSpawn": "Låt agenter starta hjälppaneler",
     "agentsCanSpawnHint": "Låter en agent i det här projektet köra kommandon i nya paneler bredvid sin egen. Hjälpare körs med din användares fulla behörighet, utanför den sandlåda som agenten själv körs i (till exempel Codex).",

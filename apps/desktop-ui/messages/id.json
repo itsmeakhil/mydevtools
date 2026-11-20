@@ -3388,6 +3388,7 @@
     "closeFind": "Tutup pencarian",
     "noMatches": "Tidak ada kecocokan",
     "closeRunningTitle": "Tutup terminal yang sedang berjalan?",
+    "closeTitle": "Tutup terminal?",
     "closeRunningBody": "Masih ada yang berjalan di sini. Menutupnya akan menghentikannya.",
     "agentsCanSpawn": "Izinkan agen memulai panel pembantu",
     "agentsCanSpawnHint": "Memungkinkan agen di proyek ini menjalankan perintah di panel baru di samping panelnya. Panel pembantu berjalan dengan akses penuh pengguna Anda, di luar sandbox apa pun tempat agen itu sendiri berjalan (seperti sandbox Codex).",

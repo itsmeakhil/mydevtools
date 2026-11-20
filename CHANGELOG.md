@@ -75,7 +75,7 @@ Mostly an API Client release: it closes most of the gap with Bruno for day-to-da
 - Commit a project's launch commands and workspaces to `.mydevtools/terminal.json`. A workspace is a split layout with each pane's command, an Environment Manager set by name, and optionally its own git worktree. Nothing from the file runs until you trust its exact content, and any outside edit asks again. (#465)
 - Agents can start helper panes with `mdt-term` (`run`, `send`, `read`, `wait`, `close`; `mdt-term --skill` explains it). Opt in per project in Terminal settings. Helpers show nested under the agent that started them, an agent can only drive its own helpers, there are at most 4 per agent, and helpers can't start helpers. Closing an agent asks, then closes its helpers too.
 - Terminals come back after a restart, with their scrollback and working directory.
-- Closing a pane that is running or waiting for you asks first.
+- Closing a terminal always asks first, with a stronger warning when a command is running or an agent is waiting for you. (#461)
 - Restart a pane whose shell has exited. It opens in the same directory.
 - A right-click menu on panes, plus shortcuts: ⌘⌥ arrows to move focus, ⌘1–9 to jump to a pane, ⌘⇧↵ to maximize.
 - An Option-as-Meta setting, off by default so ⌥ still types characters like @ and € on non-US keyboards.

@@ -3388,6 +3388,7 @@
     "closeFind": "Zavřít hledání",
     "noMatches": "Žádné shody",
     "closeRunningTitle": "Zavřít běžící terminál?",
+    "closeTitle": "Zavřít terminál?",
     "closeRunningBody": "Něco tu stále běží. Zavřením se to ukončí.",
     "agentsCanSpawn": "Nechat agenty spouštět pomocné panely",
     "agentsCanSpawnHint": "Agent v tomto projektu tak může spouštět příkazy v nových panelech vedle svého. Pomocné panely běží s plným přístupem vašeho uživatele, mimo jakýkoli sandbox, ve kterém běží samotný agent (například ten v Codexu).",

@@ -3388,6 +3388,7 @@
     "closeFind": "Fechar pesquisa",
     "noMatches": "Sem resultados",
     "closeRunningTitle": "Fechar o terminal em execução?",
+    "closeTitle": "Fechar o terminal?",
     "closeRunningBody": "Ainda há algo em execução aqui. Fechar irá terminá-lo.",
     "agentsCanSpawn": "Permitir que os agentes iniciem painéis auxiliares",
     "agentsCanSpawnHint": "Permite que um agente deste projeto execute comandos em novos painéis ao lado do seu. Os auxiliares são executados com o acesso total do seu utilizador, fora de qualquer sandbox em que o próprio agente seja executado (como a do Codex).",

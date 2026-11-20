@@ -3388,6 +3388,7 @@
     "closeFind": "Sluit soek",
     "noMatches": "Geen treffers",
     "closeRunningTitle": "Sluit lopende terminaal?",
+    "closeTitle": "Sluit terminaal?",
     "closeRunningBody": "Iets loop nog hier. Om te sluit sal dit beëindig.",
     "agentsCanSpawn": "Laat agente hulpvensters begin",
     "agentsCanSpawnHint": "Dit laat 'n agent in hierdie projek opdragte in nuwe vensters langsy sy eie laat loop. Helpers loop met jou gebruiker se volle toegang, buite enige sandput waarin die agent self loop (soos Codex s'n).",

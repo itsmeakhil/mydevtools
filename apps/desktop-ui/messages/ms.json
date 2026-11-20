@@ -3388,6 +3388,7 @@
     "closeFind": "Tutup carian",
     "noMatches": "Tiada padanan",
     "closeRunningTitle": "Tutup terminal yang sedang berjalan?",
+    "closeTitle": "Tutup terminal?",
     "closeRunningBody": "Sesuatu masih berjalan di sini. Menutupnya akan menamatkannya.",
     "agentsCanSpawn": "Benarkan ejen memulakan panel pembantu",
     "agentsCanSpawnHint": "Membolehkan ejen dalam projek ini menjalankan arahan dalam panel baharu di sebelah panelnya. Panel pembantu berjalan dengan akses penuh pengguna anda, di luar mana-mana kotak pasir tempat ejen itu sendiri berjalan (seperti kotak pasir Codex).",

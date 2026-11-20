@@ -3388,6 +3388,7 @@
     "closeFind": "Fermer la recherche",
     "noMatches": "Aucun résultat",
     "closeRunningTitle": "Fermer le terminal en cours d'exécution ?",
+    "closeTitle": "Fermer le terminal ?",
     "closeRunningBody": "Quelque chose est encore en cours ici. La fermeture l'arrêtera.",
     "agentsCanSpawn": "Autoriser les agents à lancer des volets d'assistance",
     "agentsCanSpawnHint": "Permet à un agent de ce projet d'exécuter des commandes dans de nouveaux volets à côté du sien. Les volets d'aide s'exécutent avec l'accès complet de votre utilisateur, hors de tout bac à sable dans lequel l'agent lui-même s'exécute (comme celui de Codex).",

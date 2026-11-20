@@ -3388,6 +3388,7 @@
     "closeFind": "Lukk søk",
     "noMatches": "Ingen treff",
     "closeRunningTitle": "Lukke kjørende terminal?",
+    "closeTitle": "Lukke terminal?",
     "closeRunningBody": "Noe kjører fortsatt her. Lukking vil avslutte det.",
     "agentsCanSpawn": "La agenter starte hjelpepaneler",
     "agentsCanSpawnHint": "Lar en agent i dette prosjektet kjøre kommandoer i nye paneler ved siden av sitt eget. Hjelpere kjører med full tilgang for brukeren din, utenfor enhver sandkasse agenten selv kjører i (for eksempel Codex sin).",

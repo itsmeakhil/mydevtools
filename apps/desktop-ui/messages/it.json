@@ -3388,6 +3388,7 @@
     "closeFind": "Chiudi ricerca",
     "noMatches": "Nessuna corrispondenza",
     "closeRunningTitle": "Chiudere il terminale in esecuzione?",
+    "closeTitle": "Chiudere il terminale?",
     "closeRunningBody": "Qualcosa è ancora in esecuzione. Chiudendo verrà terminato.",
     "agentsCanSpawn": "Consenti agli agenti di avviare pannelli ausiliari",
     "agentsCanSpawnHint": "Permette a un agente di questo progetto di eseguire comandi in nuovi pannelli accanto al proprio. Gli helper vengono eseguiti con l'accesso completo del tuo utente, fuori da qualsiasi sandbox in cui gira l'agente stesso (come quella di Codex).",
