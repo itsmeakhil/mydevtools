@@ -179,9 +179,19 @@ pub struct TerminalState {
     pub on_exit: std::sync::OnceLock<Arc<dyn Fn(&str) + Send + Sync>>,
     /// Set once in `setup`; called for status the program reported in-band (OSC 133 / 7501).
     pub on_status: std::sync::OnceLock<StatusFn>,
+    /// Set once in `setup`; called when a pane's foreground agent changes.
+    pub on_agent: std::sync::OnceLock<AgentFn>,
 }
 
 pub type StatusFn = Arc<dyn Fn(&str, super::hooks::TermStatus, Option<String>) + Send + Sync>;
+pub type AgentFn = Arc<dyn Fn(&str, Option<&str>) + Send + Sync>;
+
+#[derive(Debug, PartialEq)]
+pub enum AgentEvent {
+    /// Pane's foreground agent changed (manifest id; `None`: back to the shell or unknown program).
+    Agent(String, Option<&'static str>),
+    Status(String, super::hooks::TermStatus),
+}
 
 impl Default for TerminalState {
     fn default() -> Self {
@@ -194,6 +204,7 @@ impl Default for TerminalState {
             launch: std::sync::OnceLock::new(),
             on_exit: std::sync::OnceLock::new(),
             on_status: std::sync::OnceLock::new(),
+            on_agent: std::sync::OnceLock::new(),
         }
     }
 }
@@ -300,9 +311,9 @@ impl TerminalState {
         self.sessions.iter().map(|e| (e.key().clone(), e.value().clone())).collect()
     }
 
-    /// Screen-detected status changes for panes running a known agent (see `detect.rs`).
-    /// `skip` drops agents that report status another way (claude's hooks).
-    pub fn poll_agents(&self, skip: impl Fn(&super::detect::Manifest) -> bool) -> Vec<(String, super::hooks::TermStatus)> {
+    /// Which agent each pane runs, and screen-detected status changes (see `detect.rs`).
+    /// `skip` names agents whose status comes another way (claude's hooks): identified, not scraped.
+    pub fn poll_agents(&self, skip: impl Fn(&super::detect::Manifest) -> bool) -> Vec<AgentEvent> {
         let mut out = vec![];
         for (id, s) in self.all() {
             if s.exited() {
@@ -316,26 +327,40 @@ impl TerminalState {
             let fg = fg.filter(|p| Some(*p as u32) != s.pid);
             if s.det.lock().unwrap().pgid() != fg {
                 // `ps` outside the lock so the reader thread isn't held up.
-                let agent = fg.and_then(super::detect::cmdline).and_then(|c| super::detect::identify(&c)).filter(|m| !skip(m));
-                s.det.lock().unwrap().set_agent(fg, agent);
+                let agent = fg.and_then(super::detect::cmdline).and_then(|c| super::detect::identify(&c));
+                let mut det = s.det.lock().unwrap();
+                let before = det.agent_id();
+                det.set_agent(fg, agent, agent.is_some_and(|m| !skip(m)));
+                if det.agent_id() != before {
+                    out.push(AgentEvent::Agent(id.clone(), det.agent_id()));
+                }
             }
             if let Some(st) = s.det.lock().unwrap().step() {
-                out.push((id, st));
+                out.push(AgentEvent::Status(id, st));
             }
         }
         out
     }
 
-    /// Background thread feeding `poll_agents` results into `on_status`.
+    /// Background thread feeding `poll_agents` results into `on_status` / `on_agent`.
     pub fn start_agent_poller(self: &Arc<Self>) {
         let state = self.clone();
         std::thread::spawn(move || loop {
             std::thread::sleep(std::time::Duration::from_millis(400));
             // Claude reports through our hooks whenever shell integration is on.
             let hooks = state.launch.get().is_some();
-            for (id, st) in state.poll_agents(|m| hooks && m.id == "claude") {
-                if let Some(f) = state.on_status.get() {
-                    f(&id, st, None);
+            for e in state.poll_agents(|m| hooks && m.id == "claude") {
+                match e {
+                    AgentEvent::Status(id, st) => {
+                        if let Some(f) = state.on_status.get() {
+                            f(&id, st, None)
+                        }
+                    }
+                    AgentEvent::Agent(id, agent) => {
+                        if let Some(f) = state.on_agent.get() {
+                            f(&id, agent)
+                        }
+                    }
                 }
             }
         });
@@ -587,15 +612,21 @@ mod tests {
         let st = TerminalState::default();
         let script = format!("set -m; '{}'", fake.display());
         st.spawn(req("a", "/tmp"), vec![], vec!["/bin/bash".into(), "-c".into(), script]).unwrap();
-        let mut seen = vec![];
+        let (mut seen, mut agents) = (vec![], vec![]);
         let end = Instant::now() + Duration::from_secs(5);
         while Instant::now() < end && !seen.contains(&TermStatus::Done) {
-            seen.extend(st.poll_agents(|_| false).into_iter().map(|(_, s)| s));
+            for e in st.poll_agents(|_| false) {
+                match e {
+                    AgentEvent::Status(_, s) => seen.push(s),
+                    AgentEvent::Agent(_, a) => agents.push(a),
+                }
+            }
             std::thread::sleep(Duration::from_millis(100));
         }
         st.kill_all();
         let _ = std::fs::remove_dir_all(&dir);
         // An Idle may come first if a poll lands before the program's first output.
         assert!(seen.ends_with(&[TermStatus::Running, TermStatus::Done]), "{seen:?}");
+        assert_eq!(agents, vec![Some("gemini")]);
     }
 }

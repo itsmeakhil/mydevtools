@@ -30,6 +30,8 @@ export interface Attention {
 
 interface TerminalState extends TerminalPersisted {
   statuses: Record<string, TermStatus>
+  /** Coding agent running in the foreground of a pane (manifest id); not persisted. */
+  agents: Record<string, string>
   /** Waiting panes: when they started waiting and the program's reason, if it gave one. Not persisted. */
   attention: Record<string, Attention>
   /** Live window titles set by the shell/program (OSC 0/2); not persisted. */
@@ -67,6 +69,7 @@ interface TerminalState extends TerminalPersisted {
   resize: (tabId: string, path: number[], sizes: number[]) => void
   focusTerminal: (terminalId: string) => void
   setStatus: (id: string, s: TermStatus, message?: string) => void
+  setAgent: (id: string, agent: string | null) => void
   setTitle: (id: string, title: string) => void
   setFontSize: (size: number) => void
   setOptionAsMeta: (on: boolean) => void
@@ -149,11 +152,13 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     set((s) => {
       const statuses = { ...s.statuses }
       const attention = { ...s.attention }
+      const agents = { ...s.agents }
       ids.forEach((id) => {
         delete statuses[id]
         delete attention[id]
+        delete agents[id]
       })
-      return { statuses, attention }
+      return { statuses, attention, agents }
     })
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
     projects: s.projects.map((p) => (p.id === id ? fn(p) : p)),
@@ -184,7 +189,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {},
     optionAsMeta: false, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -364,6 +369,13 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
           return { statuses: rest, attention }
         }
         return { statuses: { ...st.statuses, [id]: s }, attention }
+      }),
+
+    setAgent: (id, agent) =>
+      set((st) => {
+        if (!find(st.projects, id) || (st.agents[id] ?? null) === agent) return st
+        const { [id]: _gone, ...agents } = st.agents
+        return { agents: agent ? { ...agents, [id]: agent } : agents }
       }),
 
     // ponytail: titles of closed panes are never pruned (a few bytes per uuid per session).

@@ -176,6 +176,8 @@ pub struct Pane {
     /// Foreground process group `agent` was identified for (`None`: the shell).
     pgid: Option<i32>,
     agent: Option<&'static Manifest>,
+    /// Read the screen for status; off for agents that report it another way.
+    scrape: bool,
     last: Option<State>,
     idle_pending: bool,
 }
@@ -189,6 +191,7 @@ impl Pane {
             dirty: false,
             pgid: None,
             agent: None,
+            scrape: false,
             last: None,
             idle_pending: false,
         }
@@ -218,13 +221,18 @@ impl Pane {
         self.pgid
     }
 
-    pub fn set_agent(&mut self, pgid: Option<i32>, agent: Option<&'static Manifest>) {
-        (self.pgid, self.agent, self.last, self.idle_pending, self.dirty) = (pgid, agent, None, false, true);
+    pub fn agent_id(&self) -> Option<&'static str> {
+        self.agent.map(|m| m.id.as_str())
+    }
+
+    pub fn set_agent(&mut self, pgid: Option<i32>, agent: Option<&'static Manifest>, scrape: bool) {
+        (self.pgid, self.agent, self.scrape, self.last, self.idle_pending, self.dirty) =
+            (pgid, agent, scrape, None, false, true);
     }
 
     /// One poll tick: `Some` when the pane's status should change.
     pub fn step(&mut self) -> Option<TermStatus> {
-        let agent = self.agent?;
+        let agent = self.agent.filter(|_| self.scrape)?;
         if !self.dirty && !self.idle_pending {
             return None;
         }
@@ -493,7 +501,11 @@ line_regex = ["^exact line$"]
     fn pane_status_transitions() {
         let mut p = Pane::new(5, 60);
         assert_eq!(p.step(), None, "no agent, no status");
-        p.set_agent(Some(42), Some(agent("gemini")));
+        p.set_agent(Some(7), Some(agent("gemini")), false);
+        p.feed(b"esc to cancel");
+        assert_eq!(p.step(), None, "identified but not scraped");
+        p.feed(b"\x1b[2J\x1b[H");
+        p.set_agent(Some(42), Some(agent("gemini")), true);
         assert_eq!(p.step(), Some(TermStatus::Idle), "agent starts at its prompt");
         p.feed(b"\x1b[2J\x1b[H\xe2\xa0\x8b Thinking (esc to cancel, 1s)");
         assert_eq!(p.step(), Some(TermStatus::Running));
