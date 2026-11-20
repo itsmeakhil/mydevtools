@@ -8,7 +8,7 @@ import { useToolSidebarRail } from "@/components/tools/tool-sidebar"
 import { Input } from "@/components/ui/input"
 import { useTerminalStore, type TerminalProject, type TerminalTab } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
-import { needsYou, projectWaitingCount, type TermStatus } from "@/lib/terminal/status"
+import { needsYou, projectWaitingCount, type NeedsYouItem, type TermStatus } from "@/lib/terminal/status"
 import { ago, duration } from "@/lib/terminal/util"
 import { agentName } from "@/lib/terminal/agents"
 import { cn } from "@/lib/utils"
@@ -85,24 +85,27 @@ export function useTabReorder() {
 }
 
 function NeedsYouBox() {
-  const t = useTranslations("Terminal")
   const projects = useTerminalStore((s) => s.projects)
   const statuses = useTerminalStore((s) => s.statuses)
+  const items = React.useMemo(() => needsYou(projects, statuses), [projects, statuses])
+  return items.length > 0 ? <NeedsYouList items={items} /> : null
+}
+
+/** Mounted only while something needs you, so its clock starts fresh each time. */
+function NeedsYouList({ items }: { items: NeedsYouItem[] }) {
+  const t = useTranslations("Terminal")
+  const projects = useTerminalStore((s) => s.projects)
   const titles = useTerminalStore((s) => s.titles)
   const focusTerminal = useTerminalStore((s) => s.focusTerminal)
   const attention = useTerminalStore((s) => s.attention)
   const agents = useTerminalStore((s) => s.agents)
   const locale = useLocale()
-  const items = React.useMemo(() => needsYou(projects, statuses), [projects, statuses])
-  // Re-render each minute so "waiting 5 min" stays current.
+  // Re-render periodically so "5m ago" stays current.
   const [now, setNow] = React.useState(() => Date.now())
   React.useEffect(() => {
-    if (items.length === 0) return
-    setNow(Date.now())
     const h = setInterval(() => setNow(Date.now()), 30_000)
     return () => clearInterval(h)
-  }, [items.length])
-  if (items.length === 0) return null
+  }, [])
   // Same precedence as the sidebar rows: custom name, then the live shell title, then the tab name.
   const labelOf = (projectId: string, id: string, fallback: string) => {
     const tab = projects.find((p) => p.id === projectId)?.tabs.find((tb) => leafIds(tb.layout).includes(id))

@@ -19,6 +19,7 @@ import {
 } from "@/lib/terminal/util"
 import { onClosePane, terminalGitInfo, terminalSetViewing } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
+import { LaunchMenu } from "./launch-menu"
 import { SplitView } from "./split-view"
 import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
 import { anyBusy, CloseGuardContext, useCloseGuard, type CloseGuard } from "./close-guard"
@@ -211,6 +212,7 @@ function TabBar({ project }: { project: TerminalProject }) {
         >
           <IconPlus className="h-4 w-4" />
         </Button>
+        <LaunchMenu project={project} />
       </div>
       <div className="h-5 w-px bg-border" />
       <Button

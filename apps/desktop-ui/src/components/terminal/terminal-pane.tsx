@@ -303,6 +303,9 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         if (inheritCwdFrom && !terminalExists(inheritCwdFrom)) terminalKill(inheritCwdFrom).catch(() => {})
         // An existing session may have been sized by a previous mount.
         if (!disposed) await terminalResize(id, term.cols, term.rows)
+        // Launched from the new-tab menu: type its command (the shell takes it as typeahead).
+        const run = disposed ? undefined : useTerminalStore.getState().takeRunOnStart(id)
+        if (run) await terminalWrite(id, encodeInput(`${run}\r`))
       } catch (e) {
         if (!disposed) toast.error(errMsg(e))
       }
