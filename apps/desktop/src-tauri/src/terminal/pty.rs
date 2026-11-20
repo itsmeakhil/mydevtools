@@ -131,6 +131,9 @@ pub struct Session {
     closed_reported: std::sync::atomic::AtomicBool,
     /// Local servers this pane printed, kept while they listen (`ports.rs`).
     ports: Mutex<super::ports::Ports>,
+    /// This pane's secrets: stored and derived copies are masked whole on the way out, so a
+    /// secret printed in pieces too far apart for the live masker is still masked there.
+    masks: Option<Arc<super::mask::Patterns>>,
 }
 
 pub type JsonFn = Arc<dyn Fn(Value) + Send + Sync>;
@@ -183,7 +186,11 @@ impl Session {
 
     /// Last `lines` non-empty rows of the rendered screen.
     pub fn tail(&self, lines: usize) -> String {
-        self.det.lock().unwrap().tail(lines)
+        let t = self.det.lock().unwrap().tail(lines);
+        match &self.masks {
+            Some(m) => m.mask_str(&t),
+            None => t,
+        }
     }
 
     /// The shell's current directory, else the one it started in.
@@ -197,7 +204,14 @@ impl Session {
     }
 
     pub fn scrollback(&self) -> Vec<u8> {
-        self.inner.lock().unwrap().scrollback.snapshot()
+        self.masked(self.inner.lock().unwrap().scrollback.snapshot())
+    }
+
+    fn masked(&self, bytes: Vec<u8>) -> Vec<u8> {
+        match &self.masks {
+            Some(m) => m.mask_all(&bytes),
+            None => bytes,
+        }
     }
 
     fn clear_scrollback(&self) {
@@ -208,7 +222,7 @@ impl Session {
     /// lock so no output is lost or duplicated between snapshot and stream.
     fn attach(&self, channel: Channel<Value>) -> Result<(), String> {
         let mut g = self.inner.lock().unwrap();
-        channel.send(b64(&g.scrollback.snapshot())).map_err(|e| e.to_string())?;
+        channel.send(b64(&self.masked(g.scrollback.snapshot()))).map_err(|e| e.to_string())?;
         if let Some(code) = g.exit {
             let _ = channel.send(json!({"type": "exit", "code": code}));
         }
@@ -404,6 +418,7 @@ impl TerminalState {
             worked: true.into(),
             closed_reported: false.into(),
             ports: Mutex::new(super::ports::Ports::default()),
+            masks: masker.as_ref().map(|m| m.patterns()),
         });
 
         let s = session.clone();
@@ -980,17 +995,14 @@ mod tests {
         st.kill_all();
     }
 
-    #[test]
-    fn pane_scrollback_tail_and_restore_are_masked() {
-        let id = "44444444-mask";
+    /// Spawn `cmd` with env + mask `name=value`; once it prints `done`, the scrollback, the
+    /// screen tail and the bytes `restore::save_all` writes show `‹name›` and none of `secrets`.
+    fn assert_masked_everywhere(id: &str, name: &str, value: &str, cmd: &str, secrets: &[&str]) {
         let st = TerminalState::default();
-        let env = vec![("T".to_string(), "supersecret1".to_string())];
-        st.spawn(masked_req(id, "T", "supersecret1"), env, sh("echo $T; echo done")).unwrap();
+        let env = vec![(name.to_string(), value.to_string())];
+        st.spawn(masked_req(id, name, value), env, sh(cmd)).unwrap();
         let s = st.get(id).unwrap();
         assert!(wait_for(|| text(&s).contains("done") && s.tail(5).contains("done"), 3), "{:?}", text(&s));
-        for out in [text(&s), s.tail(5)] {
-            assert!(out.contains("‹T›") && !out.contains("supersecret1"), "{out:?}");
-        }
         let app = crate::state::AppState::in_memory();
         let mut db = app.db.lock().unwrap();
         db.execute("INSERT INTO kv (k, v) VALUES ('terminal:state', ?1)", [format!("{{\"id\": \"{id}\"}}")]).unwrap();
@@ -998,9 +1010,35 @@ mod tests {
         let raw: String = db.query_row("SELECT v FROM kv WHERE k = ?1", [format!("terminal:scrollback:{id}")], |r| r.get(0)).unwrap();
         let v: Value = serde_json::from_str(&raw).unwrap();
         let saved = base64::engine::general_purpose::STANDARD.decode(v["b64"].as_str().unwrap()).unwrap();
-        let saved = String::from_utf8_lossy(&saved);
-        assert!(saved.contains("‹T›") && !saved.contains("supersecret1") && !raw.contains("supersecret1"), "{saved:?}");
+        let label = format!("‹{name}›");
+        for (what, out) in [("scrollback", text(&s)), ("tail", s.tail(5)), ("restore", String::from_utf8_lossy(&saved).into_owned()), ("restore row", raw)] {
+            assert!(what == "restore row" || out.contains(&label), "{what}: {out:?}");
+            for secret in secrets {
+                assert!(!out.contains(secret), "{what} leaks {secret:?}: {out:?}");
+            }
+        }
         st.kill_all();
+    }
+
+    #[test]
+    fn pane_scrollback_tail_and_restore_are_masked() {
+        assert_masked_everywhere("44444444-mask", "T", "supersecret1", "echo $T; echo done", &["supersecret1"]);
+    }
+
+    /// Reads further apart than the live flush leave the view unmasked, but every stored or
+    /// derived copy is masked whole.
+    #[test]
+    fn secret_split_by_a_pause_is_masked_in_stored_copies() {
+        let cmd = "printf ghp_; sleep 0.1; printf abcdefgh; echo; echo done";
+        assert_masked_everywhere("55555555-slow", "GH", "ghp_abcdefgh", cmd, &["ghp_abcdefgh"]);
+    }
+
+    /// The PTY turns `\n` into `\r\n`: a multi-line secret (a PEM key) is masked anyway.
+    #[test]
+    fn multi_line_secret_is_masked() {
+        let value = "-----BEGIN KEY-----\nline-one-secret\nline-two-secret\n-----END KEY-----";
+        let cmd = "printf '%s\\n' \"$K\"; echo done";
+        assert_masked_everywhere("66666666-pem", "K", value, cmd, &["line-one-secret", "line-two-secret"]);
     }
 
     #[test]

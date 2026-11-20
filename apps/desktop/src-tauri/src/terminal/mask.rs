@@ -1,20 +1,58 @@
 //! Secrets a pane was given in its environment, replaced by `‹NAME›` in its output before
 //! anything (live view, scrollback, restore file, screen tail, port scanner) sees it.
-
+//! Stored and derived copies (scrollback, restore, screen tail) are also masked whole with
+//! `Patterns::mask_all`, so a secret printed in pieces far apart is still masked there.
 //!
-//! ponytail: matches raw bytes only. A secret split by an escape sequence (coloured output)
-//! or printed encoded (base64, URL-escaped) is not masked; a decoding pass would be the upgrade.
+//! ponytail: matches raw bytes only. The live view masks a split secret only when its pieces
+//! arrive under 30 ms apart; a secret split by an escape sequence (coloured output), wrapped
+//! across screen rows, cut at the scrollback cap, or printed encoded (base64, URL-escaped) is
+//! not masked. A decoding / screen-aware pass would be the upgrade.
 
 use aho_corasick::{AhoCorasick, MatchKind};
 use std::collections::BTreeMap;
+use std::sync::Arc;
 
 const MAX_SECRETS: usize = 64;
 
-pub struct Masker {
+/// The compiled secrets, shared by a pane's live `Masker` and the masking of its stored copies.
+pub struct Patterns {
     ac: AhoCorasick,
     /// `‹NAME›` per pattern id.
     labels: Vec<Vec<u8>>,
-    /// Each value with its KMP failure table (for the held-back tail).
+}
+
+impl Patterns {
+    /// Every secret in `data` masked (for a whole buffer, not a stream).
+    pub fn mask_all(&self, data: &[u8]) -> Vec<u8> {
+        let mut out = Vec::with_capacity(data.len());
+        self.emit(data, data.len(), &mut out);
+        out
+    }
+
+    pub fn mask_str(&self, s: &str) -> String {
+        String::from_utf8_lossy(&self.mask_all(s.as_bytes())).into_owned()
+    }
+
+    /// Write `data` up to `hold` (or past it, through a match that starts before it), masked.
+    /// Returns how far it wrote.
+    fn emit(&self, data: &[u8], hold: usize, out: &mut Vec<u8>) -> usize {
+        let mut pos = 0;
+        for m in self.ac.find_iter(data).take_while(|m| m.start() < hold) {
+            out.extend_from_slice(&data[pos..m.start()]);
+            out.extend_from_slice(&self.labels[m.pattern().as_usize()]);
+            pos = m.end();
+        }
+        if pos < hold {
+            out.extend_from_slice(&data[pos..hold]);
+            pos = hold;
+        }
+        pos
+    }
+}
+
+pub struct Masker {
+    pats: Arc<Patterns>,
+    /// Each pattern with its KMP failure table (for the held-back tail).
     values: Vec<(Vec<u8>, Vec<usize>)>,
     /// Output tail that may be the start of a secret; waits for more input or `flush`.
     held: Vec<u8>,
@@ -74,16 +112,29 @@ impl Masker {
         if let Some((k, _)) = secrets.iter().find(|(k, v)| !mask_ok(k, v)) {
             return Err(format!("secret can't be masked: {k}"));
         }
+        let mut pats: Vec<(Vec<u8>, Vec<u8>)> = vec![];
+        for (k, v) in secrets {
+            let label = format!("‹{k}›").into_bytes();
+            pats.push((v.as_bytes().to_vec(), label.clone()));
+            // The PTY (ONLCR) prints each `\n` as `\r\n`: a multi-line value (a PEM key) appears so.
+            if v.contains('\n') && !v.contains('\r') {
+                pats.push((v.replace('\n', "\r\n").into_bytes(), label));
+            }
+        }
         let ac = AhoCorasick::builder()
             .match_kind(MatchKind::LeftmostLongest)
-            .build(secrets.values())
+            .build(pats.iter().map(|(v, _)| v))
             .map_err(|e| e.to_string())?;
         Ok(Some(Masker {
-            ac,
-            labels: secrets.keys().map(|k| format!("‹{k}›").into_bytes()).collect(),
-            values: secrets.values().map(|v| (v.as_bytes().to_vec(), failure(v.as_bytes()))).collect(),
+            values: pats.iter().map(|(v, _)| (v.clone(), failure(v))).collect(),
+            pats: Arc::new(Patterns { ac, labels: pats.into_iter().map(|(_, l)| l).collect() }),
             held: vec![],
         }))
+    }
+
+    /// For masking this pane's stored copies whole.
+    pub fn patterns(&self) -> Arc<Patterns> {
+        self.pats.clone()
     }
 
     /// Bytes are waiting for more input (call `flush` if none comes).
@@ -97,30 +148,14 @@ impl Masker {
         let data = std::mem::take(&mut self.held);
         // A match starting before `hold` is final: more input can't make one start earlier or run longer.
         let hold = data.len() - self.values.iter().map(|(v, f)| overlap(&data, v, f)).max().unwrap_or(0);
-        let pos = self.emit(&data, hold, out);
+        let pos = self.pats.emit(&data, hold, out);
         self.held = data[pos..].to_vec();
     }
 
     /// Emit the held tail; any whole secret in it is still masked.
     pub fn flush(&mut self, out: &mut Vec<u8>) {
         let data = std::mem::take(&mut self.held);
-        self.emit(&data, data.len(), out);
-    }
-
-    /// Write `data` up to `hold` (or past it, through a match that starts before it), masked.
-    /// Returns how far it wrote.
-    fn emit(&self, data: &[u8], hold: usize, out: &mut Vec<u8>) -> usize {
-        let mut pos = 0;
-        for m in self.ac.find_iter(data).take_while(|m| m.start() < hold) {
-            out.extend_from_slice(&data[pos..m.start()]);
-            out.extend_from_slice(&self.labels[m.pattern().as_usize()]);
-            pos = m.end();
-        }
-        if pos < hold {
-            out.extend_from_slice(&data[pos..hold]);
-            pos = hold;
-        }
-        pos
+        self.pats.emit(&data, data.len(), out);
     }
 }
 
@@ -178,6 +213,17 @@ mod tests {
             let mut m = masker(&[("SHORT", "abcdefgh"), ("LONG", "abcdefghij")]);
             assert_eq!(run(&mut m, &[&input[..i], &input[i..]]), "x ‹LONG› y ‹SHORT› z", "split at {i}");
         }
+    }
+
+    #[test]
+    fn multi_line_value_matches_pty_newlines() {
+        let input = b"key:\r\nline-one\r\nline-two\r\nend";
+        for i in 0..=input.len() {
+            let mut m = masker(&[("K", "line-one\nline-two")]);
+            assert_eq!(run(&mut m, &[&input[..i], &input[i..]]), "key:\r\n‹K›\r\nend", "split at {i}");
+        }
+        let mut m = masker(&[("K", "line-one\nline-two")]);
+        assert_eq!(run(&mut m, &[b"line-one\nline-two"]), "‹K›", "the value as given still matches");
     }
 
     #[test]
