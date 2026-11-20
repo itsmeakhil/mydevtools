@@ -83,6 +83,8 @@ pub struct Session {
     writer: Mutex<Box<dyn Write + Send>>,
     master: Mutex<Option<Box<dyn MasterPty + Send>>>,
     killer: Mutex<Box<dyn ChildKiller + Send + Sync>>,
+    /// Rendered screen + agent status for `poll_agents`.
+    det: Mutex<super::detect::Pane>,
 }
 
 fn b64(bytes: &[u8]) -> Value {
@@ -125,6 +127,7 @@ impl Session {
     }
 
     fn resize(&self, cols: u16, rows: u16) -> Result<(), String> {
+        self.det.lock().unwrap().resize(rows, cols);
         match self.master.lock().unwrap().as_ref() {
             Some(m) => m
                 .resize(PtySize { rows, cols, pixel_width: 0, pixel_height: 0 })
@@ -244,6 +247,7 @@ impl TerminalState {
             writer: Mutex::new(writer),
             master: Mutex::new(Some(pair.master)),
             killer: Mutex::new(child.clone_killer()),
+            det: Mutex::new(super::detect::Pane::new(req.rows, req.cols)),
         });
 
         let s = session.clone();
@@ -263,10 +267,13 @@ impl TerminalState {
                                 let _ = ch.send(b64(&buf[..n]));
                             }
                         }
+                        s.det.lock().unwrap().feed(&buf[..n]);
                         scanner.feed(&buf[..n], &mut found);
                         for o in found.drain(..) {
                             match o {
                                 super::osc::Osc::Cwd(c) => *s.live_cwd.lock().unwrap() = Some(c),
+                                super::osc::Osc::Title(t) => s.det.lock().unwrap().set_title(t),
+                                super::osc::Osc::Progress(p) => s.det.lock().unwrap().set_progress(p),
                                 super::osc::Osc::Status(st, msg) => {
                                     if let Some(f) = &on_status {
                                         f(&id, st, msg)
@@ -291,6 +298,47 @@ impl TerminalState {
     /// Every session still in the layout (exited ones included), for saving at quit.
     pub fn all(&self) -> Vec<(String, Arc<Session>)> {
         self.sessions.iter().map(|e| (e.key().clone(), e.value().clone())).collect()
+    }
+
+    /// Screen-detected status changes for panes running a known agent (see `detect.rs`).
+    /// `skip` drops agents that report status another way (claude's hooks).
+    pub fn poll_agents(&self, skip: impl Fn(&super::detect::Manifest) -> bool) -> Vec<(String, super::hooks::TermStatus)> {
+        let mut out = vec![];
+        for (id, s) in self.all() {
+            if s.exited() {
+                continue;
+            }
+            // Foreground job; the shell itself in front means no agent.
+            #[cfg(unix)]
+            let fg = s.master.lock().unwrap().as_ref().and_then(|m| m.process_group_leader());
+            #[cfg(not(unix))]
+            let fg: Option<i32> = None;
+            let fg = fg.filter(|p| Some(*p as u32) != s.pid);
+            if s.det.lock().unwrap().pgid() != fg {
+                // `ps` outside the lock so the reader thread isn't held up.
+                let agent = fg.and_then(super::detect::cmdline).and_then(|c| super::detect::identify(&c)).filter(|m| !skip(m));
+                s.det.lock().unwrap().set_agent(fg, agent);
+            }
+            if let Some(st) = s.det.lock().unwrap().step() {
+                out.push((id, st));
+            }
+        }
+        out
+    }
+
+    /// Background thread feeding `poll_agents` results into `on_status`.
+    pub fn start_agent_poller(self: &Arc<Self>) {
+        let state = self.clone();
+        std::thread::spawn(move || loop {
+            std::thread::sleep(std::time::Duration::from_millis(400));
+            // Claude reports through our hooks whenever shell integration is on.
+            let hooks = state.launch.get().is_some();
+            for (id, st) in state.poll_agents(|m| hooks && m.id == "claude") {
+                if let Some(f) = state.on_status.get() {
+                    f(&id, st, None);
+                }
+            }
+        });
     }
 
     pub fn is_live(&self, id: &str) -> bool {
@@ -524,5 +572,30 @@ mod tests {
         assert!(wait_for(|| s.cwd() == "/usr", 2), "cwd {}", s.cwd());
         st.kill_all();
         let _ = std::fs::remove_dir_all(&home);
+    }
+
+    /// Real PTY: a job-controlled foreground program named `gemini` is identified
+    /// via `ps` and its screen drives working → (held idle) → waiting.
+    #[test]
+    fn foreground_agent_screen_drives_status() {
+        use super::super::hooks::TermStatus;
+        let dir = std::env::temp_dir().join(format!("mdt-agent-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let fake = dir.join("gemini");
+        std::fs::write(&fake, "#!/bin/sh\nprintf 'esc to cancel'; sleep 1\nprintf '\\033[2J\\033[H> Type your message'; sleep 30\n").unwrap();
+        std::fs::set_permissions(&fake, std::os::unix::fs::PermissionsExt::from_mode(0o755)).unwrap();
+        let st = TerminalState::default();
+        let script = format!("set -m; '{}'", fake.display());
+        st.spawn(req("a", "/tmp"), vec![], vec!["/bin/bash".into(), "-c".into(), script]).unwrap();
+        let mut seen = vec![];
+        let end = Instant::now() + Duration::from_secs(5);
+        while Instant::now() < end && !seen.contains(&TermStatus::Waiting) {
+            seen.extend(st.poll_agents(|_| false).into_iter().map(|(_, s)| s));
+            std::thread::sleep(Duration::from_millis(100));
+        }
+        st.kill_all();
+        let _ = std::fs::remove_dir_all(&dir);
+        // An Idle may come first if a poll lands before the program's first output.
+        assert!(seen.ends_with(&[TermStatus::Running, TermStatus::Waiting]), "{seen:?}");
     }
 }

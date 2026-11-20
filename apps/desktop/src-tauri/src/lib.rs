@@ -180,6 +180,7 @@ pub fn run() {
                     terminal::hooks::publish(&handle, &t, msg.as_deref());
                 }
             }));
+            term.start_agent_poller();
             let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
             // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
             // the binary (target/<profile>/resources), which resource_dir() resolves to.
