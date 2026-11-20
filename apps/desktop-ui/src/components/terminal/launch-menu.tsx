@@ -2,7 +2,12 @@
 
 import * as React from "react"
 import { useTranslations } from "next-intl"
-import { IconChevronDown, IconGitBranch, IconTrash } from "@tabler/icons-react"
+import { IconChevronDown, IconGitBranch, IconKey, IconTrash } from "@tabler/icons-react"
+import { listEnvSetEntries } from "@/lib/environment-manager-api"
+import { parseEnvPayloadJson } from "@/lib/environment-manager-utils"
+import { decryptData } from "@/lib/encryption"
+import { useCipherKey } from "@/lib/use-cipher-key"
+import { toPaneEnv } from "@/lib/terminal/env-vars"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -28,6 +33,7 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
   const t = useTranslations("Terminal")
   const [editing, setEditing] = React.useState(false)
   const [worktree, setWorktree] = React.useState(false)
+  const [envOpen, setEnvOpen] = React.useState(false)
   const launch = (name: string, command: string) => useTerminalStore.getState().newTab(project.id, name, { run: command })
   const commands = project.commands ?? []
   const activeTab = project.tabs.find((x) => x.id === project.activeTabId)
@@ -51,6 +57,11 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
               <DropdownMenuSeparator />
             </>
           )}
+          <DropdownMenuItem onSelect={() => setEnvOpen(true)}>
+            <IconKey className="h-4 w-4" aria-hidden />
+            {t("newEnvTab")}
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuLabel>{t("agents")}</DropdownMenuLabel>
           {LAUNCH_AGENTS.map((a) => (
             <DropdownMenuItem key={a} onSelect={() => launch(agentName(a), a)}>
@@ -91,6 +102,7 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
       </DropdownMenu>
       <CommandsDialog project={project} open={editing} onOpenChange={setEditing} />
       <WorktreeDialog project={project} open={worktree} onOpenChange={setWorktree} />
+      {envOpen && <EnvDialog project={project} onOpenChange={setEnvOpen} />}
     </>
   )
 }
@@ -212,6 +224,71 @@ function WorktreeDialog({ project, open, onOpenChange }: { project: TerminalProj
           </div>
           <Button type="submit" size="sm" disabled={!name.trim() || busy} className="justify-self-end">{t("createTask")}</Button>
         </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+interface EnvSet { project: string; environment: string; variables: { key: string; value: string }[] }
+
+/**
+ * New tab whose shell gets an Environment Manager set as env vars. Decrypted here, held in memory
+ * until the pane spawns, never saved with the terminal and never typed into it.
+ */
+function EnvDialog({ project, onOpenChange }: { project: TerminalProject; onOpenChange: (o: boolean) => void }) {
+  const t = useTranslations("Terminal")
+  const key = useCipherKey()
+  const [sets, setSets] = React.useState<EnvSet[] | null>(null)
+  React.useEffect(() => {
+    if (!key) return
+    let live = true
+    listEnvSetEntries()
+      .then((rows) =>
+        Promise.all(rows.map((r) => decryptData(key, r.encryptedData, r.iv).then(parseEnvPayloadJson, () => null))),
+      )
+      .then((decoded) => {
+        if (live) setSets(decoded.flatMap((d) => (d ? [{ project: d.project, environment: d.environment, variables: d.variables }] : [])))
+      })
+      .catch((e) => toast.error(e instanceof Error ? e.message : String(e)))
+    return () => {
+      live = false
+    }
+  }, [key])
+
+  const open = (s: EnvSet) => {
+    const { env, skipped } = toPaneEnv(s.variables)
+    if (skipped.length) toast.warning(t("envSkipped", { names: skipped.join(", ") }))
+    useTerminalStore.getState().newTab(project.id, `${s.project} · ${s.environment}`, { env })
+    onOpenChange(false)
+  }
+
+  return (
+    <Dialog open onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>{t("envTitle")}</DialogTitle>
+          <DialogDescription>{t("envBody")}</DialogDescription>
+        </DialogHeader>
+        {!key ? (
+          <p className="text-[13px] text-muted-foreground">{t("envLocked")}</p>
+        ) : sets === null ? null : sets.length === 0 ? (
+          <p className="text-[13px] text-muted-foreground">{t("noEnvSets")}</p>
+        ) : (
+          <ul className="max-h-72 space-y-1 overflow-y-auto">
+            {sets.map((s, i) => (
+              <li key={i}>
+                <button
+                  type="button"
+                  onClick={() => open(s)}
+                  className="flex w-full items-center gap-2 rounded-md border border-border px-2.5 py-2 text-left text-[13px] hover:bg-foreground/[0.05]"
+                >
+                  <span className="min-w-0 flex-1 truncate">{s.project} · {s.environment}</span>
+                  <span className="shrink-0 text-[12px] text-muted-foreground">{t("envVarsCount", { count: s.variables.length })}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </DialogContent>
     </Dialog>
   )
