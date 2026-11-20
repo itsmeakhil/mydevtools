@@ -63,6 +63,9 @@ pub struct SpawnResult {
     pub id: String,
     pub cwd: String,
     pub cwd_fallback: bool,
+    /// Agent that was running in this pane when the app last quit (offered to resume).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resume: Option<super::restore::Resume>,
 }
 
 struct Inner {
@@ -83,6 +86,8 @@ pub struct Session {
     writer: Mutex<Box<dyn Write + Send>>,
     master: Mutex<Option<Box<dyn MasterPty + Send>>>,
     killer: Mutex<Box<dyn ChildKiller + Send + Sync>>,
+    /// Claude's session id, from its hooks: lets a restored pane resume that exact conversation.
+    pub agent_session: Mutex<Option<String>>,
     /// Rendered screen + agent status for `poll_agents`.
     det: Mutex<super::detect::Pane>,
 }
@@ -99,6 +104,11 @@ impl Session {
     /// The shell's current directory, else the one it started in.
     pub fn cwd(&self) -> String {
         self.live_cwd.lock().unwrap().clone().unwrap_or_else(|| self.cwd.clone())
+    }
+
+    /// Coding agent in the foreground right now (manifest id).
+    pub fn agent(&self) -> Option<&'static str> {
+        self.det.lock().unwrap().agent_id()
     }
 
     pub fn scrollback(&self) -> Vec<u8> {
@@ -222,7 +232,7 @@ impl TerminalState {
         argv: Vec<String>,
     ) -> Result<SpawnResult, String> {
         if let Some(s) = self.sessions.get(&req.id) {
-            return Ok(SpawnResult { id: req.id, cwd: s.cwd.clone(), cwd_fallback: s.cwd_fallback });
+            return Ok(SpawnResult { id: req.id, cwd: s.cwd.clone(), cwd_fallback: s.cwd_fallback, resume: None });
         }
         let (cwd, cwd_fallback) = if !req.cwd.is_empty() && std::path::Path::new(&req.cwd).is_dir() {
             (req.cwd.clone(), false)
@@ -259,6 +269,7 @@ impl TerminalState {
             writer: Mutex::new(writer),
             master: Mutex::new(Some(pair.master)),
             killer: Mutex::new(child.clone_killer()),
+            agent_session: Mutex::new(None),
             det: Mutex::new(super::detect::Pane::new(req.rows, req.cols)),
         });
 
@@ -322,7 +333,7 @@ impl TerminalState {
         });
 
         self.sessions.insert(req.id.clone(), session);
-        Ok(SpawnResult { id: req.id, cwd, cwd_fallback })
+        Ok(SpawnResult { id: req.id, cwd, cwd_fallback, resume: None })
     }
 
     /// Every session still in the layout (exited ones included), for saving at quit.
@@ -420,6 +431,7 @@ pub async fn terminal_spawn(
     if let Some(c) = restored.as_ref().and_then(|r| r.cwd.clone()).filter(is_dir).or(inherited.filter(is_dir)) {
         req.cwd = c;
     }
+    let resume = restored.as_ref().and_then(|r| r.resume.clone());
     if let Some(r) = restored {
         req.seed = super::restore::seed(&r.bytes);
     }
@@ -428,7 +440,7 @@ pub async fn terminal_spawn(
         Some(l) => super::env::shell_launch(&shell, &l.res_dir, l.pane_env(&req.id, &state.token)),
         None => (vec![shell, "-l".into()], vec![]),
     };
-    state.spawn(req, env, argv)
+    state.spawn(req, env, argv).map(|r| SpawnResult { resume, ..r })
 }
 
 #[tauri::command]

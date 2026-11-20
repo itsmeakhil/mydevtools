@@ -18,7 +18,10 @@ export const terminalSpawn = (req: {
   /** Open in this live pane's current directory instead of `cwd`, when it has one. */
   inheritCwdFrom?: string
 }) =>
-  invoke<{ id: string; cwd: string; cwdFallback: boolean }>("terminal_spawn", { req })
+  invoke<{ id: string; cwd: string; cwdFallback: boolean; resume?: Resume }>("terminal_spawn", { req })
+
+/** Agent that was running in a restored pane when the app quit (Claude's session id when known). */
+export interface Resume { agent: string; session?: string }
 
 export async function terminalAttach(id: string, onMessage: (m: TerminalChunk) => void) {
   const { Channel } = await import("@tauri-apps/api/core")

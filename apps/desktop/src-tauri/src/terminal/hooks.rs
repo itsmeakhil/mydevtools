@@ -212,6 +212,9 @@ pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) -> Pat
     let ret = path.clone();
     tauri::async_runtime::spawn(async move {
         let r = serve(path, token, move |m| {
+            if let (Some(sid), Ok(s)) = (m.payload.get("session_id").and_then(Value::as_str), state.get(&m.terminal_id)) {
+                *s.agent_session.lock().unwrap() = Some(sid.to_string());
+            }
             let t = apply_if_live(&state, &m);
             if let Some(t) = t {
                 let msg = (m.event == "claude-Notification")
