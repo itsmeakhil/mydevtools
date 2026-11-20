@@ -34,7 +34,7 @@ export function subscribeTerminalAttention(onFocus: (id: string) => void, onQuit
   const keep = (p: Promise<() => void>) =>
     p.then((off) => (disposed ? off() : void offs.push(off)), () => {})
 
-  keep(onTerminalStatus(({ id, status }) => S().setStatus(id, status)))
+  keep(onTerminalStatus(({ id, status, message }) => S().setStatus(id, status, message ?? undefined)))
   keep(onTerminalFocus(({ id }) => onFocus(id)))
   keep(onQuitRequested(({ count }) => {
     // Start saving now so an edit made just before ⌘Q lands while the dialog is up.

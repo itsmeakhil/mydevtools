@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { AnimatePresence, motion } from "framer-motion"
 import { IconChevronRight, IconFolder, IconFolderPlus, IconTrash } from "@tabler/icons-react"
 import { useToolSidebarRail } from "@/components/tools/tool-sidebar"
@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { useTerminalStore, type TerminalProject, type TerminalTab } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsYou, projectWaitingCount, type TermStatus } from "@/lib/terminal/status"
+import { ago } from "@/lib/terminal/util"
 import { cn } from "@/lib/utils"
 
 export function StatusDot({ status }: { status: TermStatus | undefined }) {
@@ -79,7 +80,17 @@ function NeedsYouBox() {
   const statuses = useTerminalStore((s) => s.statuses)
   const titles = useTerminalStore((s) => s.titles)
   const focusTerminal = useTerminalStore((s) => s.focusTerminal)
+  const attention = useTerminalStore((s) => s.attention)
+  const locale = useLocale()
   const items = React.useMemo(() => needsYou(projects, statuses), [projects, statuses])
+  // Re-render each minute so "waiting 5 min" stays current.
+  const [now, setNow] = React.useState(() => Date.now())
+  React.useEffect(() => {
+    if (items.length === 0) return
+    setNow(Date.now())
+    const h = setInterval(() => setNow(Date.now()), 30_000)
+    return () => clearInterval(h)
+  }, [items.length])
   if (items.length === 0) return null
   // Same precedence as the sidebar rows: custom name, then the live shell title, then the tab name.
   const labelOf = (projectId: string, id: string, fallback: string) => {
@@ -92,19 +103,29 @@ function NeedsYouBox() {
         {t("needsYou", { count: items.length })}
         <kbd title={t("nextWaitingHint")} className="ml-auto font-sans text-[11px] font-normal text-muted-foreground">⌘J</kbd>
       </p>
-      {items.map((it) => (
-        <button
-          key={it.terminalId}
-          type="button"
-          onClick={() => focusTerminal(it.terminalId)}
-          className="flex h-7 w-full items-center gap-2 rounded-lg px-1.5 text-left text-[13px] text-foreground/90 transition-colors hover:bg-foreground/[0.05]"
-        >
-          <StatusDot status="waiting" />
-          <span className="min-w-0 truncate">
-            {it.projectName} / {labelOf(it.projectId, it.terminalId, it.terminalName)}
-          </span>
-        </button>
-      ))}
+      {items.map((it) => {
+        const a = attention[it.terminalId]
+        return (
+          <button
+            key={it.terminalId}
+            type="button"
+            onClick={() => focusTerminal(it.terminalId)}
+            title={a?.message}
+            className="flex w-full items-start gap-2 rounded-lg px-1.5 py-1 text-left text-[13px] text-foreground/90 transition-colors hover:bg-foreground/[0.05]"
+          >
+            <span className="flex h-5 items-center"><StatusDot status="waiting" /></span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-baseline gap-2">
+                <span className="min-w-0 truncate">
+                  {it.projectName} / {labelOf(it.projectId, it.terminalId, it.terminalName)}
+                </span>
+                {a && <span className="ml-auto shrink-0 text-[11px] tabular-nums text-muted-foreground">{ago(a.since, now, locale)}</span>}
+              </span>
+              {a?.message && <span className="block truncate text-[12px] text-muted-foreground">{a.message}</span>}
+            </span>
+          </button>
+        )
+      })}
     </div>
   )
 }
