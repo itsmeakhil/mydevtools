@@ -3448,6 +3448,11 @@
     "scFailedJump": "Önceki / sonraki başarısız komut",
     "openFilesIn": "Dosyaları şurada aç",
     "openFilesInHint": "Çıktıdaki bir dosya başvurusuna (src/app.ts:12) tıklayarak dosyayı o satırda açın.",
-    "editorSystem": "Sistem varsayılanı"
+    "editorSystem": "Sistem varsayılanı",
+    "portOpenBrowser": "Tarayıcıda aç",
+    "portOpenApiClient": "API İstemcisinde aç",
+    "portCopyUrl": "URL'yi kopyala",
+    "portUrlCopied": "URL kopyalandı",
+    "portsMore": "+{count}"
   }
 }

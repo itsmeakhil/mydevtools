@@ -12,6 +12,7 @@ jest.mock("@/lib/desktop/terminal-bridge", () => ({
   onTerminalStatus: (cb: never) => mockListen("status")(cb),
   onTerminalFocus: (cb: never) => mockListen("focus")(cb),
   onTerminalAgent: (cb: never) => mockListen("agent")(cb),
+  onTerminalPorts: (cb: never) => mockListen("ports")(cb),
   onTerminalSpawnChild: (cb: never) => mockListen("spawn")(cb),
   onTerminalChildClosed: (cb: never) => mockListen("childClosed")(cb),
   terminalSetProjectPrefs: () => Promise.resolve(),
@@ -54,6 +55,13 @@ afterEach(() => jest.useRealTimers())
 const settle = () => new Promise((r) => setTimeout(r, 0))
 
 describe("subscribeTerminalAttention", () => {
+  it("puts a pane's listening ports in the store", async () => {
+    const off = subscribeTerminalAttention(jest.fn(), jest.fn())
+    mockHandlers.ports({ id: "a", ports: [{ port: 3000, url: "http://localhost:3000" }] } as never)
+    expect(S().ports.a).toEqual([{ port: 3000, url: "http://localhost:3000" }])
+    off()
+  })
+
   it("loads, then replays Rust's status snapshot (events before load are dropped)", async () => {
     const off = subscribeTerminalAttention(jest.fn(), jest.fn())
     mockHandlers.status({ id: "a", status: "running" } as never) // before load: unknown id
@@ -64,7 +72,7 @@ describe("subscribeTerminalAttention", () => {
     mockHandlers.status({ id: "a", status: "idle" } as never)
     expect(S().statuses).toEqual({})
     off()
-    expect(mockOff).toHaveBeenCalledTimes(6) // status, agent, spawn-child, child-closed, focus, quit
+    expect(mockOff).toHaveBeenCalledTimes(7) // status, agent, ports, spawn-child, child-closed, focus, quit
   })
 
   it("replays when a later load (e.g. retry) succeeds", async () => {

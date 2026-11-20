@@ -17,7 +17,7 @@ import {
   cwdFromOsc7, decodeOutput, duration, encodeInput, IMAGE_ADDON_OPTIONS, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
 } from "@/lib/terminal/util"
 import {
-  terminalAttach, terminalClearScrollback, terminalKill, terminalOpenPath, terminalResize, terminalResolvePaths, terminalSaveImage,
+  terminalAttach, terminalClearScrollback, terminalKill, terminalOpenPath, terminalPorts, terminalResize, terminalResolvePaths, terminalSaveImage,
   terminalSpawn, terminalWrite, type ResolvedPath,
 } from "@/lib/desktop/terminal-bridge"
 import { openExternal } from "@/lib/desktop/external-links"
@@ -29,6 +29,7 @@ import {
 import { AgentTag, StatusDot } from "./terminal-sidebar"
 import { useCloseGuard } from "./close-guard"
 import { BlockBar } from "./block-bar"
+import { PortChips } from "./port-chips"
 
 const FONT = 'ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace'
 /** The user's font first, the system monospace stack as fallback. Quotes are stripped so the name can't break the list. */
@@ -454,6 +455,8 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
         })
         // Restarted pane: its exited predecessor stayed alive only so this spawn could open in its directory.
         if (inheritCwdFrom && !terminalExists(inheritCwdFrom)) terminalKill(inheritCwdFrom).catch(() => {})
+        // Servers it started before this mount (the poller only reports changes).
+        terminalPorts(id).then((p) => !disposed && useTerminalStore.getState().setPorts(id, p), () => {})
         // An existing session may have been sized by a previous mount.
         if (!disposed) await terminalResize(id, term.cols, term.rows)
         // Launched from the new-tab menu: type its command (the shell takes it as typeahead).
@@ -668,6 +671,7 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
           </>
         )}
         <span className="ml-auto flex shrink-0 items-center gap-0.5">
+          <PortChips id={id} />
           {zoomed && (
             <button
               type="button"

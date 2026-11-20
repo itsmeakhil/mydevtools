@@ -3448,6 +3448,11 @@
     "scFailedJump": "Forrige / neste mislykkede kommando",
     "openFilesIn": "Åpne filer i",
     "openFilesInHint": "Klikk på en filreferanse i utdataene (src/app.ts:12) for å åpne den på den linjen.",
-    "editorSystem": "Systemstandard"
+    "editorSystem": "Systemstandard",
+    "portOpenBrowser": "Åpne i nettleser",
+    "portOpenApiClient": "Åpne i API-klient",
+    "portCopyUrl": "Kopier URL",
+    "portUrlCopied": "URL kopiert",
+    "portsMore": "+{count}"
   }
 }

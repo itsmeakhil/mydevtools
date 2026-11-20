@@ -3448,6 +3448,11 @@
     "scFailedJump": "Προηγούμενη / επόμενη αποτυχημένη εντολή",
     "openFilesIn": "Άνοιγμα αρχείων σε",
     "openFilesInHint": "Κάντε κλικ σε μια αναφορά αρχείου στην έξοδο (src/app.ts:12) για να ανοίξει σε εκείνη τη γραμμή.",
-    "editorSystem": "Προεπιλογή συστήματος"
+    "editorSystem": "Προεπιλογή συστήματος",
+    "portOpenBrowser": "Άνοιγμα στο πρόγραμμα περιήγησης",
+    "portOpenApiClient": "Άνοιγμα στο πρόγραμμα-πελάτη API",
+    "portCopyUrl": "Αντιγραφή URL",
+    "portUrlCopied": "Η διεύθυνση URL αντιγράφηκε",
+    "portsMore": "+{count}"
   }
 }

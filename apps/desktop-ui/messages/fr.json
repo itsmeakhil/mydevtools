@@ -3448,6 +3448,11 @@
     "scFailedJump": "Commande échouée précédente / suivante",
     "openFilesIn": "Ouvrir les fichiers dans",
     "openFilesInHint": "Cliquez sur une référence de fichier dans la sortie (src/app.ts:12) pour l'ouvrir à cette ligne.",
-    "editorSystem": "Application par défaut"
+    "editorSystem": "Application par défaut",
+    "portOpenBrowser": "Ouvrir dans le navigateur",
+    "portOpenApiClient": "Ouvrir dans le client API",
+    "portCopyUrl": "Copier l'URL",
+    "portUrlCopied": "URL copiée",
+    "portsMore": "+{count}"
   }
 }

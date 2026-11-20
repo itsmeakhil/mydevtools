@@ -88,6 +88,10 @@ export const onTerminalStatus = (cb: (p: { id: string; status: TermStatus; messa
   on("terminal://status", cb)
 /** Pane's foreground agent changed: manifest id (`codex`, `claude`…) or null. */
 export const onTerminalAgent = (cb: (p: { id: string; agent: string | null }) => void) => on("terminal://agent", cb)
+/** A local server a pane printed that is listening (`url` keeps the scheme and path it printed). */
+export interface LocalPort { port: number; url: string }
+export const onTerminalPorts = (cb: (p: { id: string; ports: LocalPort[] }) => void) => on("terminal://ports", cb)
+export const terminalPorts = (id: string) => invoke<LocalPort[]>("terminal_ports", { id })
 export const onTerminalFocus = (cb: (p: { id: string }) => void) => on("terminal://focus", cb)
 export const onQuitRequested = (cb: (p: { count: number }) => void) => on("terminal://quit-requested", cb)
 export const onClosePane = (cb: (p: { id: string }) => void) => on("terminal://close-pane", cb)

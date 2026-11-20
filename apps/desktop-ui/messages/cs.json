@@ -3448,6 +3448,11 @@
     "scFailedJump": "Předchozí / další neúspěšný příkaz",
     "openFilesIn": "Otevírat soubory v",
     "openFilesInHint": "Kliknutím na odkaz na soubor ve výstupu (src/app.ts:12) ho otevřete na daném řádku.",
-    "editorSystem": "Výchozí systému"
+    "editorSystem": "Výchozí systému",
+    "portOpenBrowser": "Otevřít v prohlížeči",
+    "portOpenApiClient": "Otevřít v API klientovi",
+    "portCopyUrl": "Kopírovat URL",
+    "portUrlCopied": "URL zkopírována",
+    "portsMore": "+{count}"
   }
 }

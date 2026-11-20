@@ -3448,6 +3448,11 @@
     "scFailedJump": "Ordre fallida anterior / següent",
     "openFilesIn": "Obre els fitxers amb",
     "openFilesInHint": "Fes clic a una referència de fitxer de la sortida (src/app.ts:12) per obrir-lo en aquesta línia.",
-    "editorSystem": "Predeterminat del sistema"
+    "editorSystem": "Predeterminat del sistema",
+    "portOpenBrowser": "Obre al navegador",
+    "portOpenApiClient": "Obre al client d'API",
+    "portCopyUrl": "Copia l'URL",
+    "portUrlCopied": "URL copiat",
+    "portsMore": "+{count}"
   }
 }

@@ -3448,6 +3448,11 @@
     "scFailedJump": "Poprzednie / następne nieudane polecenie",
     "openFilesIn": "Otwieraj pliki w",
     "openFilesInHint": "Kliknij odwołanie do pliku w wyniku (src/app.ts:12), aby otworzyć go w tym wierszu.",
-    "editorSystem": "Domyślna aplikacja systemu"
+    "editorSystem": "Domyślna aplikacja systemu",
+    "portOpenBrowser": "Otwórz w przeglądarce",
+    "portOpenApiClient": "Otwórz w kliencie API",
+    "portCopyUrl": "Kopiuj URL",
+    "portUrlCopied": "Skopiowano URL",
+    "portsMore": "+{count}"
   }
 }

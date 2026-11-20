@@ -13,6 +13,7 @@ import {
   onTerminalChildClosed,
   onTerminalSpawnChild,
   onTerminalAgent,
+  onTerminalPorts,
   onTerminalFocus,
   onTerminalStatus,
   terminalSetNotify,
@@ -42,6 +43,7 @@ export function subscribeTerminalAttention(onFocus: (id: string) => void, onQuit
       S().setStatus(id, status, message ?? undefined, command ?? undefined, source),
     ))
   keep(onTerminalAgent(({ id, agent }) => S().setAgent(id, agent)))
+  keep(onTerminalPorts(({ id, ports }) => S().setPorts(id, ports)))
   keep(onTerminalSpawnChild(({ parent, id, name }) => S().addHelper(parent, id, name)))
   keep(onTerminalChildClosed(({ id, reason }) => S().helperClosed(id, reason)))
   keep(onTerminalFocus(({ id }) => onFocus(id)))

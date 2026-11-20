@@ -3448,6 +3448,11 @@
     "scFailedJump": "上一个 / 下一个失败的命令",
     "openFilesIn": "打开文件的应用",
     "openFilesInHint": "点击输出中的文件引用（src/app.ts:12）即可在该行打开。",
-    "editorSystem": "系统默认"
+    "editorSystem": "系统默认",
+    "portOpenBrowser": "在浏览器中打开",
+    "portOpenApiClient": "在 API 客户端中打开",
+    "portCopyUrl": "复制 URL",
+    "portUrlCopied": "已复制 URL",
+    "portsMore": "+{count}"
   }
 }

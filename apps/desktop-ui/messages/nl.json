@@ -3448,6 +3448,11 @@
     "scFailedJump": "Vorige / volgende mislukte opdracht",
     "openFilesIn": "Bestanden openen in",
     "openFilesInHint": "Klik op een bestandsverwijzing in de uitvoer (src/app.ts:12) om het op die regel te openen.",
-    "editorSystem": "Systeemstandaard"
+    "editorSystem": "Systeemstandaard",
+    "portOpenBrowser": "Openen in browser",
+    "portOpenApiClient": "Openen in API-client",
+    "portCopyUrl": "URL kopiëren",
+    "portUrlCopied": "URL gekopieerd",
+    "portsMore": "+{count}"
   }
 }

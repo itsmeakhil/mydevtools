@@ -3448,6 +3448,11 @@
     "scFailedJump": "Perintah gagal sebelumnya / berikutnya",
     "openFilesIn": "Buka file di",
     "openFilesInHint": "Klik referensi file di keluaran (src/app.ts:12) untuk membukanya di baris itu.",
-    "editorSystem": "Bawaan sistem"
+    "editorSystem": "Bawaan sistem",
+    "portOpenBrowser": "Buka di browser",
+    "portOpenApiClient": "Buka di Klien API",
+    "portCopyUrl": "Salin URL",
+    "portUrlCopied": "URL disalin",
+    "portsMore": "+{count}"
   }
 }

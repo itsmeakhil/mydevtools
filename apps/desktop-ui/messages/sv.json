@@ -3448,6 +3448,11 @@
     "scFailedJump": "Föregående / nästa misslyckade kommando",
     "openFilesIn": "Öppna filer i",
     "openFilesInHint": "Klicka på en filreferens i utdata (src/app.ts:12) för att öppna den på den raden.",
-    "editorSystem": "Systemstandard"
+    "editorSystem": "Systemstandard",
+    "portOpenBrowser": "Öppna i webbläsaren",
+    "portOpenApiClient": "Öppna i API-klienten",
+    "portCopyUrl": "Kopiera URL",
+    "portUrlCopied": "URL kopierad",
+    "portsMore": "+{count}"
   }
 }
