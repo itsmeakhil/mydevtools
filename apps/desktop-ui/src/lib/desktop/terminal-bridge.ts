@@ -35,6 +35,14 @@ export async function terminalAttach(id: string, onMessage: (m: TerminalChunk) =
 }
 
 export interface Worktree { path: string; branch: string }
+
+/** A path printed in a pane that exists (resolved against the pane's current directory). */
+export interface ResolvedPath { abs: string; isDir: boolean }
+export const terminalResolvePaths = (id: string, paths: string[]) =>
+  invoke<(ResolvedPath | null)[]>("terminal_resolve_paths", { id, paths })
+/** Opens a path printed in pane `id`: a file at line:col in `editor`, a directory in Finder. */
+export const terminalOpenPath = (id: string, path: string, line: number | undefined, col: number | undefined, editor: string) =>
+  invoke<void>("terminal_open_path", { id, path, line: line ?? null, col: col ?? null, editor })
 /** New branch + checkout for a task, beside the repo (`<repo>.worktrees/<slug>`). */
 export const terminalWorktreeAdd = (path: string, name: string) => invoke<Worktree>("terminal_worktree_add", { path, name })
 /** `git worktree remove` without --force; rejects with git's message when there are changes. */

@@ -3445,6 +3445,9 @@
     "outputCopied": "Výstup zkopírován",
     "commandCopied": "Příkaz zkopírován",
     "noOutputYet": "Zatím žádný výstup dokončeného příkazu",
-    "scFailedJump": "Předchozí / další neúspěšný příkaz"
+    "scFailedJump": "Předchozí / další neúspěšný příkaz",
+    "openFilesIn": "Otevírat soubory v",
+    "openFilesInHint": "Kliknutím na odkaz na soubor ve výstupu (src/app.ts:12) ho otevřete na daném řádku.",
+    "editorSystem": "Výchozí systému"
   }
 }

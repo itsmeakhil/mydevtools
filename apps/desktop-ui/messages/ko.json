@@ -3445,6 +3445,9 @@
     "outputCopied": "출력을 복사했습니다",
     "commandCopied": "명령을 복사했습니다",
     "noOutputYet": "아직 완료된 명령의 출력이 없습니다",
-    "scFailedJump": "이전 / 다음 실패한 명령"
+    "scFailedJump": "이전 / 다음 실패한 명령",
+    "openFilesIn": "파일 열기 앱",
+    "openFilesInHint": "출력의 파일 참조(src/app.ts:12)를 클릭하면 해당 줄에서 열립니다.",
+    "editorSystem": "시스템 기본값"
   }
 }

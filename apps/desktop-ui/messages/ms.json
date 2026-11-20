@@ -3445,6 +3445,9 @@
     "outputCopied": "Output disalin",
     "commandCopied": "Arahan disalin",
     "noOutputYet": "Belum ada output daripada arahan yang selesai",
-    "scFailedJump": "Arahan gagal sebelum / seterusnya"
+    "scFailedJump": "Arahan gagal sebelum / seterusnya",
+    "openFilesIn": "Buka fail dalam",
+    "openFilesInHint": "Klik rujukan fail dalam output (src/app.ts:12) untuk membukanya pada baris itu.",
+    "editorSystem": "Lalai sistem"
   }
 }

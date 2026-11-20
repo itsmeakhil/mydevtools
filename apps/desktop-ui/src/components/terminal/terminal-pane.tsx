@@ -9,6 +9,7 @@ import { blobToBase64, imageToPaste, imageTooLarge } from "@/lib/terminal/paste-
 import "@xterm/xterm/css/xterm.css"
 import type { IMarker, Terminal as XTerm } from "@xterm/xterm"
 import { blockAt, commandText, failedTarget, onMark, outputText, type Block, type Mark } from "@/lib/terminal/blocks"
+import { findFileRefs } from "@/lib/terminal/file-links"
 import type { SearchAddon } from "@xterm/addon-search"
 import { terminalExists, useTerminalStore, withHelpers } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
@@ -16,7 +17,8 @@ import {
   cwdFromOsc7, decodeOutput, duration, encodeInput, IMAGE_ADDON_OPTIONS, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
 } from "@/lib/terminal/util"
 import {
-  terminalAttach, terminalClearScrollback, terminalKill, terminalResize, terminalSaveImage, terminalSpawn, terminalWrite,
+  terminalAttach, terminalClearScrollback, terminalKill, terminalOpenPath, terminalResize, terminalResolvePaths, terminalSaveImage,
+  terminalSpawn, terminalWrite, type ResolvedPath,
 } from "@/lib/desktop/terminal-bridge"
 import { openExternal } from "@/lib/desktop/external-links"
 import { cn } from "@/lib/utils"
@@ -197,6 +199,52 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
       const fit = new FitAddon()
       term.loadAddon(fit)
       term.loadAddon(new WebLinksAddon(openLink)) // plain URLs in output
+      // File references (`src/a.ts:12:5`, tracebacks…): only the ones that exist are links.
+      const resolved = new Map<string, { at: number; paths: Promise<(ResolvedPath | null)[]> }>()
+      const resolve = (paths: string[]) => {
+        const key = `${useTerminalStore.getState().cwds[id] ?? ""}\n${paths.join("\0")}`
+        const hit = resolved.get(key)
+        // Short-lived: a file created after the first hover should become a link.
+        if (hit && Date.now() - hit.at < 10_000) return hit.paths
+        if (resolved.size >= 200) resolved.delete(resolved.keys().next().value!)
+        const entry = { at: Date.now(), paths: terminalResolvePaths(id, paths) }
+        resolved.set(key, entry)
+        return entry.paths
+      }
+      const fileLinks = term.registerLinkProvider({
+        provideLinks(y, done) {
+          const buf = term.buffer.active
+          // The whole logical line: this row and the rows wrapped onto/after it.
+          let first = y - 1
+          while (first > 0 && buf.getLine(first)?.isWrapped) first--
+          let last = y - 1
+          while (buf.getLine(last + 1)?.isWrapped) last++
+          let text = ""
+          // ponytail: one string index per cell; wide characters (CJK, emoji) before a path shift its link.
+          for (let i = first; i <= last; i++) text += buf.getLine(i)?.translateToString(false) ?? ""
+          const refs = findFileRefs(text)
+          if (!refs.length) return done(undefined)
+          const pos = (i: number) => ({ x: (i % term.cols) + 1, y: first + Math.floor(i / term.cols) + 1 })
+          resolve(refs.map((r) => r.path)).then(
+            (found) =>
+              done(
+                refs.flatMap((r, i) =>
+                  found[i]
+                    ? [{
+                        range: { start: pos(r.start), end: pos(r.end - 1) },
+                        text: text.slice(r.start, r.end),
+                        activate: () =>
+                          void terminalOpenPath(id, r.path, r.line, r.col, useTerminalStore.getState().prefs.editor).catch((e) =>
+                            toast.error(errMsg(e)),
+                          ),
+                      }]
+                    : [],
+                ),
+              ),
+            () => done(undefined),
+          )
+        },
+      })
       const search = new SearchAddon()
       term.loadAddon(search)
       searchRef.current = search
@@ -366,6 +414,7 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
         subs.forEach((s) => s.dispose())
         prompts.dispose()
         cwdMarks.dispose()
+        fileLinks.dispose()
         relayout.current = () => {}
         gpu.current = { on: () => {}, off: () => {} }
         onShortcut.current = () => {}

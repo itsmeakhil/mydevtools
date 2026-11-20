@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useTerminalStore } from "@/store/terminal-store"
-import { FONT_SIZE, LINE_HEIGHTS, SCROLLBACK_SIZES, type CursorStyle, type TerminalPrefs } from "@/lib/terminal/util"
+import { EDITORS, FONT_SIZE, LINE_HEIGHTS, SCROLLBACK_SIZES, type CursorStyle, type Editor, type TerminalPrefs } from "@/lib/terminal/util"
 
 function Row({ label, htmlFor, hint, children }: { label: string; htmlFor: string; hint?: string; children: React.ReactNode }) {
   return (
@@ -102,6 +102,18 @@ export function TerminalSettings({ open, onOpenChange }: { open: boolean; onOpen
             </Select>
           </Row>
           <Toggle id="term-copy" k="copyOnSelect" label={t("copyOnSelect")} />
+          <Row label={t("openFilesIn")} htmlFor="term-editor" hint={t("openFilesInHint")}>
+            <Select value={prefs.editor} onValueChange={(v) => st().setPrefs({ editor: v as Editor })}>
+              <SelectTrigger id="term-editor" className="h-8 w-36"><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {EDITORS.map((e) => (
+                  <SelectItem key={e} value={e}>
+                    {e === "vscode" ? "VS Code" : e === "cursor" ? "Cursor" : e === "zed" ? "Zed" : t("editorSystem")}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Row>
           <Toggle id="term-sr" k="screenReader" label={t("screenReader")} hint={t("screenReaderHint")} />
           <Row label={t("optionAsMeta")} htmlFor="term-meta">
             <Switch id="term-meta" checked={optionAsMeta} onCheckedChange={(v) => st().setOptionAsMeta(v)} />

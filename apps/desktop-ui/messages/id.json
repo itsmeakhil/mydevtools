@@ -3445,6 +3445,9 @@
     "outputCopied": "Keluaran disalin",
     "commandCopied": "Perintah disalin",
     "noOutputYet": "Belum ada keluaran dari perintah yang selesai",
-    "scFailedJump": "Perintah gagal sebelumnya / berikutnya"
+    "scFailedJump": "Perintah gagal sebelumnya / berikutnya",
+    "openFilesIn": "Buka file di",
+    "openFilesInHint": "Klik referensi file di keluaran (src/app.ts:12) untuk membukanya di baris itu.",
+    "editorSystem": "Bawaan sistem"
   }
 }

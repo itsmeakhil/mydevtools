@@ -3445,6 +3445,9 @@
     "outputCopied": "已复制输出",
     "commandCopied": "已复制命令",
     "noOutputYet": "还没有已完成命令的输出",
-    "scFailedJump": "上一个 / 下一个失败的命令"
+    "scFailedJump": "上一个 / 下一个失败的命令",
+    "openFilesIn": "打开文件的应用",
+    "openFilesInHint": "点击输出中的文件引用（src/app.ts:12）即可在该行打开。",
+    "editorSystem": "系统默认"
   }
 }

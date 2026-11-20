@@ -3445,6 +3445,9 @@
     "outputCopied": "Uitvoer gekopieerd",
     "commandCopied": "Opdracht gekopieerd",
     "noOutputYet": "Nog geen uitvoer van een voltooide opdracht",
-    "scFailedJump": "Vorige / volgende mislukte opdracht"
+    "scFailedJump": "Vorige / volgende mislukte opdracht",
+    "openFilesIn": "Bestanden openen in",
+    "openFilesInHint": "Klik op een bestandsverwijzing in de uitvoer (src/app.ts:12) om het op die regel te openen.",
+    "editorSystem": "Systeemstandaard"
   }
 }

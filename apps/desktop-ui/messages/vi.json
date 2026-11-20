@@ -3445,6 +3445,9 @@
     "outputCopied": "Đã sao chép đầu ra",
     "commandCopied": "Đã sao chép lệnh",
     "noOutputYet": "Chưa có đầu ra của lệnh nào đã hoàn tất",
-    "scFailedJump": "Lệnh lỗi trước / tiếp theo"
+    "scFailedJump": "Lệnh lỗi trước / tiếp theo",
+    "openFilesIn": "Mở tệp bằng",
+    "openFilesInHint": "Nhấp vào tham chiếu tệp trong đầu ra (src/app.ts:12) để mở tại dòng đó.",
+    "editorSystem": "Mặc định của hệ thống"
   }
 }

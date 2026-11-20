@@ -3445,6 +3445,9 @@
     "outputCopied": "Uitvoer gekopieer",
     "commandCopied": "Opdrag gekopieer",
     "noOutputYet": "Nog geen voltooide opdraguitvoer nie",
-    "scFailedJump": "Vorige / volgende mislukte opdrag"
+    "scFailedJump": "Vorige / volgende mislukte opdrag",
+    "openFilesIn": "Maak lêers oop in",
+    "openFilesInHint": "Klik op 'n lêerverwysing in die uitvoer (src/app.ts:12) om dit by daardie reël oop te maak.",
+    "editorSystem": "Stelselverstek"
   }
 }

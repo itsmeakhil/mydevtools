@@ -3445,6 +3445,9 @@
     "outputCopied": "出力をコピーしました",
     "commandCopied": "コマンドをコピーしました",
     "noOutputYet": "完了したコマンドの出力はまだありません",
-    "scFailedJump": "前 / 次の失敗したコマンド"
+    "scFailedJump": "前 / 次の失敗したコマンド",
+    "openFilesIn": "ファイルを開くアプリ",
+    "openFilesInHint": "出力内のファイル参照（src/app.ts:12）をクリックすると、その行で開きます。",
+    "editorSystem": "システムの既定"
   }
 }
