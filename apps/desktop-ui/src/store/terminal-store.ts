@@ -23,8 +23,15 @@ export interface TerminalPersisted {
   optionAsMeta?: boolean
 }
 
+export interface Attention {
+  since: number
+  message?: string
+}
+
 interface TerminalState extends TerminalPersisted {
   statuses: Record<string, TermStatus>
+  /** Waiting panes: when they started waiting and the program's reason, if it gave one. Not persisted. */
+  attention: Record<string, Attention>
   /** Live window titles set by the shell/program (OSC 0/2); not persisted. */
   titles: Record<string, string>
   fontSize: number
@@ -59,7 +66,7 @@ interface TerminalState extends TerminalPersisted {
   toggleZoom: (terminalId: string) => void
   resize: (tabId: string, path: number[], sizes: number[]) => void
   focusTerminal: (terminalId: string) => void
-  setStatus: (id: string, s: TermStatus) => void
+  setStatus: (id: string, s: TermStatus, message?: string) => void
   setTitle: (id: string, title: string) => void
   setFontSize: (size: number) => void
   setOptionAsMeta: (on: boolean) => void
@@ -141,8 +148,12 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   const dropStatuses = (ids: string[]) =>
     set((s) => {
       const statuses = { ...s.statuses }
-      ids.forEach((id) => delete statuses[id])
-      return { statuses }
+      const attention = { ...s.attention }
+      ids.forEach((id) => {
+        delete statuses[id]
+        delete attention[id]
+      })
+      return { statuses, attention }
     })
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
     projects: s.projects.map((p) => (p.id === id ? fn(p) : p)),
@@ -173,7 +184,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {},
     optionAsMeta: false, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -341,14 +352,18 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       }))
     },
 
-    setStatus: (id, s) =>
+    setStatus: (id, s, message) =>
       set((st) => {
         if (!find(st.projects, id)) return st
+        const { [id]: was, ...attention } = st.attention
+        if (s === "waiting")
+          // Still waiting (e.g. a replay): keep when it started; a new reason replaces the old one.
+          attention[id] = { since: was?.since ?? Date.now(), message: message || was?.message }
         if (s === "idle") {
           const { [id]: _gone, ...rest } = st.statuses
-          return { statuses: rest }
+          return { statuses: rest, attention }
         }
-        return { statuses: { ...st.statuses, [id]: s } }
+        return { statuses: { ...st.statuses, [id]: s }, attention }
       }),
 
     // ponytail: titles of closed panes are never pruned (a few bytes per uuid per session).

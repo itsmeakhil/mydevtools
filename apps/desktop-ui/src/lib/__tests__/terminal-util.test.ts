@@ -1,4 +1,4 @@
-import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago } from "@/lib/terminal/util"
 
 describe("terminal util", () => {
   it("round-trips UTF-8 (emoji, CJK, control bytes) through base64", () => {
@@ -212,5 +212,14 @@ describe("terminal util", () => {
     expect(clampFontSize(1)).toBe(FONT_SIZE.min)
     expect(clampFontSize(14.4)).toBe(14)
     expect(clampFontSize(NaN)).toBe(FONT_SIZE.default)
+  })
+
+  it("ago picks minute/hour/day in the locale", () => {
+    const min = 60_000
+    expect(ago(0, 30_000, "en")).toBe("this minute")
+    expect(ago(0, 5 * min, "en")).toBe("5m ago")
+    expect(ago(0, 3 * 60 * min, "en")).toBe("3h ago")
+    expect(ago(0, 2 * 24 * 60 * min, "en")).toBe("2d ago")
+    expect(ago(10 * min, 0, "en")).toBe("this minute") // clock skew never shows the future
   })
 })

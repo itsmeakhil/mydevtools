@@ -203,3 +203,12 @@ export function promptTarget(lines: number[], top: number, dir: "prev" | "next")
   if (dir === "prev") return sorted.filter((l) => l < top).pop() ?? null
   return sorted.find((l) => l > top) ?? null
 }
+
+/** How long ago `since` was, in the user's locale ("5 min. ago"); minute granularity. */
+export function ago(since: number, now: number, locale: string): string {
+  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto", style: "narrow" })
+  const m = Math.max(0, Math.floor((now - since) / 60_000))
+  if (m < 60) return rtf.format(-m, "minute")
+  const h = Math.floor(m / 60)
+  return h < 24 ? rtf.format(-h, "hour") : rtf.format(-Math.floor(h / 24), "day")
+}

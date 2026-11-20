@@ -177,6 +177,25 @@ describe("terminal store", () => {
     expect(S().statuses).toEqual({ [id]: "waiting" })
     S().closeTerminal(id)
     expect(S().statuses).toEqual({})
+    expect(S().attention).toEqual({})
+  })
+
+  it("attention keeps when waiting started and the latest reason, cleared on leaving waiting", () => {
+    jest.setSystemTime(1_000)
+    S().addProject("/x/a")
+    const id = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().setStatus(id, "waiting", "needs permission")
+    jest.setSystemTime(5_000)
+    S().setStatus(id, "waiting") // snapshot replay: no message
+    expect(S().attention[id]).toEqual({ since: 1_000, message: "needs permission" })
+    S().setStatus(id, "waiting", "approve edit?")
+    expect(S().attention[id]).toEqual({ since: 1_000, message: "approve edit?" })
+    S().setStatus(id, "running")
+    expect(S().attention[id]).toBeUndefined()
+    S().setStatus(id, "waiting")
+    expect(S().attention[id]).toEqual({ since: 5_000, message: undefined })
+    S().setStatus(id, "idle")
+    expect(S().attention).toEqual({})
   })
 
   it("focusTerminal expands a collapsed project", () => {
