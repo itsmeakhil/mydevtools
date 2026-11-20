@@ -130,6 +130,11 @@ impl StatusMap {
         if source == Source::Program && s == TermStatus::Done {
             self.done_at.insert(id.to_string(), now);
         }
+        // The screen detector reports edges only: any non-Running reading means the old turn's
+        // spinner is gone, so the next Running is a new turn and must not be dropped.
+        if source == Source::Screen && s != TermStatus::Running {
+            self.done_at.remove(id);
+        }
         let just_done = self.done_at.get(id).is_some_and(|t| now.saturating_duration_since(*t) < AFTER_DONE);
         match source {
             Source::Screen if s == TermStatus::Running && just_done => None,
@@ -142,6 +147,12 @@ impl StatusMap {
             Source::Shell if covered.is_some() => None,
             _ => self.apply_inner(id, s, source),
         }
+    }
+
+    /// Input went to pane `id` (ctl send, the user typing): new work may start, so a Running
+    /// read from the screen is no longer taken as the last turn's leftover spinner.
+    pub fn new_input(&mut self, id: &str) {
+        self.done_at.remove(id);
     }
 
     /// The user looked at the pane: it no longer needs them.
@@ -446,6 +457,29 @@ mod tests {
         // Once the program set the status, a covered screen reading is ignored again.
         assert_eq!(m.apply_from_at("a", Source::Program, Waiting, later).unwrap().status, Waiting);
         assert!(m.apply_from_at("a", Source::Screen, Done, later).is_none());
+    }
+
+    /// The screen detector is edge-triggered: a new turn's Running is reported once. When the
+    /// old turn's screen is gone or new input went in, that Running must not be dropped.
+    #[test]
+    fn a_new_codex_turn_right_after_done_shows_running() {
+        use std::time::{Duration, Instant};
+        use TermStatus::*;
+        let t0 = Instant::now();
+        let soon = t0 + Duration::from_millis(800);
+        for gone in [Idle, Done] {
+            let mut m = StatusMap::default();
+            m.set_program_covers("a", &[Done]);
+            m.apply_from_at("a", Source::Program, Done, t0);
+            // The old turn's screen settled (a covered or no-op reading still counts as evidence).
+            let _ = m.apply_from_at("a", Source::Screen, gone, t0 + Duration::from_millis(400));
+            assert_eq!(m.apply_from_at("a", Source::Screen, Running, soon).map(|t| t.status), Some(Running), "after screen {gone:?}");
+        }
+        let mut m = StatusMap::default();
+        m.set_program_covers("a", &[Done]);
+        m.apply_from_at("a", Source::Program, Done, t0);
+        m.new_input("a"); // ctl send / the user typed the next prompt
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, soon).map(|t| t.status), Some(Running));
     }
 
     #[test]

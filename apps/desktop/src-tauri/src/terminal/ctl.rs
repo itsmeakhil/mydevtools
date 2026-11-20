@@ -87,9 +87,12 @@ pub async fn handle(st: &Arc<TerminalState>, line: &str) -> Value {
             wait(st, &s, &r.id, until, timeout).await
         }
         "read" => json!({"tail": s.tail(r.lines.unwrap_or(TAIL_LINES).clamp(1, 500))}),
-        "send" => blocking(st, move |_| match s.send(r.text.as_bytes()) {
-            Ok(()) => json!({"ok": true}),
-            Err(e) => err(&e),
+        "send" => blocking(st, move |st| {
+            st.input(&r.id);
+            match s.send(r.text.as_bytes()) {
+                Ok(()) => json!({"ok": true}),
+                Err(e) => err(&e),
+            }
         })
         .await,
         _ => blocking(st, move |st| {
@@ -865,6 +868,29 @@ mod tests {
         let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 5})).await;
         assert_eq!(r["status"], "blocked", "{r}");
         assert_eq!(exit_code("wait", &r), 1);
+        st.kill_all();
+    }
+
+    /// Orchestration loop on a Codex-style helper (notify hook reports Done, the screen reports
+    /// Running): wait done, send the next prompt at once, wait again: the second turn counts.
+    #[tokio::test]
+    async fn wait_sees_a_codex_turn_sent_right_after_done() {
+        let st = state();
+        with_status(&st);
+        opt_in(&st, "p");
+        pane(&st, "a", Some("p"));
+        let h = run(&st, "a", "sleep 30").await;
+        let done = |st: &Arc<TerminalState>| apply_status_if_live(st, &h, Source::Program, TermStatus::Done, Some(&[TermStatus::Done]));
+        apply_status_if_live(&st, &h, Source::Screen, TermStatus::Running, None);
+        done(&st);
+        let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 2})).await;
+        assert_eq!(r["status"], "done", "{r}");
+        assert_eq!(call(&st, "a", "send", json!({"id": h, "text": "next\r"})).await, json!({"ok": true}));
+        // The screen sees the new turn's spinner well inside 2 s of the last Done; then the turn ends.
+        apply_status_if_live(&st, &h, Source::Screen, TermStatus::Running, None);
+        done(&st);
+        let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 2})).await;
+        assert_eq!(r["status"], "done", "{r}");
         st.kill_all();
     }
 

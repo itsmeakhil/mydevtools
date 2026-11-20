@@ -481,6 +481,11 @@ impl TerminalState {
         let _ = self.bus.send((id.to_string(), None));
     }
 
+    /// Input reached pane `id` (see `StatusMap::new_input`).
+    pub fn input(&self, id: &str) {
+        self.statuses.lock().unwrap().new_input(id);
+    }
+
     pub fn status_of(&self, id: &str) -> Option<super::hooks::TermStatus> {
         self.statuses.lock().unwrap().get(id)
     }
@@ -621,7 +626,9 @@ pub async fn terminal_attach(
 #[tauri::command]
 pub async fn terminal_write(state: tauri::State<'_, Arc<TerminalState>>, id: String, b64: String) -> Result<(), String> {
     let bytes = base64::engine::general_purpose::STANDARD.decode(b64).map_err(|e| e.to_string())?;
-    state.get(&id)?.write(&bytes)
+    let s = state.get(&id)?;
+    state.input(&id);
+    s.write(&bytes)
 }
 
 #[tauri::command]
