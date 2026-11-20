@@ -21,7 +21,7 @@ beforeEach(() => {
   resetTerminalSaveState()
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
-  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, titles: {}, focusedTerminalId: null, dirty: false, loaded: true })
+  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, optionAsMeta: false, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -261,5 +261,84 @@ describe("terminal store", () => {
     S().moveTab(pid, c.id, S().projects[0].tabs[2].id)
     expect(S().projects[0].tabs.map((t) => t.name)).toEqual(["A", "B", "C"])
     expect(S().dirty).toBe(true)
+  })
+
+  it("split and new tab open in the focused pane's directory", () => {
+    S().addProject("/x/app")
+    const pid = S().projects[0].id
+    const first = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().split(first, "row")
+    const second = S().focusedTerminalId!
+    expect(S().cwdFrom[second]).toBe(first)
+    S().newTab(pid)
+    const tabLeaf = leafIds(S().projects[0].tabs[1].layout)[0]
+    expect(S().cwdFrom[tabLeaf]).toBe(second)
+    // Focus in another project: the new tab opens in its own project folder.
+    S().addProject("/y/other")
+    useTerminalStore.setState({ focusedTerminalId: leafIds(S().projects[1].tabs[0].layout)[0] })
+    S().newTab(pid)
+    expect(S().cwdFrom[leafIds(S().projects[0].tabs[2].layout)[0]]).toBeUndefined()
+  })
+
+  it("font size is clamped, saved with the layout and restored on load", async () => {
+    S().setFontSize(99)
+    expect(S().fontSize).toBe(24)
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave.mock.calls[0][0].fontSize).toBe(24)
+    useTerminalStore.setState({ loaded: false, dirty: false, fontSize: 13 })
+    mockLoad.mockResolvedValue({ projects: [], activeProjectId: null, fontSize: 16 })
+    await S().load()
+    expect(S().fontSize).toBe(16)
+  })
+
+  it("restartTerminal swaps in a fresh id in the same slot, keeping its name and directory source", () => {
+    S().addProject("/x/app")
+    const a = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().split(a, "row")
+    const b = leafIds(S().projects[0].tabs[0].layout)[1]
+    S().renameTerminal(a, "server")
+    S().focusTerminal(a)
+    S().setStatus(a, "running")
+    S().restartTerminal(a)
+    const tab = S().projects[0].tabs[0]
+    const [fresh, second] = leafIds(tab.layout)
+    expect(fresh).not.toBe(a)
+    expect(second).toBe(b)
+    expect(tab.terminalNames[fresh]).toBe("server")
+    expect(tab.terminalNames[a]).toBeUndefined()
+    expect(S().cwdFrom[fresh]).toBe(a)
+    expect(S().focusedTerminalId).toBe(fresh)
+    expect(S().statuses[a]).toBeUndefined()
+    expect(mockKill).not.toHaveBeenCalled() // the new pane kills the old session after spawning from its cwd
+  })
+
+  it("toggleZoom needs a split; split clears it", () => {
+    S().addProject("/x/app")
+    const a = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().toggleZoom(a)
+    expect(S().zoomedId).toBeNull()
+    S().split(a, "row")
+    S().toggleZoom(a)
+    expect(S().zoomedId).toBe(a)
+    expect(S().focusedTerminalId).toBe(a)
+    S().toggleZoom(a)
+    expect(S().zoomedId).toBeNull()
+    S().toggleZoom(a)
+    S().split(a, "col")
+    expect(S().zoomedId).toBeNull()
+  })
+
+  it("optionAsMeta is saved and restored; older saves default to off", async () => {
+    S().setOptionAsMeta(true)
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave.mock.calls[0][0].optionAsMeta).toBe(true)
+    useTerminalStore.setState({ loaded: false, dirty: false, optionAsMeta: false })
+    mockLoad.mockResolvedValue({ projects: [], activeProjectId: null, optionAsMeta: true })
+    await S().load()
+    expect(S().optionAsMeta).toBe(true)
+    useTerminalStore.setState({ loaded: false, dirty: false, optionAsMeta: false })
+    mockLoad.mockResolvedValue({ projects: [], activeProjectId: null })
+    await S().load()
+    expect(S().optionAsMeta).toBe(false)
   })
 })

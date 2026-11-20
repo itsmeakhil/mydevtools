@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} wordt uit de lijst verwijderd en de bijbehorende terminals worden gesloten. Bestanden op schijf blijven ongemoeid.",
     "splitRight": "Rechts splitsen",
     "splitDown": "Omlaag splitsen",
-    "closePane": "Paneel sluiten"
+    "closePane": "Paneel sluiten",
+    "find": "Zoeken",
+    "findPrevious": "Vorige overeenkomst",
+    "findNext": "Volgende overeenkomst",
+    "closeFind": "Zoeken sluiten",
+    "noMatches": "Geen overeenkomsten",
+    "closeRunningTitle": "Actieve terminal sluiten?",
+    "closeRunningBody": "Er draait hier nog iets. Sluiten beëindigt het.",
+    "close": "Sluiten",
+    "copy": "Kopiëren",
+    "paste": "Plakken",
+    "clear": "Wissen",
+    "optionAsMeta": "Option als Meta-toets gebruiken",
+    "restart": "Opnieuw starten",
+    "maximizePane": "Paneel maximaliseren",
+    "restorePane": "Paneel herstellen",
+    "openHome": "Thuismap openen",
+    "nextWaitingHint": "Ga naar de volgende terminal die je nodig heeft"
   }
 }

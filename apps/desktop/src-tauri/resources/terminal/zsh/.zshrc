@@ -12,13 +12,14 @@ if [[ $MDT_USER_ZDOTDIR == $HOME ]]; then unset ZDOTDIR; else export ZDOTDIR=$MD
 # Login files (path_helper, brew shellenv, ...) reorder PATH: put the claude shim first again.
 [[ -n $MDT_SHIM_DIR ]] && path=("$MDT_SHIM_DIR" ${path:#${(b)MDT_SHIM_DIR}})
 
-# Status hooks, backgrounded and disowned so the prompt never waits on the socket.
-# pid + per-shell seq let the app drop events that arrive out of order.
-if [[ -n $MDT_HOOK_BIN ]]; then
-  typeset -gi _mdt_seq=0
-  _mdt_precmd() { (( ++_mdt_seq )); "$MDT_HOOK_BIN" shell-prompt $$ $_mdt_seq </dev/null >/dev/null 2>&1 &! }
-  _mdt_preexec() { (( ++_mdt_seq )); "$MDT_HOOK_BIN" shell-exec $$ $_mdt_seq </dev/null >/dev/null 2>&1 &! }
-  autoload -Uz add-zsh-hook
-  add-zsh-hook precmd _mdt_precmd
-  add-zsh-hook preexec _mdt_preexec
-fi
+# Prompt marks and cwd, written in-band so the app reads them in output order:
+# OSC 133 A = prompt (idle), C = command started (running), OSC 7 = directory
+# (new splits open there). The app also uses A to jump between prompts.
+_mdt_precmd() {
+  local p=${PWD//\%/%25}
+  print -rn -- $'\e]7;file://'"$HOST${p// /%20}"$'\a\e]133;A\a'
+}
+_mdt_preexec() { print -rn -- $'\e]133;C\a' }
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _mdt_precmd
+add-zsh-hook preexec _mdt_preexec

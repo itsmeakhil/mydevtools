@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} will be removed from the list and its terminals closed. Files on disk are not touched.",
     "splitRight": "Split right",
     "splitDown": "Split down",
-    "closePane": "Close pane"
+    "closePane": "Close pane",
+    "find": "Find",
+    "findPrevious": "Previous match",
+    "findNext": "Next match",
+    "closeFind": "Close find",
+    "noMatches": "No matches",
+    "closeRunningTitle": "Close running terminal?",
+    "closeRunningBody": "Something is still running here. Closing will end it.",
+    "close": "Close",
+    "copy": "Copy",
+    "paste": "Paste",
+    "clear": "Clear",
+    "optionAsMeta": "Use Option as Meta key",
+    "restart": "Restart",
+    "maximizePane": "Maximize pane",
+    "restorePane": "Restore pane",
+    "openHome": "Open home folder",
+    "nextWaitingHint": "Jump to the next terminal that needs you"
   }
 }

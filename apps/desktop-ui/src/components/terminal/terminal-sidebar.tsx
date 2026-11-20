@@ -21,7 +21,7 @@ export function StatusDot({ status }: { status: TermStatus | undefined }) {
       title={label}
       className={cn(
         "size-2 shrink-0 rounded-full",
-        status === "waiting" ? "bg-destructive" : status === "running" ? "bg-success" : "border border-muted-foreground/60",
+        status === "waiting" ? "bg-warning" : status === "running" ? "bg-success" : "border border-muted-foreground/60",
       )}
     />
   )
@@ -87,8 +87,11 @@ function NeedsYouBox() {
     return tab ? terminalLabel(tab, id, titles) : fallback
   }
   return (
-    <div className="mx-2 mt-2 rounded-xl border border-destructive/30 bg-destructive/[0.06] p-1.5">
-      <p className="px-1.5 pb-1 pt-0.5 text-[11px] font-semibold text-destructive">{t("needsYou", { count: items.length })}</p>
+    <div className="mx-2 mt-2 rounded-xl border border-warning/40 bg-warning/[0.08] p-1.5">
+      <p className="flex items-center px-1.5 pb-1 pt-0.5 text-[11px] font-semibold text-foreground">
+        {t("needsYou", { count: items.length })}
+        <kbd title={t("nextWaitingHint")} className="ml-auto font-sans text-[11px] font-normal text-muted-foreground">⌘J</kbd>
+      </p>
       {items.map((it) => (
         <button
           key={it.terminalId}
@@ -206,7 +209,7 @@ const ProjectRow = React.memo(function ProjectRow({
         >
           <span className="min-w-0 truncate">{project.name}</span>
           {!open && waiting > 0 ? (
-            <span className="ml-auto shrink-0 rounded-full bg-destructive/[0.12] px-1.5 text-[11px] font-medium tabular-nums text-destructive">
+            <span className="ml-auto shrink-0 rounded-full bg-warning/[0.18] px-1.5 text-[11px] font-medium tabular-nums text-foreground">
               {waiting}
             </span>
           ) : branch ? (

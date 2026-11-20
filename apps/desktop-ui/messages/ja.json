@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} を一覧から削除し、そのターミナルを閉じます。ディスク上のファイルには影響しません。",
     "splitRight": "右に分割",
     "splitDown": "下に分割",
-    "closePane": "ペインを閉じる"
+    "closePane": "ペインを閉じる",
+    "find": "検索",
+    "findPrevious": "前の一致",
+    "findNext": "次の一致",
+    "closeFind": "検索を閉じる",
+    "noMatches": "一致なし",
+    "closeRunningTitle": "実行中のターミナルを閉じますか？",
+    "closeRunningBody": "まだ実行中の処理があります。閉じると終了します。",
+    "close": "閉じる",
+    "copy": "コピー",
+    "paste": "ペースト",
+    "clear": "クリア",
+    "optionAsMeta": "OptionキーをMetaキーとして使用",
+    "restart": "再起動",
+    "maximizePane": "ペインを最大化",
+    "restorePane": "ペインを元に戻す",
+    "openHome": "ホームフォルダを開く",
+    "nextWaitingHint": "対応が必要な次のターミナルへ移動"
   }
 }

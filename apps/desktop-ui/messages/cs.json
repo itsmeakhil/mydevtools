@@ -3312,6 +3312,23 @@
     "removeProjectBody": "Projekt {name} bude odebrán ze seznamu a jeho terminály budou zavřeny. Soubory na disku zůstanou nedotčeny.",
     "splitRight": "Rozdělit doprava",
     "splitDown": "Rozdělit dolů",
-    "closePane": "Zavřít panel"
+    "closePane": "Zavřít panel",
+    "find": "Najít",
+    "findPrevious": "Předchozí shoda",
+    "findNext": "Další shoda",
+    "closeFind": "Zavřít hledání",
+    "noMatches": "Žádné shody",
+    "closeRunningTitle": "Zavřít běžící terminál?",
+    "closeRunningBody": "Něco tu stále běží. Zavřením se to ukončí.",
+    "close": "Zavřít",
+    "copy": "Kopírovat",
+    "paste": "Vložit",
+    "clear": "Vymazat",
+    "optionAsMeta": "Použít Option jako klávesu Meta",
+    "restart": "Restartovat",
+    "maximizePane": "Maximalizovat panel",
+    "restorePane": "Obnovit panel",
+    "openHome": "Otevřít domovskou složku",
+    "nextWaitingHint": "Přejít na další terminál, který vás potřebuje"
   }
 }

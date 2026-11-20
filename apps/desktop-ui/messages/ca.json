@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} s'eliminarà de la llista i se'n tancaran els terminals. Els fitxers al disc no es toquen.",
     "splitRight": "Divideix a la dreta",
     "splitDown": "Divideix cap avall",
-    "closePane": "Tanca el panell"
+    "closePane": "Tanca el panell",
+    "find": "Cerca",
+    "findPrevious": "Coincidència anterior",
+    "findNext": "Coincidència següent",
+    "closeFind": "Tanca la cerca",
+    "noMatches": "Cap coincidència",
+    "closeRunningTitle": "Tancar el terminal en execució?",
+    "closeRunningBody": "Encara hi ha alguna cosa en execució. Si el tanques, s'aturarà.",
+    "close": "Tanca",
+    "copy": "Copia",
+    "paste": "Enganxa",
+    "clear": "Neteja",
+    "optionAsMeta": "Fes servir Option com a tecla Meta",
+    "restart": "Reinicia",
+    "maximizePane": "Maximitza el panell",
+    "restorePane": "Restaura el panell",
+    "openHome": "Obre la carpeta d'inici",
+    "nextWaitingHint": "Ves al següent terminal que et necessita"
   }
 }

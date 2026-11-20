@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} tas bort från listan och dess terminaler stängs. Filer på disken påverkas inte.",
     "splitRight": "Dela åt höger",
     "splitDown": "Dela nedåt",
-    "closePane": "Stäng ruta"
+    "closePane": "Stäng ruta",
+    "find": "Sök",
+    "findPrevious": "Föregående träff",
+    "findNext": "Nästa träff",
+    "closeFind": "Stäng sök",
+    "noMatches": "Inga träffar",
+    "closeRunningTitle": "Stäng terminal som körs?",
+    "closeRunningBody": "Något körs fortfarande här. Om du stänger avslutas det.",
+    "close": "Stäng",
+    "copy": "Kopiera",
+    "paste": "Klistra in",
+    "clear": "Rensa",
+    "optionAsMeta": "Använd Option som Meta-tangent",
+    "restart": "Starta om",
+    "maximizePane": "Maximera panel",
+    "restorePane": "Återställ panel",
+    "openHome": "Öppna hemmapp",
+    "nextWaitingHint": "Gå till nästa terminal som behöver dig"
   }
 }

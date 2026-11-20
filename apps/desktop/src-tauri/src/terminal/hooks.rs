@@ -31,9 +31,9 @@ pub fn parse_line(line: &str, token: &str) -> Option<HookMsg> {
 
 pub fn status_for(event: &str) -> Option<TermStatus> {
     match event {
-        "claude-UserPromptSubmit" | "claude-PreToolUse" | "shell-exec" => Some(TermStatus::Running),
+        "claude-UserPromptSubmit" | "claude-PreToolUse" => Some(TermStatus::Running),
         "claude-Notification" | "claude-Stop" => Some(TermStatus::Waiting),
-        "claude-SessionEnd" | "shell-prompt" => Some(TermStatus::Idle),
+        "claude-SessionEnd" => Some(TermStatus::Idle),
         _ => None,
     }
 }
@@ -45,13 +45,11 @@ pub struct Transition {
     pub entered_waiting: bool,
 }
 
+/// Shell prompt/exec status arrives in-band as OSC 133 (see `osc.rs`), so it is
+/// ordered with the output; only Claude's hooks come over the socket.
 #[derive(Default)]
 pub struct StatusMap {
     status: HashMap<String, TermStatus>,
-    /// Last `seq` per (terminal, shell pid): shell-* hooks are backgrounded, so
-    /// separate connections can arrive out of order.
-    /// Pruned per terminal by `remove`.
-    shell_seq: HashMap<(String, u64), u64>,
 }
 
 impl StatusMap {
@@ -64,31 +62,12 @@ impl StatusMap {
         })
     }
 
-    /// Map a hook event to a status and apply it. A `shell-*` event carrying
-    /// `{pid, seq}` is dropped unless its seq is newer than the last one seen
-    /// for that (terminal, pid).
-    pub fn apply_event(&mut self, m: &HookMsg) -> Option<Transition> {
-        let s = status_for(&m.event)?;
-        if m.event.starts_with("shell-") {
-            let num = |k: &str| m.payload.get(k).and_then(Value::as_u64);
-            if let (Some(pid), Some(seq)) = (num("pid"), num("seq")) {
-                let last = self.shell_seq.entry((m.terminal_id.clone(), pid)).or_insert(0);
-                if seq <= *last {
-                    return None;
-                }
-                *last = seq;
-            }
-        }
-        self.apply(&m.terminal_id, s)
-    }
-
     pub fn clear_waiting(&mut self, id: &str) -> Option<Transition> {
         (self.status.get(id) == Some(&TermStatus::Waiting)).then(|| self.apply(id, TermStatus::Idle))?
     }
 
     /// Forget a terminal that was killed or exited; `Some` (as Idle) if it had a status.
     pub fn remove(&mut self, id: &str) -> Option<Transition> {
-        self.shell_seq.retain(|(t, _), _| t != id);
         self.status.remove(id).map(|_| Transition {
             id: id.to_string(),
             status: TermStatus::Idle,
@@ -112,8 +91,13 @@ impl StatusMap {
 /// of a killed/exited pane can arrive after `remove` and would resurrect its status.
 /// Checked under the statuses lock; `forget` runs after exit is marked, so no race.
 pub fn apply_if_live(state: &TerminalState, m: &HookMsg) -> Option<Transition> {
+    apply_status_if_live(state, &m.terminal_id, status_for(&m.event)?)
+}
+
+/// Same guard for status read from the PTY output (a kill can race the reader thread).
+pub fn apply_status_if_live(state: &TerminalState, id: &str, s: TermStatus) -> Option<Transition> {
     let mut statuses = state.statuses.lock().unwrap();
-    state.is_live(&m.terminal_id).then(|| statuses.apply_event(m))?
+    state.is_live(id).then(|| statuses.apply(id, s))?
 }
 
 /// AF_UNIX paths are capped (~104 bytes on macOS); fall back to a short /tmp dir.
@@ -277,32 +261,11 @@ mod tests {
             ("claude-Notification", Waiting),
             ("claude-Stop", Waiting),
             ("claude-SessionEnd", Idle),
-            ("shell-prompt", Idle),
-            ("shell-exec", Running),
         ] {
             assert_eq!(status_for(e), Some(s), "{e}");
         }
         assert_eq!(status_for("claude-Unknown"), None);
-    }
-
-    #[test]
-    fn stale_shell_seq_is_dropped_per_pid() {
-        let ev = |event: &str, pid: u64, seq: u64| HookMsg {
-            token: "tok".into(),
-            terminal_id: "t1".into(),
-            event: event.into(),
-            payload: json!({"pid": pid, "seq": seq}),
-        };
-        let mut m = StatusMap::default();
-        assert_eq!(m.apply_event(&ev("shell-prompt", 10, 2)).unwrap().status, TermStatus::Idle);
-        assert!(m.apply_event(&ev("shell-exec", 10, 1)).is_none()); // late, older
-        assert_eq!(m.snapshot()["t1"], TermStatus::Idle);
-        // another shell's counter is independent
-        assert_eq!(m.apply_event(&ev("shell-exec", 11, 1)).unwrap().status, TermStatus::Running);
-        // claude-* events are never seq-gated
-        let mut c = ev("claude-Stop", 10, 0);
-        c.payload = json!({});
-        assert_eq!(m.apply_event(&c).unwrap().status, TermStatus::Waiting);
+        assert_eq!(status_for("shell-prompt"), None, "prompts come in-band as OSC 133");
     }
 
     #[test]
@@ -320,22 +283,13 @@ mod tests {
     }
 
     #[test]
-    fn remove_drops_status_and_shell_seq() {
+    fn remove_drops_status() {
         let mut m = StatusMap::default();
         m.apply("a", TermStatus::Waiting);
         assert_eq!(m.remove("a").unwrap().status, TermStatus::Idle);
         assert_eq!(m.waiting_count(), 0);
         assert!(m.snapshot().is_empty());
         assert!(m.remove("a").is_none());
-        let ev = |seq: u64| HookMsg {
-            token: "tok".into(),
-            terminal_id: "a".into(),
-            event: "shell-exec".into(),
-            payload: json!({"pid": 10, "seq": seq}),
-        };
-        m.apply_event(&ev(5));
-        m.remove("a");
-        assert!(m.apply_event(&ev(1)).is_some()); // seq memory forgotten
     }
 
     #[test]
@@ -356,7 +310,7 @@ mod tests {
             cwd: "/tmp".into(),
             cols: 80,
             rows: 24,
-            project_name: "p".into(),
+            ..Default::default()
         };
         st.spawn(req, vec![], vec!["/bin/sh".into(), "-c".into(), "sleep 5".into()]).unwrap();
         assert!(apply_if_live(&st, &msg("b")).unwrap().entered_waiting);

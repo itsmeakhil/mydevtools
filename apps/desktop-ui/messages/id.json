@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} akan dihapus dari daftar dan terminalnya ditutup. File di disk tidak disentuh.",
     "splitRight": "Bagi ke kanan",
     "splitDown": "Bagi ke bawah",
-    "closePane": "Tutup panel"
+    "closePane": "Tutup panel",
+    "find": "Cari",
+    "findPrevious": "Kecocokan sebelumnya",
+    "findNext": "Kecocokan berikutnya",
+    "closeFind": "Tutup pencarian",
+    "noMatches": "Tidak ada kecocokan",
+    "closeRunningTitle": "Tutup terminal yang sedang berjalan?",
+    "closeRunningBody": "Masih ada yang berjalan di sini. Menutupnya akan menghentikannya.",
+    "close": "Tutup",
+    "copy": "Salin",
+    "paste": "Tempel",
+    "clear": "Bersihkan",
+    "optionAsMeta": "Gunakan Option sebagai tombol Meta",
+    "restart": "Mulai ulang",
+    "maximizePane": "Maksimalkan panel",
+    "restorePane": "Pulihkan panel",
+    "openHome": "Buka folder beranda",
+    "nextWaitingHint": "Lompat ke terminal berikutnya yang membutuhkan Anda"
   }
 }

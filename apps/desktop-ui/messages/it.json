@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} verrà rimosso dall'elenco e i suoi terminali verranno chiusi. I file sul disco non vengono toccati.",
     "splitRight": "Dividi a destra",
     "splitDown": "Dividi in basso",
-    "closePane": "Chiudi pannello"
+    "closePane": "Chiudi pannello",
+    "find": "Trova",
+    "findPrevious": "Corrispondenza precedente",
+    "findNext": "Corrispondenza successiva",
+    "closeFind": "Chiudi ricerca",
+    "noMatches": "Nessuna corrispondenza",
+    "closeRunningTitle": "Chiudere il terminale in esecuzione?",
+    "closeRunningBody": "Qualcosa è ancora in esecuzione. Chiudendo verrà terminato.",
+    "close": "Chiudi",
+    "copy": "Copia",
+    "paste": "Incolla",
+    "clear": "Pulisci",
+    "optionAsMeta": "Usa Opzione come tasto Meta",
+    "restart": "Riavvia",
+    "maximizePane": "Ingrandisci riquadro",
+    "restorePane": "Ripristina riquadro",
+    "openHome": "Apri cartella Inizio",
+    "nextWaitingHint": "Vai al prossimo terminale che ha bisogno di te"
   }
 }

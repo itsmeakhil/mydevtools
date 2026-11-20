@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} 将从列表中移除，其终端将被关闭。磁盘上的文件不受影响。",
     "splitRight": "向右拆分",
     "splitDown": "向下拆分",
-    "closePane": "关闭窗格"
+    "closePane": "关闭窗格",
+    "find": "查找",
+    "findPrevious": "上一个匹配",
+    "findNext": "下一个匹配",
+    "closeFind": "关闭查找",
+    "noMatches": "无匹配项",
+    "closeRunningTitle": "关闭正在运行的终端？",
+    "closeRunningBody": "这里仍有程序在运行。关闭将结束它。",
+    "close": "关闭",
+    "copy": "复制",
+    "paste": "粘贴",
+    "clear": "清屏",
+    "optionAsMeta": "将 Option 键用作 Meta 键",
+    "restart": "重新启动",
+    "maximizePane": "最大化窗格",
+    "restorePane": "还原窗格",
+    "openHome": "打开主文件夹",
+    "nextWaitingHint": "跳转到下一个需要你处理的终端"
   }
 }

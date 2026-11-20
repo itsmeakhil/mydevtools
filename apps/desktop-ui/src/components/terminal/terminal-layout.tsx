@@ -4,7 +4,7 @@ import * as React from "react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import {
-  IconFolderPlus, IconGitBranch, IconLayoutColumns, IconLayoutRows, IconPlus, IconTerminal2, IconX,
+  IconFolderPlus, IconGitBranch, IconHome, IconLayoutColumns, IconLayoutRows, IconPlus, IconTerminal2, IconX,
 } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -14,11 +14,14 @@ import { useTabStore } from "@/store/tab-store"
 import { nextTabNumber, useTerminalStore, type TerminalProject } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsYou } from "@/lib/terminal/status"
-import { isForeignEditable, matchShortcut, nextWaiting, singleFlight } from "@/lib/terminal/util"
+import {
+  isForeignEditable, matchShortcut, neighborPane, nextWaiting, singleFlight, tabIndexFor, tildify, type PaneRect,
+} from "@/lib/terminal/util"
 import { onClosePane, terminalGitInfo, terminalSetViewing } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
 import { SplitView } from "./split-view"
 import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
+import { anyBusy, CloseGuardContext, useCloseGuard, type CloseGuard } from "./close-guard"
 
 const TOOL_PATH = "/app/terminal"
 const GIT_POLL_MS = 5000
@@ -30,6 +33,29 @@ const visibleLeaves = () => {
   const p = st.projects.find((x) => x.id === st.activeProjectId) ?? st.projects[0]
   const tab = p?.tabs.find((x) => x.id === p.activeTabId)
   return tab ? leafIds(tab.layout) : []
+}
+/** On-screen boxes of the visible panes (hidden tabs measure 0×0 and are skipped). */
+const paneRects = (ids: string[]): PaneRect[] =>
+  ids.flatMap((id) => {
+    const el = document.querySelector(`[data-terminal-id="${CSS.escape(id)}"]`)
+    const r = el?.getBoundingClientRect()
+    return r && r.width > 0 ? [{ id, left: r.left, top: r.top, right: r.right, bottom: r.bottom }] : []
+  })
+
+/** Home folder, for "Open home folder" and shortening paths to ~. */
+function useHomeDir() {
+  const [home, setHome] = React.useState<string | null>(null)
+  React.useEffect(() => {
+    let live = true
+    import("@tauri-apps/api/path")
+      .then(({ homeDir }) => homeDir())
+      .then((h) => live && setHome(h))
+      .catch(() => {}) // not in Tauri: paths stay absolute, the home action is hidden
+    return () => {
+      live = false
+    }
+  }, [])
+  return home
 }
 
 function useWindowFocused() {
@@ -78,6 +104,8 @@ function TabBar({ project }: { project: TerminalProject }) {
   const [editing, setEditing] = React.useState<string | null>(null)
   const [draft, setDraft] = React.useState("")
   const dnd = useTabReorder()
+  const guardClose = useCloseGuard()
+  const tabRefs = React.useRef(new Map<string, HTMLButtonElement>())
 
   const commit = (tabId: string) => {
     const name = draft.trim()
@@ -89,8 +117,8 @@ function TabBar({ project }: { project: TerminalProject }) {
 
   return (
     <div className="flex h-10 shrink-0 items-center gap-1 border-b border-border px-2">
-      <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto">
-        {project.tabs.map((tab) => {
+      <div role="tablist" aria-label={project.name} className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto">
+        {project.tabs.map((tab, i) => {
           const active = tab.id === project.activeTabId
           const waiting = leafIds(tab.layout).some((id) => statuses[id] === "waiting")
           return (
@@ -120,21 +148,45 @@ function TabBar({ project }: { project: TerminalProject }) {
                 />
               ) : (
                 <button
+                  ref={(el) => {
+                    if (el) tabRefs.current.set(tab.id, el)
+                    else tabRefs.current.delete(tab.id)
+                  }}
                   type="button"
+                  role="tab"
+                  aria-selected={active}
+                  tabIndex={active ? 0 : -1}
                   onClick={() => S().focusTerminal(leafIds(tab.layout)[0])}
                   onDoubleClick={() => {
                     setDraft(tab.name)
                     setEditing(tab.id)
                   }}
-                  title={t("renameTab")}
-                  className="max-w-40 truncate"
+                  onKeyDown={(e) => {
+                    // Roving tabindex: ←/→ (Home/End) select the neighbouring tab; F2 renames.
+                    const n = project.tabs.length
+                    const to =
+                      e.key === "ArrowRight" ? (i + 1) % n : e.key === "ArrowLeft" ? (i - 1 + n) % n
+                        : e.key === "Home" ? 0 : e.key === "End" ? n - 1 : null
+                    if (e.key === "F2") {
+                      e.preventDefault()
+                      setDraft(tab.name)
+                      setEditing(tab.id)
+                    }
+                    if (to === null) return
+                    e.preventDefault()
+                    const next = project.tabs[to]
+                    S().focusTerminal(leafIds(next.layout)[0])
+                    tabRefs.current.get(next.id)?.focus()
+                  }}
+                  title={tab.name}
+                  className="max-w-40 truncate rounded-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                 >
                   {tab.name}
                 </button>
               )}
               <button
                 type="button"
-                onClick={() => S().closeTab(project.id, tab.id)}
+                onClick={() => guardClose(leafIds(tab.layout), () => S().closeTab(project.id, tab.id))}
                 aria-label={t("closeTab")}
                 title={t("closeTab")}
                 className={cn(
@@ -189,12 +241,23 @@ function TabBar({ project }: { project: TerminalProject }) {
 const shortcutsBlocked = (el: HTMLElement | null) =>
   isForeignEditable(el) || !!document.querySelector('[role="dialog"], [role="alertdialog"]')
 
-function Empty({ message, action, onAction, icon: Icon }: { message: string; action: string; onAction: () => void; icon: React.ElementType }) {
+function Empty({ message, action, onAction, secondary, icon: Icon }: {
+  message: string; action: string; onAction: () => void; icon: React.ElementType
+  secondary?: { label: string; icon: React.ElementType; onClick: () => void }
+}) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-3 p-8 text-center">
       <Icon className="h-8 w-8 text-muted-foreground/60" aria-hidden />
       <p className="text-[13px] text-muted-foreground">{message}</p>
-      <Button size="sm" onClick={onAction}>{action}</Button>
+      <div className="flex items-center gap-2">
+        <Button size="sm" onClick={onAction}>{action}</Button>
+        {secondary && (
+          <Button size="sm" variant="ghost" onClick={secondary.onClick}>
+            <secondary.icon className="h-4 w-4" aria-hidden />
+            {secondary.label}
+          </Button>
+        )}
+      </div>
     </div>
   )
 }
@@ -208,6 +271,8 @@ export function TerminalLayout() {
   const activeProjectId = useTerminalStore((s) => s.activeProjectId)
   const toolActive = useTabStore((s) => s.activeTabPath === TOOL_PATH)
   const windowFocused = useWindowFocused()
+  const home = useHomeDir()
+  const cwds = useTerminalStore((s) => s.cwds)
 
   const project = projects.find((p) => p.id === activeProjectId) ?? projects[0]
   const activeTab = project?.tabs.find((tab) => tab.id === project.activeTabId) ?? null
@@ -238,13 +303,33 @@ export function TerminalLayout() {
   }, [viewing, viewingWaiting])
   React.useEffect(() => () => void terminalSetViewing(null).catch(() => {}), [])
 
+  // Closing a pane with a running command or a waiting agent asks first.
+  const guardClose = React.useCallback<CloseGuard>(
+    async (ids, close) => {
+      if (!anyBusy(ids)) return close()
+      const ok = await confirm({
+        title: t("closeRunningTitle"),
+        description: t("closeRunningBody"),
+        confirmLabel: t("close"),
+        cancelLabel: t("cancel"),
+        destructive: true,
+      })
+      if (ok) close()
+    },
+    [confirm, t],
+  )
+  const guardRef = React.useRef(guardClose)
+  React.useEffect(() => {
+    guardRef.current = guardClose
+  }, [guardClose])
+
   // ⌘W comes from the macOS menu (it pre-empts the webview), not a keydown.
   React.useEffect(() => {
     let unlisten: (() => void) | undefined
     let gone = false
     onClosePane(({ id }) => {
       if (shortcutsBlocked(document.activeElement as HTMLElement | null)) return
-      if (visibleLeaves().includes(id)) S().closeTerminal(id)
+      if (visibleLeaves().includes(id)) guardRef.current([id], () => S().closeTerminal(id))
     })
       .then((u) => (gone ? u() : (unlisten = u)))
       .catch(() => {})
@@ -268,7 +353,21 @@ export function TerminalLayout() {
       const p = st.projects.find((x) => x.id === st.activeProjectId) ?? st.projects[0]
       const focused = st.focusedTerminalId
       const tabIdx = p ? p.tabs.findIndex((x) => x.id === p.activeTabId) : -1
+      if (typeof action === "object") {
+        if ("tab" in action) {
+          const i = p ? tabIndexFor(action.tab, p.tabs.length) : null
+          if (p && i !== null) st.focusTerminal(leafIds(p.tabs[i].layout)[0])
+        } else if (focused) {
+          const ids = visibleLeaves()
+          const id = ids.includes(focused) ? neighborPane(paneRects(ids), focused, action.focus) : null
+          if (id) st.focusTerminal(id)
+        }
+        return
+      }
       switch (action) {
+        case "zoomPane":
+          if (focused && visibleLeaves().includes(focused)) st.toggleZoom(focused)
+          break
         case "splitRow":
         case "splitCol":
           // Only a pane on screen: focus can linger on a hidden project's pane (e.g. zero-tab project).
@@ -308,6 +407,10 @@ export function TerminalLayout() {
       toast.error(errMsg(e))
     }
   }, [t])
+  const openHome = React.useMemo(
+    () => (home ? { label: t("openHome"), icon: IconHome, onClick: () => S().addProject(home, t("untitledTab", { n: 1 })) } : undefined),
+    [home, t],
+  )
 
   const removeProject = React.useCallback(
     async (p: TerminalProject) => {
@@ -324,8 +427,11 @@ export function TerminalLayout() {
   )
 
   const info = project ? git[project.id] : undefined
+  // Status bar follows the focused pane's directory (OSC 7); the project folder until the shell reports one.
+  const shownPath = (focusedId && activeLeaves.includes(focusedId) && cwds[focusedId]) || project?.path || ""
 
   return (
+    <CloseGuardContext.Provider value={guardClose}>
     <ToolSidebarLayout
       toolId="terminal"
       icon={IconTerminal2}
@@ -335,7 +441,7 @@ export function TerminalLayout() {
     >
       <div className="flex h-full min-h-0 min-w-0 flex-col">
         {!project ? (
-          <Empty icon={IconTerminal2} message={t("noProjects")} action={t("addProject")} onAction={addProject} />
+          <Empty icon={IconTerminal2} message={t("noProjects")} action={t("addProject")} onAction={addProject} secondary={openHome} />
         ) : (
           <>
             {project.tabs.length > 0 && <TabBar project={project} />}
@@ -374,7 +480,7 @@ export function TerminalLayout() {
                   <span className="truncate font-mono">{info.branch}</span>
                 </span>
               )}
-              <span className="min-w-0 truncate" title={project.path}>{project.path}</span>
+              <span className="min-w-0 truncate" title={shownPath}>{tildify(shownPath, home)}</span>
               {info?.changed != null && info.changed > 0 && (
                 <span className="ml-auto shrink-0 tabular-nums">{t("changedFiles", { count: info.changed })}</span>
               )}
@@ -384,5 +490,6 @@ export function TerminalLayout() {
       </div>
       {dialog}
     </ToolSidebarLayout>
+    </CloseGuardContext.Provider>
   )
 }

@@ -155,7 +155,15 @@ pub fn on_run_event(app: &AppHandle, event: &RunEvent) {
         #[cfg(target_os = "macos")]
         RunEvent::Reopen { .. } => show(app),
         // Also reached by paths that skip ExitRequested (Dock menu Quit, logout).
-        RunEvent::Exit => app.state::<Arc<TerminalState>>().kill_all(),
+        RunEvent::Exit => {
+            let term = app.state::<Arc<TerminalState>>();
+            if let Ok(mut db) = app.state::<crate::state::AppState>().db.lock() {
+                if let Err(e) = super::restore::save_all(&mut db, &term) {
+                    eprintln!("terminal: scrollback not saved: {e}");
+                }
+            }
+            term.kill_all();
+        }
         _ => {}
     }
 }

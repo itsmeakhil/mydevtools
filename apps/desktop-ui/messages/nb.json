@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} fjernes fra listen, og terminalene lukkes. Filer på disken berøres ikke.",
     "splitRight": "Del til høyre",
     "splitDown": "Del nedover",
-    "closePane": "Lukk rute"
+    "closePane": "Lukk rute",
+    "find": "Søk",
+    "findPrevious": "Forrige treff",
+    "findNext": "Neste treff",
+    "closeFind": "Lukk søk",
+    "noMatches": "Ingen treff",
+    "closeRunningTitle": "Lukke kjørende terminal?",
+    "closeRunningBody": "Noe kjører fortsatt her. Lukking vil avslutte det.",
+    "close": "Lukk",
+    "copy": "Kopier",
+    "paste": "Lim inn",
+    "clear": "Tøm",
+    "optionAsMeta": "Bruk Option som Meta-tast",
+    "restart": "Start på nytt",
+    "maximizePane": "Maksimer rute",
+    "restorePane": "Gjenopprett rute",
+    "openHome": "Åpne hjemmemappe",
+    "nextWaitingHint": "Gå til neste terminal som trenger deg"
   }
 }

@@ -3312,6 +3312,23 @@
     "removeProjectBody": "{name} akan dialih keluar daripada senarai dan terminalnya ditutup. Fail pada cakera tidak disentuh.",
     "splitRight": "Bahagi ke kanan",
     "splitDown": "Bahagi ke bawah",
-    "closePane": "Tutup anak tetingkap"
+    "closePane": "Tutup anak tetingkap",
+    "find": "Cari",
+    "findPrevious": "Padanan sebelumnya",
+    "findNext": "Padanan seterusnya",
+    "closeFind": "Tutup carian",
+    "noMatches": "Tiada padanan",
+    "closeRunningTitle": "Tutup terminal yang sedang berjalan?",
+    "closeRunningBody": "Sesuatu masih berjalan di sini. Menutupnya akan menamatkannya.",
+    "close": "Tutup",
+    "copy": "Salin",
+    "paste": "Tampal",
+    "clear": "Kosongkan",
+    "optionAsMeta": "Guna Option sebagai kekunci Meta",
+    "restart": "Mula semula",
+    "maximizePane": "Maksimumkan panel",
+    "restorePane": "Pulihkan panel",
+    "openHome": "Buka folder rumah",
+    "nextWaitingHint": "Lompat ke terminal seterusnya yang memerlukan anda"
   }
 }
