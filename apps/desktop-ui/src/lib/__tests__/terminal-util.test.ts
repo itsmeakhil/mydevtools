@@ -54,6 +54,8 @@ describe("terminal util", () => {
     expect(k("BracketLeft", true)).toBe("prevTab")
     expect(k("KeyJ")).toBe("nextWaiting")
     expect(k("Slash")).toBe("shortcuts")
+    expect(k("KeyB")).toBe("board")
+    expect(k("KeyB", true)).toBeNull()
     expect(k("Slash", true)).toBeNull()
     expect(k("KeyW")).toBeNull()
     expect(k("KeyD", false, false)).toBeNull()

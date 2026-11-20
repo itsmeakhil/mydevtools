@@ -16,6 +16,7 @@ export function ShortcutsDialog({ open, onOpenChange }: { open: boolean; onOpenC
     ["⌘⇧[  ⌘⇧]", t("scNextPrevTab")],
     ["⌘1 – ⌘9", t("scGoToTab")],
     ["⌘J", t("nextWaitingHint")],
+    ["⌘B", t("board")],
     ["⌘F", t("find")],
     ["⌘K", t("clear")],
     ["⌘↑  ⌘↓", t("scPromptJump")],

@@ -241,6 +241,17 @@ describe("terminal store", () => {
     expect(S().dirty).toBe(true)
   })
 
+  it("board toggles and is never saved", async () => {
+    S().addProject("/x/a")
+    expect(S().boardOpen).toBe(false)
+    S().toggleBoard()
+    expect(S().boardOpen).toBe(true)
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave.mock.calls.at(-1)![0]).not.toHaveProperty("boardOpen")
+    S().toggleBoard()
+    expect(S().boardOpen).toBe(false)
+  })
+
   it("runningSince keeps the start across repeated running, clears on any other status", () => {
     jest.setSystemTime(1_000)
     S().addProject("/x/a")
