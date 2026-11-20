@@ -6,7 +6,7 @@ import { IconChevronDown, IconGitBranch, IconKey, IconTrash } from "@tabler/icon
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { envSetName, loadEnvSets, type EnvSet } from "@/lib/terminal/env-sets"
 import { needsTrust, planWorkspace } from "@/lib/terminal/workspace"
-import type { Workspace } from "@/lib/terminal/project-config"
+import type { ProjectConfigV1, Workspace } from "@/lib/terminal/project-config"
 import { toPaneEnv } from "@/lib/terminal/env-vars"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
@@ -66,15 +66,21 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
   const [editing, setEditing] = React.useState(false)
   const [worktree, setWorktree] = React.useState(false)
   const [envOpen, setEnvOpen] = React.useState(false)
-  // Something from the repo file the user asked to run, waiting on trust.
-  const [pending, setPending] = React.useState<(() => void) | null>(null)
+  // Something from the repo file the user asked to run, waiting on trust, with the exact file
+  // text it came from: the dialog shows that text's config and trust applies to that text only.
+  const [pending, setPending] = React.useState<{ text: string; config: ProjectConfigV1; run: () => void } | null>(null)
   const files = useTerminalStore((s) => s.projectFiles)
   const view = projectView(project, files)
+  const renderedText = files[project.id]?.text
   const key = useCipherKey()
   /** Run now, unless it comes from an untrusted repo file: then ask first. */
   const guarded = (run: () => void, needed = true) => {
-    if (view.fromFile && needed && !S().fileRunAllowed(project.id)) setPending(() => run)
-    else run()
+    if (!view.fromFile || !needed) return run()
+    const f = S().projectFiles[project.id]
+    // The file changed or went away since this menu rendered: run nothing from the old one.
+    if (!f || f.text !== renderedText) return
+    if (S().fileRunAllowed(project.id)) return run()
+    setPending({ text: f.text, config: f.config, run })
   }
   const runAgent = (name: string, command: string) => S().newTab(project.id, name, { run: command })
   const runCommand = (name: string, command: string) => guarded(() => S().newTab(project.id, name, { run: command }))
@@ -150,16 +156,16 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
       <CommandsDialog project={project} open={editing} onOpenChange={setEditing} />
       <WorktreeDialog project={project} open={worktree} onOpenChange={setWorktree} />
       {envOpen && <EnvDialog project={project} onOpenChange={setEnvOpen} />}
-      {pending && files[project.id] && (
+      {pending && files[project.id]?.text === pending.text && (
         <TrustDialog
           path={`${project.path}/.mydevtools/terminal.json`}
-          config={files[project.id].config}
+          config={pending.config}
           onCancel={() => setPending(null)}
           onTrust={async () => {
-            const run = pending
+            const { text, run } = pending
             setPending(null)
-            await S().trustProjectFile(project.id)
-            if (S().fileRunAllowed(project.id)) run()
+            const trusted = await S().trustProjectFile(project.id, text)
+            if (trusted && S().projectFiles[project.id]?.text === text && S().fileRunAllowed(project.id)) run()
           }}
         />
       )}

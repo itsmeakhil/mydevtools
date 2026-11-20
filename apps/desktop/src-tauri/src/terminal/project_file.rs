@@ -35,11 +35,24 @@ pub fn read(project: &Path) -> Result<Option<String>, String> {
     if !exists {
         return Ok(None);
     }
-    let len = std::fs::metadata(&file).map_err(|e| e.to_string())?.len();
-    if len > MAX_BYTES as u64 {
+    // Open without following a symlink swapped in since the check, and without blocking (a FIFO
+    // would wait forever); then check what was actually opened.
+    let mut o = std::fs::OpenOptions::new();
+    o.read(true);
+    #[cfg(unix)]
+    std::os::unix::fs::OpenOptionsExt::custom_flags(&mut o, libc::O_NOFOLLOW | libc::O_NONBLOCK);
+    let f = o.open(&file).map_err(|e| format!("{}: {e}", file.display()))?;
+    let meta = f.metadata().map_err(|e| e.to_string())?;
+    if !meta.is_file() {
+        return Err(format!("{} is not a regular file", file.display()));
+    }
+    // Capped read: a file growing after the check can't make it unbounded.
+    let mut text = String::new();
+    std::io::Read::read_to_string(&mut std::io::Read::take(f, MAX_BYTES as u64 + 1), &mut text).map_err(|e| e.to_string())?;
+    if text.len() > MAX_BYTES {
         return Err(format!("{} is larger than {} KB", file.display(), MAX_BYTES / 1024));
     }
-    std::fs::read_to_string(&file).map(Some).map_err(|e| e.to_string())
+    Ok(Some(text))
 }
 
 /// Replace the file atomically (temp file in the same folder, then rename).
@@ -56,6 +69,10 @@ pub fn write(project: &Path, text: &str) -> Result<(), String> {
         let mut f = std::fs::OpenOptions::new().write(true).create_new(true).open(&tmp)?;
         f.write_all(text.as_bytes())?;
         f.sync_all()?;
+        // Re-check right before the rename: the folder or file may have become a symlink meanwhile.
+        if not_symlink(&dir).is_err() || not_symlink(&file).is_err() {
+            return Err(std::io::Error::other("refusing to write through a symlink"));
+        }
         std::fs::rename(&tmp, &file)
     })();
     if written.is_err() {
@@ -113,6 +130,19 @@ mod tests {
         symlink(&elsewhere, q.join(".mydevtools")).unwrap();
         assert!(write(&q, "{}").is_err());
         assert!(!elsewhere.join("terminal.json").exists());
+    }
+
+    #[test]
+    fn a_fifo_named_terminal_json_is_refused_not_waited_on() {
+        let p = project("fifo");
+        std::fs::create_dir_all(p.join(".mydevtools")).unwrap();
+        let f = std::ffi::CString::new(p.join(".mydevtools/terminal.json").to_str().unwrap()).unwrap();
+        assert_eq!(unsafe { libc::mkfifo(f.as_ptr(), 0o600) }, 0);
+        let (tx, rx) = std::sync::mpsc::channel();
+        std::thread::spawn(move || {
+            let _ = tx.send(read(&p).is_err());
+        });
+        assert_eq!(rx.recv_timeout(std::time::Duration::from_secs(2)), Ok(true), "must return an error, not block");
     }
 
     #[test]
