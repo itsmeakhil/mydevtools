@@ -139,6 +139,11 @@ fn secure_file_read(state: tauri::State<'_, AppState>, id: String) -> Result<tau
     router::secure_files::read_plaintext(&state, &id).map(tauri::ipc::Response::new)
 }
 
+/// `mdt-term` (the agent helper CLI): run before any Tauri setup, returns the exit code.
+pub fn term_cli(args: &[String]) -> i32 {
+    terminal::ctl::cli(args)
+}
+
 pub fn run() {
     let builder = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())

@@ -299,6 +299,166 @@ pub fn terminal_set_project_prefs(state: tauri::State<'_, Arc<TerminalState>>, p
     }
 }
 
+// ---- `mdt-term`: the client side. std + serde_json only; never touches Tauri. ----
+
+const SKILL: &str = "\
+mdt-term: run helper terminal panes from this pane
+
+Use helpers for independent subtasks that can run in parallel: a long test run,
+a build, a dev server, a second agent on a separate part of the code. Don't use
+them for work you need the result of right now; just run it yourself.
+
+Limits: helpers cannot start helpers. At most 4 helpers are live at a time.
+Helpers can be turned off per project; then `run` fails with an error.
+If helpers edit files, use --worktree so they work on their own git branch and
+checkout instead of colliding with your working tree.
+
+Commands (the id printed by `run` identifies the helper):
+  mdt-term run [--name N] [--worktree TASK] -- <command...>   prints the id
+      mdt-term run --name tests --worktree fix-auth -- npm test
+  mdt-term send <id> <text...>     types the text and presses Enter
+      mdt-term send 3f2a 'yes'     (--no-enter sends the text without Enter)
+  mdt-term read <id> [--lines 40]  prints the last lines of the helper's screen
+      mdt-term read 3f2a --lines 100
+  mdt-term wait <id> [--until done|idle|blocked|exit] [--timeout 600]
+      mdt-term wait 3f2a --timeout 120
+  mdt-term close <id>              closes the helper pane
+  mdt-term list                    JSON array of your helpers
+
+wait prints one JSON object and stops at the first of: the helper finishing,
+asking for input (blocked), exiting, being closed, or the timeout.
+  {\"status\": \"done\", \"duration_ms\": 5321, \"tail\": \"...last 40 lines...\", \"exit_code\": 0}
+status is one of done, idle, blocked, exit, closed, timeout. exit_code is
+present when known. Errors print {\"error\": \"...\"} to stderr.
+
+Exit codes of wait: 0 done, idle, or exited with code 0; 1 blocked or exited
+with a non-zero code (read the tail, then send input or fix it); 2 closed or
+timed out; 3 error (bad arguments, no helper access, not your pane).
+Other commands exit 0 on success and 3 on error.
+
+You can only see and control helpers you started. Always close helpers when done.
+";
+
+/// argv (after `term`) to a control request.
+fn request(args: &[String], caller: &str, token: &str) -> Result<Value, String> {
+    let (op, rest) = args.split_first().ok_or("usage: mdt-term run|send|read|wait|close|list (or --skill)")?;
+    let mut req = json!({"token": token, "caller": caller, "op": op});
+    let m = req.as_object_mut().unwrap();
+    let mut pos: Vec<&str> = vec![];
+    let mut i = 0;
+    while i < rest.len() {
+        let a = rest[i].as_str();
+        i += 1;
+        let mut val = |flag: &str| -> Result<&str, String> {
+            i += 1;
+            rest.get(i - 1).map(String::as_str).ok_or(format!("{flag} needs a value"))
+        };
+        match (op.as_str(), a) {
+            ("run", "--") => {
+                m.insert("command".into(), json!(rest[i..].join(" ")));
+                break;
+            }
+            ("run", "--name") => drop(m.insert("name".into(), json!(val(a)?))),
+            ("run", "--worktree") => drop(m.insert("worktree".into(), json!(val(a)?))),
+            ("read", "--lines") => drop(m.insert("lines".into(), json!(val(a)?.parse::<usize>().map_err(|_| "--lines needs a number")?))),
+            ("wait", "--until") => drop(m.insert("until".into(), json!(val(a)?))),
+            ("wait", "--timeout") => drop(m.insert("timeout_s".into(), json!(val(a)?.parse::<u64>().map_err(|_| "--timeout needs a number")?))),
+            ("send", "--no-enter") => drop(m.insert("raw".into(), json!(true))),
+            (_, f) if f.starts_with("--") => return Err(format!("unknown flag {f}")),
+            _ => pos.push(a),
+        }
+    }
+    match op.as_str() {
+        "list" => {}
+        "run" => {
+            if m.get("command").and_then(Value::as_str).is_none_or(|c| c.trim().is_empty()) {
+                return Err("usage: mdt-term run [--name N] [--worktree TASK] -- <command...>".into());
+            }
+        }
+        "send" => {
+            let (Some(id), true) = (pos.first(), pos.len() > 1) else { return Err("usage: mdt-term send <id> <text...> [--no-enter]".into()) };
+            let mut text = pos[1..].join(" ");
+            if m.remove("raw").is_none() {
+                text.push('\r');
+            }
+            m.insert("id".into(), json!(id));
+            m.insert("text".into(), json!(text));
+        }
+        "read" | "wait" | "close" => {
+            let [id] = pos[..] else { return Err(format!("usage: mdt-term {op} <id> [options]")) };
+            m.insert("id".into(), json!(id));
+        }
+        _ => return Err(format!("unknown command {op}")),
+    }
+    Ok(req)
+}
+
+/// Process exit code for a response (see `--skill`).
+fn exit_code(op: &str, v: &Value) -> i32 {
+    if v.get("error").is_some() {
+        return 3;
+    }
+    if op != "wait" {
+        return 0;
+    }
+    match (v["status"].as_str(), v["exit_code"].as_i64()) {
+        (Some("done" | "idle"), _) | (Some("exit"), None | Some(0)) => 0,
+        (Some("blocked" | "exit"), _) => 1,
+        (Some("closed" | "timeout"), _) => 2,
+        _ => 3,
+    }
+}
+
+#[cfg(unix)]
+fn send_request(path: &str, req: &Value, wait: Duration) -> Result<Value, String> {
+    use std::io::{BufRead, BufReader, Write};
+    let mut s = std::os::unix::net::UnixStream::connect(path).map_err(|e| format!("can't reach the terminal control socket: {e}"))?;
+    s.set_read_timeout(Some(wait)).and_then(|_| s.set_write_timeout(Some(OP_TIMEOUT))).map_err(|e| e.to_string())?;
+    writeln!(s, "{req}").map_err(|e| e.to_string())?;
+    let mut line = String::new();
+    BufReader::new(s).read_line(&mut line).map_err(|e| format!("no reply: {e}"))?;
+    serde_json::from_str(&line).map_err(|_| "bad reply".to_string())
+}
+
+#[cfg(not(unix))]
+fn send_request(_: &str, _: &Value, _: Duration) -> Result<Value, String> {
+    Err("mdt-term needs a Unix socket".into())
+}
+
+/// `mdt-term` entry point: prints the result, returns the exit code.
+pub fn cli(args: &[String]) -> i32 {
+    if args.first().map(String::as_str) == Some("--skill") {
+        print!("{SKILL}");
+        return 0;
+    }
+    let env = |k: &str| std::env::var(k).map_err(|_| format!("{k} is not set (run mdt-term inside a MyDevTools terminal pane)"));
+    let go = || -> Result<(String, Value), String> {
+        let (socket, caller, token) = (env("MDT_CTL_SOCKET")?, env("MDT_TERMINAL_ID")?, env("MDT_CTL_TOKEN")?);
+        let req = request(args, &caller, &token)?;
+        // wait blocks server-side up to its timeout; allow a margin on top.
+        let wait = Duration::from_secs(req["timeout_s"].as_u64().unwrap_or(MAX_WAIT_S).min(MAX_WAIT_S) + 15);
+        let op = args[0].clone();
+        send_request(&socket, &req, if op == "wait" { wait } else { OP_TIMEOUT + Duration::from_secs(5) }).map(|v| (op, v))
+    };
+    match go() {
+        Err(e) => {
+            eprintln!("mdt-term: {e}");
+            3
+        }
+        Ok((op, v)) => {
+            let code = exit_code(&op, &v);
+            match (op.as_str(), code) {
+                (_, 3) => eprintln!("{v}"),
+                ("run", _) => println!("{}", v["id"].as_str().unwrap_or_default()),
+                ("read", _) => println!("{}", v["tail"].as_str().unwrap_or_default()),
+                ("send" | "close", _) => {}
+                _ => println!("{v}"),
+            }
+            code
+        }
+    }
+}
+
 #[cfg(all(test, unix))]
 mod tests {
     use super::*;
@@ -666,6 +826,77 @@ mod tests {
         assert_eq!(std::fs::metadata(&path).unwrap().permissions().mode() & 0o777, 0o600);
         let big = ask(vec![b'x'; 70 * 1024]).await;
         assert_eq!(big, format!("{}\n", json!({"error": "request too large"})));
+        st.kill_all();
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    fn args(a: &[&str]) -> Vec<String> {
+        a.iter().map(|s| s.to_string()).collect()
+    }
+
+    #[test]
+    fn cli_parses_args() {
+        let t = |a: &[&str]| request(&args(a), "me", "tok");
+        let base = |op: &str| json!({"token": "tok", "caller": "me", "op": op});
+        let with = |op: &str, extra: Value| {
+            let mut v = base(op);
+            v.as_object_mut().unwrap().extend(extra.as_object().unwrap().clone());
+            v
+        };
+        assert_eq!(t(&["list"]).unwrap(), base("list"));
+        assert_eq!(t(&["run", "--", "npm", "test"]).unwrap(), with("run", json!({"command": "npm test"})));
+        assert_eq!(
+            t(&["run", "--name", "tests", "--worktree", "fix-x", "--", "ls", "-la"]).unwrap(),
+            with("run", json!({"command": "ls -la", "name": "tests", "worktree": "fix-x"}))
+        );
+        assert_eq!(t(&["send", "p1", "hello", "world"]).unwrap(), with("send", json!({"id": "p1", "text": "hello world\r"})));
+        assert_eq!(t(&["send", "p1", "--no-enter", "y"]).unwrap(), with("send", json!({"id": "p1", "text": "y"})));
+        assert_eq!(t(&["read", "p1"]).unwrap(), with("read", json!({"id": "p1"})));
+        assert_eq!(t(&["read", "p1", "--lines", "5"]).unwrap(), with("read", json!({"id": "p1", "lines": 5})));
+        assert_eq!(t(&["wait", "p1"]).unwrap(), with("wait", json!({"id": "p1"})));
+        assert_eq!(
+            t(&["wait", "p1", "--until", "idle", "--timeout", "30"]).unwrap(),
+            with("wait", json!({"id": "p1", "until": "idle", "timeout_s": 30}))
+        );
+        assert_eq!(t(&["close", "p1"]).unwrap(), with("close", json!({"id": "p1"})));
+        for bad in [&[][..], &["nope"], &["run"], &["run", "--"], &["send", "p1"], &["read"], &["wait", "p1", "--timeout", "x"], &["close"]] {
+            assert!(t(bad).is_err(), "{bad:?}");
+        }
+    }
+
+    #[test]
+    fn cli_exit_codes() {
+        let w = |v: Value| exit_code("wait", &v);
+        assert_eq!(w(json!({"status": "done"})), 0);
+        assert_eq!(w(json!({"status": "idle"})), 0);
+        assert_eq!(w(json!({"status": "exit", "exit_code": 0})), 0);
+        assert_eq!(w(json!({"status": "exit", "exit_code": 2})), 1);
+        assert_eq!(w(json!({"status": "blocked"})), 1);
+        assert_eq!(w(json!({"status": "closed"})), 2);
+        assert_eq!(w(json!({"status": "timeout"})), 2);
+        assert_eq!(w(json!({"error": "bad token"})), 3);
+        assert_eq!(exit_code("run", &json!({"id": "x"})), 0);
+        assert_eq!(exit_code("run", &json!({"error": "no"})), 3);
+        assert_eq!(exit_code("list", &json!([])), 0);
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn cli_round_trip() {
+        let st = state();
+        pane(&st, "a", Some("p"));
+        let dir = std::env::temp_dir().join(format!("mdt-cli-{}", std::process::id()));
+        let path = dir.join("ctl.sock");
+        tokio::spawn(serve(path.clone(), st.clone()));
+        while !path.exists() {
+            tokio::time::sleep(Duration::from_millis(20)).await;
+        }
+        std::env::set_var("MDT_CTL_SOCKET", &path);
+        std::env::set_var("MDT_TERMINAL_ID", "a");
+        std::env::set_var("MDT_CTL_TOKEN", st.ctl_token("a"));
+        let code = tokio::task::spawn_blocking(|| cli(&args(&["list"]))).await.unwrap();
+        assert_eq!(code, 0);
+        let code = tokio::task::spawn_blocking(|| cli(&args(&["read", "nope"]))).await.unwrap();
+        assert_eq!(code, 3);
         st.kill_all();
         let _ = std::fs::remove_dir_all(&dir);
     }
