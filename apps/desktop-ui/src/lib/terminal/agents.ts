@@ -7,3 +7,6 @@ const NAMES: Record<string, string> = {
 }
 
 export const agentName = (id: string) => NAMES[id] ?? id
+
+/** Agents offered in the new-tab menu; each starts with the command of the same name. */
+export const LAUNCH_AGENTS = ["claude", "codex", "gemini", "opencode"] as const

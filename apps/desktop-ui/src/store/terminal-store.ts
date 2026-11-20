@@ -10,7 +10,11 @@ export interface TerminalProject {
   id: string; path: string; name: string; collapsed: boolean; tabs: TerminalTab[]; activeTabId: string | null
   /** Highest tab number handed out, so closing tab 1 of [1, 2] still makes the next one 3. */
   tabSeq?: number
+  /** Saved launch commands ("dev server" → `npm run dev`), offered in the new-tab menu. */
+  commands?: SavedCommand[]
 }
+
+export interface SavedCommand { name: string; command: string }
 
 /** Number for the project's next untitled tab. Older saves lack `tabSeq`: use the highest trailing number in tab names. */
 export const nextTabNumber = (p: Pick<TerminalProject, "tabs" | "tabSeq">) =>
@@ -46,6 +50,8 @@ interface TerminalState extends TerminalPersisted {
   zoomedId: string | null
   /** New pane id → the pane whose current directory it opens in (read once at spawn); not persisted. */
   cwdFrom: Record<string, string>
+  /** New pane id → command to run once its shell starts (read once at spawn); not persisted. */
+  runOnStart: Record<string, string>
   focusedTerminalId: string | null
   dirty: boolean
   loaded: boolean
@@ -56,7 +62,12 @@ interface TerminalState extends TerminalPersisted {
   removeProject: (id: string) => void
   toggleCollapsed: (id: string) => void
   selectProject: (id: string) => void
-  newTab: (projectId: string, name?: string) => void
+  /** `run` is typed into the new pane's shell once it has started. */
+  newTab: (projectId: string, name?: string, run?: string) => void
+  /** The command queued for a pane's first start, removed as it's read. */
+  takeRunOnStart: (terminalId: string) => string | undefined
+  addCommand: (projectId: string, cmd: SavedCommand) => void
+  removeCommand: (projectId: string, index: number) => void
   closeTab: (projectId: string, tabId: string) => void
   renameTab: (projectId: string, tabId: string, name: string) => void
   /** Move tab `fromId` into `toId`'s position within the project (drag-and-drop reorder). */
@@ -191,7 +202,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {},
     optionAsMeta: false, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -237,15 +248,37 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     },
 
     // Opens where the focused pane is, when that pane belongs to this project.
-    newTab: (projectId, name) => {
+    newTab: (projectId, name, run) => {
       const p = get().projects.find((x) => x.id === projectId)
       if (!p) return
       const n = nextTabNumber(p)
       const tab = makeTab(n, name)
+      const leafId = leafIds(tab.layout)[0]
       const from = get().focusedTerminalId
-      if (from && find([p], from)) set((s) => ({ cwdFrom: { ...s.cwdFrom, [leafIds(tab.layout)[0]]: from } }))
+      if (from && find([p], from)) set((s) => ({ cwdFrom: { ...s.cwdFrom, [leafId]: from } }))
+      if (run?.trim()) set((s) => ({ runOnStart: { ...s.runOnStart, [leafId]: run.trim() } }))
       mutate(mapProject(projectId, (x) => ({ ...x, tabs: [...x.tabs, tab], activeTabId: tab.id, tabSeq: n })))
     },
+
+    takeRunOnStart: (terminalId) => {
+      const run = get().runOnStart[terminalId]
+      if (run !== undefined)
+        set((s) => {
+          const { [terminalId]: _taken, ...rest } = s.runOnStart
+          return { runOnStart: rest }
+        })
+      return run
+    },
+
+    addCommand: (projectId, cmd) => {
+      const name = cmd.name.trim()
+      const command = cmd.command.trim()
+      if (!command) return
+      mutate(mapProject(projectId, (p) => ({ ...p, commands: [...(p.commands ?? []), { name: name || command, command }] })))
+    },
+
+    removeCommand: (projectId, index) =>
+      mutate(mapProject(projectId, (p) => ({ ...p, commands: (p.commands ?? []).filter((_, i) => i !== index) }))),
 
     closeTab: (projectId, tabId) => {
       const t = get().projects.find((p) => p.id === projectId)?.tabs.find((x) => x.id === tabId)

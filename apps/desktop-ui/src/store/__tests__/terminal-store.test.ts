@@ -180,6 +180,31 @@ describe("terminal store", () => {
     expect(S().attention).toEqual({})
   })
 
+  it("newTab queues a command for the new pane, read once", () => {
+    S().addProject("/x/a")
+    const p = S().projects[0]
+    S().newTab(p.id, "Codex", "  codex  ")
+    const tab = S().projects[0].tabs.at(-1)!
+    const id = leafIds(tab.layout)[0]
+    expect(tab.name).toBe("Codex")
+    expect(S().takeRunOnStart(id)).toBe("codex")
+    expect(S().takeRunOnStart(id)).toBeUndefined()
+    S().newTab(p.id, undefined, "   ")
+    expect(S().runOnStart).toEqual({})
+  })
+
+  it("saved commands: add trims and names blank ones after the command, remove by index", () => {
+    S().addProject("/x/a")
+    const pid = S().projects[0].id
+    S().addCommand(pid, { name: " Dev ", command: " npm run dev " })
+    S().addCommand(pid, { name: "", command: "make test" })
+    S().addCommand(pid, { name: "nothing", command: "  " })
+    expect(S().projects[0].commands).toEqual([{ name: "Dev", command: "npm run dev" }, { name: "make test", command: "make test" }])
+    S().removeCommand(pid, 0)
+    expect(S().projects[0].commands).toEqual([{ name: "make test", command: "make test" }])
+    expect(S().dirty).toBe(true)
+  })
+
   it("setAgent tracks known panes only and closing forgets it", () => {
     S().addProject("/x/a")
     const id = leafIds(S().projects[0].tabs[0].layout)[0]
