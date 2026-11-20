@@ -3340,6 +3340,7 @@
     "commandFailed": "{duration} 后退出码 {code}",
     "statusRunning": "运行中",
     "statusIdle": "空闲",
+    "statusVia": "{source, select, program {由程序报告} screen {根据屏幕判断} other {由 shell 报告}}",
     "shortcutsTitle": "键盘快捷键",
     "board": "分诊面板",
     "boardBlocked": "等你处理",

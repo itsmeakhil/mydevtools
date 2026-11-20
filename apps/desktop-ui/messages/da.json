@@ -3340,6 +3340,7 @@
     "commandFailed": "Afslutningskode {code} efter {duration}",
     "statusRunning": "Kører",
     "statusIdle": "Inaktiv",
+    "statusVia": "Rapporteret {source, select, program {af programmet} screen {fra skærmen} other {af skallen}}",
     "shortcutsTitle": "Tastaturgenveje",
     "board": "Prioriteringstavle",
     "boardBlocked": "Venter på dig",

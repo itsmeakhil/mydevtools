@@ -241,6 +241,17 @@ describe("terminal store", () => {
     expect(S().dirty).toBe(true)
   })
 
+  it("remembers who reported each pane's status, forgotten on close", () => {
+    S().addProject("/x/a")
+    const id = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().setStatus(id, "running", undefined, undefined, "screen")
+    expect(S().sources[id]).toBe("screen")
+    S().setStatus(id, "done", undefined, undefined, "program")
+    expect(S().sources[id]).toBe("program")
+    S().closeTerminal(id)
+    expect(S().sources).toEqual({})
+  })
+
   it("board toggles and is never saved", async () => {
     S().addProject("/x/a")
     expect(S().boardOpen).toBe(false)

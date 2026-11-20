@@ -3340,6 +3340,7 @@
     "commandFailed": "Κωδικός εξόδου {code} μετά από {duration}",
     "statusRunning": "Εκτελείται",
     "statusIdle": "Αδρανές",
+    "statusVia": "Αναφέρθηκε {source, select, program {από το πρόγραμμα} screen {από την οθόνη} other {από το κέλυφος}}",
     "shortcutsTitle": "Συντομεύσεις πληκτρολογίου",
     "board": "Πίνακας διαλογής",
     "boardBlocked": "Σας περιμένει",

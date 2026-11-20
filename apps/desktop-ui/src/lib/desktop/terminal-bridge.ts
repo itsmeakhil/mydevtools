@@ -3,7 +3,7 @@
  * imported lazily (same as bridge.ts) so non-desktop bundles never pull it in.
  */
 import { apiRequest } from "@/lib/backend-api"
-import type { TermStatus } from "@/lib/terminal/status"
+import type { StatusSource, TermStatus } from "@/lib/terminal/status"
 import type { TerminalPersisted } from "@/store/terminal-store"
 
 async function invoke<T>(cmd: string, args?: Record<string, unknown>): Promise<T> {
@@ -64,7 +64,7 @@ async function on<T>(event: string, cb: (p: T) => void): Promise<() => void> {
 }
 /** How a long shell command ended (sent with the status it caused). */
 export interface CommandEnd { code: number | null; ms: number }
-export const onTerminalStatus = (cb: (p: { id: string; status: TermStatus; message?: string | null; command?: CommandEnd | null }) => void) =>
+export const onTerminalStatus = (cb: (p: { id: string; status: TermStatus; message?: string | null; command?: CommandEnd | null; source?: StatusSource }) => void) =>
   on("terminal://status", cb)
 /** Pane's foreground agent changed: manifest id (`codex`, `claude`…) or null. */
 export const onTerminalAgent = (cb: (p: { id: string; agent: string | null }) => void) => on("terminal://agent", cb)

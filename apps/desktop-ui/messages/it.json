@@ -3340,6 +3340,7 @@
     "commandFailed": "Codice di uscita {code} dopo {duration}",
     "statusRunning": "In esecuzione",
     "statusIdle": "Inattivo",
+    "statusVia": "Segnalato {source, select, program {dal programma} screen {dallo schermo} other {dalla shell}}",
     "shortcutsTitle": "Scorciatoie da tastiera",
     "board": "Bacheca di smistamento",
     "boardBlocked": "In attesa di te",

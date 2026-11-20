@@ -3340,6 +3340,7 @@
     "commandFailed": "Uitgangkode {code} ná {duration}",
     "statusRunning": "Loop",
     "statusIdle": "Onaktief",
+    "statusVia": "Gerapporteer {source, select, program {deur die program} screen {vanaf die skerm} other {deur die dop}}",
     "shortcutsTitle": "Kortpadsleutels",
     "board": "Triagebord",
     "boardBlocked": "Wag op jou",

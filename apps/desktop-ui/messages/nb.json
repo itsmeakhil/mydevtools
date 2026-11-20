@@ -3340,6 +3340,7 @@
     "commandFailed": "Avslutningskode {code} etter {duration}",
     "statusRunning": "Kjører",
     "statusIdle": "Inaktiv",
+    "statusVia": "Rapportert {source, select, program {av programmet} screen {fra skjermen} other {av skallet}}",
     "shortcutsTitle": "Hurtigtaster",
     "board": "Prioriteringstavle",
     "boardBlocked": "Venter på deg",

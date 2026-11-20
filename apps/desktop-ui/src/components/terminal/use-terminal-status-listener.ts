@@ -36,7 +36,9 @@ export function subscribeTerminalAttention(onFocus: (id: string) => void, onQuit
   const keep = (p: Promise<() => void>) =>
     p.then((off) => (disposed ? off() : void offs.push(off)), () => {})
 
-  keep(onTerminalStatus(({ id, status, message, command }) => S().setStatus(id, status, message ?? undefined, command ?? undefined)))
+  keep(onTerminalStatus(({ id, status, message, command, source }) =>
+      S().setStatus(id, status, message ?? undefined, command ?? undefined, source),
+    ))
   keep(onTerminalAgent(({ id, agent }) => S().setAgent(id, agent)))
   keep(onTerminalFocus(({ id }) => onFocus(id)))
   keep(onQuitRequested(({ count }) => {

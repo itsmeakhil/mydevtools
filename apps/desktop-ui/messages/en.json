@@ -3340,6 +3340,7 @@
     "commandFailed": "Exit code {code} after {duration}",
     "statusRunning": "Running",
     "statusIdle": "Idle",
+    "statusVia": "Reported {source, select, program {by the program} screen {from the screen} other {by the shell}}",
     "shortcutsTitle": "Keyboard shortcuts",
     "board": "Triage board",
     "boardBlocked": "Waiting on you",

@@ -3340,6 +3340,7 @@
     "commandFailed": "Návratový kód {code} po {duration}",
     "statusRunning": "Běží",
     "statusIdle": "Nečinný",
+    "statusVia": "Hlášeno {source, select, program {programem} screen {z obrazovky} other {shellem}}",
     "shortcutsTitle": "Klávesové zkratky",
     "board": "Třídicí tabule",
     "boardBlocked": "Čeká na vás",

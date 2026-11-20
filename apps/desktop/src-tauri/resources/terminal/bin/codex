@@ -1,0 +1,43 @@
+#!/bin/sh
+# MyDevTools Terminal `codex` shim. Inside a Terminal pane it points Codex's
+# `notify` hook at mdt-hook so a finished turn shows as "done". A notify the user
+# already set (in config.toml or with -c) is never replaced. Everywhere else it
+# runs the real codex unchanged.
+
+# The real codex: first executable `codex` on PATH that is not this shim's dir.
+me=$(cd "${0%/*}" 2>/dev/null && pwd -P)
+shim=$(cd "${MDT_SHIM_DIR:-$me}" 2>/dev/null && pwd -P)
+real=
+oldifs=$IFS
+IFS=:
+set -f
+for d in $PATH; do
+  [ -n "$d" ] || d=.
+  [ -f "$d/codex" ] && [ -x "$d/codex" ] || continue
+  p=$(cd "$d" 2>/dev/null && pwd -P) || continue
+  [ "$p" = "$me" ] || [ "$p" = "$shim" ] && continue
+  real=$d/codex
+  break
+done
+set +f
+IFS=$oldifs
+
+if [ -z "$real" ]; then
+  echo "codex: command not found" >&2
+  exit 127
+fi
+
+inject=1
+[ -n "$MDT_TERMINAL_ID" ] && [ -n "$MDT_HOOK_BIN" ] || inject=
+[ "$MDT_CODEX_HOOKS_DISABLED" = 1 ] && inject=
+for a in "$@"; do
+  case $a in notify=* | *.notify=* | --config=notify=*) inject= ;; esac
+done
+cfg=${CODEX_HOME:-$HOME/.codex}/config.toml
+[ -f "$cfg" ] && grep -Eq '^[[:space:]]*notify[[:space:]]*=' "$cfg" && inject=
+
+if [ -n "$inject" ]; then
+  bin=$(printf '%s' "$MDT_HOOK_BIN" | sed 's/\\/\\\\/g; s/"/\\"/g')
+  exec "$real" -c "notify=[\"$bin\",\"codex-notify\"]" "$@"
+fi
+exec "$real" "$@"

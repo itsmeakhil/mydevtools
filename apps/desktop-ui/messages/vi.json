@@ -3340,6 +3340,7 @@
     "commandFailed": "Mã thoát {code} sau {duration}",
     "statusRunning": "Đang chạy",
     "statusIdle": "Nhàn rỗi",
+    "statusVia": "{source, select, program {Do chương trình báo} screen {Đọc từ màn hình} other {Do shell báo}}",
     "shortcutsTitle": "Phím tắt",
     "board": "Bảng phân loại",
     "boardBlocked": "Đang chờ bạn",

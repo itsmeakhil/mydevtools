@@ -3340,6 +3340,7 @@
     "commandFailed": "Slutkod {code} efter {duration}",
     "statusRunning": "Körs",
     "statusIdle": "Inaktiv",
+    "statusVia": "Rapporterat {source, select, program {av programmet} screen {från skärmen} other {av skalet}}",
     "shortcutsTitle": "Kortkommandon",
     "board": "Prioriteringstavla",
     "boardBlocked": "Väntar på dig",

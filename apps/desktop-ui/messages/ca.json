@@ -3340,6 +3340,7 @@
     "commandFailed": "Codi de sortida {code} després de {duration}",
     "statusRunning": "En execució",
     "statusIdle": "Inactiu",
+    "statusVia": "Informat {source, select, program {pel programa} screen {des de la pantalla} other {per l'intèrpret}}",
     "shortcutsTitle": "Dreceres de teclat",
     "board": "Tauler de triatge",
     "boardBlocked": "T'esperen",
