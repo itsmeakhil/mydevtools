@@ -18,6 +18,7 @@ pub struct Ui {
     viewing: Mutex<Option<String>>,
     waiting_body: Mutex<String>,
     done_body: Mutex<String>,
+    failed_body: Mutex<String>,
     /// A quit was handed to the UI and not yet answered.
     quit_pending: AtomicBool,
 }
@@ -29,6 +30,7 @@ impl Default for Ui {
             // Replaced by the localized string from `terminal_set_strings`.
             waiting_body: Mutex::new("Claude is waiting for you".into()),
             done_body: Mutex::new("Finished, ready for review".into()),
+            failed_body: Mutex::new("Command failed".into()),
             quit_pending: AtomicBool::new(false),
         }
     }
@@ -43,7 +45,7 @@ fn show(app: &AppHandle) {
 }
 
 /// Update the Dock badge after any transition; notify on entering Waiting or Done.
-pub fn on_transition(t: &Transition, message: Option<&str>, app: &AppHandle) {
+pub fn on_transition(t: &Transition, message: Option<&str>, cmd: Option<super::osc::CmdEnd>, app: &AppHandle) {
     let term = app.state::<Arc<TerminalState>>();
     let win = app.get_webview_window("main");
     #[cfg(target_os = "macos")]
@@ -59,7 +61,11 @@ pub fn on_transition(t: &Transition, message: Option<&str>, app: &AppHandle) {
     if !should_notify(focused, ui.viewing.lock().unwrap().as_deref(), &t.id) {
         return;
     }
-    let fallback = if t.status == TermStatus::Done { &ui.done_body } else { &ui.waiting_body };
+    let fallback = match (t.status, cmd) {
+        (TermStatus::Done, _) => &ui.done_body,
+        (_, Some(_)) => &ui.failed_body,
+        _ => &ui.waiting_body,
+    };
     let body = message.map_or_else(|| fallback.lock().unwrap().clone(), str::to_owned);
     let mut b = app.notification().builder().body(body).extra("terminalId", &t.id);
     // No title → the plugin falls back to productName.
@@ -75,7 +81,7 @@ pub fn on_transition(t: &Transition, message: Option<&str>, app: &AppHandle) {
 pub fn forget(app: &AppHandle, id: &str) {
     let t = app.state::<Arc<TerminalState>>().statuses.lock().unwrap().remove(id);
     if let Some(t) = t {
-        hooks::publish(app, &t, None);
+        hooks::publish(app, &t, None, None);
     }
 }
 
@@ -284,7 +290,7 @@ pub fn terminal_set_viewing(app: AppHandle, ui: State<'_, Ui>, id: Option<String
     if let Some(id) = &id {
         let t = app.state::<Arc<TerminalState>>().statuses.lock().unwrap().clear_waiting(id);
         if let Some(t) = t {
-            hooks::publish(&app, &t, None);
+            hooks::publish(&app, &t, None, None);
         }
     }
     *ui.viewing.lock().unwrap() = id;
@@ -292,10 +298,17 @@ pub fn terminal_set_viewing(app: AppHandle, ui: State<'_, Ui>, id: Option<String
 
 /// `quit_title` is accepted for the UI contract; the quit dialog itself is rendered by the UI.
 #[tauri::command]
-pub fn terminal_set_strings(ui: State<'_, Ui>, waiting_body: String, done_body: String, quit_title: String) {
+pub fn terminal_set_strings(
+    ui: State<'_, Ui>,
+    waiting_body: String,
+    done_body: String,
+    failed_body: String,
+    quit_title: String,
+) {
     let _ = quit_title;
     *ui.waiting_body.lock().unwrap() = waiting_body;
     *ui.done_body.lock().unwrap() = done_body;
+    *ui.failed_body.lock().unwrap() = failed_body;
 }
 
 #[tauri::command]

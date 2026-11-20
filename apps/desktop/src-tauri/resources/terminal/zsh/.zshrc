@@ -13,13 +13,16 @@ if [[ $MDT_USER_ZDOTDIR == $HOME ]]; then unset ZDOTDIR; else export ZDOTDIR=$MD
 [[ -n $MDT_SHIM_DIR ]] && path=("$MDT_SHIM_DIR" ${path:#${(b)MDT_SHIM_DIR}})
 
 # Prompt marks and cwd, written in-band so the app reads them in output order:
-# OSC 133 A = prompt (idle), C = command started (running), OSC 7 = directory
-# (new splits open there). The app also uses A to jump between prompts.
+# OSC 133 A = prompt (idle), C = command started (running), D;<exit> = it ended,
+# OSC 7 = directory (new splits open there). The app also uses A to jump between prompts.
+# D runs first among precmd hooks so $? is still the command's status.
+_mdt_status() { print -rn -- $'\e]133;D;'"$?"$'\a' }
 _mdt_precmd() {
   local p=${PWD//\%/%25}
   print -rn -- $'\e]7;file://'"$HOST${p// /%20}"$'\a\e]133;A\a'
 }
 _mdt_preexec() { print -rn -- $'\e]133;C\a' }
 autoload -Uz add-zsh-hook
+precmd_functions=(_mdt_status $precmd_functions)
 add-zsh-hook precmd _mdt_precmd
 add-zsh-hook preexec _mdt_preexec

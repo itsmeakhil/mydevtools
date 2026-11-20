@@ -183,7 +183,8 @@ pub struct TerminalState {
     pub on_agent: std::sync::OnceLock<AgentFn>,
 }
 
-pub type StatusFn = Arc<dyn Fn(&str, super::hooks::TermStatus, Option<String>) + Send + Sync>;
+/// (pane, status, program's message, how a long shell command ended)
+pub type StatusFn = Arc<dyn Fn(&str, super::hooks::TermStatus, Option<String>, Option<super::osc::CmdEnd>) + Send + Sync>;
 pub type AgentFn = Arc<dyn Fn(&str, Option<&str>) + Send + Sync>;
 
 #[derive(Debug, PartialEq)]
@@ -267,6 +268,12 @@ impl TerminalState {
             let mut buf = [0u8; 8192];
             let mut scanner = super::osc::Scanner::default();
             let mut found = Vec::new();
+            let mut commands = super::osc::Commands::default();
+            let status = |st, msg, cmd| {
+                if let Some(f) = &on_status {
+                    f(&id, st, msg, cmd)
+                }
+            };
             loop {
                 match reader.read(&mut buf) {
                     Ok(0) | Err(_) => break,
@@ -285,11 +292,23 @@ impl TerminalState {
                                 super::osc::Osc::Cwd(c) => *s.live_cwd.lock().unwrap() = Some(c),
                                 super::osc::Osc::Title(t) => s.det.lock().unwrap().set_title(t),
                                 super::osc::Osc::Progress(p) => s.det.lock().unwrap().set_progress(p),
-                                super::osc::Osc::Status(st, msg) => {
-                                    if let Some(f) = &on_status {
-                                        f(&id, st, msg)
+                                super::osc::Osc::CommandStart => {
+                                    s.det.lock().unwrap().take_agent_seen();
+                                    commands.start(std::time::Instant::now());
+                                    status(super::hooks::TermStatus::Running, None, None)
+                                }
+                                super::osc::Osc::CommandEnd(code) => {
+                                    let agent = s.det.lock().unwrap().take_agent_seen();
+                                    if let Some((st, cmd)) = commands.end(code, std::time::Instant::now(), agent) {
+                                        status(st, None, Some(cmd))
                                     }
                                 }
+                                super::osc::Osc::Status(super::hooks::TermStatus::Idle, msg) => {
+                                    if commands.prompt() {
+                                        status(super::hooks::TermStatus::Idle, msg, None)
+                                    }
+                                }
+                                super::osc::Osc::Status(st, msg) => status(st, msg, None),
                             }
                         }
                     }
@@ -353,7 +372,7 @@ impl TerminalState {
                 match e {
                     AgentEvent::Status(id, st) => {
                         if let Some(f) = state.on_status.get() {
-                            f(&id, st, None)
+                            f(&id, st, None, None)
                         }
                     }
                     AgentEvent::Agent(id, agent) => {
@@ -584,7 +603,7 @@ mod tests {
         let st = TerminalState::default();
         let (tx, rx) = std::sync::mpsc::channel();
         let tx = Mutex::new(tx);
-        let _ = st.on_status.set(Arc::new(move |_: &str, s, _| {
+        let _ = st.on_status.set(Arc::new(move |_: &str, s, _, _| {
             let _ = tx.lock().unwrap().send(s);
         }));
         st.spawn(req("z", "/tmp"), env, argv).unwrap();

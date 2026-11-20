@@ -193,12 +193,13 @@ pub async fn serve(
 }
 
 /// Emit `terminal://status` and update badge/notification for a transition.
-pub fn publish(app: &AppHandle, t: &Transition, message: Option<&str>) {
+/// `cmd`: set when a long shell command's end caused it.
+pub fn publish(app: &AppHandle, t: &Transition, message: Option<&str>, cmd: Option<super::osc::CmdEnd>) {
     let _ = app.emit(
         "terminal://status",
-        json!({"id": t.id, "status": t.status, "message": message}),
+        json!({"id": t.id, "status": t.status, "message": message, "command": cmd}),
     );
-    notify::on_transition(t, message, app);
+    notify::on_transition(t, message, cmd, app);
 }
 
 /// Spawn the hook server for this launch (call from `setup`); returns the socket path.
@@ -216,7 +217,7 @@ pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) -> Pat
                 let msg = (m.event == "claude-Notification")
                     .then(|| m.payload.get("message").and_then(Value::as_str))
                     .flatten();
-                publish(&app, &t, msg);
+                publish(&app, &t, msg, None);
             }
         })
         .await;
@@ -236,7 +237,7 @@ pub fn terminal_statuses(state: State<'_, Arc<TerminalState>>) -> HashMap<String
 pub fn terminal_clear_waiting(app: AppHandle, state: State<'_, Arc<TerminalState>>, id: String) {
     let t = state.statuses.lock().unwrap().clear_waiting(&id);
     if let Some(t) = t {
-        publish(&app, &t, None);
+        publish(&app, &t, None, None);
     }
 }
 

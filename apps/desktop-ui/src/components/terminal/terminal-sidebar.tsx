@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { useTerminalStore, type TerminalProject, type TerminalTab } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsYou, projectWaitingCount, type TermStatus } from "@/lib/terminal/status"
-import { ago } from "@/lib/terminal/util"
+import { ago, duration } from "@/lib/terminal/util"
 import { agentName } from "@/lib/terminal/agents"
 import { cn } from "@/lib/utils"
 
@@ -133,7 +133,14 @@ function NeedsYouBox() {
                 <AgentTag agent={agents[it.terminalId]} />
                 {a && <span className="ml-auto shrink-0 text-[11px] tabular-nums text-muted-foreground">{ago(a.since, now, locale)}</span>}
               </span>
-              {a?.message && <span className="block truncate text-[12px] text-muted-foreground">{a.message}</span>}
+              {(a?.message || a?.command) && (
+                <span className="block truncate text-[12px] text-muted-foreground">
+                  {a.message ??
+                    (a.command?.code
+                      ? t("commandFailed", { code: a.command.code, duration: duration(a.command.ms, locale) })
+                      : t("commandFinished", { duration: duration(a.command?.ms ?? 0, locale) }))}
+                </span>
+              )}
             </span>
           </button>
         )

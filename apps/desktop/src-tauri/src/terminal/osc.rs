@@ -4,6 +4,8 @@
 
 use super::hooks::TermStatus;
 use base64::Engine;
+use serde::Serialize;
+use std::time::{Duration, Instant};
 
 /// Longest OSC body kept; longer ones (big OSC 8 links, OSC 52 copies) are skipped.
 const MAX_OSC: usize = 4096;
@@ -12,8 +14,12 @@ const MAX_OSC: usize = 4096;
 pub enum Osc {
     /// OSC 7 `file://host/path`: the shell's working directory.
     Cwd(String),
-    /// OSC 133 A/C or an OSC 7501 root record, with the program's message if any.
+    /// OSC 133 A (prompt → Idle) or an OSC 7501 root record, with the program's message if any.
     Status(TermStatus, Option<String>),
+    /// OSC 133 C: a shell command started.
+    CommandStart,
+    /// OSC 133 D: the command ended, with its exit code when the shell gave one.
+    CommandEnd(Option<i32>),
     /// OSC 0/2 window title (agent detection reads spinners from it).
     Title(String),
     /// OSC 9;4 progress, body after `9;` (e.g. `4;1;-1`).
@@ -91,7 +97,8 @@ fn parse(body: &str) -> Option<Osc> {
         "7" => cwd_from_url(rest).map(Osc::Cwd),
         "133" => match rest.as_bytes().first()? {
             b'A' => Some(Osc::Status(TermStatus::Idle, None)),
-            b'C' => Some(Osc::Status(TermStatus::Running, None)),
+            b'C' => Some(Osc::CommandStart),
+            b'D' => Some(Osc::CommandEnd(rest.get(2..).and_then(|c| c.parse().ok()))),
             _ => None,
         },
         "7501" => status_7501(rest),
@@ -157,6 +164,46 @@ fn status_7501(fields: &str) -> Option<Osc> {
     Some(Osc::Status(s, msg.filter(|_| s.needs_you())))
 }
 
+/// A shell command that ran this long and finished while nobody watched is worth a look.
+pub const LONG_COMMAND: Duration = Duration::from_secs(30);
+
+/// How a shell command ended, for the UI ("exit 1 after 2 min").
+#[derive(Serialize, Clone, Copy, Debug, PartialEq)]
+pub struct CmdEnd {
+    pub code: Option<i32>,
+    pub ms: u64,
+}
+
+/// Times commands between OSC 133 C and D. A long one ends as Done (exit 0) or
+/// Waiting (failed), and that status outlives the prompt mark that follows.
+#[derive(Default)]
+pub struct Commands {
+    start: Option<Instant>,
+    hold_prompt: bool,
+}
+
+impl Commands {
+    pub fn start(&mut self, now: Instant) {
+        (self.start, self.hold_prompt) = (Some(now), false);
+    }
+
+    /// `agent` = an agent ran in this command (it reports its own status).
+    pub fn end(&mut self, code: Option<i32>, now: Instant, agent: bool) -> Option<(TermStatus, CmdEnd)> {
+        let took = now.duration_since(self.start.take()?);
+        if agent || took < LONG_COMMAND {
+            return None;
+        }
+        self.hold_prompt = true;
+        let st = if code.unwrap_or(0) == 0 { TermStatus::Done } else { TermStatus::Waiting };
+        Some((st, CmdEnd { code, ms: took.as_millis() as u64 }))
+    }
+
+    /// False when the prompt's Idle must not replace a long command's result.
+    pub fn prompt(&mut self) -> bool {
+        !std::mem::take(&mut self.hold_prompt)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -182,16 +229,39 @@ mod tests {
     fn split_across_reads() {
         assert_eq!(
             scan(&[b"out\x1b", b"]13", b"3;C\x1b", b"\\more"]),
-            vec![Osc::Status(TermStatus::Running, None)]
+            vec![Osc::CommandStart]
         );
     }
 
     #[test]
     fn prompt_marks() {
         assert_eq!(
-            scan(&[b"\x1b]133;D;0\x07\x1b]133;A\x07$ \x1b]133;B\x07"]),
-            vec![Osc::Status(TermStatus::Idle, None)]
+            scan(&[b"\x1b]133;D;0\x07\x1b]133;A\x07$ \x1b]133;B\x07\x1b]133;D;127\x07\x1b]133;D\x07"]),
+            vec![Osc::CommandEnd(Some(0)), Osc::Status(TermStatus::Idle, None), Osc::CommandEnd(Some(127)), Osc::CommandEnd(None)]
         );
+    }
+
+    #[test]
+    fn long_commands_end_as_done_or_waiting_and_hold_the_prompt() {
+        let t0 = Instant::now();
+        let mut c = Commands::default();
+        assert_eq!(c.end(Some(0), t0, false), None, "end without a start");
+        assert!(c.prompt());
+        c.start(t0);
+        assert_eq!(c.end(Some(0), t0 + Duration::from_secs(5), false), None, "short");
+        assert!(c.prompt());
+        c.start(t0);
+        assert_eq!(
+            c.end(Some(0), t0 + LONG_COMMAND, false),
+            Some((TermStatus::Done, CmdEnd { code: Some(0), ms: 30_000 }))
+        );
+        assert!(!c.prompt(), "the prompt right after keeps Done");
+        assert!(c.prompt(), "later prompts go idle again");
+        c.start(t0);
+        assert_eq!(c.end(Some(2), t0 + LONG_COMMAND * 2, false).unwrap().0, TermStatus::Waiting);
+        c.start(t0);
+        assert_eq!(c.end(Some(0), t0 + LONG_COMMAND * 2, true), None, "agents report themselves");
+        assert!(c.prompt());
     }
 
     #[test]
@@ -217,7 +287,7 @@ mod tests {
         let big = format!("\x1b]8;;https://x/{}\x07\x1b]133;C\x07", "a".repeat(MAX_OSC * 2));
         assert_eq!(
             scan(&[b"\x1b]0;title\x07\x1b]9;4;1;-1\x07\x1b]9;hi\x07", big.as_bytes()]),
-            vec![Osc::Title("title".into()), Osc::Progress("4;1;-1".into()), Osc::Status(TermStatus::Running, None)]
+            vec![Osc::Title("title".into()), Osc::Progress("4;1;-1".into()), Osc::CommandStart]
         );
         // CAN aborts; an ESC not followed by '\' abandons the OSC.
         assert_eq!(scan(&[b"\x1b]133;C\x18\x1b]133;A\x1b[0m"]), vec![]);

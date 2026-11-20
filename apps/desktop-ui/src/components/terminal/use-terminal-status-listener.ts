@@ -35,7 +35,7 @@ export function subscribeTerminalAttention(onFocus: (id: string) => void, onQuit
   const keep = (p: Promise<() => void>) =>
     p.then((off) => (disposed ? off() : void offs.push(off)), () => {})
 
-  keep(onTerminalStatus(({ id, status, message }) => S().setStatus(id, status, message ?? undefined)))
+  keep(onTerminalStatus(({ id, status, message, command }) => S().setStatus(id, status, message ?? undefined, command ?? undefined)))
   keep(onTerminalAgent(({ id, agent }) => S().setAgent(id, agent)))
   keep(onTerminalFocus(({ id }) => onFocus(id)))
   keep(onQuitRequested(({ count }) => {
@@ -99,7 +99,7 @@ export function useTerminalStatusListener() {
 
   useEffect(() => {
     if (!isDesktop()) return
-    terminalSetStrings(t("waitingBody"), t("doneBody"), t("quitTitle", { count: 2 })).catch(() => {})
+    terminalSetStrings(t("waitingBody"), t("doneBody"), t("failedBody"), t("quitTitle", { count: 2 })).catch(() => {})
   }, [t])
 
   useEffect(() => {

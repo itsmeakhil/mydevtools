@@ -24,12 +24,14 @@ if [ -n "$MDT_SHIM_DIR" ]; then
 fi
 
 # Prompt marks and cwd, written in-band so the app reads them in output order:
-# OSC 133 A = prompt (idle), C = command started (running), OSC 7 = directory.
+# OSC 133 A = prompt (idle), C = command started (running), D;<exit> = it ended,
+# OSC 7 = directory.
 # PROMPT_COMMAND is wrapped as `_mdt_prompt_start; <user's>; _mdt_prompt` so the
 # DEBUG trap only reports the first user command after a prompt. `$_` is passed
 # through every hook (the bash-preexec technique) so `mkdir d && cd $_` keeps working.
 _mdt_prompt_start() {
   local s=$?
+  printf '\e]133;D;%s\a' "$s"
   _mdt_ready=
   return $s
 }

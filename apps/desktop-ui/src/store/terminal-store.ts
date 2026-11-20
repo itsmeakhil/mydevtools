@@ -2,7 +2,7 @@ import { create } from "zustand"
 import { toast } from "sonner"
 import { leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import { needsAttention, type TermStatus } from "@/lib/terminal/status"
-import { loadTerminalState, saveTerminalState, terminalKill } from "@/lib/desktop/terminal-bridge"
+import { loadTerminalState, saveTerminalState, terminalKill, type CommandEnd } from "@/lib/desktop/terminal-bridge"
 import { clampFontSize, FONT_SIZE } from "@/lib/terminal/util"
 
 export interface TerminalTab { id: string; name: string; layout: SplitNode; terminalNames: Record<string, string> }
@@ -26,6 +26,8 @@ export interface TerminalPersisted {
 export interface Attention {
   since: number
   message?: string
+  /** Set when a long shell command's end caused it. */
+  command?: CommandEnd
 }
 
 interface TerminalState extends TerminalPersisted {
@@ -68,7 +70,7 @@ interface TerminalState extends TerminalPersisted {
   toggleZoom: (terminalId: string) => void
   resize: (tabId: string, path: number[], sizes: number[]) => void
   focusTerminal: (terminalId: string) => void
-  setStatus: (id: string, s: TermStatus, message?: string) => void
+  setStatus: (id: string, s: TermStatus, message?: string, command?: CommandEnd) => void
   setAgent: (id: string, agent: string | null) => void
   setTitle: (id: string, title: string) => void
   setFontSize: (size: number) => void
@@ -357,13 +359,13 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       }))
     },
 
-    setStatus: (id, s, message) =>
+    setStatus: (id, s, message, command) =>
       set((st) => {
         if (!find(st.projects, id)) return st
         const { [id]: was, ...attention } = st.attention
         if (needsAttention(s))
           // Still waiting (e.g. a replay): keep when it started; a new reason replaces the old one.
-          attention[id] = { since: was?.since ?? Date.now(), message: message || was?.message }
+          attention[id] = { since: was?.since ?? Date.now(), message: message || was?.message, command: command ?? was?.command }
         if (s === "idle") {
           const { [id]: _gone, ...rest } = st.statuses
           return { statuses: rest, attention }

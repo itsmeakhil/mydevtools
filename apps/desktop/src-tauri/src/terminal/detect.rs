@@ -180,6 +180,8 @@ pub struct Pane {
     scrape: bool,
     last: Option<State>,
     idle_pending: bool,
+    /// An agent was in front at some point since the last shell command started.
+    agent_seen: bool,
 }
 
 impl Pane {
@@ -194,6 +196,7 @@ impl Pane {
             scrape: false,
             last: None,
             idle_pending: false,
+            agent_seen: false,
         }
     }
 
@@ -228,6 +231,12 @@ impl Pane {
     pub fn set_agent(&mut self, pgid: Option<i32>, agent: Option<&'static Manifest>, scrape: bool) {
         (self.pgid, self.agent, self.scrape, self.last, self.idle_pending, self.dirty) =
             (pgid, agent, scrape, None, false, true);
+        self.agent_seen |= agent.is_some();
+    }
+
+    /// Since the last call: did an agent run? (Called when a shell command starts and ends.)
+    pub fn take_agent_seen(&mut self) -> bool {
+        std::mem::replace(&mut self.agent_seen, self.agent.is_some())
     }
 
     /// One poll tick: `Some` when the pane's status should change.

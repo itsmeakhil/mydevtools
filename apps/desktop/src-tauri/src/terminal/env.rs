@@ -413,16 +413,20 @@ mod tests {
             .stdin
             .take()
             .unwrap()
-            .write_all(b"echo hi there; echo $_\n\n\nexit\n")
+            .write_all(b"echo hi there; echo $_\nfalse\n\n\nexit\n")
             .unwrap();
         let o = child.wait_with_output().unwrap();
         let raw = String::from_utf8_lossy(&o.stdout).to_string();
         let out: Vec<String> = strip_osc(&raw).lines().map(String::from).collect();
         assert!(out.windows(2).any(|w| w == ["hi there", "there"]), "{out:?}");
         assert!(out.iter().any(|l| l == "user-pc"), "{out:?}");
-        // prompts: initial + after the command + 2 empty Enters; commands: the line + exit
+        // prompts: initial + after each of 2 commands + 2 empty Enters; commands: 2 lines + exit
         let count = |m: &str| raw.matches(m).count();
-        assert_eq!((count("\x1b]133;A\x07"), count("\x1b]133;C\x07")), (4, 2), "{raw:?}");
+        assert_eq!((count("\x1b]133;A\x07"), count("\x1b]133;C\x07")), (5, 3), "{raw:?}");
+        // D carries each command's exit status, ahead of the next prompt mark (also re-sent
+        // on empty Enters, which the app ignores: no C before them).
+        assert!(raw.contains("hi there\nthere\n\x1b]133;D;0\x07"), "{raw:?}");
+        assert!(raw.contains("\x1b]133;C\x07\x1b]133;D;1\x07"), "{raw:?}");
         let cwd = format!("\x1b]7;file://");
         assert!(raw.contains(&cwd) && raw.contains(&format!("{}\x07", home.display())), "{raw:?}");
         let _ = std::fs::remove_dir_all(&home);
@@ -454,12 +458,13 @@ mod tests {
             .spawn()
             .and_then(|mut c| {
                 use std::io::Write;
-                c.stdin.take().unwrap().write_all(b"echo one\nexit\n")?;
+                c.stdin.take().unwrap().write_all(b"echo one\nfalse\nexit\n")?;
                 c.wait_with_output()
             })
             .unwrap();
         let raw = String::from_utf8_lossy(&o.stdout).to_string();
         assert!(raw.contains("\x1b]133;A\x07") && raw.contains("\x1b]133;C\x07"), "{raw:?}");
+        assert!(raw.contains("\x1b]133;D;0\x07") && raw.contains("\x1b]133;D;1\x07"), "{raw:?}");
         assert!(strip_osc(&raw).contains("one"), "{raw:?}");
         let _ = std::fs::remove_dir_all(&home);
     }

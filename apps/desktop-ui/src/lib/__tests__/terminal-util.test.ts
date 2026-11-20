@@ -1,4 +1,4 @@
-import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago, duration } from "@/lib/terminal/util"
 
 describe("terminal util", () => {
   it("round-trips UTF-8 (emoji, CJK, control bytes) through base64", () => {
@@ -214,6 +214,11 @@ describe("terminal util", () => {
     expect(clampFontSize(NaN)).toBe(FONT_SIZE.default)
   })
 
+  it("duration shows one rounded-down unit", () => {
+    expect(duration(45_500, "en")).toBe("45s")
+    expect(duration(185_000, "en")).toBe("3m")
+    expect(duration(2 * 3600_000 + 59 * 60_000, "en")).toBe("2h")
+  })
   it("ago picks minute/hour/day in the locale", () => {
     const min = 60_000
     expect(ago(0, 30_000, "en")).toBe("this minute")
