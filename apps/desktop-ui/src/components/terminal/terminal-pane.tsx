@@ -3,7 +3,8 @@
 import * as React from "react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
-import { IconArrowsMinimize, IconChevronDown, IconChevronUp, IconRefresh, IconX } from "@tabler/icons-react"
+import { IconArrowsMinimize, IconChevronDown, IconChevronUp, IconPlayerPlay, IconRefresh, IconX } from "@tabler/icons-react"
+import { agentName, resumeCommand } from "@/lib/terminal/agents"
 import "@xterm/xterm/css/xterm.css"
 import type { IMarker, Terminal as XTerm } from "@xterm/xterm"
 import type { SearchAddon } from "@xterm/addon-search"
@@ -101,6 +102,8 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   const zoomed = useTerminalStore((s) => s.zoomedId === id && s.focusedTerminalId === id)
   const guardClose = useCloseGuard()
   const [exited, setExited] = React.useState(false)
+  /** Agent that ran here before the app quit, with the command that picks it up again. */
+  const [resume, setResume] = React.useState<{ agent: string; cmd: string } | null>(null)
   const exitedRef = React.useRef(false)
   const [renaming, setRenaming] = React.useState<string | null>(null)
   const [hasSelection, setHasSelection] = React.useState(false)
@@ -282,6 +285,8 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
           if (!terminalExists(id)) terminalKill(id).catch(() => {})
           return
         }
+        const cmd = res.resume ? resumeCommand(res.resume) : null
+        if (res.resume && cmd) setResume({ agent: res.resume.agent, cmd })
         if (res.cwdFallback && !warnedFallback.has(id)) {
           warnedFallback.add(id)
           toast.warning(strings.current.folderMissing(cwd))
@@ -445,6 +450,34 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         )}
       >
         <div ref={hostRef} className="min-h-0 flex-1" />
+        {resume && !exited && (
+          <div className="absolute inset-x-2 bottom-2 z-10 flex items-center gap-2 rounded-md border border-border bg-popover px-2.5 py-1.5 text-[12px] text-muted-foreground">
+            <span className="min-w-0 flex-1 truncate" title={resume.cmd}>
+              {t("resumeTitle", { agent: agentName(resume.agent) })}
+            </span>
+            <button
+              type="button"
+              onClick={() => {
+                void terminalWrite(id, encodeInput(`${resume.cmd}\r`)).catch((e) => toast.error(errMsg(e)))
+                setResume(null)
+                termRef.current?.focus()
+              }}
+              className="flex items-center gap-1 rounded px-1.5 py-0.5 font-medium text-foreground hover:bg-foreground/[0.06]"
+            >
+              <IconPlayerPlay className="h-3.5 w-3.5" aria-hidden />
+              {t("resumeAction")}
+            </button>
+            <button
+              type="button"
+              onClick={() => setResume(null)}
+              aria-label={t("resumeDismiss")}
+              title={t("resumeDismiss")}
+              className="rounded p-0.5 hover:bg-foreground/[0.06] hover:text-foreground"
+            >
+              <IconX className="h-3.5 w-3.5" aria-hidden />
+            </button>
+          </div>
+        )}
         {exited && (
           <div className="absolute inset-x-2 bottom-2 z-10 flex items-center gap-2 rounded-md border border-border bg-popover px-2.5 py-1.5 text-[12px] text-muted-foreground">
             <span className="min-w-0 flex-1 truncate">{t("processExited")}</span>

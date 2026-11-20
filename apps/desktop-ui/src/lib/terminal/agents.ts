@@ -8,5 +8,12 @@ const NAMES: Record<string, string> = {
 
 export const agentName = (id: string) => NAMES[id] ?? id
 
+/** Shell command that picks up an agent's last conversation in this folder; null when it can't. */
+export function resumeCommand(r: { agent: string; session?: string }): string | null {
+  if (r.agent === "claude") return r.session && /^[\w-]+$/.test(r.session) ? `claude --resume ${r.session}` : "claude --continue"
+  if (r.agent === "codex") return "codex resume --last"
+  return null
+}
+
 /** Agents offered in the new-tab menu; each starts with the command of the same name. */
 export const LAUNCH_AGENTS = ["claude", "codex", "gemini", "opencode"] as const

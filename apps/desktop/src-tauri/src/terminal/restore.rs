@@ -17,6 +17,20 @@ const RESET: &[u8] = b"\x1b[?1049l\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[?1006l\x
 pub struct Saved {
     pub cwd: Option<String>,
     pub bytes: Vec<u8>,
+    pub resume: Option<Resume>,
+}
+
+/// An agent that was running in a pane at quit; `session` only when it's a plain id
+/// (it ends up typed into a shell).
+#[derive(serde::Serialize, Clone, Debug, PartialEq)]
+pub struct Resume {
+    pub agent: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub session: Option<String>,
+}
+
+fn safe_id(s: &str) -> bool {
+    !s.is_empty() && s.len() <= 64 && s.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'-')
 }
 
 fn tail(bytes: &[u8]) -> Vec<u8> {
@@ -49,7 +63,15 @@ pub fn save_all(db: &mut Connection, term: &TerminalState) -> rusqlite::Result<(
         if !in_layout(&id) || bytes.is_empty() {
             continue;
         }
-        let v = json!({"cwd": s.cwd(), "b64": base64::engine::general_purpose::STANDARD.encode(tail(&bytes))});
+        let agent = s.agent();
+        // Only claude's hooks give a session id; don't pair it with some other agent.
+        let session = s.agent_session.lock().unwrap().clone().filter(|_| agent == Some("claude"));
+        let v = json!({
+            "cwd": s.cwd(),
+            "b64": base64::engine::general_purpose::STANDARD.encode(tail(&bytes)),
+            "agent": agent,
+            "session": session,
+        });
         tx.execute(
             "INSERT INTO kv (k, v) VALUES (?1, ?2) ON CONFLICT(k) DO UPDATE SET v = excluded.v",
             [format!("{PREFIX}{id}"), v.to_string()],
@@ -67,6 +89,10 @@ pub fn take(db: &Connection, id: &str) -> Option<Saved> {
     Some(Saved {
         cwd: v["cwd"].as_str().map(String::from),
         bytes: base64::engine::general_purpose::STANDARD.decode(v["b64"].as_str()?).ok()?,
+        resume: v["agent"].as_str().filter(|a| safe_id(a)).map(|agent| Resume {
+            agent: agent.to_string(),
+            session: v["session"].as_str().filter(|s| safe_id(s)).map(String::from),
+        }),
     })
 }
 
@@ -123,6 +149,27 @@ mod tests {
         assert_eq!(got.cwd.as_deref(), Some("/tmp"));
         assert!(String::from_utf8_lossy(&got.bytes).contains("hello"));
         assert!(take(&db, a).is_none(), "replayed once");
+        assert_eq!(got.resume, None, "no agent was running");
+    }
+
+    #[test]
+    fn resume_only_with_plain_ids() {
+        let app = AppState::in_memory();
+        let db = app.db.lock().unwrap();
+        let row = |id: &str, agent: &str, session: &str| {
+            let v = json!({"cwd": "/tmp", "b64": "", "agent": agent, "session": session});
+            db.execute("INSERT INTO kv (k, v) VALUES (?1, ?2)", [format!("{PREFIX}{id}"), v.to_string()]).unwrap();
+        };
+        row("a", "claude", "0f8c2a9e-1b2c-4d5e-8f90-123456789abc");
+        row("b", "claude", "x; rm -rf ~");
+        row("c", "co dex", "s");
+        let r = |id| take(&db, id).unwrap().resume;
+        assert_eq!(
+            r("a"),
+            Some(Resume { agent: "claude".into(), session: Some("0f8c2a9e-1b2c-4d5e-8f90-123456789abc".into()) })
+        );
+        assert_eq!(r("b"), Some(Resume { agent: "claude".into(), session: None }), "unsafe session dropped");
+        assert_eq!(r("c"), None, "unsafe agent dropped");
     }
 
     #[test]
