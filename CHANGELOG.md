@@ -4,7 +4,7 @@ All notable changes to MyDevTools. Format follows [Keep a Changelog](https://kee
 
 ## [0.2.1] — Unreleased
 
-Mostly an API Client release: it closes most of the gap with Bruno for day-to-day use.
+Mostly an API Client release: it closes most of the gap with Bruno for day-to-day use. The Terminal also gains find, restore after restart and agent status.
 
 ### Changed — read before upgrading
 
@@ -48,6 +48,18 @@ Mostly an API Client release: it closes most of the gap with Bruno for day-to-da
 - A plugins dialog to add, enable, disable and delete plugins.
 - A shared shortcut map, tab cycling, and ⌘K palette actions.
 - All new strings are translated into the 27 supported languages.
+
+### Added — Terminal
+
+- Find in scrollback, zoom, clear, and faster GPU (WebGL) rendering.
+- Jump between prompts. The status bar shows the shell's current directory.
+- Agent status: panes show when a command is running and when an agent needs you.
+- Terminals come back after a restart, with their scrollback and working directory.
+- Closing a pane that is running or waiting for you asks first.
+- Restart a pane whose shell has exited. It opens in the same directory.
+- A right-click menu on panes, plus shortcuts: ⌘⌥ arrows to move focus, ⌘1–9 to jump to a pane, ⌘⇧↵ to maximize.
+- An Option-as-Meta setting, off by default so ⌥ still types characters like @ and € on non-US keyboards.
+- The "needs you" badge is now a warning colour instead of an error red.
 
 ### Fixed
 
