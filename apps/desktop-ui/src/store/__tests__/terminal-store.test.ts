@@ -33,7 +33,7 @@ beforeEach(() => {
   setTerminalSay((key, v) => [key, ...Object.values(v)].join("|"))
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
-  useTerminalStore.setState({ projectFiles: {}, trusted: {}, runOnStart: {}, envOnStart: {}, runningSince: {}, projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, children: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
+  useTerminalStore.setState({ projectFiles: {}, trusted: {}, runOnStart: {}, envOnStart: {}, maskOnStart: {}, masked: {}, runningSince: {}, projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, children: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -240,6 +240,28 @@ describe("terminal store", () => {
     expect(S().takeEnvOnStart(id)).toBeUndefined()
   })
 
+  it("a mask for a new pane is read once at spawn, never saved; only its names stay for the header", async () => {
+    S().addProject("/x/a")
+    const pid = S().projects[0].id
+    S().newTab(pid, "s", { env: { GH_TOKEN: "ghp_secret1" }, mask: { GH_TOKEN: "ghp_secret1" } })
+    const id = leafIds(S().projects[0].tabs.at(-1)!.layout)[0]
+    await jest.advanceTimersByTimeAsync(500)
+    expect(JSON.stringify(mockSave.mock.calls.at(-1)![0])).not.toContain("ghp_secret1")
+    expect(S().masked[id]).toBeUndefined()
+    expect(S().takeMaskOnStart(id)).toEqual({ GH_TOKEN: "ghp_secret1" })
+    expect(S().takeMaskOnStart(id)).toBeUndefined()
+    expect(S().masked[id]).toEqual(["GH_TOKEN"])
+    expect(JSON.stringify(S().masked)).not.toContain("ghp_secret1")
+    S().closeTerminal(id)
+    expect(S().masked[id]).toBeUndefined()
+    // Closed before it ever spawned: the secrets it was holding go too.
+    S().newTab(pid, "s2", { env: { GH_TOKEN: "ghp_secret2" }, mask: { GH_TOKEN: "ghp_secret2" } })
+    const id2 = leafIds(S().projects[0].tabs.at(-1)!.layout)[0]
+    S().closeTerminal(id2)
+    expect(S().envOnStart[id2]).toBeUndefined()
+    expect(S().maskOnStart[id2]).toBeUndefined()
+  })
+
   describe("repo config file", () => {
     const good = serializeProjectConfig({ version: 1, commands: [{ name: "Dev", command: "npm run dev" }] })
     /** The file on disk: reads see what the last write put there. */
@@ -386,10 +408,11 @@ describe("terminal store", () => {
     it("a workspace tab gets each pane's command and env in layout order", () => {
       S().addProject("/x/a")
       const id = S().projects[0].id
-      S().newTab(id, "W", { layout: LAYOUT_PRESETS.columns3, panes: [{ run: "claude" }, {}, { run: "npm test", env: { A: "1" } }] })
+      S().newTab(id, "W", { layout: LAYOUT_PRESETS.columns3, panes: [{ run: "claude" }, {}, { run: "npm test", env: { A: "1", T_TOKEN: "abcdefgh" }, mask: { T_TOKEN: "abcdefgh" } }] })
       const ids = leafIds(S().projects[0].tabs.at(-1)!.layout)
       expect(S().runOnStart).toEqual({ [ids[0]]: "claude", [ids[2]]: "npm test" })
-      expect(S().envOnStart).toEqual({ [ids[2]]: { A: "1" } })
+      expect(S().envOnStart).toEqual({ [ids[2]]: { A: "1", T_TOKEN: "abcdefgh" } })
+      expect(S().maskOnStart).toEqual({ [ids[2]]: { T_TOKEN: "abcdefgh" } })
     })
 
     it("share writes the local commands and layouts to a new file (and trusts it: the user wrote it)", async () => {

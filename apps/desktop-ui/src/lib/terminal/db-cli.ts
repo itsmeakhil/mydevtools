@@ -1,7 +1,11 @@
 import { shellQuote } from "./util"
+import { maskFor } from "./secrets"
 
-/** A database's own CLI for a saved connection: the command line, plus secrets passed as env (never typed). */
-export interface DbCli { command: string; env: Record<string, string> }
+/**
+ * A database's own CLI for a saved connection: the command line, plus secrets passed as env
+ * (never typed) and the mask that hides the password if the pane ever prints it.
+ */
+export interface DbCli { command: string; env: Record<string, string>; mask: Record<string, string> }
 
 interface SqlLike { type?: string; host?: string; port?: number; database?: string; username?: string; password?: string; ssl?: boolean; path?: string }
 
@@ -14,6 +18,11 @@ const withSecret = (name: string, value: string | undefined): Record<string, str
 
 /** `null` for sources without a CLI mapping (or a config that can't make one). */
 export function dbCli(sourceId: string, config: unknown): DbCli | null {
+  const cli = commandFor(sourceId, config)
+  return cli && { ...cli, mask: maskFor(cli.env, {}) }
+}
+
+function commandFor(sourceId: string, config: unknown): Omit<DbCli, "mask"> | null {
   const c = (config ?? {}) as SqlLike & { redisUrl?: string }
   switch (sourceId) {
     case "postgresql":

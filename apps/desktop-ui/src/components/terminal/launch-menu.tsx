@@ -2,12 +2,14 @@
 
 import * as React from "react"
 import { useTranslations } from "next-intl"
-import { IconChevronDown, IconGitBranch, IconKey, IconTrash } from "@tabler/icons-react"
+import { IconChevronDown, IconGitBranch, IconKey, IconLock, IconTrash } from "@tabler/icons-react"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { envSetName, loadEnvSets, type EnvSet } from "@/lib/terminal/env-sets"
 import { needsTrust, needsUnlock, planWorkspace } from "@/lib/terminal/workspace"
 import type { ProjectConfigV1, Workspace } from "@/lib/terminal/project-config"
-import { toPaneEnv } from "@/lib/terminal/env-vars"
+import { envVarOk, toPaneEnv } from "@/lib/terminal/env-vars"
+import { defaultVarName, loadVaultSecrets, maskEntries, type SecretChoice, type VaultSecret } from "@/lib/terminal/secrets"
+import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -26,6 +28,14 @@ const S = () => useTerminalStore.getState()
 const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e))
 type T = ReturnType<typeof useTranslations<"Terminal">>
 
+/** The pane's mask for `env` (see `maskEntries`); warns, by name only, about values it can't mask. */
+function maskOrWarn(env: Record<string, string>, all: boolean, t: T) {
+  const { mask, tooLong, tooMany } = maskEntries(env, { all })
+  const names = [...tooLong, ...tooMany]
+  if (names.length) toast.warning(t("secretsNotMasked", { names: names.join(", ") }))
+  return mask
+}
+
 /** A workspace tab: its layout, each pane's command and environment (by set name), optionally in a worktree. */
 async function openWorkspace(project: TerminalProject, ws: Workspace, key: CryptoKey | null, t: T) {
   try {
@@ -42,7 +52,7 @@ async function openWorkspace(project: TerminalProject, ws: Workspace, key: Crypt
       }
       const { env, skipped } = toPaneEnv(set.variables)
       if (skipped.length) toast.warning(t("envSkipped", { names: skipped.join(", ") }))
-      return { run: p.run, env }
+      return { run: p.run, env, mask: maskOrWarn(env, false, t) }
     })
     const worktree = ws.worktree ? await terminalWorktreeAdd(project.path, ws.worktree) : undefined
     S().newTab(project.id, ws.name, { layout: ws.layout, panes, worktree })
@@ -64,6 +74,7 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
   const [editing, setEditing] = React.useState(false)
   const [worktree, setWorktree] = React.useState(false)
   const [envOpen, setEnvOpen] = React.useState(false)
+  const [secretsOpen, setSecretsOpen] = React.useState(false)
   // Something from the repo file the user asked to run, waiting on trust, with the exact file
   // text it came from: the dialog shows that text's config and trust applies to that text only.
   const [pending, setPending] = React.useState<{ text: string; config: ProjectConfigV1; run: () => void } | null>(null)
@@ -108,6 +119,10 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
           <DropdownMenuItem onSelect={() => setEnvOpen(true)}>
             <IconKey className="h-4 w-4" aria-hidden />
             {t("newEnvTab")}
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setSecretsOpen(true)}>
+            <IconLock className="h-4 w-4" aria-hidden />
+            {t("newSecretsTab")}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel>{t("agents")}</DropdownMenuLabel>
@@ -154,6 +169,7 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
       <CommandsDialog project={project} open={editing} onOpenChange={setEditing} />
       <WorktreeDialog project={project} open={worktree} onOpenChange={setWorktree} />
       {envOpen && <EnvDialog project={project} onOpenChange={setEnvOpen} />}
+      {secretsOpen && <SecretsDialog project={project} onOpenChange={setSecretsOpen} />}
       {pending && files[project.id]?.text === pending.text && (
         <TrustDialog
           path={`${project.path}/.mydevtools/terminal.json`}
@@ -325,7 +341,7 @@ function EnvDialog({ project, onOpenChange }: { project: TerminalProject; onOpen
   const open = (s: EnvSet) => {
     const { env, skipped } = toPaneEnv(s.variables)
     if (skipped.length) toast.warning(t("envSkipped", { names: skipped.join(", ") }))
-    S().newTab(project.id, envSetName(s), { env })
+    S().newTab(project.id, envSetName(s), { env, mask: maskOrWarn(env, false, t) })
     onOpenChange(false)
   }
 
@@ -355,6 +371,113 @@ function EnvDialog({ project, onOpenChange }: { project: TerminalProject; onOpen
               </li>
             ))}
           </ul>
+        )}
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+const FIELDS: SecretChoice["field"][] = ["password", "username", "apiKey", "secret"]
+const FIELD_LABEL = { password: "secretFieldPassword", username: "secretFieldUsername", apiKey: "secretFieldApiKey", secret: "secretFieldSecret" } as const
+
+/**
+ * New tab whose shell gets picked vault passwords / API keys as env vars, every one masked in
+ * the tab's output. Decrypted here and held only while the dialog is open and until the pane
+ * spawns; never saved with the terminal, never typed into it, never shown.
+ */
+function SecretsDialog({ project, onOpenChange }: { project: TerminalProject; onOpenChange: (o: boolean) => void }) {
+  const t = useTranslations("Terminal")
+  const key = useCipherKey()
+  const [secrets, setSecrets] = React.useState<VaultSecret[] | null>(null)
+  /** `source:id:field` → its env var name, for the picked fields. */
+  const [picked, setPicked] = React.useState<Record<string, string>>({})
+  React.useEffect(() => {
+    if (!key) return
+    let live = true
+    loadVaultSecrets(key)
+      .then((loaded) => live && setSecrets(loaded))
+      .catch((e) => toast.error(errMsg(e)))
+    return () => {
+      live = false
+    }
+  }, [key])
+
+  const rows = (secrets ?? []).flatMap((s) =>
+    FIELDS.flatMap((field) => {
+      const value = s.fields[field]
+      return value ? [{ k: `${s.source}:${s.id}:${field}`, s, field, value }] : []
+    }),
+  )
+  const chosen = rows.filter((r) => r.k in picked)
+  const nameOf = (k: string) => picked[k].trim()
+  const invalid = (r: (typeof rows)[number]) =>
+    !envVarOk(nameOf(r.k), r.value) || chosen.filter((o) => nameOf(o.k) === nameOf(r.k)).length > 1
+  const ready = chosen.length > 0 && !chosen.some(invalid)
+
+  const toggle = (r: (typeof rows)[number], on: boolean) =>
+    setPicked(({ [r.k]: _old, ...rest }) => (on ? { ...rest, [r.k]: defaultVarName(r.s.label, r.field) } : rest))
+
+  const open = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!ready) return
+    const env = Object.fromEntries(chosen.map((r) => [nameOf(r.k), r.value]))
+    S().newTab(project.id, t("secretsTabName", { count: chosen.length }), { env, mask: maskOrWarn(env, true, t) })
+    onOpenChange(false)
+  }
+
+  return (
+    <Dialog open onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>{t("secretsTitle")}</DialogTitle>
+          <DialogDescription>{t("secretsBody")}</DialogDescription>
+        </DialogHeader>
+        {!key ? (
+          <p className="text-[13px] text-muted-foreground">{t("secretsLocked")}</p>
+        ) : secrets === null ? null : rows.length === 0 ? (
+          <p className="text-[13px] text-muted-foreground">{t("noSecrets")}</p>
+        ) : (
+          <form onSubmit={open} className="grid gap-3">
+            <ul className="max-h-80 space-y-1 overflow-y-auto">
+              {secrets.map((s) => {
+                const own = rows.filter((r) => r.s === s)
+                if (!own.length) return null
+                return (
+                  <li key={`${s.source}:${s.id}`} className="rounded-md border border-border px-2.5 py-2 text-[13px]">
+                    <p className="truncate font-medium">{s.label || "—"}</p>
+                    {own.map((r) => {
+                      const on = r.k in picked
+                      const field = t(FIELD_LABEL[r.field])
+                      return (
+                        <div key={r.k} className="mt-1.5 flex items-center gap-2">
+                          <Checkbox
+                            id={r.k}
+                            checked={on}
+                            onCheckedChange={(c) => toggle(r, c === true)}
+                          />
+                          <Label htmlFor={r.k} className="w-20 shrink-0 text-[12px] font-normal text-muted-foreground">{field}</Label>
+                          {on && (
+                            <Input
+                              value={picked[r.k]}
+                              onChange={(e) => setPicked((p) => ({ ...p, [r.k]: e.target.value }))}
+                              aria-label={t("secretVarName", { field, name: s.label })}
+                              aria-invalid={invalid(r)}
+                              title={invalid(r) ? t("secretVarInvalid") : undefined}
+                              className="h-7 min-w-0 flex-1 px-2 font-mono text-[12px]"
+                            />
+                          )}
+                        </div>
+                      )
+                    })}
+                  </li>
+                )
+              })}
+            </ul>
+            {chosen.some(invalid) && <p className="text-[12px] text-destructive">{t("secretVarInvalid")}</p>}
+            <Button type="submit" size="sm" disabled={!ready} className="justify-self-end">
+              {t("openWithSecrets")}
+            </Button>
+          </form>
         )}
       </DialogContent>
     </Dialog>

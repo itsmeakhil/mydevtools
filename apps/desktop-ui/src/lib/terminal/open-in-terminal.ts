@@ -5,9 +5,10 @@ const TERMINAL_PATH = "/app/terminal"
 
 /**
  * Run `run` in a new tab of the active terminal project (the home folder becomes a project
- * when there is none) and switch to the Terminal. `env` goes to that pane's process only.
+ * when there is none) and switch to the Terminal. `env` goes to that pane's process only;
+ * `mask` (from `maskFor`) hides those values in its output.
  */
-export async function openInTerminal(o: { name: string; run: string; env?: Record<string, string> }, navigate: (path: string) => void) {
+export async function openInTerminal(o: { name: string; run: string; env?: Record<string, string>; mask?: Record<string, string> }, navigate: (path: string) => void) {
   await useTerminalStore.getState().load()
   let st = useTerminalStore.getState()
   let p = st.projects.find((x) => x.id === st.activeProjectId) ?? st.projects[0]
@@ -17,7 +18,7 @@ export async function openInTerminal(o: { name: string; run: string; env?: Recor
     st = useTerminalStore.getState()
     p = st.projects[st.projects.length - 1]
   }
-  st.newTab(p.id, o.name, { run: o.run, env: o.env })
+  st.newTab(p.id, o.name, { run: o.run, env: o.env, mask: o.mask })
   useTabStore.getState().openTab(TERMINAL_PATH)
   navigate(TERMINAL_PATH)
 }
