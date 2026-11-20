@@ -339,6 +339,14 @@ Other commands exit 0 on success and 3 on error.
 You can only see and control helpers you started. Always close helpers when done.
 ";
 
+/// One argv token as a shell word: the server types the command into an interactive shell.
+fn quote(a: &str) -> String {
+    if !a.is_empty() && a.bytes().all(|b| b.is_ascii_alphanumeric() || b"_./=:@%+,-".contains(&b)) {
+        return a.into();
+    }
+    format!("'{}'", a.replace('\'', "'\\''"))
+}
+
 /// argv (after `term`) to a control request.
 fn request(args: &[String], caller: &str, token: &str) -> Result<Value, String> {
     let (op, rest) = args.split_first().ok_or("usage: mdt-term run|send|read|wait|close|list (or --skill)")?;
@@ -355,7 +363,7 @@ fn request(args: &[String], caller: &str, token: &str) -> Result<Value, String> 
         };
         match (op.as_str(), a) {
             ("run", "--") => {
-                m.insert("command".into(), json!(rest[i..].join(" ")));
+                m.insert("command".into(), json!(rest[i..].iter().map(|a| quote(a)).collect::<Vec<_>>().join(" ")));
                 break;
             }
             ("run", "--name") => drop(m.insert("name".into(), json!(val(a)?))),
@@ -850,6 +858,15 @@ mod tests {
             t(&["run", "--name", "tests", "--worktree", "fix-x", "--", "ls", "-la"]).unwrap(),
             with("run", json!({"command": "ls -la", "name": "tests", "worktree": "fix-x"}))
         );
+        for (argv, want) in [
+            (&["run", "--", "sh", "-c", "echo a b"][..], "sh -c 'echo a b'"),
+            (&["run", "--", "npm", "test", "--", "-t", "foo bar"], "npm test -- -t 'foo bar'"),
+            (&["run", "--", "echo", "it's"], "echo 'it'\\''s'"),
+            (&["run", "--", "echo", ""], "echo ''"),
+            (&["run", "--", "a;b", "$HOME"], "'a;b' '$HOME'"),
+        ] {
+            assert_eq!(t(argv).unwrap(), with("run", json!({"command": want})), "{argv:?}");
+        }
         assert_eq!(t(&["send", "p1", "hello", "world"]).unwrap(), with("send", json!({"id": "p1", "text": "hello world\r"})));
         assert_eq!(t(&["send", "p1", "--no-enter", "y"]).unwrap(), with("send", json!({"id": "p1", "text": "y"})));
         assert_eq!(t(&["read", "p1"]).unwrap(), with("read", json!({"id": "p1"})));
