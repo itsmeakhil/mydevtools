@@ -58,7 +58,20 @@ pub fn status_for(event: &str) -> Option<TermStatus> {
         "claude-Notification" => Some(TermStatus::Waiting),
         "claude-Stop" => Some(TermStatus::Done),
         "claude-SessionEnd" => Some(TermStatus::Idle),
+        // Codex's `notify` only fires when a turn ends; approvals still come from the screen.
+        "codex-agent-turn-complete" => Some(TermStatus::Done),
         _ => None,
+    }
+}
+
+/// States the program behind a hook event reports itself (the screen reader fills the rest).
+pub fn covers_for(event: &str) -> Option<&'static [TermStatus]> {
+    if event.starts_with("claude-") {
+        Some(ALL_STATES)
+    } else if event.starts_with("codex-") {
+        Some(&[TermStatus::Done])
+    } else {
+        None
     }
 }
 
@@ -145,8 +158,7 @@ impl StatusMap {
 /// of a killed/exited pane can arrive after `remove` and would resurrect its status.
 /// Checked under the statuses lock; `forget` runs after exit is marked, so no race.
 pub fn apply_if_live(state: &TerminalState, m: &HookMsg) -> Option<Transition> {
-    // Claude's hooks report every state, so the screen reader stays out while it runs.
-    apply_status_if_live(state, &m.terminal_id, Source::Program, status_for(&m.event)?, Some(ALL_STATES))
+    apply_status_if_live(state, &m.terminal_id, Source::Program, status_for(&m.event)?, covers_for(&m.event))
 }
 
 /// Same guard for status read from the PTY output (a kill can race the reader thread).
@@ -337,6 +349,9 @@ mod tests {
             assert_eq!(status_for(e), Some(s), "{e}");
         }
         assert_eq!(status_for("claude-Unknown"), None);
+        assert_eq!(status_for("codex-agent-turn-complete"), Some(Done));
+        assert_eq!(covers_for("codex-agent-turn-complete"), Some(&[Done][..]));
+        assert_eq!(covers_for("claude-Stop"), Some(ALL_STATES));
         assert_eq!(status_for("shell-prompt"), None, "prompts come in-band as OSC 133");
     }
 
