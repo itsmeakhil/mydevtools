@@ -70,7 +70,7 @@ Mostly an API Client release: it closes most of the gap with Bruno for day-to-da
 - Open a terminal tab with an Environment Manager environment's variables set. (#458)
 - Run the current API Client request as `curl` in a terminal tab. (#459)
 - Terminals come back after a restart, with their scrollback and working directory.
-- Closing a pane that is running or waiting for you asks first.
+- Closing a terminal always asks first, with a stronger warning when a command is running or an agent is waiting for you. (#461)
 - Restart a pane whose shell has exited. It opens in the same directory.
 - A right-click menu on panes, plus shortcuts: ⌘⌥ arrows to move focus, ⌘1–9 to jump to a pane, ⌘⇧↵ to maximize.
 - An Option-as-Meta setting, off by default so ⌥ still types characters like @ and € on non-US keyboards.
