@@ -4,6 +4,7 @@ pub mod env;
 pub mod files;
 pub mod git;
 pub mod hooks;
+pub mod mask;
 pub mod notify;
 pub mod osc;
 pub mod paste;

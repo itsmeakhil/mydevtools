@@ -59,6 +59,10 @@ pub struct SpawnRequest {
     /// process alone: never typed into the shell, never saved. Checked by `extra_env_ok`.
     #[serde(default)]
     pub env: std::collections::BTreeMap<String, String>,
+    /// Name → value of secrets (each also given in the env) shown as `‹NAME›` in this
+    /// pane's output, before it reaches the view, scrollback, screen or saved history.
+    #[serde(default)]
+    pub mask: std::collections::BTreeMap<String, String>,
     /// Terminal project this pane belongs to (helper-pane opt-in is per project).
     #[serde(default)]
     pub project_id: Option<String>,
@@ -340,6 +344,11 @@ impl TerminalState {
         if let Some(s) = self.sessions.get(&req.id) {
             return Ok(SpawnResult { id: req.id, cwd: s.cwd.clone(), cwd_fallback: s.cwd_fallback, resume: None });
         }
+        // Mask only what this pane was given; no pane starts unless its masking is set up.
+        let mut masker = super::mask::Masker::new(&req.mask)?;
+        if let Some((k, _)) = req.mask.iter().find(|(_, v)| !env.iter().any(|(_, e)| e == *v)) {
+            return Err(format!("masked secret is not in the pane's environment: {k}"));
+        }
         let (cwd, cwd_fallback) = if !req.cwd.is_empty() && std::path::Path::new(&req.cwd).is_dir() {
             (req.cwd.clone(), false)
         } else {
@@ -363,6 +372,17 @@ impl TerminalState {
         scrollback.push(&req.seed);
         drop(pair.slave);
         let mut reader = pair.master.try_clone_reader().map_err(|e| e.to_string())?;
+        // Reads go through a channel so a held-back possible secret start can be flushed
+        // when output goes quiet. Bounded: a slow consumer still backpressures the PTY.
+        let (tx, rx) = std::sync::mpsc::sync_channel::<Vec<u8>>(16);
+        std::thread::spawn(move || {
+            let mut buf = [0u8; 8192];
+            while let Ok(n @ 1..) = reader.read(&mut buf) {
+                if tx.send(buf[..n].to_vec()).is_err() {
+                    break;
+                }
+            }
+        });
         let writer = pair.master.take_writer().map_err(|e| e.to_string())?;
 
         let session = Arc::new(Session {
@@ -390,7 +410,8 @@ impl TerminalState {
         let (id, on_exit, on_status) = (req.id.clone(), self.on_exit.get().cloned(), self.on_status.get().cloned());
         let (bus, on_child_closed) = (self.bus.clone(), self.on_child_closed.get().cloned());
         std::thread::spawn(move || {
-            let mut buf = [0u8; 8192];
+            use std::sync::mpsc::RecvTimeoutError;
+            let mut out = Vec::new();
             let mut scanner = super::osc::Scanner::default();
             let mut found = Vec::new();
             let mut commands = super::osc::Commands::default();
@@ -403,54 +424,77 @@ impl TerminalState {
             };
             use super::hooks::Source::{Program, Shell};
             loop {
-                match reader.read(&mut buf) {
-                    Ok(0) | Err(_) => break,
-                    Ok(n) => {
-                        {
-                            let mut g = s.inner.lock().unwrap();
-                            g.scrollback.push(&buf[..n]);
-                            if let Some(ch) = &g.channel {
-                                let _ = ch.send(b64(&buf[..n]));
-                            }
+                // Masking comes first: everything below only ever sees masked bytes.
+                let quiet = if masker.as_ref().is_some_and(|m| m.holding()) {
+                    std::time::Duration::from_millis(30)
+                } else {
+                    std::time::Duration::MAX
+                };
+                let eof = match rx.recv_timeout(quiet) {
+                    Ok(chunk) => {
+                        match &mut masker {
+                            Some(m) => m.feed(&chunk, &mut out),
+                            None => out = chunk,
                         }
-                        s.det.lock().unwrap().feed(&buf[..n]);
-                        port_scan.feed(&buf[..n], &mut ports_found);
-                        if !ports_found.is_empty() {
-                            s.ports.lock().unwrap().offer(ports_found.drain(..));
+                        false
+                    }
+                    Err(e) => {
+                        if let Some(m) = &mut masker {
+                            m.flush(&mut out);
                         }
-                        scanner.feed(&buf[..n], &mut found);
-                        for o in found.drain(..) {
-                            match o {
-                                super::osc::Osc::Cwd(c) => *s.live_cwd.lock().unwrap() = Some(c),
-                                super::osc::Osc::Title(t) => s.det.lock().unwrap().set_title(t),
-                                super::osc::Osc::Progress(p) => s.det.lock().unwrap().set_progress(p),
-                                super::osc::Osc::CommandStart => {
-                                    *s.last_cmd.lock().unwrap() = None;
-                                    s.worked.store(true, std::sync::atomic::Ordering::SeqCst);
-                                    s.det.lock().unwrap().take_agent_seen();
-                                    commands.start(std::time::Instant::now());
-                                    status(Shell, super::hooks::TermStatus::Running, None, None)
-                                }
-                                super::osc::Osc::CommandEnd(code) => {
-                                    // The rc files send D before every prompt, the first one too:
-                                    // only a D that closes a C is a finished command.
-                                    if commands.running() {
-                                        *s.last_cmd.lock().unwrap() = Some(code);
-                                    }
-                                    let agent = s.det.lock().unwrap().take_agent_seen();
-                                    if let Some((st, cmd)) = commands.end(code, std::time::Instant::now(), agent) {
-                                        status(Shell, st, None, Some(cmd))
-                                    }
-                                }
-                                super::osc::Osc::Prompt => {
-                                    if commands.prompt() {
-                                        status(Shell, super::hooks::TermStatus::Idle, None, None)
-                                    }
-                                }
-                                super::osc::Osc::Status(st, msg) => status(Program, st, msg, None),
-                            }
+                        e == RecvTimeoutError::Disconnected
+                    }
+                };
+                if !out.is_empty() {
+                    let bytes = &out[..];
+                    {
+                        let mut g = s.inner.lock().unwrap();
+                        g.scrollback.push(bytes);
+                        if let Some(ch) = &g.channel {
+                            let _ = ch.send(b64(bytes));
                         }
                     }
+                    s.det.lock().unwrap().feed(bytes);
+                    port_scan.feed(bytes, &mut ports_found);
+                    if !ports_found.is_empty() {
+                        s.ports.lock().unwrap().offer(ports_found.drain(..));
+                    }
+                    scanner.feed(bytes, &mut found);
+                    for o in found.drain(..) {
+                        match o {
+                            super::osc::Osc::Cwd(c) => *s.live_cwd.lock().unwrap() = Some(c),
+                            super::osc::Osc::Title(t) => s.det.lock().unwrap().set_title(t),
+                            super::osc::Osc::Progress(p) => s.det.lock().unwrap().set_progress(p),
+                            super::osc::Osc::CommandStart => {
+                                *s.last_cmd.lock().unwrap() = None;
+                                s.worked.store(true, std::sync::atomic::Ordering::SeqCst);
+                                s.det.lock().unwrap().take_agent_seen();
+                                commands.start(std::time::Instant::now());
+                                status(Shell, super::hooks::TermStatus::Running, None, None)
+                            }
+                            super::osc::Osc::CommandEnd(code) => {
+                                // The rc files send D before every prompt, the first one too:
+                                // only a D that closes a C is a finished command.
+                                if commands.running() {
+                                    *s.last_cmd.lock().unwrap() = Some(code);
+                                }
+                                let agent = s.det.lock().unwrap().take_agent_seen();
+                                if let Some((st, cmd)) = commands.end(code, std::time::Instant::now(), agent) {
+                                    status(Shell, st, None, Some(cmd))
+                                }
+                            }
+                            super::osc::Osc::Prompt => {
+                                if commands.prompt() {
+                                    status(Shell, super::hooks::TermStatus::Idle, None, None)
+                                }
+                            }
+                            super::osc::Osc::Status(st, msg) => status(Program, st, msg, None),
+                        }
+                    }
+                    out.clear();
+                }
+                if eof {
+                    break;
                 }
             }
             let code = child.wait().ok().map(|st| st.exit_code() as i32);
@@ -900,6 +944,72 @@ mod tests {
         }
         assert!(!extra_env_ok("TOKEN", "a\0b"));
         assert!(!extra_env_ok("TOKEN", &"x".repeat(64 * 1024 + 1)));
+    }
+
+    fn masked_req(id: &str, name: &str, value: &str) -> SpawnRequest {
+        SpawnRequest { mask: [(name.to_string(), value.to_string())].into(), ..req(id, "/tmp") }
+    }
+
+    fn text(s: &Session) -> String {
+        String::from_utf8_lossy(&s.scrollback()).into_owned()
+    }
+
+    #[test]
+    fn rejects_short_or_unlisted() {
+        let st = TerminalState::default();
+        let env = || vec![("T".to_string(), "supersecret1".to_string())];
+        assert!(st.spawn(masked_req("u", "T", "supersecret1"), vec![], sh("true")).is_err(), "value not in env");
+        assert!(st.spawn(masked_req("u", "T", "other-secret"), env(), sh("true")).is_err(), "value not in env");
+        let short = vec![("T".to_string(), "1234567".to_string())];
+        assert!(st.spawn(masked_req("u", "T", "1234567"), short, sh("true")).is_err(), "7 bytes");
+        assert!(st.get("u").is_err(), "no pane spawned");
+        assert!(st.spawn(masked_req("u", "T", "supersecret1"), env(), sh("true")).is_ok());
+        st.kill_all();
+    }
+
+    #[test]
+    fn held_prefix_flushes_when_output_goes_quiet() {
+        let st = TerminalState::default();
+        let env = vec![("GH".to_string(), "ghp_abcdefgh".to_string())];
+        st.spawn(masked_req("h", "GH", "ghp_abcdefgh"), env, sh("printf 'go '; printf ghp_; sleep 1")).unwrap();
+        let s = st.get("h").unwrap();
+        assert!(wait_for(|| text(&s).contains("go "), 3));
+        let t = Instant::now();
+        assert!(wait_for(|| text(&s).contains("go ghp_"), 1), "{:?}", text(&s));
+        assert!(t.elapsed() < Duration::from_millis(200), "held prefix took {:?}", t.elapsed());
+        st.kill_all();
+    }
+
+    #[test]
+    fn pane_scrollback_tail_and_restore_are_masked() {
+        let id = "44444444-mask";
+        let st = TerminalState::default();
+        let env = vec![("T".to_string(), "supersecret1".to_string())];
+        st.spawn(masked_req(id, "T", "supersecret1"), env, sh("echo $T; echo done")).unwrap();
+        let s = st.get(id).unwrap();
+        assert!(wait_for(|| text(&s).contains("done") && s.tail(5).contains("done"), 3), "{:?}", text(&s));
+        for out in [text(&s), s.tail(5)] {
+            assert!(out.contains("‹T›") && !out.contains("supersecret1"), "{out:?}");
+        }
+        let app = crate::state::AppState::in_memory();
+        let mut db = app.db.lock().unwrap();
+        db.execute("INSERT INTO kv (k, v) VALUES ('terminal:state', ?1)", [format!("{{\"id\": \"{id}\"}}")]).unwrap();
+        super::super::restore::save_all(&mut db, &st).unwrap();
+        let raw: String = db.query_row("SELECT v FROM kv WHERE k = ?1", [format!("terminal:scrollback:{id}")], |r| r.get(0)).unwrap();
+        let v: Value = serde_json::from_str(&raw).unwrap();
+        let saved = base64::engine::general_purpose::STANDARD.decode(v["b64"].as_str().unwrap()).unwrap();
+        let saved = String::from_utf8_lossy(&saved);
+        assert!(saved.contains("‹T›") && !saved.contains("supersecret1") && !raw.contains("supersecret1"), "{saved:?}");
+        st.kill_all();
+    }
+
+    #[test]
+    fn pane_without_mask_is_unchanged() {
+        let st = TerminalState::default();
+        st.spawn(req("n", "/tmp"), vec![], sh("printf 'hello\\nghp_abc'")).unwrap();
+        let s = st.get("n").unwrap();
+        assert!(wait_for(|| s.exited(), 3));
+        assert_eq!(s.scrollback(), b"hello\r\nghp_abc");
     }
 
     #[test]

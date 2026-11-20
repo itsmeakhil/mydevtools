@@ -53,6 +53,8 @@ libc = "0.2.191"
 # Terminal agent status from the rendered screen (terminal/detect.rs).
 vt100 = "0.16"
 regex = "1"
+# Secret masking in pane output (terminal/mask.rs).
+aho-corasick = "1"
 toml = "0.8"
 
 # The keyring backend is the one genuinely platform-specific dependency: the
