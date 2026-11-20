@@ -557,7 +557,8 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     },
 
     addHelper: (parent, id, name) => {
-      if (find(get().projects, id) || !find(get().projects, parent)) return
+      if (find(get().projects, id)) return
+      if (!find(get().projects, parent)) return kill([id]) // Rust already spawned it; no pane will ever own it
       const focused = get().focusedTerminalId
       get().split(parent, "row", id)
       set((s) => ({ focusedTerminalId: focused, children: { ...s.children, [parent]: [...(s.children[parent] ?? []), id] } }))

@@ -629,8 +629,11 @@ describe("terminal store", () => {
     })
     it("ignores spawn-child for an unknown parent or an id already present", () => {
       const parent = setup()
-      S().addHelper("nope", "h2", "x")
+      mockKill.mockClear()
       S().addHelper(parent, "h1", "again")
+      expect(mockKill).not.toHaveBeenCalled() // live pane: leave it alone
+      S().addHelper("nope", "h2", "x")
+      expect(mockKill).toHaveBeenCalledWith("h2") // nobody can see it: don't leak the PTY
       expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent, "h1"])
       expect(S().children[parent]).toEqual(["h1"])
     })
