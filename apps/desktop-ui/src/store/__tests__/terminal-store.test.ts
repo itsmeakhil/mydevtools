@@ -209,6 +209,8 @@ describe("terminal store", () => {
     expect(S().attention[id]).toEqual({ since: 5_000, message: undefined })
     S().setStatus(id, "idle")
     expect(S().attention).toEqual({})
+    S().setStatus(id, "done", undefined, { code: 0, ms: 61_000 })
+    expect(S().attention[id].command).toEqual({ code: 0, ms: 61_000 })
   })
 
   it("focusTerminal expands a collapsed project", () => {

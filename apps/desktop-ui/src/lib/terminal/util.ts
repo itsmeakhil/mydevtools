@@ -212,3 +212,10 @@ export function ago(since: number, now: number, locale: string): string {
   const h = Math.floor(m / 60)
   return h < 24 ? rtf.format(-h, "hour") : rtf.format(-Math.floor(h / 24), "day")
 }
+
+/** A command's run time in the user's locale ("45s", "3m", "2h"); one unit, rounded down. */
+export function duration(ms: number, locale: string): string {
+  const s = Math.floor(ms / 1000)
+  const [n, unit] = s < 60 ? [s, "second"] : s < 3600 ? [Math.floor(s / 60), "minute"] : [Math.floor(s / 3600), "hour"]
+  return new Intl.NumberFormat(locale, { style: "unit", unit, unitDisplay: "narrow" }).format(n)
+}

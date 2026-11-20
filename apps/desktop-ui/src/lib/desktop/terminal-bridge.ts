@@ -38,8 +38,8 @@ export const terminalGitInfo = (path: string, withChanged: boolean) =>
 export const terminalStatuses = () => invoke<Record<string, TermStatus>>("terminal_statuses")
 export const terminalClearWaiting = (id: string) => invoke<void>("terminal_clear_waiting", { id })
 export const terminalSetViewing = (id: string | null) => invoke<void>("terminal_set_viewing", { id })
-export const terminalSetStrings = (waitingBody: string, doneBody: string, quitTitle: string) =>
-  invoke<void>("terminal_set_strings", { waitingBody, doneBody, quitTitle })
+export const terminalSetStrings = (waitingBody: string, doneBody: string, failedBody: string, quitTitle: string) =>
+  invoke<void>("terminal_set_strings", { waitingBody, doneBody, failedBody, quitTitle })
 export const appQuitConfirmed = () => invoke<void>("app_quit_confirmed")
 export const appQuitCancelled = () => invoke<void>("app_quit_cancelled")
 
@@ -47,7 +47,9 @@ async function on<T>(event: string, cb: (p: T) => void): Promise<() => void> {
   const { listen } = await import("@tauri-apps/api/event")
   return listen<T>(event, (e) => cb(e.payload))
 }
-export const onTerminalStatus = (cb: (p: { id: string; status: TermStatus; message?: string | null }) => void) =>
+/** How a long shell command ended (sent with the status it caused). */
+export interface CommandEnd { code: number | null; ms: number }
+export const onTerminalStatus = (cb: (p: { id: string; status: TermStatus; message?: string | null; command?: CommandEnd | null }) => void) =>
   on("terminal://status", cb)
 /** Pane's foreground agent changed: manifest id (`codex`, `claude`…) or null. */
 export const onTerminalAgent = (cb: (p: { id: string; agent: string | null }) => void) => on("terminal://agent", cb)

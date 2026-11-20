@@ -174,10 +174,10 @@ pub fn run() {
                 terminal::notify::forget(&handle, id)
             }));
             let handle = app.handle().clone();
-            let _ = term.on_status.set(std::sync::Arc::new(move |id, status, msg| {
+            let _ = term.on_status.set(std::sync::Arc::new(move |id, status, msg, cmd| {
                 let term = handle.state::<std::sync::Arc<terminal::pty::TerminalState>>();
                 if let Some(t) = terminal::hooks::apply_status_if_live(&term, id, status) {
-                    terminal::hooks::publish(&handle, &t, msg.as_deref());
+                    terminal::hooks::publish(&handle, &t, msg.as_deref(), cmd);
                 }
             }));
             term.start_agent_poller();
