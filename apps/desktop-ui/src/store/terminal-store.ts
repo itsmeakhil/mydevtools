@@ -66,6 +66,8 @@ interface TerminalState extends TerminalPersisted {
   cwdFrom: Record<string, string>
   /** New pane id → command to run once its shell starts (read once at spawn); not persisted. */
   runOnStart: Record<string, string>
+  /** New pane id → extra environment for its process (secrets; read once at spawn); never persisted. */
+  envOnStart: Record<string, Record<string, string>>
   focusedTerminalId: string | null
   dirty: boolean
   loaded: boolean
@@ -77,7 +79,8 @@ interface TerminalState extends TerminalPersisted {
   toggleCollapsed: (id: string) => void
   selectProject: (id: string) => void
   /** `run` is typed into the new pane's shell once it has started; `worktree` makes it a worktree task tab. */
-  newTab: (projectId: string, name?: string, opts?: { run?: string; worktree?: Worktree; layout?: SplitNode }) => void
+  newTab: (projectId: string, name?: string, opts?: { run?: string; env?: Record<string, string>; worktree?: Worktree; layout?: SplitNode }) => void
+  takeEnvOnStart: (terminalId: string) => Record<string, string> | undefined
   /** Save a tab's split shape under its name; `removeLayout` by index. */
   saveLayout: (projectId: string, tabId: string) => void
   removeLayout: (projectId: string, index: number) => void
@@ -222,7 +225,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -268,7 +271,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     },
 
     // Opens where the focused pane is, when that pane belongs to this project.
-    newTab: (projectId, name, { run, worktree, layout } = {}) => {
+    newTab: (projectId, name, { run, env, worktree, layout } = {}) => {
       const p = get().projects.find((x) => x.id === projectId)
       if (!p) return
       const n = nextTabNumber(p)
@@ -284,6 +287,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       if (!worktree && from && find([p], from))
         set((s) => ({ cwdFrom: { ...s.cwdFrom, ...Object.fromEntries(ids.map((id) => [id, from])) } }))
       if (run?.trim()) set((s) => ({ runOnStart: { ...s.runOnStart, [leafId]: run.trim() } }))
+      if (env && Object.keys(env).length) set((s) => ({ envOnStart: { ...s.envOnStart, [leafId]: env } }))
       mutate(mapProject(projectId, (x) => ({ ...x, tabs: [...x.tabs, tab], activeTabId: tab.id, tabSeq: n })))
     },
 
@@ -295,6 +299,16 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
           return { runOnStart: rest }
         })
       return run
+    },
+
+    takeEnvOnStart: (terminalId) => {
+      const env = get().envOnStart[terminalId]
+      if (env)
+        set((s) => {
+          const { [terminalId]: _taken, ...rest } = s.envOnStart
+          return { envOnStart: rest }
+        })
+      return env
     },
 
     addCommand: (projectId, cmd) => {

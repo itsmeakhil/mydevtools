@@ -1530,6 +1530,7 @@
     "noResults": "Żadne połączenia nie pasują do wyszukiwania.",
     "connectionActions": "Akcje dla {name}",
     "menuEdit": "Edytuj",
+    "menuOpenInTerminal": "Otwórz w Terminalu",
     "menuDelete": "Usuń",
     "deleteTitle": "Usunąć połączenie?",
     "deleteBody": "{name} i zapisane dane uwierzytelniające zostaną usunięte z tego urządzenia. Tej operacji nie można cofnąć.",

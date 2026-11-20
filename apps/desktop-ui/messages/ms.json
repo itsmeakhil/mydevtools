@@ -1530,6 +1530,7 @@
     "noResults": "Tiada sambungan sepadan dengan carian anda.",
     "connectionActions": "Tindakan untuk {name}",
     "menuEdit": "Edit",
+    "menuOpenInTerminal": "Buka dalam Terminal",
     "menuDelete": "Padam",
     "deleteTitle": "Padam sambungan?",
     "deleteBody": "{name} dan kelayakan tersimpannya akan dialih keluar daripada peranti ini. Tindakan ini tidak boleh dibuat asal.",

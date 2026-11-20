@@ -55,6 +55,23 @@ pub struct SpawnRequest {
     /// Scrollback replayed before the new shell's output (restored after a restart).
     #[serde(skip)]
     pub seed: Vec<u8>,
+    /// Extra environment for a fresh session only (e.g. a DB password for `psql`). Held by the
+    /// process alone: never typed into the shell, never saved. Checked by `extra_env_ok`.
+    #[serde(default)]
+    pub env: std::collections::BTreeMap<String, String>,
+}
+
+/// Variables that would change how the shell itself starts or what it runs are refused.
+pub fn extra_env_ok(name: &str, value: &str) -> bool {
+    const DENY: &[&str] = &["PATH", "HOME", "SHELL", "USER", "LOGNAME", "TERM", "ZDOTDIR", "ENV", "BASH_ENV", "PROMPT_COMMAND", "IFS"];
+    let valid_name = !name.is_empty()
+        && name.len() <= 64
+        && name.bytes().enumerate().all(|(i, b)| b == b'_' || b.is_ascii_uppercase() || b.is_ascii_lowercase() || (i > 0 && b.is_ascii_digit()));
+    valid_name
+        && !DENY.contains(&name)
+        && !["LD_", "DYLD_", "MDT_", "BASH_FUNC_"].iter().any(|p| name.starts_with(p))
+        && value.len() <= 8 * 1024
+        && !value.contains('\0')
 }
 
 #[derive(Serialize)]
@@ -431,6 +448,10 @@ pub async fn terminal_spawn(
     if let Some(c) = restored.as_ref().and_then(|r| r.cwd.clone()).filter(is_dir).or(inherited.filter(is_dir)) {
         req.cwd = c;
     }
+    let extra = std::mem::take(&mut req.env);
+    if let Some((k, _)) = extra.iter().find(|(k, v)| !extra_env_ok(k, v)) {
+        return Err(format!("environment variable not allowed: {k}"));
+    }
     let resume = restored.as_ref().and_then(|r| r.resume.clone());
     if let Some(r) = restored {
         req.seed = super::restore::seed(&r.bytes);
@@ -440,6 +461,7 @@ pub async fn terminal_spawn(
         Some(l) => super::env::shell_launch(&shell, &l.res_dir, l.pane_env(&req.id, &state.token)),
         None => (vec![shell, "-l".into()], vec![]),
     };
+    let env = env.into_iter().chain(extra).collect();
     state.spawn(req, env, argv).map(|r| SpawnResult { resume, ..r })
 }
 
@@ -659,5 +681,26 @@ mod tests {
         // An Idle may come first if a poll lands before the program's first output.
         assert!(seen.ends_with(&[TermStatus::Running, TermStatus::Done]), "{seen:?}");
         assert_eq!(agents, vec![Some("gemini")]);
+    }
+
+    #[test]
+    fn extra_env_names_and_values() {
+        assert!(extra_env_ok("PGPASSWORD", "s3cret"));
+        assert!(extra_env_ok("my_token_2", ""));
+        for bad in ["PATH", "HOME", "ZDOTDIR", "BASH_ENV", "LD_PRELOAD", "DYLD_INSERT_LIBRARIES", "MDT_TERMINAL_ID", "2FA", "A-B", "", "BASH_FUNC_x%%"] {
+            assert!(!extra_env_ok(bad, "x"), "{bad}");
+        }
+        assert!(!extra_env_ok("TOKEN", "a\0b"));
+        assert!(!extra_env_ok("TOKEN", &"x".repeat(8 * 1024 + 1)));
+    }
+
+    #[test]
+    fn extra_env_reaches_the_process() {
+        let st = TerminalState::default();
+        let env = vec![("MDT_TEST_SECRET_ENV".to_string(), "hunter2".to_string())];
+        st.spawn(req("e", "/tmp"), env, sh("printf %s \"$MDT_TEST_SECRET_ENV\"")).unwrap();
+        let s = st.get("e").unwrap();
+        assert!(wait_for(|| String::from_utf8_lossy(&s.scrollback()).contains("hunter2"), 3));
+        st.kill_all();
     }
 }

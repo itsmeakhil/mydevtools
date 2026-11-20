@@ -1530,6 +1530,7 @@
     "noResults": "Aucune connexion ne correspond à votre recherche.",
     "connectionActions": "Actions pour {name}",
     "menuEdit": "Modifier",
+    "menuOpenInTerminal": "Ouvrir dans le Terminal",
     "menuDelete": "Supprimer",
     "deleteTitle": "Supprimer la connexion ?",
     "deleteBody": "{name} et ses identifiants enregistrés seront supprimés de cet appareil. Cette action est irréversible.",

@@ -1530,6 +1530,7 @@
     "noResults": "No connections match your search.",
     "connectionActions": "Actions for {name}",
     "menuEdit": "Edit",
+    "menuOpenInTerminal": "Open in Terminal",
     "menuDelete": "Delete",
     "deleteTitle": "Delete connection?",
     "deleteBody": "{name} and its saved credentials will be removed from this device. This cannot be undone.",

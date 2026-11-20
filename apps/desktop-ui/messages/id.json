@@ -1530,6 +1530,7 @@
     "noResults": "Tidak ada koneksi yang cocok dengan pencarian Anda.",
     "connectionActions": "Tindakan untuk {name}",
     "menuEdit": "Edit",
+    "menuOpenInTerminal": "Buka di Terminal",
     "menuDelete": "Hapus",
     "deleteTitle": "Hapus koneksi?",
     "deleteBody": "{name} dan kredensial tersimpannya akan dihapus dari perangkat ini. Tindakan ini tidak dapat dibatalkan.",

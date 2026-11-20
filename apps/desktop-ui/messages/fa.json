@@ -1530,6 +1530,7 @@
     "noResults": "هیچ اتصالی با جستجوی شما مطابقت ندارد.",
     "connectionActions": "اقدامات برای {name}",
     "menuEdit": "ویرایش",
+    "menuOpenInTerminal": "باز کردن در ترمینال",
     "menuDelete": "حذف",
     "deleteTitle": "اتصال حذف شود؟",
     "deleteBody": "{name} و اطلاعات ورود ذخیره‌شده آن از این دستگاه حذف خواهد شد. این عمل قابل بازگشت نیست.",

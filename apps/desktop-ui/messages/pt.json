@@ -1530,6 +1530,7 @@
     "noResults": "Nenhuma ligação corresponde à tua pesquisa.",
     "connectionActions": "Ações para {name}",
     "menuEdit": "Editar",
+    "menuOpenInTerminal": "Abrir no Terminal",
     "menuDelete": "Eliminar",
     "deleteTitle": "Eliminar ligação?",
     "deleteBody": "{name} e as credenciais guardadas serão removidas deste dispositivo. Esta ação não pode ser anulada.",

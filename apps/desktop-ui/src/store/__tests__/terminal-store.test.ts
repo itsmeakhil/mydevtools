@@ -218,6 +218,17 @@ describe("terminal store", () => {
     expect(S().projects[0].layouts).toEqual([])
   })
 
+  it("env for a new pane is held in memory, read once, never saved", async () => {
+    S().addProject("/x/a")
+    const pid = S().projects[0].id
+    S().newTab(pid, "db", { run: "psql", env: { PGPASSWORD: "s3cret" } })
+    const id = leafIds(S().projects[0].tabs.at(-1)!.layout)[0]
+    await jest.advanceTimersByTimeAsync(500)
+    expect(JSON.stringify(mockSave.mock.calls.at(-1)![0])).not.toContain("s3cret")
+    expect(S().takeEnvOnStart(id)).toEqual({ PGPASSWORD: "s3cret" })
+    expect(S().takeEnvOnStart(id)).toBeUndefined()
+  })
+
   it("saved commands: add trims and names blank ones after the command, remove by index", () => {
     S().addProject("/x/a")
     const pid = S().projects[0].id

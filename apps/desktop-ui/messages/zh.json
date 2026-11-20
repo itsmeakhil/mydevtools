@@ -1530,6 +1530,7 @@
     "noResults": "没有连接与您的搜索匹配。",
     "connectionActions": "{name} 的操作",
     "menuEdit": "编辑",
+    "menuOpenInTerminal": "在终端中打开",
     "menuDelete": "删除",
     "deleteTitle": "删除连接？",
     "deleteBody": "{name} 及其保存的凭据将从此设备中移除。此操作无法撤销。",

@@ -1530,6 +1530,7 @@
     "noResults": "Không có kết nối nào khớp với tìm kiếm của bạn.",
     "connectionActions": "Hành động cho {name}",
     "menuEdit": "Sửa",
+    "menuOpenInTerminal": "Mở trong Terminal",
     "menuDelete": "Xóa",
     "deleteTitle": "Xóa kết nối?",
     "deleteBody": "{name} và thông tin xác thực đã lưu sẽ bị xóa khỏi thiết bị này. Không thể hoàn tác.",

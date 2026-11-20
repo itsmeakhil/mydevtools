@@ -1530,6 +1530,7 @@
     "noResults": "Ingen tilkoblinger samsvarer med søket ditt.",
     "connectionActions": "Handlinger for {name}",
     "menuEdit": "Rediger",
+    "menuOpenInTerminal": "Åpne i Terminal",
     "menuDelete": "Slett",
     "deleteTitle": "Slette tilkobling?",
     "deleteBody": "{name} og tilhørende lagrede legitimasjon fjernes fra denne enheten. Dette kan ikke angres.",

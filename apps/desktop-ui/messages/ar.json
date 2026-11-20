@@ -1530,6 +1530,7 @@
     "noResults": "لا توجد اتصالات تطابق بحثك.",
     "connectionActions": "إجراءات لـ {name}",
     "menuEdit": "تعديل",
+    "menuOpenInTerminal": "فتح في الطرفية",
     "menuDelete": "حذف",
     "deleteTitle": "حذف الاتصال؟",
     "deleteBody": "سيتم إزالة {name} وبيانات الاعتماد المحفوظة الخاصة به من هذا الجهاز. لا يمكن التراجع عن هذا الإجراء.",

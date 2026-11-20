@@ -1530,6 +1530,7 @@
     "noResults": "検索条件に一致する接続がありません。",
     "connectionActions": "{name}の操作",
     "menuEdit": "編集",
+    "menuOpenInTerminal": "ターミナルで開く",
     "menuDelete": "削除",
     "deleteTitle": "接続を削除しますか？",
     "deleteBody": "{name}とその保存済み認証情報はこのデバイスから削除されます。この操作は元に戻せません。",

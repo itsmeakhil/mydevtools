@@ -1530,6 +1530,7 @@
     "noResults": "Žádná připojení neodpovídají vašemu hledání.",
     "connectionActions": "Akce pro {name}",
     "menuEdit": "Upravit",
+    "menuOpenInTerminal": "Otevřít v Terminálu",
     "menuDelete": "Smazat",
     "deleteTitle": "Smazat připojení?",
     "deleteBody": "{name} a jeho uložené přihlašovací údaje budou odstraněny z tohoto zařízení. Tuto akci nelze vrátit zpět.",
