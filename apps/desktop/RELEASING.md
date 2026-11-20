@@ -15,7 +15,8 @@ macOS. Set `SKIP_LINUX=1` for a macOS-only release, or `LINUX_PLATFORMS="linux/a
 to skip the slower ARM build.
 
 - **Local** — run `scripts/release-local.sh` on your Mac. No CI minutes; needs one-time setup.
-- **CI** — push to the `release` branch; GitHub builds it. No local setup; uses Actions minutes.
+- **CI** — push to the `release` branch; GitHub builds macOS only using configured
+  repository secrets. Linux packages come from the local script.
 
 > **Pick one method per version.** Both publish tag `v<version>` to the same repo, so
 > running both for the same version fails with "tag already exists". Always **bump the
@@ -27,7 +28,8 @@ to skip the slower ARM build.
 
 ### One-time setup
 
-Done once per machine (already set up on the current dev Mac).
+Check these prerequisites on each release machine. Use Node 22 (`nvm use` from
+the repository root), the pnpm version pinned in root `package.json`, and Rust.
 
 **1. Apple Developer ID certificate** — in your login keychain:
 ```bash
@@ -61,13 +63,13 @@ rustup target add aarch64-apple-darwin x86_64-apple-darwin
 **5. GitHub CLI** with write access to the public repo:
 ```bash
 gh auth status
-gh repo view mydevtools-tech/mydevtools-releases
+gh repo view itsmeakhil/mydevtools
 ```
 
-**6. Frontend build env** — the desktop UI build requires the Firebase vars.
-`apps/desktop-ui/.env.local` is gitignored, so create it once (copy the public vars from web):
+**6. Frontend dependencies** — install from the repository root after pulling.
+The desktop app does not use Firebase or require account/backend credentials.
 ```bash
-grep '^NEXT_PUBLIC_' apps/web/.env.local > apps/desktop-ui/.env.local
+pnpm install --frozen-lockfile
 ```
 
 **7. Grant codesign keychain access** (fixes `errSecInternalComponent`, since
@@ -85,24 +87,29 @@ security set-key-partition-list -S apple-tool:,apple:,codesign: -s \
 ### Cutting a release — the commands
 
 ```bash
-# 1. Bump the version (edit these so they match):
-#      src-tauri/tauri.conf.json   "version": "0.1.1" -> "0.1.2"
-#      src-tauri/Cargo.toml        version = "0.1.2"
-#      src-tauri/Cargo.lock        (mydevtools-desktop entry) version = "0.1.2"
-#      package.json                "version": "0.1.2"
+# 1. From the repository root, keep these desktop versions identical:
+#      apps/desktop/src-tauri/tauri.conf.json
+#      apps/desktop/src-tauri/Cargo.toml
+#      apps/desktop/src-tauri/Cargo.lock (mydevtools-desktop entry only)
+#      apps/desktop/package.json
+#    Use three-part SemVer, e.g. 0.2.1. Other workspace versions are independent.
+#    Update CHANGELOG.md and prepend the same version to
+#    apps/web/src/lib/changelog.ts; CI refuses to release without that entry.
+#    Commit and push the release inputs before building so the published tag
+#    and local artifacts refer to the same code.
 
 # 2. Run the release script in an INTERACTIVE Terminal (codesign needs your keychain):
 cd apps/desktop
 bash scripts/release-local.sh
 
 # If macOS prompts "codesign wants to use your key", click "Always Allow".
-# Ends with: ✅ Published v0.1.2
+# Ends with: ✅ Published v<version>
 ```
 
 That one command:
 1. builds + Apple-signs the universal app
-2. notarizes + staples the app
-3. tars the app and **signs it with your updater key** → `.app.tar.gz` + `.sig`
+2. produces the updater `.app.tar.gz` + `.sig` during the Tauri build
+3. notarizes + staples the app used for the DMG
 4. builds + signs + notarizes the `.dmg`
 5. builds the Linux `.deb` + AppImage in Docker (amd64 and arm64)
 6. writes `latest.json` (version + signature + public URL)
@@ -120,11 +127,11 @@ and publishes macOS only.
 ### Verify
 
 ```bash
-# was 404 before publishing; should be 200 now
-curl -sI -L "https://github.com/mydevtools-tech/mydevtools-releases/releases/latest/download/latest.json" | head -1
+# Follows redirects and prints the final HTTP status (should be 200).
+curl -sL -o /dev/null -w '%{http_code}\n' "https://github.com/itsmeakhil/mydevtools/releases/latest/download/latest.json"
 
 # manifest shows the version you shipped
-curl -sL "https://github.com/mydevtools-tech/mydevtools-releases/releases/latest/download/latest.json"
+curl -sL "https://github.com/itsmeakhil/mydevtools/releases/latest/download/latest.json"
 ```
 Then launch an app on an **older** version → "Update available" toast appears within a launch or two.
 
@@ -148,9 +155,22 @@ Then launch an app on an **older** version → "Update available" toast appears 
 git checkout release && git merge main && git push
 #   first time only: git checkout -b release && git push -u origin release
 ```
-GitHub Actions builds, signs, notarizes, and mirrors to the public repo automatically —
-watch it under the repo's **Actions** tab. Each push to `release` uses ~200 billed
-Actions minutes, so promote deliberately.
+GitHub Actions builds, signs, notarizes and publishes macOS to the current repo,
+then mirrors its artifacts to `mydevtools-tech/mydevtools-releases` for older
+installs. Watch it under the repo's **Actions** tab. Each push to `release` uses
+~200 billed Actions minutes, so promote deliberately. Merging a PR into `main`
+does not trigger this release workflow.
+
+The workflow needs the Apple signing/notarization secrets, the Tauri updater key
+and password, and `RELEASES_TOKEN` for the legacy mirror. It does not build Linux.
+To add Linux packages to an existing release, first build the matching desktop
+frontend, then run this from `apps/desktop` with Docker running:
+
+```bash
+LINUX_ONLY=1 bash scripts/release-local.sh
+```
+
+This uploads only Linux artifacts and leaves the existing `latest.json` untouched.
 
 ---
 

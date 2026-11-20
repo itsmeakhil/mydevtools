@@ -2,7 +2,7 @@
 
 All notable changes to MyDevTools. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [0.2.1] — Unreleased
+## [0.2.1] — 2026-11-20
 
 Mostly an API Client release: it closes most of the gap with Bruno for day-to-day use. The Terminal becomes a place to run coding agents side by side: it shows which agent each pane runs and whether it needs you, starts tasks in their own git worktrees, and connects to your saved databases, environments and API requests.
 

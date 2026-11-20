@@ -26,6 +26,23 @@ export const changeTypeLabels: Record<ChangeType, string> = {
  */
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.2.1',
+    date: '2026-11-20',
+    title: 'Deeper API testing and terminals for coding agents',
+    summary:
+      'The API Client gains collection defaults, richer scripts, Bruno folder editing and a command-line runner. Terminal panes track coding agents, restore sessions and launch tasks in separate git worktrees.',
+    changes: [
+      { type: 'added', text: 'API Client: collection-level auth, headers, variables and scripts; global and secret variables; async scripts with pm.sendRequest; and an Assertions tab for checks without scripts.' },
+      { type: 'added', text: 'Open and edit Bruno folders in place, sync collections from OpenAPI, export collection docs as an offline HTML file, and run collections from a terminal or CI with mdt run.' },
+      { type: 'added', text: 'API Client: client certificates, custom CAs, HTTP/HTTPS/SOCKS5 proxies, live SSE and NDJSON responses, streaming gRPC, GraphQL autocomplete and a JSONPath response filter.' },
+      { type: 'added', text: 'Terminal: agent status, a board of panes waiting for attention, saved launch commands, git worktree tasks, session resume, scrollback search, layout presets and configurable notifications.' },
+      { type: 'added', text: 'Open saved database connections, environment variables and API requests in terminal panes. Project terminal configs require approval before their commands run; helper panes can be enabled per project.' },
+      { type: 'improved', text: 'No auth now sends no authentication. Existing saved requests are migrated to Inherit to preserve their behavior, with a database backup before migration.' },
+      { type: 'fixed', text: 'Fixed a macOS launch crash caused by duplicate main windows, edits lost when quitting soon after opening a tab, and split multi-byte characters in SSE streams.' },
+      { type: 'fixed', text: 'Cross-site redirects no longer forward credentials, collection share links omit literal credentials, and terminal connection secrets stay out of shell history.' },
+    ],
+  },
+  {
     version: '0.2.0',
     date: '2026-11-05',
     title: 'Drag to reorder terminal tabs, and links that open where they should',

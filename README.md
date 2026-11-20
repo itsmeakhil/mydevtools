@@ -106,7 +106,7 @@ It runs on your machine. There is no MyDevTools server, no account and no sync.
 | Platform | How |
 |---|---|
 | **macOS** (Apple Silicon + Intel) | [Download the latest `.dmg`](https://github.com/itsmeakhil/mydevtools/releases/latest) — universal build, signed and notarized, updates itself in-app |
-| **Linux** (x86_64) | [Download the `.deb`](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) or the [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) (runs anywhere, no install) — same release and version as macOS. No in-app updater yet; see the [Linux install guide](https://mydevtools.tech/linux-builds) |
+| **Linux** (x86_64) | [Download the `.deb`](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-amd64.deb) (Debian / Ubuntu 22.04+) or the [AppImage](https://github.com/itsmeakhil/mydevtools/releases/latest/download/MyDevTools-x86_64.AppImage) — same release and version as macOS. No in-app updater yet; see the [Linux install guide](https://mydevtools.tech/linux-builds) |
 | **Windows** | No build for now. The Tauri shell compiles on Windows — see [Building from source](#%EF%B8%8F-building-from-source) and the [roadmap](ROADMAP.md) |
 
 Open it and start working: no sign-up, no configuration, no API keys.
@@ -281,7 +281,7 @@ No configuration step — no API keys, no accounts, no services.
 
 Being honest about the edges is more useful than a feature list:
 
-- **macOS only** for published builds today.
+- **macOS and Linux** have published builds; Windows packages are not available yet.
 - **Database clients are for everyday work**, not a replacement for a full DBA
   suite — no visual schema designer, no migration tooling.
 - **No team features.** No shared workspaces, no sync, no collaboration. Local
