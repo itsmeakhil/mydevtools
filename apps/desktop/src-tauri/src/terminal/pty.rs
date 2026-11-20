@@ -465,6 +465,12 @@ pub async fn terminal_spawn(
     state.spawn(req, env, argv).map(|r| SpawnResult { resume, ..r })
 }
 
+/// Last lines of a pane's rendered screen (board previews); `lines` clamped to 1..=40.
+#[tauri::command]
+pub fn terminal_screen_tail(state: tauri::State<'_, Arc<TerminalState>>, id: String, lines: usize) -> Result<String, String> {
+    Ok(state.get(&id)?.det.lock().unwrap().tail(lines.clamp(1, 40)))
+}
+
 #[tauri::command]
 pub async fn terminal_attach(
     state: tauri::State<'_, Arc<TerminalState>>,

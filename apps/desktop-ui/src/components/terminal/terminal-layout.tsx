@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import {
   IconArrowsMaximize, IconBell, IconFolderPlus, IconGitBranch, IconHome, IconLayoutColumns, IconLayoutRows, IconPlus,
-  IconKeyboard, IconSettings, IconTerminal2, IconX,
+  IconKeyboard, IconLayoutKanban, IconSettings, IconTerminal2, IconX,
 } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -25,6 +25,7 @@ import { agentName, LAUNCH_AGENTS } from "@/lib/terminal/agents"
 import { LaunchMenu } from "./launch-menu"
 import { TerminalSettings } from "./terminal-settings"
 import { ShortcutsDialog } from "./shortcuts-dialog"
+import { AgentBoard } from "./agent-board"
 import { SplitView } from "./split-view"
 import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
 import { anyBusy, CloseGuardContext, useCloseGuard, type CloseGuard } from "./close-guard"
@@ -107,6 +108,7 @@ function TabBar({ project, isRepo, onWorktreeClosed }: {
   project: TerminalProject; isRepo: boolean; onWorktreeClosed: (wt: Worktree) => void
 }) {
   const t = useTranslations("Terminal")
+  const boardOpen = useTerminalStore((s) => s.boardOpen)
   const statuses = useTerminalStore((s) => s.statuses)
   const focusedId = useTerminalStore((s) => s.focusedTerminalId)
   const [editing, setEditing] = React.useState<string | null>(null)
@@ -252,6 +254,17 @@ function TabBar({ project, isRepo, onWorktreeClosed }: {
       >
         <IconLayoutRows className="h-4 w-4" />
       </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={cn("h-7 w-7", boardOpen && "bg-primary/[0.12] text-foreground")}
+        onClick={() => S().toggleBoard()}
+        aria-pressed={boardOpen}
+        aria-label={t("board")}
+        title={`${t("board")} (⌘B)`}
+      >
+        <IconLayoutKanban className="h-4 w-4" />
+      </Button>
     </div>
   )
 }
@@ -292,6 +305,7 @@ export function TerminalLayout() {
   const windowFocused = useWindowFocused()
   const home = useHomeDir()
   const cwds = useTerminalStore((s) => s.cwds)
+  const boardOpen = useTerminalStore((s) => s.boardOpen)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
   const [shortcutsOpen, setShortcutsOpen] = React.useState(false)
 
@@ -386,6 +400,9 @@ export function TerminalLayout() {
         return
       }
       switch (action) {
+        case "board":
+          st.toggleBoard()
+          break
         case "shortcuts":
           setShortcutsOpen(true)
           break
@@ -475,6 +492,7 @@ export function TerminalLayout() {
         { id: "terminal-add-project", title: t("addProject"), Icon: IconFolderPlus, run: () => void addProject() },
         { id: "terminal-settings", title: t("settings"), Icon: IconSettings, run: () => setSettingsOpen(true) },
         { id: "terminal-shortcuts", title: t("shortcutsTitle"), hint: "⌘/", Icon: IconKeyboard, run: () => setShortcutsOpen(true) },
+        { id: "terminal-board", title: t("board"), hint: "⌘B", Icon: IconLayoutKanban, run: () => S().toggleBoard() },
       ],
     }
   }, [toolActive, t, addProject])
@@ -528,6 +546,12 @@ export function TerminalLayout() {
           <>
             {project.tabs.length > 0 && <TabBar project={project} isRepo={!!info?.branch} onWorktreeClosed={offerRemoveWorktree} />}
             <div className="relative min-h-0 flex-1">
+              {/* Over the panes, which stay mounted underneath. */}
+              {boardOpen && (
+                <div className="absolute inset-0 z-30">
+                  <AgentBoard />
+                </div>
+              )}
               {project.tabs.length === 0 && (
                 <div className="absolute inset-0 flex">
                   <Empty
@@ -548,7 +572,7 @@ export function TerminalLayout() {
                         <SplitView
                           node={tab.layout}
                           path={[]}
-                          ctx={{ tab, cwd: tab.worktree?.path ?? p.path, projectName: p.name, visible: shown && toolActive }}
+                          ctx={{ tab, cwd: tab.worktree?.path ?? p.path, projectName: p.name, visible: shown && toolActive && !boardOpen }}
                         />
                       </div>
                     )

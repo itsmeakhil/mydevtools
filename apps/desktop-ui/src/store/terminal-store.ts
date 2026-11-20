@@ -46,6 +46,9 @@ export interface Attention {
 
 interface TerminalState extends TerminalPersisted {
   statuses: Record<string, TermStatus>
+  /** Triage board shown instead of the panes (⌘B); session-only. */
+  boardOpen: boolean
+  toggleBoard: () => void
   /** When each running pane started running (ms); not persisted. */
   runningSince: Record<string, number>
   /** Coding agent running in the foreground of a pane (manifest id); not persisted. */
@@ -225,7 +228,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, boardOpen: false, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -300,6 +303,8 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         })
       return run
     },
+
+    toggleBoard: () => set((s) => ({ boardOpen: !s.boardOpen })),
 
     takeEnvOnStart: (terminalId) => {
       const env = get().envOnStart[terminalId]

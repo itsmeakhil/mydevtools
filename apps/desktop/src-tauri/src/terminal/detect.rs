@@ -220,6 +220,13 @@ impl Pane {
         self.dirty = true;
     }
 
+    /// Last `lines` non-empty rows of the rendered screen (blank rows skipped), for previews.
+    pub fn tail(&self, lines: usize) -> String {
+        let text = self.screen.screen().contents();
+        let rows: Vec<&str> = text.lines().map(str::trim_end).filter(|l| !l.is_empty()).collect();
+        rows[rows.len().saturating_sub(lines)..].join("\n")
+    }
+
     pub fn pgid(&self) -> Option<i32> {
         self.pgid
     }
@@ -504,6 +511,14 @@ line_regex = ["^exact line$"]
         assert_eq!(id("bash -c codex"), None);
         assert_eq!(id("vim notes.md"), None);
         assert_eq!(id("muse-binary"), None);
+    }
+
+    #[test]
+    fn tail_returns_last_non_empty_rows() {
+        let mut p = Pane::new(10, 20);
+        assert_eq!(p.tail(40), "");
+        p.feed(b"a\r\nb\r\n\r\nc\r\n");
+        assert_eq!(p.tail(2), "b\nc");
     }
 
     #[test]
