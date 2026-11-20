@@ -1530,6 +1530,7 @@
     "noResults": "Nenhuma conexão corresponde à sua busca.",
     "connectionActions": "Ações para {name}",
     "menuEdit": "Editar",
+    "menuOpenInTerminal": "Abrir no Terminal",
     "menuDelete": "Excluir",
     "deleteTitle": "Excluir conexão?",
     "deleteBody": "{name} e suas credenciais salvas serão removidas deste dispositivo. Essa ação não pode ser desfeita.",

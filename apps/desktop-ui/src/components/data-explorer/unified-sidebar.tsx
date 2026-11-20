@@ -14,8 +14,13 @@ import {
     IconLock,
     IconPlus,
     IconSearch,
+    IconTerminal2,
     IconTrash,
 } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
+import { isDesktop } from "@/lib/desktop/is-desktop";
+import { dbCli } from "@/lib/terminal/db-cli";
+import { openInTerminal } from "@/lib/terminal/open-in-terminal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -76,8 +81,17 @@ const ConnectionRow = React.memo(function ConnectionRow({
     siblings,
 }: ConnectionRowProps) {
     const t = useTranslations("DataExplorer");
+    const router = useRouter();
     const adapter = getAdapter(connection.sourceId);
     const supported = adapter !== null;
+    // The database's own CLI in a terminal tab; the password goes to that process as env, never typed.
+    const cli = isDesktop() ? dbCli(connection.sourceId, connection.config) : null;
+    const openCli = () => {
+        if (!cli) return;
+        openInTerminal({ name: connection.name, run: cli.command, env: cli.env }, router.push).catch((e) =>
+            toast.error(e instanceof Error ? e.message : String(e))
+        );
+    };
 
     const openTab = useCallback(
         (req: OpenTabRequest) => onOpenTab(connection, req),
@@ -133,6 +147,12 @@ const ConnectionRow = React.memo(function ConnectionRow({
                                     <IconEdit className="mr-2 size-3.5" />
                                     {t("menuEdit")}
                                 </DropdownMenuItem>
+                                {cli && (
+                                    <DropdownMenuItem onClick={openCli}>
+                                        <IconTerminal2 className="mr-2 size-3.5" />
+                                        {t("menuOpenInTerminal")}
+                                    </DropdownMenuItem>
+                                )}
                                 <DropdownMenuSeparator />
                             </>
                         )}

@@ -325,7 +325,8 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
 
       try {
         const inheritCwdFrom = useTerminalStore.getState().cwdFrom[id]
-        const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName, inheritCwdFrom })
+        const env = useTerminalStore.getState().takeEnvOnStart(id)
+        const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName, inheritCwdFrom, env })
         if (disposed) {
           // Closed mid-spawn: its kill may have reached Rust first, leaving this spawn an orphan PTY.
           // (A remount keeps the id in the store, so its session is left alone.)

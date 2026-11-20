@@ -1530,6 +1530,7 @@
     "noResults": "Aramanızla eşleşen bağlantı yok.",
     "connectionActions": "{name} için işlemler",
     "menuEdit": "Düzenle",
+    "menuOpenInTerminal": "Terminalde aç",
     "menuDelete": "Sil",
     "deleteTitle": "Bağlantı silinsin mi?",
     "deleteBody": "{name} ve kayıtlı kimlik bilgileri bu cihazdan kaldırılacak. Bu işlem geri alınamaz.",

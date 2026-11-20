@@ -1530,6 +1530,7 @@
     "noResults": "Keine Verbindungen entsprechen Ihrer Suche.",
     "connectionActions": "Aktionen für {name}",
     "menuEdit": "Bearbeiten",
+    "menuOpenInTerminal": "Im Terminal öffnen",
     "menuDelete": "Löschen",
     "deleteTitle": "Verbindung löschen?",
     "deleteBody": "{name} und die gespeicherten Anmeldedaten werden von diesem Gerät entfernt. Dies kann nicht rückgängig gemacht werden.",

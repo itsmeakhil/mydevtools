@@ -1530,6 +1530,7 @@
     "noResults": "Geen verbindingen komen overeen met je zoekopdracht.",
     "connectionActions": "Acties voor {name}",
     "menuEdit": "Bewerken",
+    "menuOpenInTerminal": "Openen in Terminal",
     "menuDelete": "Verwijderen",
     "deleteTitle": "Verbinding verwijderen?",
     "deleteBody": "{name} en de opgeslagen inloggegevens worden van dit apparaat verwijderd. Dit kan niet ongedaan worden gemaakt.",

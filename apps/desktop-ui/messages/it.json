@@ -1530,6 +1530,7 @@
     "noResults": "Nessuna connessione corrisponde alla tua ricerca.",
     "connectionActions": "Azioni per {name}",
     "menuEdit": "Modifica",
+    "menuOpenInTerminal": "Apri nel Terminale",
     "menuDelete": "Elimina",
     "deleteTitle": "Eliminare la connessione?",
     "deleteBody": "{name} e le relative credenziali salvate verranno rimosse da questo dispositivo. Questa azione non può essere annullata.",

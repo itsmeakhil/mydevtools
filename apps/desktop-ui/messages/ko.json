@@ -1530,6 +1530,7 @@
     "noResults": "검색과 일치하는 연결이 없습니다.",
     "connectionActions": "{name}에 대한 작업",
     "menuEdit": "수정",
+    "menuOpenInTerminal": "터미널에서 열기",
     "menuDelete": "삭제",
     "deleteTitle": "연결을 삭제하시겠습니까?",
     "deleteBody": "{name} 및 저장된 자격 증명이 이 기기에서 제거됩니다. 이 작업은 되돌릴 수 없습니다.",

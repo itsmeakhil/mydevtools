@@ -1530,6 +1530,7 @@
     "noResults": "Ingen forbindelser matcher din søgning.",
     "connectionActions": "Handlinger for {name}",
     "menuEdit": "Rediger",
+    "menuOpenInTerminal": "Åbn i Terminal",
     "menuDelete": "Slet",
     "deleteTitle": "Slet forbindelse?",
     "deleteBody": "{name} og dens gemte legitimationsoplysninger vil blive fjernet fra denne enhed. Dette kan ikke fortrydes.",

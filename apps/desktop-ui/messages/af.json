@@ -1530,6 +1530,7 @@
     "noResults": "Geen koppelings pas by jou soektog nie.",
     "connectionActions": "Aksies vir {name}",
     "menuEdit": "Wysig",
+    "menuOpenInTerminal": "Maak oop in Terminaal",
     "menuDelete": "Vee uit",
     "deleteTitle": "Vee koppeling uit?",
     "deleteBody": "{name} en sy gestoorde geloofsbriewe sal van hierdie toestel verwyder word. Dit kan nie ongedaan gemaak word nie.",

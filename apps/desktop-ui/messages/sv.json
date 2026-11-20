@@ -1530,6 +1530,7 @@
     "noResults": "Inga anslutningar matchar din sökning.",
     "connectionActions": "Åtgärder för {name}",
     "menuEdit": "Redigera",
+    "menuOpenInTerminal": "Öppna i Terminal",
     "menuDelete": "Ta bort",
     "deleteTitle": "Ta bort anslutning?",
     "deleteBody": "{name} och dess sparade inloggningsuppgifter tas bort från denna enhet. Detta kan inte ångras.",

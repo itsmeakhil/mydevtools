@@ -17,6 +17,8 @@ export const terminalSpawn = (req: {
   id: string; cwd: string; cols: number; rows: number; projectName: string
   /** Open in this live pane's current directory instead of `cwd`, when it has one. */
   inheritCwdFrom?: string
+  /** Extra environment for a fresh session (secrets for a CLI); Rust refuses shell-altering names. */
+  env?: Record<string, string>
 }) =>
   invoke<{ id: string; cwd: string; cwdFallback: boolean; resume?: Resume }>("terminal_spawn", { req })
 

@@ -1530,6 +1530,7 @@
     "noResults": "Cap connexió coincideix amb la teva cerca.",
     "connectionActions": "Accions per a {name}",
     "menuEdit": "Edita",
+    "menuOpenInTerminal": "Obre al Terminal",
     "menuDelete": "Elimina",
     "deleteTitle": "Vols eliminar la connexió?",
     "deleteBody": "{name} i les seves credencials desades s'eliminaran d'aquest dispositiu. Aquesta acció no es pot desfer.",
