@@ -1,5 +1,5 @@
 import { configHash } from "@/lib/terminal/trust"
-import { needsTrust, planWorkspace } from "@/lib/terminal/workspace"
+import { needsTrust, needsUnlock, planWorkspace } from "@/lib/terminal/workspace"
 import { LAYOUT_PRESETS, leaf } from "@/lib/terminal/layout"
 
 describe("workspaces and trust", () => {
@@ -17,5 +17,10 @@ describe("workspaces and trust", () => {
     expect(needsTrust({ name: "w", layout: leaf("a"), panes: [{ command: "ls" }] })).toBe(true)
     expect(needsTrust({ name: "w", layout: leaf("a"), panes: [{ env: "prod" }] })).toBe(true)
     expect(needsTrust({ name: "w", layout: leaf("a"), worktree: "x" })).toBe(true)
+  })
+  it("a workspace with saved environments can't open while the vault is locked", () => {
+    expect(needsUnlock([{ run: "ls" }, { envName: "api" }], false)).toBe(true)
+    expect(needsUnlock([{ run: "ls" }, { envName: "api" }], true)).toBe(false)
+    expect(needsUnlock([{ run: "ls" }, {}], false)).toBe(false)
   })
 })

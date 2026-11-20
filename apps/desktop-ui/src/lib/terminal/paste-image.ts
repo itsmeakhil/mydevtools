@@ -13,3 +13,6 @@ export async function blobToBase64(b: Blob): Promise<string> {
   for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000))
   return btoa(bin)
 }
+/** The PNG to paste as an image: only when the clipboard has no text (copied cells come with a picture too). */
+export const imageToPaste = (d: { types: ArrayLike<string>; files: ArrayLike<File> } | null | undefined) =>
+  d && !Array.from(d.types).includes("text/plain") ? pngIn(d.files) : undefined

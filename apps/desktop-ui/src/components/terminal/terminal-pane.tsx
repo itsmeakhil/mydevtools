@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { IconArrowsMinimize, IconChevronDown, IconChevronUp, IconPlayerPlay, IconRefresh, IconX } from "@tabler/icons-react"
 import { agentName, resumeCommand } from "@/lib/terminal/agents"
-import { blobToBase64, imageTooLarge, pngIn } from "@/lib/terminal/paste-image"
+import { blobToBase64, imageToPaste, imageTooLarge } from "@/lib/terminal/paste-image"
 import "@xterm/xterm/css/xterm.css"
 import type { IMarker, Terminal as XTerm } from "@xterm/xterm"
 import type { SearchAddon } from "@xterm/addon-search"
@@ -319,8 +319,8 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
 
       // ⌘V with a screenshot on the clipboard: save it and type its path (agents take images as paths).
       const onPaste = (e: ClipboardEvent) => {
-        const png = pngIn(e.clipboardData?.files)
-        if (!png) return // text: xterm's own paste handles it
+        const png = imageToPaste(e.clipboardData)
+        if (!png) return // text (copied cells carry a picture too): xterm's own paste handles it
         e.preventDefault()
         e.stopPropagation()
         void pasteImageRef.current(png)
