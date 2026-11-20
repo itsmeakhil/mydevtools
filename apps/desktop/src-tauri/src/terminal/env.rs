@@ -112,6 +112,7 @@ impl Launch {
             ("MDT_HOOK_SOCKET".into(), self.socket.display().to_string()),
             ("MDT_HOOK_TOKEN".into(), token.into()),
             ("MDT_CTL_SOCKET".into(), self.ctl_socket.display().to_string()),
+            ("MDT_CTL_TOKEN".into(), super::ctl::pane_token(token, id)),
             ("MDT_APP_BIN".into(), app_bin),
             (
                 "MDT_CLAUDE_SETTINGS".into(),

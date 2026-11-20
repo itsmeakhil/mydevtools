@@ -191,6 +191,10 @@ pub fn run() {
             let _ = term.on_spawn_child.set(std::sync::Arc::new(move |v| {
                 let _ = handle.emit("terminal://spawn-child", v);
             }));
+            let handle = app.handle().clone();
+            let _ = term.on_child_closed.set(std::sync::Arc::new(move |v| {
+                let _ = handle.emit("terminal://child-closed", v);
+            }));
             let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
             let ctl_socket = terminal::ctl::start(&socket, term.clone());
             // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to

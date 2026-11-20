@@ -121,6 +121,19 @@ pub struct Session {
     fresh: std::sync::atomic::AtomicBool,
     /// `Some(code)` once the shell's last command finished (OSC 133 D); `None` while one runs.
     last_cmd: Mutex<Option<Option<i32>>>,
+    /// `on_child_closed` already reported this helper (close and exit both end it).
+    closed_reported: std::sync::atomic::AtomicBool,
+}
+
+pub type JsonFn = Arc<dyn Fn(Value) + Send + Sync>;
+
+/// Tell `f` once that helper pane `id` is gone; top-level panes are not reported.
+fn report_child_closed(f: Option<&JsonFn>, id: &str, s: &Session) {
+    if let (Some(f), Some(parent)) = (f, &s.parent) {
+        if !s.closed_reported.swap(true, std::sync::atomic::Ordering::SeqCst) {
+            f(json!({"id": id, "parent": parent}));
+        }
+    }
 }
 
 fn b64(bytes: &[u8]) -> Value {
@@ -247,7 +260,9 @@ pub struct TerminalState {
     /// Set once in `setup`; called when a pane's foreground agent changes.
     pub on_agent: std::sync::OnceLock<AgentFn>,
     /// Set once in `setup`; told `{parent, id, name, cwd}` when a pane starts a helper (ctl `run`).
-    pub on_spawn_child: std::sync::OnceLock<Arc<dyn Fn(Value) + Send + Sync>>,
+    pub on_spawn_child: std::sync::OnceLock<JsonFn>,
+    /// Set once in `setup`; told `{id, parent}` once when a helper pane is closed or exits.
+    pub on_child_closed: std::sync::OnceLock<JsonFn>,
     /// Projects whose agents may start helper panes (UI pref, `terminal_set_project_prefs`).
     pub spawn_projects: Mutex<std::collections::HashSet<String>>,
     /// Login shell for new panes (`$SHELL`).
@@ -281,6 +296,7 @@ impl Default for TerminalState {
             on_status: std::sync::OnceLock::new(),
             on_agent: std::sync::OnceLock::new(),
             on_spawn_child: std::sync::OnceLock::new(),
+            on_child_closed: std::sync::OnceLock::new(),
             spawn_projects: Mutex::default(),
             shell: std::env::var("SHELL").unwrap_or_else(|_| "/bin/sh".into()),
             bus: tokio::sync::broadcast::channel(256).0,
@@ -343,11 +359,12 @@ impl TerminalState {
             det: Mutex::new(super::detect::Pane::new(req.rows, req.cols)),
             fresh: true.into(),
             last_cmd: Mutex::new(None),
+            closed_reported: false.into(),
         });
 
         let s = session.clone();
         let (id, on_exit, on_status) = (req.id.clone(), self.on_exit.get().cloned(), self.on_status.get().cloned());
-        let bus = self.bus.clone();
+        let (bus, on_child_closed) = (self.bus.clone(), self.on_child_closed.get().cloned());
         std::thread::spawn(move || {
             let mut buf = [0u8; 8192];
             let mut scanner = super::osc::Scanner::default();
@@ -406,6 +423,7 @@ impl TerminalState {
             if let Some(f) = on_exit {
                 f(&id);
             }
+            report_child_closed(on_child_closed.as_ref(), &id, &s);
             let _ = bus.send((id, None));
         });
 
@@ -430,6 +448,7 @@ impl TerminalState {
     pub fn close(&self, id: &str) {
         if let Some((_, s)) = self.sessions.remove(id) {
             s.kill();
+            report_child_closed(self.on_child_closed.get(), id, &s);
         }
         let _ = self.bus.send((id.to_string(), None));
     }

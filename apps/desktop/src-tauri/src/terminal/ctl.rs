@@ -37,9 +37,20 @@ fn err(msg: &str) -> Value {
 }
 
 /// Answer one request. Never logs: requests carry the token.
+/// Per-pane control token (`MDT_CTL_TOKEN`): binds a request to the pane it claims to come from.
+pub fn pane_token(launch_token: &str, pane_id: &str) -> String {
+    use sha2::{Digest, Sha256};
+    Sha256::digest(format!("{launch_token}:{pane_id}")).iter().map(|b| format!("{b:02x}")).collect()
+}
+
+/// Constant-time string compare (no early exit on the first differing byte).
+fn same(a: &str, b: &str) -> bool {
+    a.len() == b.len() && a.bytes().zip(b.bytes()).fold(0, |acc, (x, y)| acc | (x ^ y)) == 0
+}
+
 pub async fn handle(st: &Arc<TerminalState>, line: &str) -> Value {
     let Ok(r) = serde_json::from_str::<Req>(line) else { return err("bad request") };
-    if r.token != st.token {
+    if !same(&r.token, &pane_token(&st.token, &r.caller)) {
         return err("bad token");
     }
     if !st.is_live(&r.caller) {
@@ -96,6 +107,10 @@ static RUN: Mutex<()> = Mutex::new(());
 fn run(st: &TerminalState, r: Req) -> Value {
     let _g = RUN.lock().unwrap_or_else(|e| e.into_inner());
     let Ok(caller) = st.get(&r.caller) else { return err("unknown caller") };
+    // One level: helpers are leaves (no fan-out trees of agents).
+    if caller.parent.is_some() {
+        return err("helpers can't start helpers");
+    }
     let allowed = caller.project_id.as_ref().is_some_and(|p| st.spawn_projects.lock().unwrap().contains(p));
     if !allowed {
         return err("helper panes are off for this project");
@@ -302,7 +317,7 @@ mod tests {
     }
 
     async fn call(st: &Arc<TerminalState>, caller: &str, op: &str, args: Value) -> Value {
-        let mut req = json!({"token": st.token, "caller": caller, "op": op});
+        let mut req = json!({"token": pane_token(&st.token, caller), "caller": caller, "op": op});
         req.as_object_mut().unwrap().extend(args.as_object().unwrap().clone());
         handle(st, &req.to_string()).await
     }
@@ -323,7 +338,7 @@ mod tests {
         opt_in(&st, "p");
         let bad = json!({"token": "nope", "caller": "a", "op": "list"}).to_string();
         assert_eq!(handle(&st, &bad).await, json!({"error": "bad token"}));
-        let bad = json!({"token": st.token, "caller": "ghost", "op": "list"}).to_string();
+        let bad = json!({"token": pane_token(&st.token, "ghost"), "caller": "ghost", "op": "list"}).to_string();
         assert_eq!(handle(&st, &bad).await, json!({"error": "unknown caller"}));
         assert_eq!(handle(&st, "not json").await, json!({"error": "bad request"}));
         // An exited pane is not a caller either.
@@ -335,6 +350,60 @@ mod tests {
         assert_eq!(call(&st, "x", "list", json!({})).await, json!({"error": "unknown caller"}));
         assert_eq!(call(&st, "a", "list", json!({})).await, json!([]));
         assert_eq!(call(&st, "a", "bogus", json!({})).await, json!({"error": "unknown op"}));
+        st.kill_all();
+    }
+
+    #[tokio::test]
+    async fn rejects_a_token_for_another_pane() {
+        let st = state();
+        pane(&st, "a", Some("p"));
+        pane(&st, "b", Some("p"));
+        let bad_token = json!({"error": "bad token"});
+        let as_b = json!({"token": pane_token(&st.token, "a"), "caller": "b", "op": "list"}).to_string();
+        assert_eq!(handle(&st, &as_b).await, bad_token, "a's token can't speak for b");
+        let launch = json!({"token": st.token, "caller": "a", "op": "list"}).to_string();
+        assert_eq!(handle(&st, &launch).await, bad_token, "the shared hook token is not a ctl token");
+        assert_eq!(call(&st, "b", "list", json!({})).await, json!([]));
+        // Each pane is handed its own token.
+        let l = crate::terminal::env::Launch { res_dir: "/r".into(), socket: "/h".into(), ctl_socket: "/c".into(), settings: "/s".into() };
+        let env = l.pane_env("a", &st.token);
+        let got = env.iter().find(|(k, _)| k == "MDT_CTL_TOKEN").map(|(_, v)| v.as_str());
+        assert_eq!(got, Some(pane_token(&st.token, "a").as_str()));
+        assert_eq!(got.unwrap().len(), 64);
+        assert_ne!(pane_token(&st.token, "a"), pane_token(&st.token, "b"));
+        st.kill_all();
+    }
+
+    #[tokio::test]
+    async fn helper_cannot_spawn_helpers() {
+        let st = state();
+        opt_in(&st, "p");
+        pane(&st, "a", Some("p"));
+        let h = run(&st, "a", "sleep 30").await;
+        assert_eq!(call(&st, &h, "run", json!({"command": "sleep 30"})).await, json!({"error": "helpers can't start helpers"}));
+        assert_eq!(call(&st, &h, "list", json!({})).await, json!([]));
+        st.kill_all();
+    }
+
+    #[tokio::test]
+    async fn child_closed_fires_on_close_and_exit() {
+        let st = state();
+        let events = Arc::new(std::sync::Mutex::new(vec![]));
+        let ev = events.clone();
+        let _ = st.on_child_closed.set(Arc::new(move |v| ev.lock().unwrap().push(v)));
+        opt_in(&st, "p");
+        pane(&st, "a", Some("p"));
+        let h = run(&st, "a", "sleep 30").await;
+        assert_eq!(call(&st, "a", "close", json!({"id": h})).await, json!({"ok": true}));
+        assert_eq!(*events.lock().unwrap(), vec![json!({"id": h, "parent": "a"})]);
+        let h2 = run(&st, "a", "exit 0").await;
+        let end = Instant::now() + Duration::from_secs(3);
+        while events.lock().unwrap().len() < 2 && Instant::now() < end {
+            tokio::time::sleep(Duration::from_millis(20)).await;
+        }
+        tokio::time::sleep(Duration::from_millis(200)).await; // the closed helper's reader thread is done too
+        st.close("a"); // not a helper: no event
+        assert_eq!(*events.lock().unwrap(), vec![json!({"id": h, "parent": "a"}), json!({"id": h2, "parent": "a"})]);
         st.kill_all();
     }
 
@@ -485,7 +554,7 @@ mod tests {
                 out
             }
         };
-        let list = format!("{}\n", json!({"token": st.token, "caller": "a", "op": "list"}));
+        let list = format!("{}\n", json!({"token": pane_token(&st.token, "a"), "caller": "a", "op": "list"}));
         assert_eq!(ask(list.into_bytes()).await, "[]\n");
         assert_eq!(std::fs::metadata(&path).unwrap().permissions().mode() & 0o777, 0o600);
         let big = ask(vec![b'x'; 70 * 1024]).await;
