@@ -193,6 +193,10 @@ pub fn run() {
                 let _ = handle.emit("terminal://agent", serde_json::json!({"id": id, "agent": agent}));
             }));
             let handle = app.handle().clone();
+            let _ = term.on_ports.set(std::sync::Arc::new(move |id, ports| {
+                let _ = handle.emit("terminal://ports", serde_json::json!({"id": id, "ports": ports}));
+            }));
+            let handle = app.handle().clone();
             let _ = term.on_spawn_child.set(std::sync::Arc::new(move |v| {
                 let _ = handle.emit("terminal://spawn-child", v);
             }));
@@ -278,6 +282,7 @@ pub fn run() {
             terminal::hooks::terminal_clear_waiting,
             terminal::git::terminal_git_info,
             terminal::pty::terminal_screen_tail,
+            terminal::pty::terminal_ports,
             terminal::files::terminal_resolve_paths,
             terminal::files::terminal_open_path,
             terminal::paste::terminal_save_image,

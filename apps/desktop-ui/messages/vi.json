@@ -3448,6 +3448,11 @@
     "scFailedJump": "Lệnh lỗi trước / tiếp theo",
     "openFilesIn": "Mở tệp bằng",
     "openFilesInHint": "Nhấp vào tham chiếu tệp trong đầu ra (src/app.ts:12) để mở tại dòng đó.",
-    "editorSystem": "Mặc định của hệ thống"
+    "editorSystem": "Mặc định của hệ thống",
+    "portOpenBrowser": "Mở trong trình duyệt",
+    "portOpenApiClient": "Mở trong API Client",
+    "portCopyUrl": "Sao chép URL",
+    "portUrlCopied": "Đã sao chép URL",
+    "portsMore": "+{count}"
   }
 }

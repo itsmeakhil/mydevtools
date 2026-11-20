@@ -3448,6 +3448,11 @@
     "scFailedJump": "이전 / 다음 실패한 명령",
     "openFilesIn": "파일 열기 앱",
     "openFilesInHint": "출력의 파일 참조(src/app.ts:12)를 클릭하면 해당 줄에서 열립니다.",
-    "editorSystem": "시스템 기본값"
+    "editorSystem": "시스템 기본값",
+    "portOpenBrowser": "브라우저에서 열기",
+    "portOpenApiClient": "API 클라이언트에서 열기",
+    "portCopyUrl": "URL 복사",
+    "portUrlCopied": "URL을 복사했습니다",
+    "portsMore": "+{count}"
   }
 }

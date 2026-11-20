@@ -3448,6 +3448,11 @@
     "scFailedJump": "Предыдущая / следующая неудачная команда",
     "openFilesIn": "Открывать файлы в",
     "openFilesInHint": "Нажмите на ссылку на файл в выводе (src/app.ts:12), чтобы открыть его на этой строке.",
-    "editorSystem": "По умолчанию в системе"
+    "editorSystem": "По умолчанию в системе",
+    "portOpenBrowser": "Открыть в браузере",
+    "portOpenApiClient": "Открыть в API-клиенте",
+    "portCopyUrl": "Копировать URL",
+    "portUrlCopied": "URL скопирован",
+    "portsMore": "+{count}"
   }
 }

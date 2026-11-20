@@ -3448,6 +3448,11 @@
     "scFailedJump": "الأمر الفاشل السابق / التالي",
     "openFilesIn": "فتح الملفات في",
     "openFilesInHint": "انقر على مرجع ملف في المخرجات (src/app.ts:12) لفتحه عند ذلك السطر.",
-    "editorSystem": "الافتراضي للنظام"
+    "editorSystem": "الافتراضي للنظام",
+    "portOpenBrowser": "فتح في المتصفح",
+    "portOpenApiClient": "فتح في عميل API",
+    "portCopyUrl": "نسخ الرابط",
+    "portUrlCopied": "تم نسخ الرابط",
+    "portsMore": "+{count}"
   }
 }

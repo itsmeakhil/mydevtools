@@ -3448,6 +3448,11 @@
     "scFailedJump": "前 / 次の失敗したコマンド",
     "openFilesIn": "ファイルを開くアプリ",
     "openFilesInHint": "出力内のファイル参照（src/app.ts:12）をクリックすると、その行で開きます。",
-    "editorSystem": "システムの既定"
+    "editorSystem": "システムの既定",
+    "portOpenBrowser": "ブラウザで開く",
+    "portOpenApiClient": "API クライアントで開く",
+    "portCopyUrl": "URL をコピー",
+    "portUrlCopied": "URL をコピーしました",
+    "portsMore": "+{count}"
   }
 }

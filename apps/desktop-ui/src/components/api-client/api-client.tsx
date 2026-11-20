@@ -16,6 +16,7 @@ import { OfflineIndicator } from "./offline-indicator"
 import { putCachedResponse, getCachedResponse } from "@/lib/cache/response-cache"
 import { registerApiClientServiceWorker } from "@/lib/sw/register-api-client-sw"
 import { listenForExtensionImports, capturedToTab } from "@/lib/extension/listen"
+import { onApiClientHandoff, takeApiClientHandoff } from "@/lib/api-client/handoff"
 import { recordExchange } from "@/lib/recorder/traffic-recorder"
 import type { RequestSettings, SavedExample } from "./types"
 import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
@@ -172,6 +173,16 @@ function ApiClientInner() {
         appendTab({ ...tab, name: API_CLIENT_IMPORTED_TAB_NAME, ...capturedToTab(captured) })
         toast.success(t("toolbar.extensionImported", { method: captured.method, url: captured.url }))
     }), [appendTab, t])
+
+    /** Terminal port chips: open the handed-over URL as a new tab (on mount, and whenever one arrives). */
+    React.useEffect(() => {
+        const take = () => {
+            const r = takeApiClientHandoff()
+            if (r) appendTab({ ...createNewTab(), name: r.name, ...capturedToTab({ method: r.method, url: r.url }) })
+        }
+        take()
+        return onApiClientHandoff(take)
+    }, [appendTab])
 
     /** Rehydrate the active tab's response from IndexedDB if missing.
      *  Bodies are stripped from localStorage tabs to dodge the 5MB quota; this

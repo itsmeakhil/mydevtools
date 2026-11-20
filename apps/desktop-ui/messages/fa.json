@@ -3448,6 +3448,11 @@
     "scFailedJump": "فرمان ناموفق قبلی / بعدی",
     "openFilesIn": "باز کردن فایل‌ها در",
     "openFilesInHint": "روی ارجاع فایل در خروجی (src/app.ts:12) کلیک کنید تا در همان خط باز شود.",
-    "editorSystem": "پیش‌فرض سیستم"
+    "editorSystem": "پیش‌فرض سیستم",
+    "portOpenBrowser": "باز کردن در مرورگر",
+    "portOpenApiClient": "باز کردن در کلاینت API",
+    "portCopyUrl": "کپی نشانی",
+    "portUrlCopied": "نشانی کپی شد",
+    "portsMore": "+{count}"
   }
 }

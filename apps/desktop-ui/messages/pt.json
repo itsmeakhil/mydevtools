@@ -3448,6 +3448,11 @@
     "scFailedJump": "Comando falhado anterior / seguinte",
     "openFilesIn": "Abrir ficheiros no",
     "openFilesInHint": "Clique numa referência de ficheiro na saída (src/app.ts:12) para o abrir nessa linha.",
-    "editorSystem": "Predefinição do sistema"
+    "editorSystem": "Predefinição do sistema",
+    "portOpenBrowser": "Abrir no navegador",
+    "portOpenApiClient": "Abrir no cliente de API",
+    "portCopyUrl": "Copiar URL",
+    "portUrlCopied": "URL copiado",
+    "portsMore": "+{count}"
   }
 }

@@ -4,7 +4,7 @@ import { cloneLayout, leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf,
 import { needsAttention, type StatusSource, type TermStatus } from "@/lib/terminal/status"
 import {
   loadTerminalState, saveTerminalState, terminalKill, terminalSetProjectPrefs, terminalProjectFileRead, terminalProjectFileWrite,
-  type CommandEnd, type Worktree,
+  type CommandEnd, type LocalPort, type Worktree,
 } from "@/lib/desktop/terminal-bridge"
 import { parseProjectConfig, serializeProjectConfig, type ProjectConfigV1, type Workspace } from "@/lib/terminal/project-config"
 import { configHash } from "@/lib/terminal/trust"
@@ -93,6 +93,9 @@ interface TerminalState extends TerminalPersisted {
   setPrefs: (patch: Partial<TerminalPrefs>) => void
   /** Live current directory per pane from OSC 7; not persisted. */
   cwds: Record<string, string>
+  /** Local servers each pane started that are listening now (from Rust); not persisted. */
+  ports: Record<string, LocalPort[]>
+  setPorts: (id: string, ports: LocalPort[]) => void
   /** Pane maximized over its tab (⌘⇧↵); only honoured while it is also the focused pane. Not persisted. */
   zoomedId: string | null
   /** Agent pane id → helper panes it started (one level deep); not persisted. */
@@ -359,7 +362,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
   return {
     projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, trusted: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, children: {}, runOnStart: {}, envOnStart: {},
-    optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
+    optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, ports: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
     // Idempotent: a no-op once loaded; concurrent callers share one request.
@@ -714,6 +717,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       if (on !== get().optionAsMeta) mutate(() => ({ optionAsMeta: on }))
     },
 
+    setPorts: (id, ports) =>
+      set((st) => {
+        const { [id]: _gone, ...rest } = st.ports
+        return { ports: ports.length ? { ...rest, [id]: ports } : rest }
+      }),
     setCwd: (id, cwd) => set((st) => (st.cwds[id] === cwd ? st : { cwds: { ...st.cwds, [id]: cwd } })),
   }
 })

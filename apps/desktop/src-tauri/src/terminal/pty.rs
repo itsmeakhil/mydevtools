@@ -125,6 +125,8 @@ pub struct Session {
     worked: std::sync::atomic::AtomicBool,
     /// `on_child_closed` already reported this helper closed (an exit after that is not reported).
     closed_reported: std::sync::atomic::AtomicBool,
+    /// Local servers this pane printed, kept while they listen (`ports.rs`).
+    ports: Mutex<super::ports::Ports>,
 }
 
 pub type JsonFn = Arc<dyn Fn(Value) + Send + Sync>;
@@ -272,6 +274,7 @@ pub struct TerminalState {
     pub on_status: std::sync::OnceLock<StatusFn>,
     /// Set once in `setup`; called when a pane's foreground agent changes.
     pub on_agent: std::sync::OnceLock<AgentFn>,
+    pub on_ports: std::sync::OnceLock<PortsFn>,
     /// Set once in `setup`; told `{parent, id, name, cwd}` when a pane starts a helper (ctl `run`).
     pub on_spawn_child: std::sync::OnceLock<JsonFn>,
     /// Set once in `setup`; told `{id, parent, reason}` when a helper exits (`exited`) and once when it's closed (`closed`).
@@ -288,6 +291,8 @@ pub struct TerminalState {
 pub type StatusFn =
     Arc<dyn Fn(&str, super::hooks::Source, super::hooks::TermStatus, Option<String>, Option<super::osc::CmdEnd>) + Send + Sync>;
 pub type AgentFn = Arc<dyn Fn(&str, Option<&str>) + Send + Sync>;
+/// (pane, its listening local ports — the whole list, empty when none are left)
+pub type PortsFn = Arc<dyn Fn(&str, Vec<super::ports::LocalPort>) + Send + Sync>;
 
 #[derive(Debug, PartialEq)]
 pub enum AgentEvent {
@@ -311,6 +316,7 @@ impl Default for TerminalState {
             on_exit: std::sync::OnceLock::new(),
             on_status: std::sync::OnceLock::new(),
             on_agent: std::sync::OnceLock::new(),
+            on_ports: std::sync::OnceLock::new(),
             on_spawn_child: std::sync::OnceLock::new(),
             on_child_closed: std::sync::OnceLock::new(),
             spawn_projects: Mutex::default(),
@@ -377,6 +383,7 @@ impl TerminalState {
             last_cmd: Mutex::new(None),
             worked: true.into(),
             closed_reported: false.into(),
+            ports: Mutex::new(super::ports::Ports::default()),
         });
 
         let s = session.clone();
@@ -387,6 +394,8 @@ impl TerminalState {
             let mut scanner = super::osc::Scanner::default();
             let mut found = Vec::new();
             let mut commands = super::osc::Commands::default();
+            let mut port_scan = super::ports::Scanner::default();
+            let mut ports_found = Vec::new();
             let status = |src, st, msg, cmd| {
                 if let Some(f) = &on_status {
                     f(&id, src, st, msg, cmd)
@@ -405,6 +414,10 @@ impl TerminalState {
                             }
                         }
                         s.det.lock().unwrap().feed(&buf[..n]);
+                        port_scan.feed(&buf[..n], &mut ports_found);
+                        if !ports_found.is_empty() {
+                            s.ports.lock().unwrap().offer(ports_found.drain(..));
+                        }
                         scanner.feed(&buf[..n], &mut found);
                         for o in found.drain(..) {
                             match o {
@@ -538,10 +551,30 @@ impl TerminalState {
     }
 
     /// Background thread feeding `poll_agents` results into `on_status` / `on_agent`.
+    /// Probe each pane's printed ports (confirmed ones every `recheck`), reporting changes.
+    /// Probes run outside the pane's lock so its output never waits on them.
+    pub fn poll_ports(&self, recheck: bool, probe: impl Fn(u16) -> bool) {
+        for (id, s) in self.all() {
+            let due = s.ports.lock().unwrap().due(recheck);
+            if due.is_empty() {
+                continue;
+            }
+            let results: Vec<(u16, bool)> = due.into_iter().map(|p| (p, probe(p))).collect();
+            let changed = s.ports.lock().unwrap().apply(&results);
+            if let (Some(list), Some(f)) = (changed, self.on_ports.get()) {
+                f(&id, list)
+            }
+        }
+    }
+
     pub fn start_agent_poller(self: &Arc<Self>) {
         let state = self.clone();
+        let mut tick: u32 = 0;
         std::thread::spawn(move || loop {
             std::thread::sleep(std::time::Duration::from_millis(400));
+            tick = tick.wrapping_add(1);
+            // Printed ports are probed on the next tick; confirmed ones about every 5 s.
+            state.poll_ports(tick % 12 == 0, super::ports::listening);
             // Claude reports through our hooks whenever shell integration is on.
             let hooks = state.launch.get().is_some();
             for e in state.poll_agents(|m| hooks && m.id == "claude") {
@@ -609,6 +642,12 @@ pub async fn terminal_spawn(
 }
 
 /// Last lines of a pane's rendered screen (board previews); `lines` clamped to 1..=40.
+/// Local servers pane `id` printed that are listening now.
+#[tauri::command]
+pub fn terminal_ports(state: tauri::State<'_, Arc<TerminalState>>, id: String) -> Result<Vec<super::ports::LocalPort>, String> {
+    Ok(state.get(&id)?.ports.lock().unwrap().list())
+}
+
 #[tauri::command]
 pub fn terminal_screen_tail(state: tauri::State<'_, Arc<TerminalState>>, id: String, lines: usize) -> Result<String, String> {
     Ok(state.get(&id)?.tail(lines.clamp(1, 40)))
@@ -664,6 +703,26 @@ mod tests {
     fn sh(cmd: &str) -> Vec<String> {
         vec!["/bin/sh".into(), "-c".into(), cmd.into()]
     }
+    /// A pane prints a local URL: the poller confirms it while it listens and reports it gone after.
+    #[test]
+    fn pane_reports_a_printed_local_server() {
+        let l = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+        let port = l.local_addr().unwrap().port();
+        let st = TerminalState::default();
+        let seen = Arc::new(Mutex::new(vec![]));
+        let s2 = seen.clone();
+        let _ = st.on_ports.set(Arc::new(move |id, ports| s2.lock().unwrap().push((id.to_string(), ports))));
+        st.spawn(req("srv", "/tmp"), vec![], sh(&format!("echo ready on http://localhost:{port}/api; sleep 30"))).unwrap();
+        assert!(wait_for(|| { st.poll_ports(false, super::super::ports::listening); !seen.lock().unwrap().is_empty() }, 5));
+        let url = format!("http://localhost:{port}/api");
+        assert_eq!(seen.lock().unwrap()[0], ("srv".into(), vec![super::super::ports::LocalPort { port, url }]));
+        assert_eq!(st.get("srv").unwrap().ports.lock().unwrap().list().len(), 1);
+        drop(l);
+        st.poll_ports(true, super::super::ports::listening);
+        assert_eq!(seen.lock().unwrap().last().unwrap().1, vec![]);
+        st.kill_all();
+    }
+
     fn wait_for(f: impl Fn() -> bool, secs: u64) -> bool {
         let end = Instant::now() + Duration::from_secs(secs);
         while Instant::now() < end {
