@@ -3,7 +3,7 @@ import { toast } from "sonner"
 import { cloneLayout, leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import { needsAttention, type StatusSource, type TermStatus } from "@/lib/terminal/status"
 import {
-  loadTerminalState, saveTerminalState, terminalKill, terminalProjectFileRead, terminalProjectFileWrite,
+  loadTerminalState, saveTerminalState, terminalKill, terminalSetProjectPrefs, terminalProjectFileRead, terminalProjectFileWrite,
   type CommandEnd, type Worktree,
 } from "@/lib/desktop/terminal-bridge"
 import { parseProjectConfig, serializeProjectConfig, type ProjectConfigV1, type Workspace } from "@/lib/terminal/project-config"
@@ -23,6 +23,8 @@ export interface TerminalProject {
   commands?: SavedCommand[]
   /** Saved tab layouts (split shape only), offered in the new-tab menu. */
   layouts?: SavedLayout[]
+  /** Agents in this project's panes may start helper panes (`mdt-term run`). Off by default. */
+  agentsCanSpawn?: boolean
 }
 
 export interface SavedLayout { name: string; layout: SplitNode }
@@ -93,6 +95,13 @@ interface TerminalState extends TerminalPersisted {
   cwds: Record<string, string>
   /** Pane maximized over its tab (⌘⇧↵); only honoured while it is also the focused pane. Not persisted. */
   zoomedId: string | null
+  /** Agent pane id → helper panes it started (one level deep); not persisted. */
+  children: Record<string, string[]>
+  /** Rust spawned a helper under `id`: put a pane for it next to `parent`. */
+  addHelper: (parent: string, id: string, name: string) => void
+  /** Rust says the helper is gone: drop its pane without asking. Unknown ids are ignored. */
+  helperClosed: (id: string) => void
+  setAgentsCanSpawn: (projectId: string, on: boolean) => void
   /** New pane id → the pane whose current directory it opens in (read once at spawn); not persisted. */
   cwdFrom: Record<string, string>
   /** New pane id → command to run once its shell starts (read once at spawn); not persisted. */
@@ -140,7 +149,7 @@ interface TerminalState extends TerminalPersisted {
   moveTab: (projectId: string, fromId: string, toId: string) => void
   /** Custom pane name; blank clears it so the label falls back to the shell's window title. */
   renameTerminal: (terminalId: string, name: string) => void
-  split: (terminalId: string, dir: "row" | "col") => void
+  split: (terminalId: string, dir: "row" | "col", newId?: string) => void
   closeTerminal: (terminalId: string) => void
   /** Replace an exited pane with a fresh shell in the same slot, opening in its last directory. */
   restartTerminal: (terminalId: string) => void
@@ -162,6 +171,12 @@ const find = (projects: TerminalProject[], terminalId: string) => {
   for (const p of projects)
     for (const t of p.tabs) if (leafIds(t.layout).includes(terminalId)) return { p, t }
   return null
+}
+
+/** The panes that close with these: each one's helpers follow it. */
+export const withHelpers = (ids: string[]) => {
+  const { children } = useTerminalStore.getState()
+  return ids.flatMap((id) => [id, ...(children[id] ?? []).filter((c) => !ids.includes(c))])
 }
 
 /** Whether any project's layout still holds this terminal (false once its pane was closed). */
@@ -238,6 +253,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const agents = { ...s.agents }
       const runningSince = { ...s.runningSince }
       const sources = { ...s.sources }
+      const children: Record<string, string[]> = {}
+      for (const [parent, list] of Object.entries(s.children)) {
+        const kept = list.filter((c) => !ids.includes(c))
+        if (!ids.includes(parent) && kept.length) children[parent] = kept
+      }
       ids.forEach((id) => {
         delete runningSince[id]
         delete sources[id]
@@ -245,7 +265,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         delete attention[id]
         delete agents[id]
       })
-      return { statuses, attention, agents, runningSince, sources }
+      return { statuses, attention, agents, runningSince, sources, children }
     })
   /** File-backed project: apply `fn` to its repo config and write the file back. False when not file-backed. */
   const editFile = (projectId: string, fn: (c: ProjectConfigV1) => ProjectConfigV1) => {
@@ -291,7 +311,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       })
       loadFailedOnce = false
       if (get().dirty) schedule()
-      get().projects.forEach((p) => void get().loadProjectFile(p.id))
+      get().projects.forEach((p) => {
+        void get().loadProjectFile(p.id)
+        // Rust only lets `run` through for projects it was told about.
+        terminalSetProjectPrefs(p.id, p.agentsCanSpawn === true).catch(() => {})
+      })
     } catch (e) {
       // Fail closed: stay unloaded so nothing is ever saved over real data.
       if (!loadFailedOnce) toast.error(errMsg(e))
@@ -300,7 +324,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, trusted: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, trusted: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, children: {}, runOnStart: {}, envOnStart: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -521,10 +545,10 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       })))
     },
 
-    split: (terminalId, dir) => {
+    split: (terminalId, dir, id) => {
       const hit = find(get().projects, terminalId)
       if (!hit) return
-      const newId = uid()
+      const newId = id ?? uid()
       mutate(mapProject(hit.p.id, (p) => ({
         ...p,
         tabs: p.tabs.map((t) => (t.id === hit.t.id ? { ...t, layout: splitAt(t.layout, terminalId, dir, newId) } : t)),
@@ -532,18 +556,35 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       set((s) => ({ focusedTerminalId: newId, zoomedId: null, cwdFrom: { ...s.cwdFrom, [newId]: terminalId } }))
     },
 
+    addHelper: (parent, id, name) => {
+      if (find(get().projects, id) || !find(get().projects, parent)) return
+      const focused = get().focusedTerminalId
+      get().split(parent, "row", id)
+      set((s) => ({ focusedTerminalId: focused, children: { ...s.children, [parent]: [...(s.children[parent] ?? []), id] } }))
+      get().renameTerminal(id, name)
+    },
+
+    helperClosed: (id) => get().closeTerminal(id),
+
+    setAgentsCanSpawn: (projectId, on) => {
+      mutate(mapProject(projectId, (p) => ({ ...p, agentsCanSpawn: on })))
+      terminalSetProjectPrefs(projectId, on).catch((e) => toast.error(errMsg(e)))
+    },
+
+    // A parent takes its helpers with it.
     closeTerminal: (terminalId) => {
       const hit = find(get().projects, terminalId)
       if (!hit) return
-      kill([terminalId])
-      dropStatuses([terminalId])
-      const layout = removeLeaf(hit.t.layout, terminalId)
+      const ids = withHelpers([terminalId])
+      kill(ids)
+      dropStatuses(ids)
+      const layout = ids.reduce<SplitNode | null>((l, id) => l && removeLeaf(l, id), hit.t.layout)
       mutate(mapProject(hit.p.id, (p) => {
         if (!layout) {
           const tabs = p.tabs.filter((t) => t.id !== hit.t.id)
           return { ...p, tabs, activeTabId: p.activeTabId === hit.t.id ? (tabs[tabs.length - 1]?.id ?? null) : p.activeTabId }
         }
-        const { [terminalId]: _gone, ...names } = hit.t.terminalNames
+        const names = Object.fromEntries(Object.entries(hit.t.terminalNames).filter(([k]) => !ids.includes(k)))
         return { ...p, tabs: p.tabs.map((t) => (t.id === hit.t.id ? { ...t, layout, terminalNames: names } : t)) }
       }))
     },

@@ -11,6 +11,7 @@ interface Ctx {
   tab: TerminalTab
   cwd: string
   projectName: string
+  projectId: string
   visible: boolean
 }
 
@@ -27,6 +28,7 @@ export function SplitView({ node, path, ctx }: { node: SplitNode; path: number[]
         id={node.id}
         cwd={ctx.cwd}
         projectName={ctx.projectName}
+        projectId={ctx.projectId}
         label={terminalLabel(ctx.tab, node.id, titles)}
         status={status}
         focused={focused}

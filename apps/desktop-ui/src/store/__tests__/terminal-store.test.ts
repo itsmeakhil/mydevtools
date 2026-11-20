@@ -3,17 +3,19 @@ const mockLoad = jest.fn()
 const mockKill = jest.fn()
 const mockFileRead = jest.fn()
 const mockFileWrite = jest.fn()
+const mockPrefs = jest.fn()
 jest.mock("@/lib/desktop/terminal-bridge", () => ({
   terminalProjectFileRead: (...a: unknown[]) => mockFileRead(...a),
   terminalProjectFileWrite: (...a: unknown[]) => mockFileWrite(...a),
   saveTerminalState: (...a: unknown[]) => mockSave(...a),
   loadTerminalState: (...a: unknown[]) => mockLoad(...a),
   terminalKill: (...a: unknown[]) => mockKill(...a),
+  terminalSetProjectPrefs: (...a: unknown[]) => mockPrefs(...a),
 }))
 jest.mock("sonner", () => ({ toast: { error: jest.fn() } }))
 
 import { toast } from "sonner"
-import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber, projectView } from "../terminal-store"
+import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber, projectView, withHelpers } from "../terminal-store"
 import { serializeProjectConfig } from "@/lib/terminal/project-config"
 import { DEFAULT_PREFS } from "@/lib/terminal/util"
 import { leafIds, LAYOUT_PRESETS } from "@/lib/terminal/layout"
@@ -24,12 +26,13 @@ beforeEach(() => {
   jest.useFakeTimers()
   mockSave.mockReset().mockResolvedValue(undefined)
   mockKill.mockReset().mockResolvedValue(undefined)
+  mockPrefs.mockReset().mockResolvedValue(undefined)
   mockFileRead.mockReset().mockResolvedValue(null)
   mockFileWrite.mockReset().mockResolvedValue(undefined)
   resetTerminalSaveState()
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
-  useTerminalStore.setState({ projectFiles: {}, trusted: {}, runOnStart: {}, envOnStart: {}, runningSince: {}, projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
+  useTerminalStore.setState({ projectFiles: {}, trusted: {}, runOnStart: {}, envOnStart: {}, runningSince: {}, projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, children: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -607,5 +610,75 @@ describe("terminal store", () => {
     mockLoad.mockResolvedValue({ projects: [], activeProjectId: null })
     await S().load()
     expect(S().prefs).toEqual(DEFAULT_PREFS)
+  })
+
+  describe("helper panes", () => {
+    const setup = () => {
+      S().addProject("/x/app")
+      const parent = leafIds(S().projects[0].tabs[0].layout)[0]
+      S().addHelper(parent, "h1", "tests")
+      return parent
+    }
+    it("spawn-child inserts the helper next to its parent", () => {
+      const parent = setup()
+      const tab = S().projects[0].tabs[0]
+      expect(leafIds(tab.layout)).toEqual([parent, "h1"])
+      expect(tab.terminalNames.h1).toBe("tests")
+      expect(S().children[parent]).toEqual(["h1"])
+      expect(S().focusedTerminalId).not.toBe("h1")
+    })
+    it("ignores spawn-child for an unknown parent or an id already present", () => {
+      const parent = setup()
+      S().addHelper("nope", "h2", "x")
+      S().addHelper(parent, "h1", "again")
+      expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent, "h1"])
+      expect(S().children[parent]).toEqual(["h1"])
+    })
+    it("split uses an explicit new id", () => {
+      S().addProject("/x/app")
+      const id = leafIds(S().projects[0].tabs[0].layout)[0]
+      S().split(id, "col", "fixed")
+      expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([id, "fixed"])
+    })
+    it("closing a parent asks and closes helpers", () => {
+      const parent = setup()
+      const guard = jest.fn((_ids: string[], close: () => void) => close())
+      guard(withHelpers([parent]), () => S().closeTerminal(parent))
+      expect(guard.mock.calls[0][0]).toEqual([parent, "h1"])
+      expect(S().projects[0].tabs).toHaveLength(0)
+      expect(mockKill).toHaveBeenCalledWith(parent)
+      expect(mockKill).toHaveBeenCalledWith("h1")
+      expect(S().children).toEqual({})
+    })
+    it("closing a helper leaves its parent and unlinks it", () => {
+      const parent = setup()
+      S().closeTerminal("h1")
+      expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent])
+      expect(S().children).toEqual({})
+    })
+    it("child-closed drops the leaf and ignores unknown ids", () => {
+      const parent = setup()
+      S().helperClosed("ghost")
+      expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent, "h1"])
+      S().helperClosed("h1")
+      expect(leafIds(S().projects[0].tabs[0].layout)).toEqual([parent])
+      expect(S().children).toEqual({})
+      expect(mockKill).toHaveBeenCalledWith("h1")
+    })
+    it("agentsCanSpawn persists and is pushed to Rust", async () => {
+      S().addProject("/x/app")
+      const id = S().projects[0].id
+      S().setAgentsCanSpawn(id, true)
+      expect(mockPrefs).toHaveBeenCalledWith(id, true)
+      await S().flushNow()
+      expect(mockSave.mock.calls.at(-1)[0].projects[0].agentsCanSpawn).toBe(true)
+    })
+    it("load pushes every project's preference to Rust", async () => {
+      useTerminalStore.setState({ loaded: false })
+      mockLoad.mockResolvedValue({ projects: [{ id: "p1", path: "/a", name: "a", collapsed: false, tabs: [], activeTabId: null, agentsCanSpawn: true }, { id: "p2", path: "/b", name: "b", collapsed: false, tabs: [], activeTabId: null }], activeProjectId: "p1" })
+      await S().load()
+      expect(mockPrefs).toHaveBeenCalledWith("p1", true)
+      expect(mockPrefs).toHaveBeenCalledWith("p2", false)
+    })
   })
 })

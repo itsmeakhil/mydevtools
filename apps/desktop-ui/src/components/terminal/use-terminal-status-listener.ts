@@ -10,6 +10,8 @@ import {
   appQuitCancelled,
   appQuitConfirmed,
   onQuitRequested,
+  onTerminalChildClosed,
+  onTerminalSpawnChild,
   onTerminalAgent,
   onTerminalFocus,
   onTerminalStatus,
@@ -40,6 +42,8 @@ export function subscribeTerminalAttention(onFocus: (id: string) => void, onQuit
       S().setStatus(id, status, message ?? undefined, command ?? undefined, source),
     ))
   keep(onTerminalAgent(({ id, agent }) => S().setAgent(id, agent)))
+  keep(onTerminalSpawnChild(({ parent, id, name }) => S().addHelper(parent, id, name)))
+  keep(onTerminalChildClosed(({ id }) => S().helperClosed(id)))
   keep(onTerminalFocus(({ id }) => onFocus(id)))
   keep(onQuitRequested(({ count }) => {
     // Start saving now so an edit made just before ⌘Q lands while the dialog is up.

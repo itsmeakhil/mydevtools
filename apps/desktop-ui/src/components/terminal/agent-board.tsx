@@ -10,6 +10,7 @@ import { terminalClearWaiting, terminalScreenTail, terminalWrite } from "@/lib/d
 import { ago, encodeInput } from "@/lib/terminal/util"
 import type { TermStatus } from "@/lib/terminal/status"
 import { useTerminalStore } from "@/store/terminal-store"
+import { leafIds } from "@/lib/terminal/layout"
 import { cn } from "@/lib/utils"
 import { AgentTag, StatusDot, terminalLabel } from "./terminal-sidebar"
 
@@ -52,6 +53,9 @@ const BoardCard = React.memo(function BoardCard({ card, status, selected, now, o
   const preview = usePreview(card.id, attention)
   const [reply, setReply] = React.useState("")
   const label = tab ? terminalLabel(tab, card.id, titles) : card.tabName
+  const parentTab = useTerminalStore((s) =>
+    card.parentId ? s.projects.find((p) => p.id === card.projectId)?.tabs.find((x) => leafIds(x.layout).includes(card.parentId!)) : undefined)
+  const parentLabel = card.parentId && parentTab ? terminalLabel(parentTab, card.parentId, titles) : undefined
   const send = () => {
     if (!reply) return
     terminalWrite(card.id, encodeInput(`${reply}\r`)).then(() => setReply(""), (e) => toast.error(errMsg(e)))
@@ -89,6 +93,9 @@ const BoardCard = React.memo(function BoardCard({ card, status, selected, now, o
           </button>
         )}
       </div>
+      {parentLabel && (
+        <p className="mt-1 truncate text-[11px] text-muted-foreground" title={t("helperOf", { parent: parentLabel })}>↳ {parentLabel}</p>
+      )}
       {(card.worktreeBranch || card.since !== undefined) && (
         <div className="mt-1 flex items-center gap-2 text-[11px] text-muted-foreground">
           {card.worktreeBranch && (
@@ -135,9 +142,10 @@ export function AgentBoard() {
   const statuses = useTerminalStore((s) => s.statuses)
   const attention = useTerminalStore((s) => s.attention)
   const runningSince = useTerminalStore((s) => s.runningSince)
+  const children = useTerminalStore((s) => s.children)
   const cols = React.useMemo(
-    () => boardColumns(projects, statuses, attention, runningSince),
-    [projects, statuses, attention, runningSince],
+    () => boardColumns(projects, statuses, attention, runningSince, children),
+    [projects, statuses, attention, runningSince, children],
   )
   const order = React.useMemo(() => COLUMNS.flatMap(([k]) => cols[k]), [cols])
   const [selectedId, setSelectedId] = React.useState<string | null>(null)
