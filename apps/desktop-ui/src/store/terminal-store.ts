@@ -2,7 +2,11 @@ import { create } from "zustand"
 import { toast } from "sonner"
 import { cloneLayout, leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import { needsAttention, type StatusSource, type TermStatus } from "@/lib/terminal/status"
-import { loadTerminalState, saveTerminalState, terminalKill, type CommandEnd, type Worktree } from "@/lib/desktop/terminal-bridge"
+import {
+  loadTerminalState, saveTerminalState, terminalKill, terminalProjectFileRead, terminalProjectFileWrite,
+  type CommandEnd, type Worktree,
+} from "@/lib/desktop/terminal-bridge"
+import { parseProjectConfig, serializeProjectConfig, type ProjectConfigV1, type Workspace } from "@/lib/terminal/project-config"
 import { clampFontSize, DEFAULT_PREFS, FONT_SIZE, normalizePrefs, type TerminalPrefs } from "@/lib/terminal/util"
 
 export interface TerminalTab {
@@ -21,6 +25,18 @@ export interface TerminalProject {
 }
 
 export interface SavedLayout { name: string; layout: SplitNode }
+
+export interface ProjectFile { text: string; config: ProjectConfigV1 }
+
+/** What a project offers in the new-tab menu: its repo file when it has one, else its local saves. */
+export function projectView(p: TerminalProject, files: Record<string, ProjectFile>) {
+  const f = files[p.id]
+  return {
+    fromFile: !!f,
+    commands: f ? (f.config.commands ?? []) : (p.commands ?? []),
+    workspaces: (f ? (f.config.workspaces ?? []) : (p.layouts ?? [])) as Workspace[],
+  }
+}
 
 export interface SavedCommand { name: string; command: string }
 
@@ -80,6 +96,12 @@ interface TerminalState extends TerminalPersisted {
   /** Save a pending debounced change now; resolves once no save is in flight. */
   flushNow: () => Promise<void>
   addProject: (path: string, firstTabName?: string) => void
+  /** Parsed `.mydevtools/terminal.json` per project id (when the repo has one); runtime only. */
+  projectFiles: Record<string, ProjectFile>
+  /** (Re)read a project's repo config; an invalid file keeps the last good one and toasts once. */
+  loadProjectFile: (projectId: string) => Promise<void>
+  /** Write the project's local commands and layouts to a new repo config file. */
+  shareProjectConfig: (projectId: string) => Promise<void>
   removeProject: (id: string) => void
   toggleCollapsed: (id: string) => void
   selectProject: (id: string) => void
@@ -135,7 +157,11 @@ let loadFailedOnce = false
 let loading: Promise<void> | null = null
 
 /** Test hook: clear module-level save/load bookkeeping. */
+/** Last error toasted per project for its repo config file (so a broken file toasts once). */
+const fileErrors = new Map<string, string>()
+
 export function resetTerminalSaveState() {
+  fileErrors.clear()
   clearTimeout(timer)
   inflight = null
   rerun = false
@@ -202,6 +228,20 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       })
       return { statuses, attention, agents, runningSince, sources }
     })
+  /** File-backed project: apply `fn` to its repo config and write the file back. False when not file-backed. */
+  const editFile = (projectId: string, fn: (c: ProjectConfigV1) => ProjectConfigV1) => {
+    const f = get().projectFiles[projectId]
+    const p = get().projects.find((x) => x.id === projectId)
+    if (!f || !p) return false
+    const config = fn(f.config)
+    const text = serializeProjectConfig(config)
+    set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config } } }))
+    terminalProjectFileWrite(p.path, text).catch((e) => {
+      toast.error(errMsg(e))
+      void get().loadProjectFile(projectId) // back to what's actually on disk
+    })
+    return true
+  }
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
     projects: s.projects.map((p) => (p.id === id ? fn(p) : p)),
   })
@@ -224,6 +264,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       })
       loadFailedOnce = false
       if (get().dirty) schedule()
+      get().projects.forEach((p) => void get().loadProjectFile(p.id))
     } catch (e) {
       // Fail closed: stay unloaded so nothing is ever saved over real data.
       if (!loadFailedOnce) toast.error(errMsg(e))
@@ -232,7 +273,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -256,6 +297,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         collapsed: false, tabs: [tab], activeTabId: tab.id, tabSeq: 1,
       }
       mutate((s) => ({ projects: [...s.projects, project], activeProjectId: project.id }))
+      void get().loadProjectFile(project.id)
     },
 
     removeProject: (id) => {
@@ -324,20 +366,71 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const name = cmd.name.trim()
       const command = cmd.command.trim()
       if (!command) return
-      mutate(mapProject(projectId, (p) => ({ ...p, commands: [...(p.commands ?? []), { name: name || command, command }] })))
+      const entry = { name: name || command, command }
+      if (editFile(projectId, (c) => ({ ...c, commands: [...(c.commands ?? []), entry] }))) return
+      mutate(mapProject(projectId, (p) => ({ ...p, commands: [...(p.commands ?? []), entry] })))
     },
 
     saveLayout: (projectId, tabId) => {
       const tab = get().projects.find((p) => p.id === projectId)?.tabs.find((t) => t.id === tabId)
       if (!tab || tab.layout.kind === "leaf") return // a single pane is just "New tab"
-      mutate(mapProject(projectId, (p) => ({ ...p, layouts: [...(p.layouts ?? []), { name: tab.name, layout: tab.layout }] })))
+      const entry = { name: tab.name, layout: tab.layout }
+      if (editFile(projectId, (c) => ({ ...c, workspaces: [...(c.workspaces ?? []), entry] }))) return
+      mutate(mapProject(projectId, (p) => ({ ...p, layouts: [...(p.layouts ?? []), entry] })))
     },
 
-    removeLayout: (projectId, index) =>
-      mutate(mapProject(projectId, (p) => ({ ...p, layouts: (p.layouts ?? []).filter((_, i) => i !== index) }))),
+    removeLayout: (projectId, index) => {
+      if (editFile(projectId, (c) => ({ ...c, workspaces: (c.workspaces ?? []).filter((_, i) => i !== index) }))) return
+      mutate(mapProject(projectId, (p) => ({ ...p, layouts: (p.layouts ?? []).filter((_, i) => i !== index) })))
+    },
 
-    removeCommand: (projectId, index) =>
-      mutate(mapProject(projectId, (p) => ({ ...p, commands: (p.commands ?? []).filter((_, i) => i !== index) }))),
+    removeCommand: (projectId, index) => {
+      if (editFile(projectId, (c) => ({ ...c, commands: (c.commands ?? []).filter((_, i) => i !== index) }))) return
+      mutate(mapProject(projectId, (p) => ({ ...p, commands: (p.commands ?? []).filter((_, i) => i !== index) })))
+    },
+
+    loadProjectFile: async (projectId) => {
+      const p = get().projects.find((x) => x.id === projectId)
+      if (!p) return
+      const fail = (error: string) => {
+        if (fileErrors.get(projectId) === error) return
+        fileErrors.set(projectId, error)
+        toast.error(error)
+      }
+      let text: string | null
+      try {
+        text = await terminalProjectFileRead(p.path)
+      } catch (e) {
+        return fail(errMsg(e))
+      }
+      if (text === null || text === undefined) {
+        fileErrors.delete(projectId)
+        if (get().projectFiles[projectId])
+          set((s) => {
+            const { [projectId]: _gone, ...rest } = s.projectFiles
+            return { projectFiles: rest }
+          })
+        return
+      }
+      const parsed = parseProjectConfig(text)
+      if (!parsed.ok) return fail(`${p.path}/.mydevtools/terminal.json: ${parsed.error}`)
+      fileErrors.delete(projectId)
+      const file = { text, config: parsed.config }
+      set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: file } }))
+    },
+
+    shareProjectConfig: async (projectId) => {
+      const p = get().projects.find((x) => x.id === projectId)
+      if (!p) return
+      const config: ProjectConfigV1 = { version: 1, commands: p.commands, workspaces: p.layouts }
+      const text = serializeProjectConfig(config)
+      try {
+        await terminalProjectFileWrite(p.path, text)
+        set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config } } }))
+      } catch (e) {
+        toast.error(errMsg(e))
+      }
+    },
 
     closeTab: (projectId, tabId) => {
       const t = get().projects.find((p) => p.id === projectId)?.tabs.find((x) => x.id === tabId)

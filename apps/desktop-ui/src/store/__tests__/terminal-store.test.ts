@@ -1,7 +1,11 @@
 const mockSave = jest.fn()
 const mockLoad = jest.fn()
 const mockKill = jest.fn()
+const mockFileRead = jest.fn()
+const mockFileWrite = jest.fn()
 jest.mock("@/lib/desktop/terminal-bridge", () => ({
+  terminalProjectFileRead: (...a: unknown[]) => mockFileRead(...a),
+  terminalProjectFileWrite: (...a: unknown[]) => mockFileWrite(...a),
   saveTerminalState: (...a: unknown[]) => mockSave(...a),
   loadTerminalState: (...a: unknown[]) => mockLoad(...a),
   terminalKill: (...a: unknown[]) => mockKill(...a),
@@ -9,7 +13,8 @@ jest.mock("@/lib/desktop/terminal-bridge", () => ({
 jest.mock("sonner", () => ({ toast: { error: jest.fn() } }))
 
 import { toast } from "sonner"
-import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber } from "../terminal-store"
+import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber, projectView } from "../terminal-store"
+import { serializeProjectConfig } from "@/lib/terminal/project-config"
 import { DEFAULT_PREFS } from "@/lib/terminal/util"
 import { leafIds, LAYOUT_PRESETS } from "@/lib/terminal/layout"
 
@@ -19,10 +24,12 @@ beforeEach(() => {
   jest.useFakeTimers()
   mockSave.mockReset().mockResolvedValue(undefined)
   mockKill.mockReset().mockResolvedValue(undefined)
+  mockFileRead.mockReset().mockResolvedValue(null)
+  mockFileWrite.mockReset().mockResolvedValue(undefined)
   resetTerminalSaveState()
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
-  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
+  useTerminalStore.setState({ projectFiles: {}, projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -227,6 +234,58 @@ describe("terminal store", () => {
     expect(JSON.stringify(mockSave.mock.calls.at(-1)![0])).not.toContain("s3cret")
     expect(S().takeEnvOnStart(id)).toEqual({ PGPASSWORD: "s3cret" })
     expect(S().takeEnvOnStart(id)).toBeUndefined()
+  })
+
+  describe("repo config file", () => {
+    const good = serializeProjectConfig({ version: 1, commands: [{ name: "Dev", command: "npm run dev" }] })
+
+    it("commands come from the file when there is one", async () => {
+      S().addProject("/x/a")
+      const p = S().projects[0]
+      mockFileRead.mockResolvedValue(good)
+      await S().loadProjectFile(p.id)
+      expect(mockFileRead).toHaveBeenCalledWith("/x/a")
+      expect(projectView(S().projects[0], S().projectFiles)).toMatchObject({ fromFile: true, commands: [{ name: "Dev", command: "npm run dev" }] })
+    })
+
+    it("invalid file keeps last good config and toasts once per error", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      mockFileRead.mockResolvedValue(good)
+      await S().loadProjectFile(id)
+      ;(toast.error as jest.Mock).mockClear()
+      mockFileRead.mockResolvedValue("{ broken")
+      await S().loadProjectFile(id)
+      await S().loadProjectFile(id)
+      expect(projectView(S().projects[0], S().projectFiles).commands).toEqual([{ name: "Dev", command: "npm run dev" }])
+      expect(toast.error).toHaveBeenCalledTimes(1)
+      expect(mockFileWrite).not.toHaveBeenCalled()
+    })
+
+    it("edits to a file-backed project are written back to the file, not the local state", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      mockFileRead.mockResolvedValue(good)
+      await S().loadProjectFile(id)
+      S().addCommand(id, { name: "Test", command: "npm test" })
+      await jest.advanceTimersByTimeAsync(0)
+      expect(mockFileWrite).toHaveBeenCalledWith("/x/a", expect.stringContaining('"command": "npm test"'))
+      expect(S().projects[0].commands).toBeUndefined()
+      expect(projectView(S().projects[0], S().projectFiles).commands).toHaveLength(2)
+    })
+
+    it("share writes the local commands and layouts to a new file", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      S().addCommand(id, { name: "Dev", command: "npm run dev" })
+      S().newTab(id, "Grid", { layout: LAYOUT_PRESETS.grid })
+      S().saveLayout(id, S().projects[0].tabs.at(-1)!.id)
+      await S().shareProjectConfig(id)
+      const text = mockFileWrite.mock.calls[0][1] as string
+      expect(text).toContain('"name": "Grid"')
+      expect(text).toContain('"command": "npm run dev"')
+      expect(projectView(S().projects[0], S().projectFiles).fromFile).toBe(true)
+    })
   })
 
   it("saved commands: add trims and names blank ones after the command, remove by index", () => {

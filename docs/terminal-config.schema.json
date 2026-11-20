@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/itsmeakhil/mydevtools/main/docs/terminal-config.schema.json",
+  "title": "MyDevTools terminal config (.mydevtools/terminal.json)",
+  "description": "Shared launch commands and workspaces for a project's terminal. Environments are referenced by Environment Manager set name; never put secret values here. MyDevTools runs nothing from this file until you trust its exact content.",
+  "type": "object",
+  "required": ["version"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "const": 1 },
+    "commands": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "required": ["name", "command"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "maxLength": 200 },
+          "command": { "type": "string", "minLength": 1, "maxLength": 4096 }
+        }
+      }
+    },
+    "workspaces": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "required": ["name", "layout"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "maxLength": 200 },
+          "layout": { "$ref": "#/$defs/node" },
+          "worktree": { "type": "string", "description": "Open the workspace in its own git worktree; this is the task (branch) name." },
+          "panes": {
+            "type": "array",
+            "maxItems": 16,
+            "description": "One entry per pane, in the layout's pane order.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "command": { "type": "string", "maxLength": 4096 },
+                "env": { "type": "string", "description": "Environment Manager set name, e.g. \"api · staging\"." }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "node": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "id"],
+          "properties": { "kind": { "const": "leaf" }, "id": { "type": "string", "maxLength": 64 } }
+        },
+        {
+          "type": "object",
+          "required": ["kind", "dir", "children", "sizes"],
+          "properties": {
+            "kind": { "const": "split" },
+            "dir": { "enum": ["row", "col"] },
+            "children": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/node" } },
+            "sizes": { "type": "array", "minItems": 2, "items": { "type": "number", "exclusiveMinimum": 0 } }
+          }
+        }
+      ]
+    }
+  }
+}
