@@ -8,5 +8,6 @@ pub mod notify;
 pub mod osc;
 pub mod paste;
 pub mod project_file;
+pub mod ports;
 pub mod pty;
 pub mod restore;
