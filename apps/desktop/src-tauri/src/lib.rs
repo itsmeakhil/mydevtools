@@ -265,6 +265,8 @@ pub fn run() {
             terminal::git::terminal_git_info,
             terminal::pty::terminal_screen_tail,
             terminal::paste::terminal_save_image,
+            terminal::project_file::terminal_project_file_read,
+            terminal::project_file::terminal_project_file_write,
             terminal::notify::terminal_set_notify,
             terminal::git::terminal_worktree_add,
             terminal::git::terminal_worktree_remove,

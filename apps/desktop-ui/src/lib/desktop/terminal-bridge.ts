@@ -50,6 +50,11 @@ export const terminalStatuses = () => invoke<Record<string, TermStatus>>("termin
 export const terminalScreenTail = (id: string, lines: number) => invoke<string>("terminal_screen_tail", { id, lines })
 /** Save a pasted PNG (base64) as an owner-only file in the app's data dir; resolves to its path. */
 export const terminalSaveImage = (pngB64: string) => invoke<string>("terminal_save_image", { pngB64 })
+/** `<project>/.mydevtools/terminal.json` text, or null when the repo has none (symlinks refused). */
+export const terminalProjectFileRead = (project: string) => invoke<string | null>("terminal_project_file_read", { project })
+/** Replace that file atomically (creates `.mydevtools/`). */
+export const terminalProjectFileWrite = (project: string, text: string) =>
+  invoke<void>("terminal_project_file_write", { project, text })
 export const terminalClearWaiting = (id: string) => invoke<void>("terminal_clear_waiting", { id })
 export const terminalSetViewing = (id: string | null) => invoke<void>("terminal_set_viewing", { id })
 export const terminalSetStrings = (waitingBody: string, doneBody: string, failedBody: string, quitTitle: string) =>

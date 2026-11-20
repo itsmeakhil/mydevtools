@@ -2,7 +2,12 @@ import { create } from "zustand"
 import { toast } from "sonner"
 import { cloneLayout, leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import { needsAttention, type StatusSource, type TermStatus } from "@/lib/terminal/status"
-import { loadTerminalState, saveTerminalState, terminalKill, type CommandEnd, type Worktree } from "@/lib/desktop/terminal-bridge"
+import {
+  loadTerminalState, saveTerminalState, terminalKill, terminalProjectFileRead, terminalProjectFileWrite,
+  type CommandEnd, type Worktree,
+} from "@/lib/desktop/terminal-bridge"
+import { parseProjectConfig, serializeProjectConfig, type ProjectConfigV1, type Workspace } from "@/lib/terminal/project-config"
+import { configHash } from "@/lib/terminal/trust"
 import { clampFontSize, DEFAULT_PREFS, FONT_SIZE, normalizePrefs, type TerminalPrefs } from "@/lib/terminal/util"
 
 export interface TerminalTab {
@@ -22,6 +27,25 @@ export interface TerminalProject {
 
 export interface SavedLayout { name: string; layout: SplitNode }
 
+export interface ProjectFile {
+  text: string
+  config: ProjectConfigV1
+  /** SHA-256 of `text`; empty while being recomputed after an edit made here. */
+  hash: string
+  /** An edit made here to a trusted file: still trusted while its new hash is computed. */
+  pendingTrust?: boolean
+}
+
+/** What a project offers in the new-tab menu: its repo file when it has one, else its local saves. */
+export function projectView(p: TerminalProject, files: Record<string, ProjectFile>) {
+  const f = files[p.id]
+  return {
+    fromFile: !!f,
+    commands: f ? (f.config.commands ?? []) : (p.commands ?? []),
+    workspaces: (f ? (f.config.workspaces ?? []) : (p.layouts ?? [])) as Workspace[],
+  }
+}
+
 export interface SavedCommand { name: string; command: string }
 
 /** Number for the project's next untitled tab. Older saves lack `tabSeq`: use the highest trailing number in tab names. */
@@ -35,6 +59,8 @@ export interface TerminalPersisted {
   optionAsMeta?: boolean
   /** Older saves lack it; normalized on load. */
   prefs?: Partial<TerminalPrefs>
+  /** Project path → SHA-256 of the repo config text the user trusted to run. Local only, never in the repo. */
+  trusted?: Record<string, string>
 }
 
 export interface Attention {
@@ -80,11 +106,26 @@ interface TerminalState extends TerminalPersisted {
   /** Save a pending debounced change now; resolves once no save is in flight. */
   flushNow: () => Promise<void>
   addProject: (path: string, firstTabName?: string) => void
+  /** Parsed `.mydevtools/terminal.json` per project id (when the repo has one); runtime only. */
+  projectFiles: Record<string, ProjectFile>
+  /** (Re)read a project's repo config; an invalid file keeps the last good one and toasts once. */
+  loadProjectFile: (projectId: string) => Promise<void>
+  /** Write the project's local commands and layouts to a new repo config file. */
+  shareProjectConfig: (projectId: string) => Promise<void>
+  trusted: Record<string, string>
+  /** Trust the repo config file only if its text is still `shownText` (what the user reviewed). */
+  trustProjectFile: (projectId: string, shownText: string) => Promise<boolean>
+  /** Whether commands/workspaces may run: always for local saves, only for a trusted repo file. */
+  fileRunAllowed: (projectId: string) => boolean
   removeProject: (id: string) => void
   toggleCollapsed: (id: string) => void
   selectProject: (id: string) => void
   /** `run` is typed into the new pane's shell once it has started; `worktree` makes it a worktree task tab. */
-  newTab: (projectId: string, name?: string, opts?: { run?: string; env?: Record<string, string>; worktree?: Worktree; layout?: SplitNode }) => void
+  newTab: (
+    projectId: string,
+    name?: string,
+    opts?: { run?: string; env?: Record<string, string>; worktree?: Worktree; layout?: SplitNode; panes?: { run?: string; env?: Record<string, string> }[] },
+  ) => void
   takeEnvOnStart: (terminalId: string) => Record<string, string> | undefined
   /** Save a tab's split shape under its name; `removeLayout` by index. */
   saveLayout: (projectId: string, tabId: string) => void
@@ -135,7 +176,11 @@ let loadFailedOnce = false
 let loading: Promise<void> | null = null
 
 /** Test hook: clear module-level save/load bookkeeping. */
+/** Last error toasted per project for its repo config file (so a broken file toasts once). */
+const fileErrors = new Map<string, string>()
+
 export function resetTerminalSaveState() {
+  fileErrors.clear()
   clearTimeout(timer)
   inflight = null
   rerun = false
@@ -160,9 +205,9 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       let ok = false
       do {
         rerun = false
-        const { projects, activeProjectId, fontSize, optionAsMeta, prefs } = get()
+        const { projects, activeProjectId, fontSize, optionAsMeta, prefs, trusted } = get()
         try {
-          await saveTerminalState({ projects, activeProjectId, fontSize, optionAsMeta, prefs })
+          await saveTerminalState({ projects, activeProjectId, fontSize, optionAsMeta, prefs, trusted })
           ok = true
         } catch (e) {
           ok = false
@@ -202,6 +247,27 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       })
       return { statuses, attention, agents, runningSince, sources }
     })
+  /** File-backed project: apply `fn` to its repo config and write the file back. False when not file-backed. */
+  const editFile = (projectId: string, fn: (c: ProjectConfigV1) => ProjectConfigV1) => {
+    const f = get().projectFiles[projectId]
+    const p = get().projects.find((x) => x.id === projectId)
+    if (!f || !p) return false
+    // An edit the user makes here keeps a trusted file trusted; it never vouches for an untrusted one.
+    const wasTrusted = get().fileRunAllowed(projectId)
+    const config = fn(f.config)
+    const text = serializeProjectConfig(config)
+    set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash: "", pendingTrust: wasTrusted } } }))
+    void configHash(text).then((hash) => {
+      if (get().projectFiles[projectId]?.text !== text) return // a newer edit took over
+      set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash } } }))
+      if (wasTrusted) mutate((s) => ({ trusted: { ...s.trusted, [p.path]: hash } }))
+    })
+    terminalProjectFileWrite(p.path, text).catch((e) => {
+      toast.error(errMsg(e))
+      void get().loadProjectFile(projectId) // back to what's actually on disk
+    })
+    return true
+  }
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
     projects: s.projects.map((p) => (p.id === id ? fn(p) : p)),
   })
@@ -219,11 +285,13 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
           fontSize: s.dirty || d.fontSize === undefined ? s.fontSize : clampFontSize(d.fontSize),
           optionAsMeta: s.dirty || d.optionAsMeta === undefined ? s.optionAsMeta : d.optionAsMeta === true,
           prefs: s.dirty || d.prefs === undefined ? s.prefs : normalizePrefs(d.prefs),
+          trusted: { ...(d.trusted ?? {}), ...s.trusted },
           loaded: true,
         }
       })
       loadFailedOnce = false
       if (get().dirty) schedule()
+      get().projects.forEach((p) => void get().loadProjectFile(p.id))
     } catch (e) {
       // Fail closed: stay unloaded so nothing is ever saved over real data.
       if (!loadFailedOnce) toast.error(errMsg(e))
@@ -232,7 +300,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, trusted: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -256,6 +324,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         collapsed: false, tabs: [tab], activeTabId: tab.id, tabSeq: 1,
       }
       mutate((s) => ({ projects: [...s.projects, project], activeProjectId: project.id }))
+      void get().loadProjectFile(project.id)
     },
 
     removeProject: (id) => {
@@ -278,7 +347,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     },
 
     // Opens where the focused pane is, when that pane belongs to this project.
-    newTab: (projectId, name, { run, env, worktree, layout } = {}) => {
+    newTab: (projectId, name, { run, env, worktree, layout, panes } = {}) => {
       const p = get().projects.find((x) => x.id === projectId)
       if (!p) return
       const n = nextTabNumber(p)
@@ -293,8 +362,13 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       // A worktree tab starts in its worktree, not wherever the focused pane is.
       if (!worktree && from && find([p], from))
         set((s) => ({ cwdFrom: { ...s.cwdFrom, ...Object.fromEntries(ids.map((id) => [id, from])) } }))
-      if (run?.trim()) set((s) => ({ runOnStart: { ...s.runOnStart, [leafId]: run.trim() } }))
-      if (env && Object.keys(env).length) set((s) => ({ envOnStart: { ...s.envOnStart, [leafId]: env } }))
+      // `panes` (a workspace) gives each pane its own command/env; `run`/`env` are for the first pane.
+      const perPane = panes ?? [{ run, env }]
+      ids.forEach((id, i) => {
+        const p = perPane[i]
+        if (p?.run?.trim()) set((s) => ({ runOnStart: { ...s.runOnStart, [id]: p.run!.trim() } }))
+        if (p?.env && Object.keys(p.env).length) set((s) => ({ envOnStart: { ...s.envOnStart, [id]: p.env! } }))
+      })
       mutate(mapProject(projectId, (x) => ({ ...x, tabs: [...x.tabs, tab], activeTabId: tab.id, tabSeq: n })))
     },
 
@@ -324,20 +398,91 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const name = cmd.name.trim()
       const command = cmd.command.trim()
       if (!command) return
-      mutate(mapProject(projectId, (p) => ({ ...p, commands: [...(p.commands ?? []), { name: name || command, command }] })))
+      const entry = { name: name || command, command }
+      if (editFile(projectId, (c) => ({ ...c, commands: [...(c.commands ?? []), entry] }))) return
+      mutate(mapProject(projectId, (p) => ({ ...p, commands: [...(p.commands ?? []), entry] })))
     },
 
     saveLayout: (projectId, tabId) => {
       const tab = get().projects.find((p) => p.id === projectId)?.tabs.find((t) => t.id === tabId)
       if (!tab || tab.layout.kind === "leaf") return // a single pane is just "New tab"
-      mutate(mapProject(projectId, (p) => ({ ...p, layouts: [...(p.layouts ?? []), { name: tab.name, layout: tab.layout }] })))
+      const entry = { name: tab.name, layout: tab.layout }
+      if (editFile(projectId, (c) => ({ ...c, workspaces: [...(c.workspaces ?? []), entry] }))) return
+      mutate(mapProject(projectId, (p) => ({ ...p, layouts: [...(p.layouts ?? []), entry] })))
     },
 
-    removeLayout: (projectId, index) =>
-      mutate(mapProject(projectId, (p) => ({ ...p, layouts: (p.layouts ?? []).filter((_, i) => i !== index) }))),
+    removeLayout: (projectId, index) => {
+      if (editFile(projectId, (c) => ({ ...c, workspaces: (c.workspaces ?? []).filter((_, i) => i !== index) }))) return
+      mutate(mapProject(projectId, (p) => ({ ...p, layouts: (p.layouts ?? []).filter((_, i) => i !== index) })))
+    },
 
-    removeCommand: (projectId, index) =>
-      mutate(mapProject(projectId, (p) => ({ ...p, commands: (p.commands ?? []).filter((_, i) => i !== index) }))),
+    removeCommand: (projectId, index) => {
+      if (editFile(projectId, (c) => ({ ...c, commands: (c.commands ?? []).filter((_, i) => i !== index) }))) return
+      mutate(mapProject(projectId, (p) => ({ ...p, commands: (p.commands ?? []).filter((_, i) => i !== index) })))
+    },
+
+    loadProjectFile: async (projectId) => {
+      const p = get().projects.find((x) => x.id === projectId)
+      if (!p) return
+      const fail = (error: string) => {
+        if (fileErrors.get(projectId) === error) return
+        fileErrors.set(projectId, error)
+        toast.error(error)
+      }
+      let text: string | null
+      try {
+        text = await terminalProjectFileRead(p.path)
+      } catch (e) {
+        return fail(errMsg(e))
+      }
+      if (text === null || text === undefined) {
+        fileErrors.delete(projectId)
+        if (get().projectFiles[projectId])
+          set((s) => {
+            const { [projectId]: _gone, ...rest } = s.projectFiles
+            return { projectFiles: rest }
+          })
+        return
+      }
+      const parsed = parseProjectConfig(text)
+      if (!parsed.ok) return fail(`${p.path}/.mydevtools/terminal.json: ${parsed.error}`)
+      fileErrors.delete(projectId)
+      const file = { text, config: parsed.config, hash: await configHash(text) }
+      set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: file } }))
+    },
+
+    trustProjectFile: async (projectId, shownText) => {
+      const p = get().projects.find((x) => x.id === projectId)
+      const f = get().projectFiles[projectId]
+      if (!p || !f || f.text !== shownText) return false // changed since the user looked: trust nothing
+      const hash = await configHash(f.text)
+      if (get().projectFiles[projectId]?.text !== shownText) return false
+      set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { ...s.projectFiles[projectId], hash } } }))
+      mutate((s) => ({ trusted: { ...s.trusted, [p.path]: hash } }))
+      return true
+    },
+
+    fileRunAllowed: (projectId) => {
+      const p = get().projects.find((x) => x.id === projectId)
+      const f = get().projectFiles[projectId]
+      return !f || !!f.pendingTrust || (!!p && !!f.hash && get().trusted[p.path] === f.hash)
+    },
+
+    shareProjectConfig: async (projectId) => {
+      const p = get().projects.find((x) => x.id === projectId)
+      if (!p) return
+      const config: ProjectConfigV1 = { version: 1, commands: p.commands, workspaces: p.layouts }
+      const text = serializeProjectConfig(config)
+      try {
+        await terminalProjectFileWrite(p.path, text)
+        const hash = await configHash(text)
+        set((s) => ({ projectFiles: { ...s.projectFiles, [projectId]: { text, config, hash } } }))
+        // The user just wrote these commands themselves.
+        mutate((s) => ({ trusted: { ...s.trusted, [p.path]: hash } }))
+      } catch (e) {
+        toast.error(errMsg(e))
+      }
+    },
 
     closeTab: (projectId, tabId) => {
       const t = get().projects.find((p) => p.id === projectId)?.tabs.find((x) => x.id === tabId)

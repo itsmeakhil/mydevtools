@@ -5,5 +5,6 @@ pub mod hooks;
 pub mod notify;
 pub mod osc;
 pub mod paste;
+pub mod project_file;
 pub mod pty;
 pub mod restore;
