@@ -3359,6 +3359,8 @@
     "maximizePane": "Maximera panel",
     "restorePane": "Återställ panel",
     "openHome": "Öppna hemmapp",
-    "nextWaitingHint": "Gå till nästa terminal som behöver dig"
+    "nextWaitingHint": "Gå till nästa terminal som behöver dig",
+    "palettePanes": "Terminalrutor",
+    "startAgent": "Starta {agent}"
   }
 }

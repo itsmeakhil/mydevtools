@@ -3359,6 +3359,8 @@
     "maximizePane": "Maksimeer paneel",
     "restorePane": "Herstel paneel",
     "openHome": "Open tuisgids",
-    "nextWaitingHint": "Spring na die volgende terminaal wat jou nodig het"
+    "nextWaitingHint": "Spring na die volgende terminaal wat jou nodig het",
+    "palettePanes": "Terminaalpanele",
+    "startAgent": "Begin {agent}"
   }
 }

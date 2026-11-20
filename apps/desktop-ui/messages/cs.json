@@ -3359,6 +3359,8 @@
     "maximizePane": "Maximalizovat panel",
     "restorePane": "Obnovit panel",
     "openHome": "Otevřít domovskou složku",
-    "nextWaitingHint": "Přejít na další terminál, který vás potřebuje"
+    "nextWaitingHint": "Přejít na další terminál, který vás potřebuje",
+    "palettePanes": "Panely terminálu",
+    "startAgent": "Spustit {agent}"
   }
 }

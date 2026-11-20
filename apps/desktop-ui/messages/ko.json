@@ -3359,6 +3359,8 @@
     "maximizePane": "창 최대화",
     "restorePane": "창 복원",
     "openHome": "홈 폴더 열기",
-    "nextWaitingHint": "응답이 필요한 다음 터미널로 이동"
+    "nextWaitingHint": "응답이 필요한 다음 터미널로 이동",
+    "palettePanes": "터미널 창",
+    "startAgent": "{agent} 시작"
   }
 }

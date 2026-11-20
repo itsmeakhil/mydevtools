@@ -3359,6 +3359,8 @@
     "maximizePane": "ペインを最大化",
     "restorePane": "ペインを元に戻す",
     "openHome": "ホームフォルダを開く",
-    "nextWaitingHint": "対応が必要な次のターミナルへ移動"
+    "nextWaitingHint": "対応が必要な次のターミナルへ移動",
+    "palettePanes": "ターミナルのペイン",
+    "startAgent": "{agent} を起動"
   }
 }

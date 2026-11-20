@@ -3359,6 +3359,8 @@
     "maximizePane": "Phóng to khung",
     "restorePane": "Khôi phục khung",
     "openHome": "Mở thư mục chính",
-    "nextWaitingHint": "Chuyển đến terminal tiếp theo đang cần bạn"
+    "nextWaitingHint": "Chuyển đến terminal tiếp theo đang cần bạn",
+    "palettePanes": "Ô terminal",
+    "startAgent": "Khởi động {agent}"
   }
 }
