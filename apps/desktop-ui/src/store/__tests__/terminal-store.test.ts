@@ -11,7 +11,7 @@ jest.mock("sonner", () => ({ toast: { error: jest.fn() } }))
 import { toast } from "sonner"
 import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber } from "../terminal-store"
 import { DEFAULT_PREFS } from "@/lib/terminal/util"
-import { leafIds } from "@/lib/terminal/layout"
+import { leafIds, LAYOUT_PRESETS } from "@/lib/terminal/layout"
 
 const S = () => useTerminalStore.getState()
 
@@ -202,6 +202,20 @@ describe("terminal store", () => {
     const tab = S().projects[0].tabs.at(-1)!
     expect(tab.worktree).toEqual({ path: "/x/a.worktrees/fix-login", branch: "fix-login" })
     expect(S().cwdFrom[leafIds(tab.layout)[0]]).toBeUndefined()
+  })
+
+  it("layouts: a tab from a template gets fresh panes; saveLayout keeps splits only", () => {
+    S().addProject("/x/a")
+    const pid = S().projects[0].id
+    S().newTab(pid, "Grid", { layout: LAYOUT_PRESETS.grid })
+    const tab = S().projects[0].tabs.at(-1)!
+    expect(leafIds(tab.layout)).toHaveLength(4)
+    expect(leafIds(tab.layout)).not.toContain("a")
+    S().saveLayout(pid, tab.id)
+    S().saveLayout(pid, S().projects[0].tabs[0].id) // single pane: ignored
+    expect(S().projects[0].layouts).toEqual([{ name: "Grid", layout: tab.layout }])
+    S().removeLayout(pid, 0)
+    expect(S().projects[0].layouts).toEqual([])
   })
 
   it("saved commands: add trims and names blank ones after the command, remove by index", () => {

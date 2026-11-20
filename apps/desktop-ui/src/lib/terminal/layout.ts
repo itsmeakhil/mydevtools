@@ -53,3 +53,18 @@ export function replaceLeaf(root: SplitNode, id: string, newId: string): SplitNo
   if (root.kind === "leaf") return root.id === id ? leaf(newId) : root
   return { ...root, children: root.children.map((c) => replaceLeaf(c, id, newId)) }
 }
+
+/** Same split shape and sizes with fresh pane ids (a layout used as a template). */
+export function cloneLayout(root: SplitNode, newId: () => string): SplitNode {
+  return root.kind === "leaf" ? leaf(newId()) : { ...root, children: root.children.map((c) => cloneLayout(c, newId)) }
+}
+
+const split = (dir: "row" | "col", children: SplitNode[]): SplitNode => ({ kind: "split", dir, children, sizes: equal(children.length) })
+
+/** Built-in tab layouts (ids are placeholders: always applied through `cloneLayout`). */
+export const LAYOUT_PRESETS = {
+  columns2: split("row", [leaf("a"), leaf("b")]),
+  rows2: split("col", [leaf("a"), leaf("b")]),
+  columns3: split("row", [leaf("a"), leaf("b"), leaf("c")]),
+  grid: split("row", [split("col", [leaf("a"), leaf("b")]), split("col", [leaf("c"), leaf("d")])]),
+} as const satisfies Record<string, SplitNode>

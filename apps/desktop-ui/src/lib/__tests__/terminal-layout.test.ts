@@ -1,4 +1,4 @@
-import { leaf, splitAt, removeLeaf, leafIds, setSizes, type SplitNode } from "../terminal/layout"
+import { leaf, splitAt, removeLeaf, leafIds, setSizes, cloneLayout, LAYOUT_PRESETS, type SplitNode } from "../terminal/layout"
 
 describe("terminal layout", () => {
   it("splits a leaf into a 50/50 split", () => {
@@ -44,5 +44,14 @@ describe("terminal layout", () => {
     expect(r.kind).toBe("split")
     expect(r.children).toEqual([leaf("a"), leaf("b")])
     expect(r.sizes).toHaveLength(2)
+  })
+
+  it("cloneLayout keeps shape and sizes with fresh ids; presets have the advertised pane counts", () => {
+    let n = 0
+    const c = cloneLayout(LAYOUT_PRESETS.grid, () => `id${++n}`)
+    expect(leafIds(c)).toEqual(["id1", "id2", "id3", "id4"])
+    expect(c).toMatchObject({ kind: "split", dir: "row", sizes: [50, 50] })
+    const counts = Object.values(LAYOUT_PRESETS).map((l) => leafIds(l).length)
+    expect(counts).toEqual([2, 2, 3, 4])
   })
 })
