@@ -14,6 +14,10 @@ pub enum Osc {
     Cwd(String),
     /// OSC 133 A/C or an OSC 7501 root record, with the program's message if any.
     Status(TermStatus, Option<String>),
+    /// OSC 0/2 window title (agent detection reads spinners from it).
+    Title(String),
+    /// OSC 9;4 progress, body after `9;` (e.g. `4;1;-1`).
+    Progress(String),
 }
 
 #[derive(Default, PartialEq)]
@@ -91,6 +95,8 @@ fn parse(body: &str) -> Option<Osc> {
             _ => None,
         },
         "7501" => status_7501(rest),
+        "0" | "2" => Some(Osc::Title(rest.to_string())),
+        "9" if rest.starts_with("4;") => Some(Osc::Progress(rest.to_string())),
         _ => None,
     }
 }
@@ -208,7 +214,10 @@ mod tests {
     #[test]
     fn ignores_other_and_oversized_sequences() {
         let big = format!("\x1b]8;;https://x/{}\x07\x1b]133;C\x07", "a".repeat(MAX_OSC * 2));
-        assert_eq!(scan(&[b"\x1b]0;title\x07", big.as_bytes()]), vec![Osc::Status(TermStatus::Running, None)]);
+        assert_eq!(
+            scan(&[b"\x1b]0;title\x07\x1b]9;4;1;-1\x07\x1b]9;hi\x07", big.as_bytes()]),
+            vec![Osc::Title("title".into()), Osc::Progress("4;1;-1".into()), Osc::Status(TermStatus::Running, None)]
+        );
         // CAN aborts; an ESC not followed by '\' abandons the OSC.
         assert_eq!(scan(&[b"\x1b]133;C\x18\x1b]133;A\x1b[0m"]), vec![]);
         assert_eq!(scan(&[b"\x1b]133;C\x1b]133;A\x07"]), vec![Osc::Status(TermStatus::Idle, None)]);

@@ -1,0 +1,9 @@
+The *.toml agent-detection manifests in this directory are copied unmodified from
+herdr (https://github.com/herdrdev/herdr, distribution/agent-detection/) at commit
+e8d7d9705a7a2c89cef4dd42079379f05685af87.
+
+Copyright the herdr contributors. Licensed under the Apache License, Version 2.0
+(https://www.apache.org/licenses/LICENSE-2.0). The region helpers in ../detect.rs
+are adapted from herdr's src/detect/manifest.rs under the same license.
+
+To update: re-copy the files from upstream and run `cargo test terminal::detect`.
