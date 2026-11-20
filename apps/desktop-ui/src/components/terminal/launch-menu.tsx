@@ -3,10 +3,10 @@
 import * as React from "react"
 import { useTranslations } from "next-intl"
 import { IconChevronDown, IconGitBranch, IconKey, IconTrash } from "@tabler/icons-react"
-import { listEnvSetEntries } from "@/lib/environment-manager-api"
-import { parseEnvPayloadJson } from "@/lib/environment-manager-utils"
-import { decryptData } from "@/lib/encryption"
 import { useCipherKey } from "@/lib/use-cipher-key"
+import { envSetName, loadEnvSets, type EnvSet } from "@/lib/terminal/env-sets"
+import { needsTrust, planWorkspace } from "@/lib/terminal/workspace"
+import type { Workspace } from "@/lib/terminal/project-config"
 import { toPaneEnv } from "@/lib/terminal/env-vars"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
@@ -19,7 +19,39 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { agentName, LAUNCH_AGENTS } from "@/lib/terminal/agents"
 import { terminalWorktreeAdd } from "@/lib/desktop/terminal-bridge"
 import { LAYOUT_PRESETS, type SplitNode } from "@/lib/terminal/layout"
-import { useTerminalStore, type TerminalProject } from "@/store/terminal-store"
+import { projectView, useTerminalStore, type TerminalProject } from "@/store/terminal-store"
+import { TrustDialog } from "./trust-dialog"
+
+const S = () => useTerminalStore.getState()
+const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e))
+type T = ReturnType<typeof useTranslations<"Terminal">>
+
+/** A workspace tab: its layout, each pane's command and environment (by set name), optionally in a worktree. */
+async function openWorkspace(project: TerminalProject, ws: Workspace, key: CryptoKey | null, t: T) {
+  try {
+    const plan = planWorkspace(ws)
+    let sets: EnvSet[] = []
+    if (plan.some((p) => p.envName)) {
+      if (key) sets = await loadEnvSets(key)
+      else toast.error(t("envLocked"))
+    }
+    const panes = plan.map((p) => {
+      if (!p.envName || !key) return { run: p.run }
+      const set = sets.find((s) => envSetName(s) === p.envName)
+      if (!set) {
+        toast.warning(t("envSetMissing", { name: p.envName }))
+        return { run: p.run }
+      }
+      const { env, skipped } = toPaneEnv(set.variables)
+      if (skipped.length) toast.warning(t("envSkipped", { names: skipped.join(", ") }))
+      return { run: p.run, env }
+    })
+    const worktree = ws.worktree ? await terminalWorktreeAdd(project.path, ws.worktree) : undefined
+    S().newTab(project.id, ws.name, { layout: ws.layout, panes, worktree })
+  } catch (e) {
+    toast.error(errMsg(e))
+  }
+}
 
 const PRESETS = [
   ["layoutColumns2", LAYOUT_PRESETS.columns2],
@@ -34,14 +66,26 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
   const [editing, setEditing] = React.useState(false)
   const [worktree, setWorktree] = React.useState(false)
   const [envOpen, setEnvOpen] = React.useState(false)
-  const launch = (name: string, command: string) => useTerminalStore.getState().newTab(project.id, name, { run: command })
-  const commands = project.commands ?? []
+  // Something from the repo file the user asked to run, waiting on trust.
+  const [pending, setPending] = React.useState<(() => void) | null>(null)
+  const files = useTerminalStore((s) => s.projectFiles)
+  const view = projectView(project, files)
+  const key = useCipherKey()
+  /** Run now, unless it comes from an untrusted repo file: then ask first. */
+  const guarded = (run: () => void, needed = true) => {
+    if (view.fromFile && needed && !S().fileRunAllowed(project.id)) setPending(() => run)
+    else run()
+  }
+  const runAgent = (name: string, command: string) => S().newTab(project.id, name, { run: command })
+  const runCommand = (name: string, command: string) => guarded(() => S().newTab(project.id, name, { run: command }))
+  const runWorkspace = (ws: Workspace) => guarded(() => void openWorkspace(project, ws, key, t), needsTrust(ws))
   const activeTab = project.tabs.find((x) => x.id === project.activeTabId)
-  const newLayoutTab = (name: string, layout: SplitNode) => useTerminalStore.getState().newTab(project.id, name, { layout })
+  const newLayoutTab = (name: string, layout: SplitNode) => S().newTab(project.id, name, { layout })
 
   return (
     <>
-      <DropdownMenu>
+      {/* Opening the menu re-reads the repo file, so edits made on disk show up. */}
+      <DropdownMenu onOpenChange={(o) => o && void S().loadProjectFile(project.id)}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="icon" className="h-7 w-5 shrink-0" aria-label={t("launch")} title={t("launch")}>
             <IconChevronDown className="h-3.5 w-3.5" />
@@ -64,15 +108,18 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
           <DropdownMenuSeparator />
           <DropdownMenuLabel>{t("agents")}</DropdownMenuLabel>
           {LAUNCH_AGENTS.map((a) => (
-            <DropdownMenuItem key={a} onSelect={() => launch(agentName(a), a)}>
+            <DropdownMenuItem key={a} onSelect={() => runAgent(agentName(a), a)}>
               {agentName(a)}
               <span className="ml-auto font-mono text-[11px] text-muted-foreground">{a}</span>
             </DropdownMenuItem>
           ))}
           <DropdownMenuSeparator />
-          <DropdownMenuLabel>{t("projectCommands")}</DropdownMenuLabel>
-          {commands.map((c, i) => (
-            <DropdownMenuItem key={i} onSelect={() => launch(c.name, c.command)} title={c.command}>
+          <DropdownMenuLabel>
+            {t("projectCommands")}
+            {view.fromFile && <span className="block text-[11px] font-normal text-muted-foreground">{t("fromRepoFile")}</span>}
+          </DropdownMenuLabel>
+          {view.commands.map((c, i) => (
+            <DropdownMenuItem key={i} onSelect={() => runCommand(c.name, c.command)} title={c.command}>
               <span className="min-w-0 truncate">{c.name}</span>
             </DropdownMenuItem>
           ))}
@@ -86,9 +133,9 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
               {t(key)}
             </DropdownMenuItem>
           ))}
-          {(project.layouts ?? []).map((l, i) => (
-            <DropdownMenuItem key={`saved-${i}`} onSelect={() => newLayoutTab(l.name, l.layout)}>
-              <span className="min-w-0 truncate">{l.name}</span>
+          {view.workspaces.map((w, i) => (
+            <DropdownMenuItem key={`saved-${i}`} onSelect={() => runWorkspace(w)}>
+              <span className="min-w-0 truncate">{w.name}</span>
             </DropdownMenuItem>
           ))}
           <DropdownMenuItem
@@ -103,6 +150,19 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
       <CommandsDialog project={project} open={editing} onOpenChange={setEditing} />
       <WorktreeDialog project={project} open={worktree} onOpenChange={setWorktree} />
       {envOpen && <EnvDialog project={project} onOpenChange={setEnvOpen} />}
+      {pending && files[project.id] && (
+        <TrustDialog
+          path={`${project.path}/.mydevtools/terminal.json`}
+          config={files[project.id].config}
+          onCancel={() => setPending(null)}
+          onTrust={async () => {
+            const run = pending
+            setPending(null)
+            await S().trustProjectFile(project.id)
+            if (S().fileRunAllowed(project.id)) run()
+          }}
+        />
+      )}
     </>
   )
 }
@@ -111,7 +171,8 @@ function CommandsDialog({ project, open, onOpenChange }: { project: TerminalProj
   const t = useTranslations("Terminal")
   const [name, setName] = React.useState("")
   const [command, setCommand] = React.useState("")
-  const commands = project.commands ?? []
+  const files = useTerminalStore((s) => s.projectFiles)
+  const { commands, workspaces, fromFile } = projectView(project, files)
   const add = (e: React.FormEvent) => {
     e.preventDefault()
     if (!command.trim()) return
@@ -127,6 +188,15 @@ function CommandsDialog({ project, open, onOpenChange }: { project: TerminalProj
           <DialogTitle>{t("commandsTitle", { name: project.name })}</DialogTitle>
           <DialogDescription>{t("commandsBody")}</DialogDescription>
         </DialogHeader>
+        {fromFile ? (
+          <p className="text-[12px] text-muted-foreground">{t("fromRepoFile")}</p>
+        ) : (
+          (commands.length > 0 || workspaces.length > 0) && (
+            <Button variant="outline" size="sm" className="justify-self-start" onClick={() => void S().shareProjectConfig(project.id)}>
+              {t("shareToRepo")}
+            </Button>
+          )
+        )}
         {commands.length === 0 ? (
           <p className="text-[13px] text-muted-foreground">{t("noCommands")}</p>
         ) : (
@@ -151,11 +221,11 @@ function CommandsDialog({ project, open, onOpenChange }: { project: TerminalProj
             ))}
           </ul>
         )}
-        {(project.layouts ?? []).length > 0 && (
+        {workspaces.length > 0 && (
           <div className="grid gap-1 border-t border-border pt-3">
             <p className="text-[11px] font-semibold text-muted-foreground">{t("savedLayouts")}</p>
             <ul className="space-y-1">
-              {(project.layouts ?? []).map((l, i) => (
+              {workspaces.map((l, i) => (
                 <li key={i} className="flex items-center gap-2 rounded-md border border-border px-2 py-1.5 text-[13px]">
                   <span className="min-w-0 flex-1 truncate">{l.name}</span>
                   <Button
@@ -229,8 +299,6 @@ function WorktreeDialog({ project, open, onOpenChange }: { project: TerminalProj
   )
 }
 
-interface EnvSet { project: string; environment: string; variables: { key: string; value: string }[] }
-
 /**
  * New tab whose shell gets an Environment Manager set as env vars. Decrypted here, held in memory
  * until the pane spawns, never saved with the terminal and never typed into it.
@@ -242,14 +310,9 @@ function EnvDialog({ project, onOpenChange }: { project: TerminalProject; onOpen
   React.useEffect(() => {
     if (!key) return
     let live = true
-    listEnvSetEntries()
-      .then((rows) =>
-        Promise.all(rows.map((r) => decryptData(key, r.encryptedData, r.iv).then(parseEnvPayloadJson, () => null))),
-      )
-      .then((decoded) => {
-        if (live) setSets(decoded.flatMap((d) => (d ? [{ project: d.project, environment: d.environment, variables: d.variables }] : [])))
-      })
-      .catch((e) => toast.error(e instanceof Error ? e.message : String(e)))
+    loadEnvSets(key)
+      .then((loaded) => live && setSets(loaded))
+      .catch((e) => toast.error(errMsg(e)))
     return () => {
       live = false
     }
@@ -258,7 +321,7 @@ function EnvDialog({ project, onOpenChange }: { project: TerminalProject; onOpen
   const open = (s: EnvSet) => {
     const { env, skipped } = toPaneEnv(s.variables)
     if (skipped.length) toast.warning(t("envSkipped", { names: skipped.join(", ") }))
-    useTerminalStore.getState().newTab(project.id, `${s.project} · ${s.environment}`, { env })
+    S().newTab(project.id, envSetName(s), { env })
     onOpenChange(false)
   }
 
@@ -282,7 +345,7 @@ function EnvDialog({ project, onOpenChange }: { project: TerminalProject; onOpen
                   onClick={() => open(s)}
                   className="flex w-full items-center gap-2 rounded-md border border-border px-2.5 py-2 text-left text-[13px] hover:bg-foreground/[0.05]"
                 >
-                  <span className="min-w-0 flex-1 truncate">{s.project} · {s.environment}</span>
+                  <span className="min-w-0 flex-1 truncate">{envSetName(s)}</span>
                   <span className="shrink-0 text-[12px] text-muted-foreground">{t("envVarsCount", { count: s.variables.length })}</span>
                 </button>
               </li>

