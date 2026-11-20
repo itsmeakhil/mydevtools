@@ -3340,6 +3340,7 @@
     "commandFailed": "Afsluitcode {code} na {duration}",
     "statusRunning": "Actief",
     "statusIdle": "Inactief",
+    "statusVia": "Gemeld {source, select, program {door het programma} screen {op basis van het scherm} other {door de shell}}",
     "shortcutsTitle": "Sneltoetsen",
     "board": "Triagebord",
     "boardBlocked": "Wacht op jou",

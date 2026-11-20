@@ -3340,6 +3340,7 @@
     "commandFailed": "Код виходу {code} через {duration}",
     "statusRunning": "Працює",
     "statusIdle": "Простоює",
+    "statusVia": "{source, select, program {Повідомлено програмою} screen {Визначено за екраном} other {Повідомлено оболонкою}}",
     "shortcutsTitle": "Комбінації клавіш",
     "board": "Дошка розбору",
     "boardBlocked": "Чекають на вас",

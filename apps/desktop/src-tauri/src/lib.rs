@@ -174,9 +174,11 @@ pub fn run() {
                 terminal::notify::forget(&handle, id)
             }));
             let handle = app.handle().clone();
-            let _ = term.on_status.set(std::sync::Arc::new(move |id, status, msg, cmd| {
+            let _ = term.on_status.set(std::sync::Arc::new(move |id, source, status, msg, cmd| {
                 let term = handle.state::<std::sync::Arc<terminal::pty::TerminalState>>();
-                if let Some(t) = terminal::hooks::apply_status_if_live(&term, id, status) {
+                // OSC 7501 reports every state, so it takes over from the screen reader for this run.
+                let covers = (source == terminal::hooks::Source::Program).then_some(terminal::hooks::ALL_STATES);
+                if let Some(t) = terminal::hooks::apply_status_if_live(&term, id, source, status, covers) {
                     terminal::hooks::publish(&handle, &t, msg.as_deref(), cmd);
                 }
             }));

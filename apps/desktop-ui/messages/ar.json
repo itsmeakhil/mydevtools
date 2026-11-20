@@ -3340,6 +3340,7 @@
     "commandFailed": "رمز الخروج {code} بعد {duration}",
     "statusRunning": "قيد التشغيل",
     "statusIdle": "خامل",
+    "statusVia": "{source, select, program {أبلغ عنها البرنامج} screen {مقروءة من الشاشة} other {أبلغت عنها الصدفة}}",
     "shortcutsTitle": "اختصارات لوحة المفاتيح",
     "board": "لوحة الفرز",
     "boardBlocked": "بانتظارك",

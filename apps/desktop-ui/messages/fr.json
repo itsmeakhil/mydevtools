@@ -3340,6 +3340,7 @@
     "commandFailed": "Code de sortie {code} après {duration}",
     "statusRunning": "En cours",
     "statusIdle": "Inactif",
+    "statusVia": "Signalé {source, select, program {par le programme} screen {depuis l'écran} other {par le shell}}",
     "shortcutsTitle": "Raccourcis clavier",
     "board": "Tableau de tri",
     "boardBlocked": "Vous attend",

@@ -3340,6 +3340,7 @@
     "commandFailed": "{duration} sonra çıkış kodu {code}",
     "statusRunning": "Çalışıyor",
     "statusIdle": "Boşta",
+    "statusVia": "{source, select, program {Program bildirdi} screen {Ekrandan okundu} other {Kabuk bildirdi}}",
     "shortcutsTitle": "Klavye kısayolları",
     "board": "Önceliklendirme panosu",
     "boardBlocked": "Sizi bekliyor",

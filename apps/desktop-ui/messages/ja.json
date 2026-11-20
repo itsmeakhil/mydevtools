@@ -3340,6 +3340,7 @@
     "commandFailed": "{duration} 後に終了コード {code}",
     "statusRunning": "実行中",
     "statusIdle": "アイドル",
+    "statusVia": "{source, select, program {プログラムからの報告} screen {画面から判定} other {シェルからの報告}}",
     "shortcutsTitle": "キーボードショートカット",
     "board": "トリアージボード",
     "boardBlocked": "あなた待ち",

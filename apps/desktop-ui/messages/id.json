@@ -3340,6 +3340,7 @@
     "commandFailed": "Kode keluar {code} setelah {duration}",
     "statusRunning": "Berjalan",
     "statusIdle": "Menganggur",
+    "statusVia": "Dilaporkan {source, select, program {oleh program} screen {dari layar} other {oleh shell}}",
     "shortcutsTitle": "Pintasan keyboard",
     "board": "Papan triase",
     "boardBlocked": "Menunggu Anda",

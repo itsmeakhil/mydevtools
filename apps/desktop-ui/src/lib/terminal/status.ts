@@ -4,6 +4,9 @@ import { leafIds } from "./layout"
 /** waiting = blocked on the user; done = finished a turn, ready for review. */
 export type TermStatus = "idle" | "running" | "waiting" | "done"
 
+/** Who reported a status: the program itself (hooks, OSC 7501), the shell (OSC 133), or the screen reader. */
+export type StatusSource = "program" | "shell" | "screen"
+
 /** Waiting or done: shown in Needs-you, counted on badges, cleared by looking at the pane. */
 export const needsAttention = (s: TermStatus | undefined): s is "waiting" | "done" => s === "waiting" || s === "done"
 

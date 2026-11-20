@@ -39,6 +39,19 @@ pub fn parse_line(line: &str, token: &str) -> Option<HookMsg> {
     (m.token == token).then_some(m)
 }
 
+/// Who reported a status. A program reporting about itself (hooks, OSC 7501) is the most
+/// precise; the shell (OSC 133) knows only run/prompt; the screen reader guesses.
+#[derive(Serialize, Clone, Copy, PartialEq, Eq, Debug)]
+#[serde(rename_all = "lowercase")]
+pub enum Source {
+    Shell,
+    Program,
+    Screen,
+}
+
+/// States a program source can report; while it is active, the screen reader may only fill the rest.
+pub const ALL_STATES: &[TermStatus] = &[TermStatus::Idle, TermStatus::Running, TermStatus::Waiting, TermStatus::Done];
+
 pub fn status_for(event: &str) -> Option<TermStatus> {
     match event {
         "claude-UserPromptSubmit" | "claude-PreToolUse" => Some(TermStatus::Running),
@@ -55,6 +68,7 @@ pub struct Transition {
     pub status: TermStatus,
     /// Entered Waiting or Done (from anything else, or switched between the two).
     pub entered_waiting: bool,
+    pub source: Source,
 }
 
 /// Shell prompt/exec status arrives in-band as OSC 133 (see `osc.rs`), so it is
@@ -62,28 +76,56 @@ pub struct Transition {
 #[derive(Default)]
 pub struct StatusMap {
     status: HashMap<String, TermStatus>,
+    /// Per pane: the states an active program source reports itself (cleared at the next shell prompt).
+    covers: HashMap<String, &'static [TermStatus]>,
 }
 
 impl StatusMap {
     pub fn apply(&mut self, id: &str, s: TermStatus) -> Option<Transition> {
-        let prev = self.status.insert(id.to_string(), s);
-        (prev != Some(s)).then(|| Transition {
-            id: id.to_string(),
-            status: s,
-            entered_waiting: s.needs_you(),
-        })
+        self.apply_inner(id, s, Source::Program)
     }
 
+    fn apply_inner(&mut self, id: &str, s: TermStatus, source: Source) -> Option<Transition> {
+        let prev = self.status.insert(id.to_string(), s);
+        (prev != Some(s)).then(|| Transition { id: id.to_string(), status: s, entered_waiting: s.needs_you(), source })
+    }
+
+    /// A program source (hooks, OSC 7501) started reporting these states for pane `id`.
+    pub fn set_program_covers(&mut self, id: &str, covers: &'static [TermStatus]) {
+        self.covers.insert(id.to_string(), covers);
+    }
+
+    /// Arbitration: the program owns what it reports, the screen fills the rest, and the shell
+    /// defers to an active program until its next prompt (which ends the program's claims).
+    pub fn apply_from(&mut self, id: &str, source: Source, s: TermStatus) -> Option<Transition> {
+        let covered = self.covers.get(id).copied();
+        match source {
+            Source::Screen if covered.is_some_and(|c| c.contains(&s)) => None,
+            Source::Shell if s == TermStatus::Idle => {
+                self.covers.remove(id);
+                self.apply_inner(id, s, source)
+            }
+            Source::Shell if covered.is_some() => None,
+            _ => self.apply_inner(id, s, source),
+        }
+    }
+
+    /// The user looked at the pane: it no longer needs them.
     pub fn clear_waiting(&mut self, id: &str) -> Option<Transition> {
-        self.status.get(id).is_some_and(|s| s.needs_you()).then(|| self.apply(id, TermStatus::Idle))?
+        self.status
+            .get(id)
+            .is_some_and(|s| s.needs_you())
+            .then(|| self.apply_inner(id, TermStatus::Idle, Source::Shell))?
     }
 
     /// Forget a terminal that was killed or exited; `Some` (as Idle) if it had a status.
     pub fn remove(&mut self, id: &str) -> Option<Transition> {
+        self.covers.remove(id);
         self.status.remove(id).map(|_| Transition {
             id: id.to_string(),
             status: TermStatus::Idle,
             entered_waiting: false,
+            source: Source::Shell,
         })
     }
 
@@ -103,13 +145,27 @@ impl StatusMap {
 /// of a killed/exited pane can arrive after `remove` and would resurrect its status.
 /// Checked under the statuses lock; `forget` runs after exit is marked, so no race.
 pub fn apply_if_live(state: &TerminalState, m: &HookMsg) -> Option<Transition> {
-    apply_status_if_live(state, &m.terminal_id, status_for(&m.event)?)
+    // Claude's hooks report every state, so the screen reader stays out while it runs.
+    apply_status_if_live(state, &m.terminal_id, Source::Program, status_for(&m.event)?, Some(ALL_STATES))
 }
 
 /// Same guard for status read from the PTY output (a kill can race the reader thread).
-pub fn apply_status_if_live(state: &TerminalState, id: &str, s: TermStatus) -> Option<Transition> {
+/// `covers`: for a program source, the states it reports itself.
+pub fn apply_status_if_live(
+    state: &TerminalState,
+    id: &str,
+    source: Source,
+    s: TermStatus,
+    covers: Option<&'static [TermStatus]>,
+) -> Option<Transition> {
     let mut statuses = state.statuses.lock().unwrap();
-    state.is_live(id).then(|| statuses.apply(id, s))?
+    if !state.is_live(id) {
+        return None;
+    }
+    if let Some(c) = covers {
+        statuses.set_program_covers(id, c);
+    }
+    statuses.apply_from(id, source, s)
 }
 
 /// AF_UNIX paths are capped (~104 bytes on macOS); fall back to a short /tmp dir.
@@ -197,7 +253,7 @@ pub async fn serve(
 pub fn publish(app: &AppHandle, t: &Transition, message: Option<&str>, cmd: Option<super::osc::CmdEnd>) {
     let _ = app.emit(
         "terminal://status",
-        json!({"id": t.id, "status": t.status, "message": message, "command": cmd}),
+        json!({"id": t.id, "status": t.status, "message": message, "command": cmd, "source": t.source}),
     );
     notify::on_transition(t, message, cmd, app);
 }
@@ -301,6 +357,22 @@ mod tests {
         assert_eq!(m.waiting_count(), 1);
         assert!(m.apply("a", TermStatus::Waiting).unwrap().entered_waiting);
         assert_eq!(m.clear_waiting("a").unwrap().status, TermStatus::Idle);
+    }
+
+    #[test]
+    fn screen_cannot_override_program_owned_states() {
+        use TermStatus::*;
+        let mut m = StatusMap::default();
+        m.set_program_covers("a", &[Running, Done]);
+        assert_eq!(m.apply_from("a", Source::Program, Done).unwrap().source, Source::Program);
+        assert!(m.apply_from("a", Source::Screen, Running).is_none(), "program owns running");
+        assert_eq!(m.snapshot()["a"], Done);
+        let t = m.apply_from("a", Source::Screen, Waiting).expect("program can't report blocked");
+        assert_eq!((t.status, t.source), (Waiting, Source::Screen));
+        assert!(m.apply_from("a", Source::Shell, Running).is_none(), "shell defers while a program reports");
+        // Back at the shell prompt: the program is gone, so are its claims.
+        assert_eq!(m.apply_from("a", Source::Shell, Idle).unwrap().status, Idle);
+        assert_eq!(m.apply_from("a", Source::Screen, Running).unwrap().status, Running);
     }
 
     #[test]

@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { toast } from "sonner"
 import { cloneLayout, leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
-import { needsAttention, type TermStatus } from "@/lib/terminal/status"
+import { needsAttention, type StatusSource, type TermStatus } from "@/lib/terminal/status"
 import { loadTerminalState, saveTerminalState, terminalKill, type CommandEnd, type Worktree } from "@/lib/desktop/terminal-bridge"
 import { clampFontSize, DEFAULT_PREFS, FONT_SIZE, normalizePrefs, type TerminalPrefs } from "@/lib/terminal/util"
 
@@ -46,6 +46,8 @@ export interface Attention {
 
 interface TerminalState extends TerminalPersisted {
   statuses: Record<string, TermStatus>
+  /** Who last reported each pane's status (shown as a tooltip); not persisted. */
+  sources: Record<string, StatusSource>
   /** Triage board shown instead of the panes (⌘B); session-only. */
   boardOpen: boolean
   toggleBoard: () => void
@@ -104,7 +106,7 @@ interface TerminalState extends TerminalPersisted {
   toggleZoom: (terminalId: string) => void
   resize: (tabId: string, path: number[], sizes: number[]) => void
   focusTerminal: (terminalId: string) => void
-  setStatus: (id: string, s: TermStatus, message?: string, command?: CommandEnd) => void
+  setStatus: (id: string, s: TermStatus, message?: string, command?: CommandEnd, source?: StatusSource) => void
   setAgent: (id: string, agent: string | null) => void
   setTitle: (id: string, title: string) => void
   setFontSize: (size: number) => void
@@ -190,13 +192,15 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const attention = { ...s.attention }
       const agents = { ...s.agents }
       const runningSince = { ...s.runningSince }
+      const sources = { ...s.sources }
       ids.forEach((id) => {
         delete runningSince[id]
+        delete sources[id]
         delete statuses[id]
         delete attention[id]
         delete agents[id]
       })
-      return { statuses, attention, agents, runningSince }
+      return { statuses, attention, agents, runningSince, sources }
     })
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
     projects: s.projects.map((p) => (p.id === id ? fn(p) : p)),
@@ -228,7 +232,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, boardOpen: false, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {}, envOnStart: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -447,20 +451,21 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       }))
     },
 
-    setStatus: (id, s, message, command) =>
+    setStatus: (id, s, message, command, source) =>
       set((st) => {
         if (!find(st.projects, id)) return st
         const { [id]: was, ...attention } = st.attention
         const { [id]: started, ...runningSince } = st.runningSince
+        const sources = source ? { ...st.sources, [id]: source } : st.sources
         if (s === "running") runningSince[id] = started ?? Date.now()
         if (needsAttention(s))
           // Still waiting (e.g. a replay): keep when it started; a new reason replaces the old one.
           attention[id] = { since: was?.since ?? Date.now(), message: message || was?.message, command: command ?? was?.command }
         if (s === "idle") {
           const { [id]: _gone, ...rest } = st.statuses
-          return { statuses: rest, attention, runningSince }
+          return { statuses: rest, attention, runningSince, sources }
         }
-        return { statuses: { ...st.statuses, [id]: s }, attention, runningSince }
+        return { statuses: { ...st.statuses, [id]: s }, attention, runningSince, sources }
       }),
 
     setAgent: (id, agent) =>

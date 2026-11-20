@@ -3340,6 +3340,7 @@
     "commandFailed": "{duration} 후 종료 코드 {code}",
     "statusRunning": "실행 중",
     "statusIdle": "유휴",
+    "statusVia": "{source, select, program {프로그램이 보고함} screen {화면에서 판단함} other {셸이 보고함}}",
     "shortcutsTitle": "키보드 단축키",
     "board": "분류 보드",
     "boardBlocked": "내 응답 대기",

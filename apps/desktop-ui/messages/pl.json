@@ -3340,6 +3340,7 @@
     "commandFailed": "Kod wyjścia {code} po {duration}",
     "statusRunning": "Działa",
     "statusIdle": "Bezczynny",
+    "statusVia": "Zgłoszone {source, select, program {przez program} screen {na podstawie ekranu} other {przez powłokę}}",
     "shortcutsTitle": "Skróty klawiszowe",
     "board": "Tablica priorytetów",
     "boardBlocked": "Czeka na Ciebie",

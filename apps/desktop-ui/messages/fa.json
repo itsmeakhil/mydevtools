@@ -3340,6 +3340,7 @@
     "commandFailed": "کد خروج {code} پس از {duration}",
     "statusRunning": "در حال اجرا",
     "statusIdle": "بیکار",
+    "statusVia": "{source, select, program {گزارش‌شده توسط برنامه} screen {خوانده‌شده از صفحه} other {گزارش‌شده توسط پوسته}}",
     "shortcutsTitle": "میان‌برهای صفحه‌کلید",
     "board": "تخته اولویت‌بندی",
     "boardBlocked": "منتظر شما",

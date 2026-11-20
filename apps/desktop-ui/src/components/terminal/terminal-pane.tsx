@@ -122,6 +122,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   const fontSize = useTerminalStore((s) => s.fontSize)
   const prefs = useTerminalStore((s) => s.prefs)
   const agent = useTerminalStore((s) => s.agents[id])
+  const source = useTerminalStore((s) => s.sources[id])
   const optionAsMeta = useTerminalStore((s) => s.optionAsMeta)
   const zoomed = useTerminalStore((s) => s.zoomedId === id && s.focusedTerminalId === id)
   const guardClose = useCloseGuard()
@@ -489,7 +490,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
             <AgentTag agent={agent} />
             <span
               className={cn("min-w-0 truncate", focused && "text-foreground")}
-              title={label}
+              title={statusLabel && source ? `${label} · ${t("statusVia", { source })}` : label}
               onDoubleClick={() => setRenaming(label)}
             >
               {label}

@@ -3340,6 +3340,7 @@
     "commandFailed": "Kod keluar {code} selepas {duration}",
     "statusRunning": "Sedang berjalan",
     "statusIdle": "Melahu",
+    "statusVia": "Dilaporkan {source, select, program {oleh program} screen {daripada skrin} other {oleh shell}}",
     "shortcutsTitle": "Pintasan papan kekunci",
     "board": "Papan triaj",
     "boardBlocked": "Menunggu anda",
