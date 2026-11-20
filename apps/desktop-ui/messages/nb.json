@@ -3350,6 +3350,7 @@
     "close": "Lukk",
     "copy": "Kopier",
     "paste": "Lim inn",
+    "insertPath": "Sett inn filbane…",
     "clear": "Tøm",
     "optionAsMeta": "Bruk Option som Meta-tast",
     "settings": "Terminalinnstillinger",

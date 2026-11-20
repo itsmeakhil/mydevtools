@@ -3350,6 +3350,7 @@
     "close": "Tutup",
     "copy": "Salin",
     "paste": "Tempel",
+    "insertPath": "Sisipkan jalur file…",
     "clear": "Bersihkan",
     "optionAsMeta": "Gunakan Option sebagai tombol Meta",
     "settings": "Pengaturan terminal",

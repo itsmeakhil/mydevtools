@@ -3350,6 +3350,7 @@
     "close": "Tutup",
     "copy": "Salin",
     "paste": "Tampal",
+    "insertPath": "Sisipkan laluan fail…",
     "clear": "Kosongkan",
     "optionAsMeta": "Guna Option sebagai kekunci Meta",
     "settings": "Tetapan terminal",

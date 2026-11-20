@@ -1,4 +1,4 @@
-import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago, duration, normalizePrefs, DEFAULT_PREFS } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago, duration, normalizePrefs, DEFAULT_PREFS, shellQuote } from "@/lib/terminal/util"
 
 describe("terminal util", () => {
   it("round-trips UTF-8 (emoji, CJK, control bytes) through base64", () => {
@@ -221,6 +221,11 @@ describe("terminal util", () => {
     })
     expect(normalizePrefs({ lineHeight: 9, cursorStyle: "beam", scrollback: -1, copyOnSelect: "yes", fontFamily: 3 })).toEqual(DEFAULT_PREFS)
     expect(normalizePrefs({ fontFamily: "x".repeat(500) }).fontFamily).toHaveLength(200)
+  })
+  it("shellQuote leaves plain paths and single-quotes the rest", () => {
+    expect(shellQuote(["/a/b.txt", "/x/my file.png", "/it's", "/$HOME;rm"])).toBe(
+      "/a/b.txt '/x/my file.png' '/it'\\''s' '/$HOME;rm'",
+    )
   })
   it("duration shows one rounded-down unit", () => {
     expect(duration(45_500, "en")).toBe("45s")

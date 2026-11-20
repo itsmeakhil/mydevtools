@@ -3350,6 +3350,7 @@
     "close": "Stäng",
     "copy": "Kopiera",
     "paste": "Klistra in",
+    "insertPath": "Infoga filsökväg…",
     "clear": "Rensa",
     "optionAsMeta": "Använd Option som Meta-tangent",
     "settings": "Terminalinställningar",

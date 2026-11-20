@@ -3350,6 +3350,7 @@
     "close": "Kapat",
     "copy": "Kopyala",
     "paste": "Yapıştır",
+    "insertPath": "Dosya yolu ekle…",
     "clear": "Temizle",
     "optionAsMeta": "Option tuşunu Meta tuşu olarak kullan",
     "settings": "Terminal ayarları",

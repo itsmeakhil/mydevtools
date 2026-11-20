@@ -3350,6 +3350,7 @@
     "close": "Close",
     "copy": "Copy",
     "paste": "Paste",
+    "insertPath": "Insert file path…",
     "clear": "Clear",
     "optionAsMeta": "Use Option as Meta key",
     "settings": "Terminal settings",

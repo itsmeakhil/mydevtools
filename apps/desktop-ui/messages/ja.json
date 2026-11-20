@@ -3350,6 +3350,7 @@
     "close": "閉じる",
     "copy": "コピー",
     "paste": "ペースト",
+    "insertPath": "ファイルパスを挿入…",
     "clear": "クリア",
     "optionAsMeta": "OptionキーをMetaキーとして使用",
     "settings": "ターミナル設定",

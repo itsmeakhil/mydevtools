@@ -3350,6 +3350,7 @@
     "close": "关闭",
     "copy": "复制",
     "paste": "粘贴",
+    "insertPath": "插入文件路径…",
     "clear": "清屏",
     "optionAsMeta": "将 Option 键用作 Meta 键",
     "settings": "终端设置",

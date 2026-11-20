@@ -3350,6 +3350,7 @@
     "close": "Đóng",
     "copy": "Sao chép",
     "paste": "Dán",
+    "insertPath": "Chèn đường dẫn tệp…",
     "clear": "Xóa màn hình",
     "optionAsMeta": "Dùng Option làm phím Meta",
     "settings": "Cài đặt terminal",

@@ -3350,6 +3350,7 @@
     "close": "Fechar",
     "copy": "Copiar",
     "paste": "Colar",
+    "insertPath": "Inserir caminho do arquivo…",
     "clear": "Limpar",
     "optionAsMeta": "Usar Option como tecla Meta",
     "settings": "Configurações do terminal",

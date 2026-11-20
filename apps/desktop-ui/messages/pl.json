@@ -3350,6 +3350,7 @@
     "close": "Zamknij",
     "copy": "Kopiuj",
     "paste": "Wklej",
+    "insertPath": "Wstaw ścieżkę pliku…",
     "clear": "Wyczyść",
     "optionAsMeta": "Używaj Option jako klawisza Meta",
     "settings": "Ustawienia terminala",
