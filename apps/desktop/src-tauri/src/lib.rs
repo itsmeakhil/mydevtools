@@ -261,6 +261,7 @@ pub fn run() {
             terminal::hooks::terminal_statuses,
             terminal::hooks::terminal_clear_waiting,
             terminal::git::terminal_git_info,
+            terminal::notify::terminal_set_notify,
             terminal::git::terminal_worktree_add,
             terminal::git::terminal_worktree_remove,
             terminal::notify::terminal_set_viewing,

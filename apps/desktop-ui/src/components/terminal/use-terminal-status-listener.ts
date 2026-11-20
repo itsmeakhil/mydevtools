@@ -13,6 +13,7 @@ import {
   onTerminalAgent,
   onTerminalFocus,
   onTerminalStatus,
+  terminalSetNotify,
   terminalSetStrings,
   terminalStatuses,
 } from "@/lib/desktop/terminal-bridge"
@@ -96,6 +97,14 @@ export function useTerminalStatusListener() {
   const t = useTranslations("Terminal")
   const router = useRouter()
   const { confirm, dialog } = useConfirm()
+
+  const notifyBlocked = useTerminalStore((s) => s.prefs.notifyBlocked)
+  const notifyDone = useTerminalStore((s) => s.prefs.notifyDone)
+  const notifySound = useTerminalStore((s) => s.prefs.notifySound)
+  useEffect(() => {
+    if (!isDesktop()) return
+    terminalSetNotify(notifyBlocked, notifyDone, notifySound).catch(() => {}) // best effort: only affects notifications
+  }, [notifyBlocked, notifyDone, notifySound])
 
   useEffect(() => {
     if (!isDesktop()) return

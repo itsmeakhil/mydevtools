@@ -219,3 +219,44 @@ export function duration(ms: number, locale: string): string {
   const [n, unit] = s < 60 ? [s, "second"] : s < 3600 ? [Math.floor(s / 60), "minute"] : [Math.floor(s / 3600), "hour"]
   return new Intl.NumberFormat(locale, { style: "unit", unit, unitDisplay: "narrow" }).format(n)
 }
+
+export type CursorStyle = "block" | "bar" | "underline"
+
+/** User settings for every pane; saved with the terminal state. */
+export interface TerminalPrefs {
+  /** Empty: the system monospace stack. */
+  fontFamily: string
+  lineHeight: number
+  cursorStyle: CursorStyle
+  cursorBlink: boolean
+  scrollback: number
+  copyOnSelect: boolean
+  notifyBlocked: boolean
+  notifyDone: boolean
+  notifySound: boolean
+}
+
+export const DEFAULT_PREFS: TerminalPrefs = {
+  fontFamily: "", lineHeight: 1, cursorStyle: "block", cursorBlink: true, scrollback: 10_000, copyOnSelect: false,
+  notifyBlocked: true, notifyDone: true, notifySound: false,
+}
+export const LINE_HEIGHTS = [1, 1.1, 1.2, 1.3, 1.4] as const
+export const SCROLLBACK_SIZES = [1_000, 5_000, 10_000, 50_000] as const
+
+/** Saved prefs (possibly old, partial or hand-edited) → a complete, in-range set. */
+export function normalizePrefs(raw: unknown): TerminalPrefs {
+  const r = (raw && typeof raw === "object" ? raw : {}) as Partial<Record<keyof TerminalPrefs, unknown>>
+  const bool = (k: keyof TerminalPrefs) => (typeof r[k] === "boolean" ? (r[k] as boolean) : (DEFAULT_PREFS[k] as boolean))
+  const pick = <T,>(v: unknown, allowed: readonly T[], d: T) => (allowed.includes(v as T) ? (v as T) : d)
+  return {
+    fontFamily: typeof r.fontFamily === "string" ? r.fontFamily.slice(0, 200) : DEFAULT_PREFS.fontFamily,
+    lineHeight: pick(r.lineHeight, LINE_HEIGHTS, DEFAULT_PREFS.lineHeight),
+    cursorStyle: pick(r.cursorStyle, ["block", "bar", "underline"] as const, DEFAULT_PREFS.cursorStyle),
+    cursorBlink: bool("cursorBlink"),
+    scrollback: pick(r.scrollback, SCROLLBACK_SIZES, DEFAULT_PREFS.scrollback),
+    copyOnSelect: bool("copyOnSelect"),
+    notifyBlocked: bool("notifyBlocked"),
+    notifyDone: bool("notifyDone"),
+    notifySound: bool("notifySound"),
+  }
+}

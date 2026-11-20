@@ -19,6 +19,10 @@ pub struct Ui {
     waiting_body: Mutex<String>,
     done_body: Mutex<String>,
     failed_body: Mutex<String>,
+    /// User settings: which kinds notify (the badge always counts), and with a sound.
+    notify_blocked: AtomicBool,
+    notify_done: AtomicBool,
+    notify_sound: AtomicBool,
     /// A quit was handed to the UI and not yet answered.
     quit_pending: AtomicBool,
 }
@@ -31,6 +35,9 @@ impl Default for Ui {
             waiting_body: Mutex::new("Claude is waiting for you".into()),
             done_body: Mutex::new("Finished, ready for review".into()),
             failed_body: Mutex::new("Command failed".into()),
+            notify_blocked: AtomicBool::new(true),
+            notify_done: AtomicBool::new(true),
+            notify_sound: AtomicBool::new(false),
             quit_pending: AtomicBool::new(false),
         }
     }
@@ -57,6 +64,10 @@ pub fn on_transition(t: &Transition, message: Option<&str>, cmd: Option<super::o
         return;
     }
     let ui = app.state::<Ui>();
+    let wanted = if t.status == TermStatus::Done { &ui.notify_done } else { &ui.notify_blocked };
+    if !wanted.load(Ordering::Relaxed) {
+        return;
+    }
     let focused = win.and_then(|w| w.is_focused().ok()).unwrap_or(false);
     if !should_notify(focused, ui.viewing.lock().unwrap().as_deref(), &t.id) {
         return;
@@ -68,6 +79,9 @@ pub fn on_transition(t: &Transition, message: Option<&str>, cmd: Option<super::o
     };
     let body = message.map_or_else(|| fallback.lock().unwrap().clone(), str::to_owned);
     let mut b = app.notification().builder().body(body).extra("terminalId", &t.id);
+    if ui.notify_sound.load(Ordering::Relaxed) {
+        b = b.sound("default");
+    }
     // No title → the plugin falls back to productName.
     if let Ok(s) = term.get(&t.id) {
         b = b.title(&s.project_name);
@@ -309,6 +323,13 @@ pub fn terminal_set_strings(
     *ui.waiting_body.lock().unwrap() = waiting_body;
     *ui.done_body.lock().unwrap() = done_body;
     *ui.failed_body.lock().unwrap() = failed_body;
+}
+
+#[tauri::command]
+pub fn terminal_set_notify(ui: State<'_, Ui>, blocked: bool, done: bool, sound: bool) {
+    ui.notify_blocked.store(blocked, Ordering::Relaxed);
+    ui.notify_done.store(done, Ordering::Relaxed);
+    ui.notify_sound.store(sound, Ordering::Relaxed);
 }
 
 #[tauri::command]

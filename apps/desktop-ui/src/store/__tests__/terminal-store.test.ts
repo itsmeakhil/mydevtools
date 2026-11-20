@@ -10,6 +10,7 @@ jest.mock("sonner", () => ({ toast: { error: jest.fn() } }))
 
 import { toast } from "sonner"
 import { useTerminalStore, resetTerminalSaveState, terminalExists, nextTabNumber } from "../terminal-store"
+import { DEFAULT_PREFS } from "@/lib/terminal/util"
 import { leafIds } from "@/lib/terminal/layout"
 
 const S = () => useTerminalStore.getState()
@@ -21,7 +22,7 @@ beforeEach(() => {
   resetTerminalSaveState()
   mockLoad.mockReset()
   ;(toast.error as jest.Mock).mockClear()
-  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, optionAsMeta: false, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
+  useTerminalStore.setState({ projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: 13, cwdFrom: {}, optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null, focusedTerminalId: null, dirty: false, loaded: true })
 })
 afterEach(() => jest.useRealTimers())
 
@@ -409,5 +410,22 @@ describe("terminal store", () => {
     mockLoad.mockResolvedValue({ projects: [], activeProjectId: null })
     await S().load()
     expect(S().optionAsMeta).toBe(false)
+  })
+
+  it("prefs: setPrefs saves only real changes; load normalizes, older saves get defaults", async () => {
+    S().setPrefs({ cursorStyle: "block" }) // already the default
+    expect(S().dirty).toBe(false)
+    S().setPrefs({ cursorStyle: "bar", lineHeight: 7 })
+    expect(S().prefs).toEqual({ ...DEFAULT_PREFS, cursorStyle: "bar" })
+    await jest.advanceTimersByTimeAsync(500)
+    expect(mockSave.mock.calls[0][0].prefs).toEqual({ ...DEFAULT_PREFS, cursorStyle: "bar" })
+    useTerminalStore.setState({ loaded: false, dirty: false, prefs: DEFAULT_PREFS })
+    mockLoad.mockResolvedValue({ projects: [], activeProjectId: null, prefs: { notifySound: true, scrollback: 3 } })
+    await S().load()
+    expect(S().prefs).toEqual({ ...DEFAULT_PREFS, notifySound: true })
+    useTerminalStore.setState({ loaded: false, dirty: false, prefs: DEFAULT_PREFS })
+    mockLoad.mockResolvedValue({ projects: [], activeProjectId: null })
+    await S().load()
+    expect(S().prefs).toEqual(DEFAULT_PREFS)
   })
 })

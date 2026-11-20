@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import {
   IconArrowsMaximize, IconBell, IconFolderPlus, IconGitBranch, IconHome, IconLayoutColumns, IconLayoutRows, IconPlus,
-  IconTerminal2, IconX,
+  IconSettings, IconTerminal2, IconX,
 } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils"
 import { usePaletteActions, type PaletteActionGroup } from "@/lib/palette-actions"
 import { agentName, LAUNCH_AGENTS } from "@/lib/terminal/agents"
 import { LaunchMenu } from "./launch-menu"
+import { TerminalSettings } from "./terminal-settings"
 import { SplitView } from "./split-view"
 import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
 import { anyBusy, CloseGuardContext, useCloseGuard, type CloseGuard } from "./close-guard"
@@ -429,6 +430,7 @@ export function TerminalLayout() {
     [home, t],
   )
 
+  const [settingsOpen, setSettingsOpen] = React.useState(false)
   // ⌘K actions while the Terminal is the open tool.
   const paletteGroup = React.useMemo((): PaletteActionGroup | null => {
     if (!toolActive) return null
@@ -466,6 +468,7 @@ export function TerminalLayout() {
             if (id) st.focusTerminal(id)
           } },
         { id: "terminal-add-project", title: t("addProject"), Icon: IconFolderPlus, run: () => void addProject() },
+        { id: "terminal-settings", title: t("settings"), Icon: IconSettings, run: () => setSettingsOpen(true) },
       ],
     }
   }, [toolActive, t, addProject])
@@ -554,14 +557,26 @@ export function TerminalLayout() {
                 </span>
               )}
               <span className="min-w-0 truncate" title={shownPath}>{tildify(shownPath, home)}</span>
-              {info?.changed != null && info.changed > 0 && (
-                <span className="ml-auto shrink-0 tabular-nums">{t("changedFiles", { count: info.changed })}</span>
-              )}
+              <span className="ml-auto flex shrink-0 items-center gap-3">
+                {info?.changed != null && info.changed > 0 && (
+                  <span className="tabular-nums">{t("changedFiles", { count: info.changed })}</span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setSettingsOpen(true)}
+                  aria-label={t("settings")}
+                  title={t("settings")}
+                  className="rounded p-0.5 hover:bg-foreground/[0.06] hover:text-foreground"
+                >
+                  <IconSettings className="h-3.5 w-3.5" aria-hidden />
+                </button>
+              </span>
             </div>
           </>
         )}
       </div>
       {dialog}
+      {settingsOpen && <TerminalSettings open onOpenChange={setSettingsOpen} />}
     </ToolSidebarLayout>
     </CloseGuardContext.Provider>
   )
