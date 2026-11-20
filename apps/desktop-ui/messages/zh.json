@@ -2091,6 +2091,7 @@
     "toolbar": {
       "moreActions": "More actions",
       "code": "Generate code",
+      "runInTerminal": "在终端中运行",
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",

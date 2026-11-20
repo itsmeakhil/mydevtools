@@ -2091,6 +2091,7 @@
     "toolbar": {
       "moreActions": "More actions",
       "code": "Generate code",
+      "runInTerminal": "Ejecutar en Terminal",
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",

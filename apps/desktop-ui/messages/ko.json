@@ -2091,6 +2091,7 @@
     "toolbar": {
       "moreActions": "More actions",
       "code": "Generate code",
+      "runInTerminal": "터미널에서 실행",
       "save": "Save request",
       "importCurl": "Import cURL",
       "environments": "Environments",

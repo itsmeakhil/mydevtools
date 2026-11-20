@@ -22,6 +22,10 @@ import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
 import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { generateCode } from "./generate-code"
+import { mapStrings, RUN_REQUEST } from "@/lib/terminal/request-curl"
+import { isDesktop } from "@/lib/desktop/is-desktop"
+import { useRouter } from "next/navigation"
+import { openInTerminal } from "@/lib/terminal/open-in-terminal"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
 import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
@@ -43,7 +47,7 @@ import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard, Send, Save, Plus, Plug, Boxes, X, Copy, ArrowRight, ArrowLeft, Link2, Terminal, Layers, Network, Puzzle } from "lucide-react"
+import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard, Send, Save, Plus, Plug, Boxes, X, Copy, ArrowRight, ArrowLeft, Link2, Terminal, SquareTerminal, Layers, Network, Puzzle } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { ensureHttpScheme } from "@/lib/url-normalize"
@@ -122,6 +126,7 @@ function ApiClientInner() {
     const tNet = useTranslations("ApiClient.network")
     const tPlugins = useTranslations("ApiClient.plugins")
     const tSave = useTranslations("ApiClient.saveExample")
+    const router = useRouter()
     const { tabs, activeTabId, activeTab } = useTabs()
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab, updateTab } = useTabsActions()
 
@@ -412,6 +417,30 @@ function ApiClientInner() {
             errorMessage: t("toasts.copyFailed"),
         })
     }, [copyToClipboard, t])
+
+    // Run in Terminal: resolve the request like a send would (variables + vault/env secrets), make it a curl
+    // command, and hand that to a new terminal tab as $REQUEST_CURL so tokens never reach shell history.
+    const runInTerminalImpl = React.useCallback(async () => {
+        try {
+            const tab = withFolderDefaults(activeTab, collections)
+            const collection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+            const secrets = await resolveSecretVariables([JSON.stringify(tab)], cipherKey)
+            const sub = (text: string) => substituteVariables(text, {
+                globals: globalVariables,
+                collection: variablesToRecord(collection?.variables),
+                environment: activeEnvironmentVariables,
+                session: sessionVarsRef.current,
+                secrets,
+            })
+            const curl = generateCode(mapStrings(tab, sub), "curl")
+            await openInTerminal({ name: tab.name || "curl", run: RUN_REQUEST, env: { REQUEST_CURL: curl } }, router.push)
+        } catch (e) {
+            toast.error(e instanceof Error ? e.message : String(e))
+        }
+    }, [activeTab, collections, cipherKey, globalVariables, activeEnvironmentVariables, router])
+    const runInTerminalRef = React.useRef(runInTerminalImpl)
+    React.useEffect(() => { runInTerminalRef.current = runInTerminalImpl }, [runInTerminalImpl])
+    const handleRunInTerminal = React.useCallback(() => void runInTerminalRef.current(), [])
 
     const handleSaveRequest = async (parentId: string, name: string) => {
         const tab = { ...activeTabRef.current, name }
@@ -1336,6 +1365,7 @@ function ApiClientInner() {
                 shortcut("nextTab", t("shortcuts.nextTab"), ArrowRight),
                 shortcut("prevTab", t("shortcuts.prevTab"), ArrowLeft),
                 shortcut("focusUrl", t("shortcuts.focusUrl"), Link2),
+                ...(isDesktop() ? [{ id: "run-in-terminal", title: t("toolbar.runInTerminal"), Icon: SquareTerminal, run: handleRunInTerminal }] : []),
                 { id: "import-curl", title: t("toolbar.importCurl"), Icon: Terminal, run: () => setImportCurlOpen(true) },
                 { id: "import-collection", title: t("toolbar.importCollection"), Icon: Download, run: () => setImportOpen(true) },
                 { id: "generate-code", title: t("toolbar.code"), Icon: IconCode, run: () => setCodeGenOpen(true) },
@@ -1348,7 +1378,7 @@ function ApiClientInner() {
                 ...environments.map((env) => switchEnv(env.id, env.name)),
             ],
         }
-    }, [t, tNav, tNet, tPlugins, isMac, runShortcut, addTab, duplicateTab, environments, setActiveEnvId])
+    }, [t, tNav, tNet, tPlugins, isMac, runShortcut, addTab, duplicateTab, environments, setActiveEnvId, handleRunInTerminal])
     usePaletteActions(paletteGroup)
 
     // Desktop request column — reused whether it sits full-width (no response yet)
