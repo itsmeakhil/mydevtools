@@ -27,6 +27,11 @@ export async function terminalAttach(id: string, onMessage: (m: TerminalChunk) =
   await invoke<void>("terminal_attach", { id, channel })
 }
 
+export interface Worktree { path: string; branch: string }
+/** New branch + checkout for a task, beside the repo (`<repo>.worktrees/<slug>`). */
+export const terminalWorktreeAdd = (path: string, name: string) => invoke<Worktree>("terminal_worktree_add", { path, name })
+/** `git worktree remove` without --force; rejects with git's message when there are changes. */
+export const terminalWorktreeRemove = (path: string) => invoke<void>("terminal_worktree_remove", { path })
 export const terminalWrite = (id: string, b64: string) => invoke<void>("terminal_write", { id, b64 })
 export const terminalResize = (id: string, cols: number, rows: number) =>
   invoke<void>("terminal_resize", { id, cols, rows })

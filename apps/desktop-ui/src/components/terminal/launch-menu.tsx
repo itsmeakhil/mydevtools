@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import { useTranslations } from "next-intl"
-import { IconChevronDown, IconTrash } from "@tabler/icons-react"
+import { IconChevronDown, IconGitBranch, IconTrash } from "@tabler/icons-react"
+import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -11,13 +12,15 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { agentName, LAUNCH_AGENTS } from "@/lib/terminal/agents"
+import { terminalWorktreeAdd } from "@/lib/desktop/terminal-bridge"
 import { useTerminalStore, type TerminalProject } from "@/store/terminal-store"
 
 /** "New tab with…": a coding agent or one of the project's saved commands. */
-export function LaunchMenu({ project }: { project: TerminalProject }) {
+export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRepo: boolean }) {
   const t = useTranslations("Terminal")
   const [editing, setEditing] = React.useState(false)
-  const launch = (name: string, command: string) => useTerminalStore.getState().newTab(project.id, name, command)
+  const [worktree, setWorktree] = React.useState(false)
+  const launch = (name: string, command: string) => useTerminalStore.getState().newTab(project.id, name, { run: command })
   const commands = project.commands ?? []
 
   return (
@@ -29,6 +32,15 @@ export function LaunchMenu({ project }: { project: TerminalProject }) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="min-w-48">
+          {isRepo && (
+            <>
+              <DropdownMenuItem onSelect={() => setWorktree(true)}>
+                <IconGitBranch className="h-4 w-4" aria-hidden />
+                {t("newWorktreeTask")}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </>
+          )}
           <DropdownMenuLabel>{t("agents")}</DropdownMenuLabel>
           {LAUNCH_AGENTS.map((a) => (
             <DropdownMenuItem key={a} onSelect={() => launch(agentName(a), a)}>
@@ -49,6 +61,7 @@ export function LaunchMenu({ project }: { project: TerminalProject }) {
         </DropdownMenuContent>
       </DropdownMenu>
       <CommandsDialog project={project} open={editing} onOpenChange={setEditing} />
+      <WorktreeDialog project={project} open={worktree} onOpenChange={setWorktree} />
     </>
   )
 }
@@ -107,6 +120,46 @@ function CommandsDialog({ project, open, onOpenChange }: { project: TerminalProj
             <Input id="cmd-line" value={command} onChange={(e) => setCommand(e.target.value)} placeholder="npm run dev" className="font-mono" />
           </div>
           <Button type="submit" size="sm" disabled={!command.trim()} className="justify-self-end">{t("addCommand")}</Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+/** New task = new branch + its own checkout, so parallel agents never edit the same files. */
+function WorktreeDialog({ project, open, onOpenChange }: { project: TerminalProject; open: boolean; onOpenChange: (o: boolean) => void }) {
+  const t = useTranslations("Terminal")
+  const [name, setName] = React.useState("")
+  const [busy, setBusy] = React.useState(false)
+  const create = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!name.trim() || busy) return
+    setBusy(true)
+    try {
+      const wt = await terminalWorktreeAdd(project.path, name)
+      useTerminalStore.getState().newTab(project.id, name.trim(), { worktree: wt })
+      setName("")
+      onOpenChange(false)
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : String(err))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>{t("worktreeTitle")}</DialogTitle>
+          <DialogDescription>{t("worktreeBody")}</DialogDescription>
+        </DialogHeader>
+        <form onSubmit={create} className="grid gap-3">
+          <div className="grid gap-1.5">
+            <Label htmlFor="wt-name">{t("taskName")}</Label>
+            <Input id="wt-name" autoFocus value={name} onChange={(e) => setName(e.target.value)} placeholder={t("taskNamePlaceholder")} />
+          </div>
+          <Button type="submit" size="sm" disabled={!name.trim() || busy} className="justify-self-end">{t("createTask")}</Button>
         </form>
       </DialogContent>
     </Dialog>

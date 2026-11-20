@@ -2,10 +2,14 @@ import { create } from "zustand"
 import { toast } from "sonner"
 import { leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import { needsAttention, type TermStatus } from "@/lib/terminal/status"
-import { loadTerminalState, saveTerminalState, terminalKill, type CommandEnd } from "@/lib/desktop/terminal-bridge"
+import { loadTerminalState, saveTerminalState, terminalKill, type CommandEnd, type Worktree } from "@/lib/desktop/terminal-bridge"
 import { clampFontSize, FONT_SIZE } from "@/lib/terminal/util"
 
-export interface TerminalTab { id: string; name: string; layout: SplitNode; terminalNames: Record<string, string> }
+export interface TerminalTab {
+  id: string; name: string; layout: SplitNode; terminalNames: Record<string, string>
+  /** Tab opened as a task in its own git worktree: its panes start there instead of the project folder. */
+  worktree?: Worktree
+}
 export interface TerminalProject {
   id: string; path: string; name: string; collapsed: boolean; tabs: TerminalTab[]; activeTabId: string | null
   /** Highest tab number handed out, so closing tab 1 of [1, 2] still makes the next one 3. */
@@ -62,8 +66,8 @@ interface TerminalState extends TerminalPersisted {
   removeProject: (id: string) => void
   toggleCollapsed: (id: string) => void
   selectProject: (id: string) => void
-  /** `run` is typed into the new pane's shell once it has started. */
-  newTab: (projectId: string, name?: string, run?: string) => void
+  /** `run` is typed into the new pane's shell once it has started; `worktree` makes it a worktree task tab. */
+  newTab: (projectId: string, name?: string, opts?: { run?: string; worktree?: Worktree }) => void
   /** The command queued for a pane's first start, removed as it's read. */
   takeRunOnStart: (terminalId: string) => string | undefined
   addCommand: (projectId: string, cmd: SavedCommand) => void
@@ -248,14 +252,15 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     },
 
     // Opens where the focused pane is, when that pane belongs to this project.
-    newTab: (projectId, name, run) => {
+    newTab: (projectId, name, { run, worktree } = {}) => {
       const p = get().projects.find((x) => x.id === projectId)
       if (!p) return
       const n = nextTabNumber(p)
-      const tab = makeTab(n, name)
+      const tab: TerminalTab = { ...makeTab(n, name), ...(worktree && { worktree }) }
       const leafId = leafIds(tab.layout)[0]
       const from = get().focusedTerminalId
-      if (from && find([p], from)) set((s) => ({ cwdFrom: { ...s.cwdFrom, [leafId]: from } }))
+      // A worktree tab starts in its worktree, not wherever the focused pane is.
+      if (!worktree && from && find([p], from)) set((s) => ({ cwdFrom: { ...s.cwdFrom, [leafId]: from } }))
       if (run?.trim()) set((s) => ({ runOnStart: { ...s.runOnStart, [leafId]: run.trim() } }))
       mutate(mapProject(projectId, (x) => ({ ...x, tabs: [...x.tabs, tab], activeTabId: tab.id, tabSeq: n })))
     },
