@@ -503,6 +503,8 @@ mod tests {
         let count = |m: &str| raw.matches(m).count();
         assert_eq!((count("\x1b]133;A\x07"), count("\x1b]133;C\x07")), (5, 3), "{raw:?}");
         assert!(!raw.contains("\x1b]133;A\x07\x1b]133;C\x07"), "C right after a prompt: {raw:?}");
+        // B (end of prompt) for every prompt, always after its A and before the next C.
+        assert_eq!(assert_b_between_a_and_c(raw), 5, "{raw:?}");
         // D carries each command's exit status, ahead of the next prompt mark (also re-sent
         // on empty Enters, which the app ignores: no C before them).
         assert!(raw.contains("hi there\nthere\n\x1b]133;D;0\x07"), "{raw:?}");
@@ -559,6 +561,81 @@ mod tests {
         assert!(raw.contains("\x1b]133;A\x07") && raw.contains("\x1b]133;C\x07"), "{raw:?}");
         assert!(raw.contains("\x1b]133;D;0\x07") && raw.contains("\x1b]133;D;1\x07"), "{raw:?}");
         assert!(strip_osc(&raw).contains("one"), "{raw:?}");
+        let _ = std::fs::remove_dir_all(&home);
+    }
+
+    /// Every OSC 133 B follows an A with no C between them; returns how many prompts got a B.
+    /// A prompt can carry several B (the line editor redraws the prompt): the last one counts.
+    fn assert_b_between_a_and_c(raw: &str) -> usize {
+        let marks: Vec<&str> = raw.split("\x1b]133;").skip(1).map(|m| &m[..1]).collect();
+        let mut with_b = 0;
+        for (i, m) in marks.iter().enumerate() {
+            if *m == "B" {
+                let prev = marks[..i].iter().rev().find(|k| matches!(**k, "A" | "C"));
+                assert_eq!(prev, Some(&"A"), "B not after a prompt: {marks:?}");
+                if marks[..i].iter().rev().find(|k| matches!(**k, "A" | "B")) == Some(&"A") {
+                    with_b += 1;
+                }
+            }
+        }
+        with_b
+    }
+
+    /// zsh marks the end of the prompt from zle-line-init, which only runs with a terminal.
+    #[test]
+    fn zsh_marks_end_of_prompt_in_a_pty() {
+        use portable_pty::{native_pty_system, CommandBuilder, PtySize};
+        use std::io::{Read, Write};
+        if !Path::new("/bin/zsh").exists() {
+            return;
+        }
+        let home = tmp("zpty");
+        // A theme that rebuilds PROMPT before every prompt (p10k/starship style).
+        std::fs::write(home.join(".zshrc"), "precmd() { PROMPT='theme> ' }\n").unwrap();
+        let app = |k: &str| match k {
+            "PATH" => Some("/usr/bin:/bin".to_string()),
+            "HOME" => Some(home.display().to_string()),
+            _ => None,
+        };
+        let (argv, env) = shell_launch_with("/bin/zsh", &res(), vec![], &app);
+        let pair = native_pty_system().openpty(PtySize { rows: 24, cols: 80, pixel_width: 0, pixel_height: 0 }).unwrap();
+        let mut cmd = CommandBuilder::new(&argv[0]);
+        cmd.args(&argv[1..]);
+        cmd.env_clear();
+        cmd.env("HOME", &home);
+        cmd.env("TERM", "xterm-256color");
+        for (k, v) in &env {
+            cmd.env(k, v);
+        }
+        cmd.cwd(&home);
+        let mut child = pair.slave.spawn_command(cmd).unwrap();
+        drop(pair.slave);
+        let mut rd = pair.master.try_clone_reader().unwrap();
+        let out = std::sync::Arc::new(std::sync::Mutex::new(Vec::new()));
+        let o = out.clone();
+        std::thread::spawn(move || {
+            let mut b = [0u8; 4096];
+            while let Ok(n) = rd.read(&mut b) {
+                if n == 0 {
+                    break;
+                }
+                o.lock().unwrap().extend_from_slice(&b[..n]);
+            }
+        });
+        let mut w = pair.master.take_writer().unwrap();
+        let text = || String::from_utf8_lossy(&out.lock().unwrap()).to_string();
+        let until = |f: &dyn Fn(&str) -> bool| {
+            let t = Instant::now();
+            while t.elapsed() < Duration::from_secs(10) && !f(&text()) {
+                std::thread::sleep(Duration::from_millis(20));
+            }
+        };
+        until(&|s| s.contains("\x1b]133;B\x07"));
+        w.write_all(b"echo one\r").unwrap();
+        until(&|s| s.matches("\x1b]133;B\x07").count() >= 2);
+        let _ = child.kill();
+        let raw = text();
+        assert_eq!(assert_b_between_a_and_c(&raw), 2, "{raw:?}");
         let _ = std::fs::remove_dir_all(&home);
     }
 

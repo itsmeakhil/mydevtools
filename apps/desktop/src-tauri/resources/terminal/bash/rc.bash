@@ -24,7 +24,7 @@ if [ -n "$MDT_SHIM_DIR" ]; then
 fi
 
 # Prompt marks and cwd, written in-band so the app reads them in output order:
-# OSC 133 A = prompt (idle), C = command started (running), D;<exit> = it ended,
+# OSC 133 A = prompt (idle), B = end of prompt, C = command started (running), D;<exit> = it ended,
 # OSC 7 = directory.
 # Our hooks run first and last around the user's PROMPT_COMMAND. "Command started"
 # (C) comes from PS0 on bash >= 4.4, which bash prints once per command line you
@@ -41,6 +41,9 @@ _mdt_prompt_start() {
 _mdt_prompt() {
   local s=$? p=${PWD//\%/%25}
   printf '\e]7;file://%s%s\a\e]133;A\a' "$HOSTNAME" "${p// /%20}"
+  # B = end of prompt, where typed input starts. Re-added each time: themes rebuild PS1
+  # in their own PROMPT_COMMAND entries, which run before this one.
+  [[ $PS1 == *'133;B'* ]] || PS1+='\[\e]133;B\a\]'
   _mdt_ready=1
   : "$_mdt_last"
   return $s
