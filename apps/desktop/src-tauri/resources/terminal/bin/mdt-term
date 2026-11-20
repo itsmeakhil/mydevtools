@@ -1,0 +1,7 @@
+#!/bin/sh
+# MyDevTools Terminal `mdt-term`: agent helper CLI, served by the app binary.
+if [ -z "$MDT_APP_BIN" ]; then
+  echo "mdt-term: MDT_APP_BIN is not set (run it inside a MyDevTools terminal pane)" >&2
+  exit 127
+fi
+exec "$MDT_APP_BIN" term "$@"

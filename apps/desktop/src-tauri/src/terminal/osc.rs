@@ -14,8 +14,10 @@ const MAX_OSC: usize = 4096;
 pub enum Osc {
     /// OSC 7 `file://host/path`: the shell's working directory.
     Cwd(String),
-    /// OSC 133 A (prompt → Idle) or an OSC 7501 root record, with the program's message if any.
+    /// An OSC 7501 root record (the program reporting itself), with its message if any.
     Status(TermStatus, Option<String>),
+    /// OSC 133 A: the shell is back at its prompt.
+    Prompt,
     /// OSC 133 C: a shell command started.
     CommandStart,
     /// OSC 133 D: the command ended, with its exit code when the shell gave one.
@@ -96,7 +98,7 @@ fn parse(body: &str) -> Option<Osc> {
     match code {
         "7" => cwd_from_url(rest).map(Osc::Cwd),
         "133" => match rest.as_bytes().first()? {
-            b'A' => Some(Osc::Status(TermStatus::Idle, None)),
+            b'A' => Some(Osc::Prompt),
             b'C' => Some(Osc::CommandStart),
             b'D' => Some(Osc::CommandEnd(rest.get(2..).and_then(|c| c.parse().ok()))),
             _ => None,
@@ -187,6 +189,11 @@ impl Commands {
         (self.start, self.hold_prompt) = (Some(now), false);
     }
 
+    /// A command started (OSC 133 C) and has not ended yet.
+    pub fn running(&self) -> bool {
+        self.start.is_some()
+    }
+
     /// `agent` = an agent ran in this command (it reports its own status).
     pub fn end(&mut self, code: Option<i32>, now: Instant, agent: bool) -> Option<(TermStatus, CmdEnd)> {
         let took = now.duration_since(self.start.take()?);
@@ -237,7 +244,7 @@ mod tests {
     fn prompt_marks() {
         assert_eq!(
             scan(&[b"\x1b]133;D;0\x07\x1b]133;A\x07$ \x1b]133;B\x07\x1b]133;D;127\x07\x1b]133;D\x07"]),
-            vec![Osc::CommandEnd(Some(0)), Osc::Status(TermStatus::Idle, None), Osc::CommandEnd(Some(127)), Osc::CommandEnd(None)]
+            vec![Osc::CommandEnd(Some(0)), Osc::Prompt, Osc::CommandEnd(Some(127)), Osc::CommandEnd(None)]
         );
     }
 
@@ -291,6 +298,6 @@ mod tests {
         );
         // CAN aborts; an ESC not followed by '\' abandons the OSC.
         assert_eq!(scan(&[b"\x1b]133;C\x18\x1b]133;A\x1b[0m"]), vec![]);
-        assert_eq!(scan(&[b"\x1b]133;C\x1b]133;A\x07"]), vec![Osc::Status(TermStatus::Idle, None)]);
+        assert_eq!(scan(&[b"\x1b]133;C\x1b]133;A\x07"]), vec![Osc::Prompt]);
     }
 }

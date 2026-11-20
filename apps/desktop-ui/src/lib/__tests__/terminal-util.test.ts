@@ -1,4 +1,4 @@
-import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago, duration, normalizePrefs, DEFAULT_PREFS, shellQuote } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago, duration, normalizePrefs, DEFAULT_PREFS, shellQuote, IMAGE_ADDON_OPTIONS } from "@/lib/terminal/util"
 
 describe("terminal util", () => {
   it("round-trips UTF-8 (emoji, CJK, control bytes) through base64", () => {
@@ -54,6 +54,8 @@ describe("terminal util", () => {
     expect(k("BracketLeft", true)).toBe("prevTab")
     expect(k("KeyJ")).toBe("nextWaiting")
     expect(k("Slash")).toBe("shortcuts")
+    expect(k("KeyB")).toBe("board")
+    expect(k("KeyB", true)).toBeNull()
     expect(k("Slash", true)).toBeNull()
     expect(k("KeyW")).toBeNull()
     expect(k("KeyD", false, false)).toBeNull()
@@ -228,6 +230,9 @@ describe("terminal util", () => {
     expect(shellQuote(["/a/b.txt", "/x/my file.png", "/it's", "/$HOME;rm"])).toBe(
       "/a/b.txt '/x/my file.png' '/it'\\''s' '/$HOME;rm'",
     )
+  })
+  it("inline images: sixel + iTerm protocol with bounded pixels and memory", () => {
+    expect(IMAGE_ADDON_OPTIONS).toEqual({ sixelSupport: true, iipSupport: true, pixelLimit: 16_777_216, storageLimit: 32 })
   })
   it("duration shows one rounded-down unit", () => {
     expect(duration(45_500, "en")).toBe("45s")

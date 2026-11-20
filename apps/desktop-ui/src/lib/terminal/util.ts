@@ -92,12 +92,12 @@ export function nextWaiting(ids: string[], current: string | null): string | nul
 
 export type PaneDir = "left" | "right" | "up" | "down"
 export type TerminalShortcut =
-  | "splitRow" | "splitCol" | "newTab" | "nextTab" | "prevTab" | "nextWaiting" | "zoomPane" | "shortcuts"
+  | "splitRow" | "splitCol" | "newTab" | "nextTab" | "prevTab" | "nextWaiting" | "zoomPane" | "shortcuts" | "board"
   | { focus: PaneDir } | { tab: number }
 
 /**
  * ⌘D, ⌘⇧D, ⌘T, ⌘⇧], ⌘⇧[, ⌘J, ⌘⇧↵ (maximize pane), ⌘⌥ arrows (focus pane), ⌘1–⌘9 (tab; ⌘9 = last),
- * ⌘/ (shortcut list).
+ * ⌘/ (shortcut list), ⌘B (triage board).
  * ⌘W is not here: the macOS menu owns it (Rust emits terminal://close-pane).
  */
 export function matchShortcut(e: { metaKey: boolean; ctrlKey: boolean; altKey: boolean; shiftKey: boolean; code: string }): TerminalShortcut | null {
@@ -115,6 +115,7 @@ export function matchShortcut(e: { metaKey: boolean; ctrlKey: boolean; altKey: b
     case "KeyT": return e.shiftKey ? null : "newTab"
     case "KeyJ": return e.shiftKey ? null : "nextWaiting"
     case "Slash": return e.shiftKey ? null : "shortcuts"
+    case "KeyB": return e.shiftKey ? null : "board"
     case "BracketRight": return e.shiftKey ? "nextTab" : null
     case "BracketLeft": return e.shiftKey ? "prevTab" : null
     default: return null
@@ -270,3 +271,6 @@ export function normalizePrefs(raw: unknown): TerminalPrefs {
 export function shellQuote(paths: string[]): string {
   return paths.map((p) => (/^[\w@%+=:,./-]+$/.test(p) ? p : `'${p.replace(/'/g, `'\\''`)}'`)).join(" ")
 }
+
+/** Inline images (sixel, iTerm IIP): one image ≤ 16 MP, all images in a pane ≤ 32 MB. */
+export const IMAGE_ADDON_OPTIONS = { sixelSupport: true, iipSupport: true, pixelLimit: 16_777_216, storageLimit: 32 } as const

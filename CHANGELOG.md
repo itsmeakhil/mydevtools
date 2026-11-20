@@ -69,6 +69,11 @@ Mostly an API Client release: it closes most of the gap with Bruno for day-to-da
 - Open a saved database connection in its own CLI (`psql`, `mysql`, `sqlite3`, `redis-cli`), already signed in. (#457)
 - Open a terminal tab with an Environment Manager environment's variables set. (#458)
 - Run the current API Client request as `curl` in a terminal tab. (#459)
+- A triage board (⌘B): every pane as a card, with what's waiting on you first and the longest wait on top. It shows the last lines of each pane's output, and you can reply to a pane from its card. (#462)
+- Status shows who reported it (the program, the shell, or the screen), and the sources no longer contradict each other. Codex panes report a finished turn exactly through Codex's own `notify` hook; a `notify` you set yourself is never replaced. (#463)
+- Inline images (sixel and iTerm) render in panes. ⌘V with a screenshot on the clipboard saves it as a file and types its path, which is how agents take images. (#464)
+- Commit a project's launch commands and workspaces to `.mydevtools/terminal.json`. A workspace is a split layout with each pane's command, an Environment Manager set by name, and optionally its own git worktree. Nothing from the file runs until you trust its exact content, and any outside edit asks again. (#465)
+- Agents can start helper panes with `mdt-term` (`run`, `send`, `read`, `wait`, `close`; `mdt-term --skill` explains it). Opt in per project in Terminal settings. Helpers show nested under the agent that started them, an agent can only drive its own helpers, there are at most 4 per agent, and helpers can't start helpers. Closing an agent asks, then closes its helpers too.
 - Terminals come back after a restart, with their scrollback and working directory.
 - Closing a terminal always asks first, with a stronger warning when a command is running or an agent is waiting for you. (#461)
 - Restart a pane whose shell has exited. It opens in the same directory.
@@ -88,6 +93,8 @@ Mostly an API Client release: it closes most of the gap with Bruno for day-to-da
 ### Security
 
 - Passwords and tokens handed to the Terminal (database CLIs, environments, API requests) reach only that pane's process as environment variables. They are never typed into the shell or its history, and never saved. Variables that would change how the shell starts, such as `PATH` or `LD_PRELOAD`, are refused. (#457–#459)
+- Repo terminal configs are treated as untrusted: commands, environments and worktrees from `.mydevtools/terminal.json` run only after you approve that exact content. Control, bidirectional-override and zero-width characters are refused so the approval dialog shows exactly what runs, and the file is never read or written through a symlink. (#465)
+- Helper panes are controlled over a local socket only your user can open, with a separate token per pane that panes can't derive for each other. Helpers run with your full access, outside any sandbox the agent itself runs in.
 - Upgraded Next.js from 16.4.3 to 16.4.6 to pick up a security fix. (#438)
 - Every webview page now has a Content Security Policy, which blocks scripts from sending data out through `import()`. (#435)
 

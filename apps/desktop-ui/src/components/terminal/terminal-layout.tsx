@@ -5,14 +5,14 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import {
   IconArrowsMaximize, IconBell, IconFolderPlus, IconGitBranch, IconHome, IconLayoutColumns, IconLayoutRows, IconPlus,
-  IconKeyboard, IconSettings, IconTerminal2, IconX,
+  IconKeyboard, IconLayoutKanban, IconSettings, IconTerminal2, IconX,
 } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
 import { useConfirm } from "@/components/confirm-dialog"
 import { useTabStore } from "@/store/tab-store"
-import { nextTabNumber, useTerminalStore, type TerminalProject } from "@/store/terminal-store"
+import { nextTabNumber, useTerminalStore, withHelpers, type TerminalProject } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
 import { needsAttention, needsYou } from "@/lib/terminal/status"
 import {
@@ -25,6 +25,7 @@ import { agentName, LAUNCH_AGENTS } from "@/lib/terminal/agents"
 import { LaunchMenu } from "./launch-menu"
 import { TerminalSettings } from "./terminal-settings"
 import { ShortcutsDialog } from "./shortcuts-dialog"
+import { AgentBoard } from "./agent-board"
 import { SplitView } from "./split-view"
 import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
 import { anyBusy, CloseGuardContext, useCloseGuard, type CloseGuard } from "./close-guard"
@@ -107,6 +108,7 @@ function TabBar({ project, isRepo, onWorktreeClosed }: {
   project: TerminalProject; isRepo: boolean; onWorktreeClosed: (wt: Worktree) => void
 }) {
   const t = useTranslations("Terminal")
+  const boardOpen = useTerminalStore((s) => s.boardOpen)
   const statuses = useTerminalStore((s) => s.statuses)
   const focusedId = useTerminalStore((s) => s.focusedTerminalId)
   const [editing, setEditing] = React.useState<string | null>(null)
@@ -200,7 +202,7 @@ function TabBar({ project, isRepo, onWorktreeClosed }: {
               <button
                 type="button"
                 onClick={() =>
-                  guardClose(leafIds(tab.layout), () => {
+                  guardClose(withHelpers(leafIds(tab.layout)), () => {
                     S().closeTab(project.id, tab.id)
                     if (tab.worktree) onWorktreeClosed(tab.worktree)
                   })
@@ -252,6 +254,17 @@ function TabBar({ project, isRepo, onWorktreeClosed }: {
       >
         <IconLayoutRows className="h-4 w-4" />
       </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={cn("h-7 w-7", boardOpen && "bg-primary/[0.12] text-foreground")}
+        onClick={() => S().toggleBoard()}
+        aria-pressed={boardOpen}
+        aria-label={t("board")}
+        title={`${t("board")} (⌘B)`}
+      >
+        <IconLayoutKanban className="h-4 w-4" />
+      </Button>
     </div>
   )
 }
@@ -292,6 +305,7 @@ export function TerminalLayout() {
   const windowFocused = useWindowFocused()
   const home = useHomeDir()
   const cwds = useTerminalStore((s) => s.cwds)
+  const boardOpen = useTerminalStore((s) => s.boardOpen)
   const [settingsOpen, setSettingsOpen] = React.useState(false)
   const [shortcutsOpen, setShortcutsOpen] = React.useState(false)
 
@@ -324,13 +338,15 @@ export function TerminalLayout() {
   }, [viewing, viewingWaiting])
   React.useEffect(() => () => void terminalSetViewing(null).catch(() => {}), [])
 
-  // Closing always asks; a running command or waiting agent gets the stronger warning.
+  // Closing always asks; running commands, waiting agents and helper panes get the stronger warning.
   const guardClose = React.useCallback<CloseGuard>(
     async (ids, close) => {
+      const kids = useTerminalStore.getState().children
+      const helpers = ids.filter((id) => kids[id]).reduce((n, id) => n + kids[id].length, 0)
       const busy = anyBusy(ids)
       const ok = await confirm({
-        title: t(busy ? "closeRunningTitle" : "closeTitle"),
-        description: busy ? t("closeRunningBody") : undefined,
+        title: t(helpers || busy ? "closeRunningTitle" : "closeTitle"),
+        description: helpers ? t("closeWithHelpers") : busy ? t("closeRunningBody") : undefined,
         confirmLabel: t("close"),
         cancelLabel: t("cancel"),
         destructive: true,
@@ -350,7 +366,7 @@ export function TerminalLayout() {
     let gone = false
     onClosePane(({ id }) => {
       if (shortcutsBlocked(document.activeElement as HTMLElement | null)) return
-      if (visibleLeaves().includes(id)) guardRef.current([id], () => S().closeTerminal(id))
+      if (visibleLeaves().includes(id)) guardRef.current(withHelpers([id]), () => S().closeTerminal(id))
     })
       .then((u) => (gone ? u() : (unlisten = u)))
       .catch(() => {})
@@ -386,6 +402,9 @@ export function TerminalLayout() {
         return
       }
       switch (action) {
+        case "board":
+          st.toggleBoard()
+          break
         case "shortcuts":
           setShortcutsOpen(true)
           break
@@ -475,6 +494,7 @@ export function TerminalLayout() {
         { id: "terminal-add-project", title: t("addProject"), Icon: IconFolderPlus, run: () => void addProject() },
         { id: "terminal-settings", title: t("settings"), Icon: IconSettings, run: () => setSettingsOpen(true) },
         { id: "terminal-shortcuts", title: t("shortcutsTitle"), hint: "⌘/", Icon: IconKeyboard, run: () => setShortcutsOpen(true) },
+        { id: "terminal-board", title: t("board"), hint: "⌘B", Icon: IconLayoutKanban, run: () => S().toggleBoard() },
       ],
     }
   }, [toolActive, t, addProject])
@@ -528,6 +548,12 @@ export function TerminalLayout() {
           <>
             {project.tabs.length > 0 && <TabBar project={project} isRepo={!!info?.branch} onWorktreeClosed={offerRemoveWorktree} />}
             <div className="relative min-h-0 flex-1">
+              {/* Over the panes, which stay mounted underneath. */}
+              {boardOpen && (
+                <div className="absolute inset-0 z-30">
+                  <AgentBoard />
+                </div>
+              )}
               {project.tabs.length === 0 && (
                 <div className="absolute inset-0 flex">
                   <Empty
@@ -548,7 +574,7 @@ export function TerminalLayout() {
                         <SplitView
                           node={tab.layout}
                           path={[]}
-                          ctx={{ tab, cwd: tab.worktree?.path ?? p.path, projectName: p.name, visible: shown && toolActive }}
+                          ctx={{ tab, cwd: tab.worktree?.path ?? p.path, projectName: p.name, projectId: p.id, visible: shown && toolActive && !boardOpen }}
                         />
                       </div>
                     )

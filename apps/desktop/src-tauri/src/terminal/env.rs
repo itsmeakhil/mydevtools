@@ -98,16 +98,22 @@ pub struct Launch {
     /// Holds `terminal/` (bundled resources).
     pub res_dir: PathBuf,
     pub socket: PathBuf,
+    /// Control socket (`ctl.rs`) for `mdt-term`.
+    pub ctl_socket: PathBuf,
     pub settings: PathBuf,
 }
 
 impl Launch {
     /// The per-pane `MDT_*` env for `shell_launch`.
-    pub fn pane_env(&self, id: &str, token: &str) -> Vec<(String, String)> {
+    pub fn pane_env(&self, id: &str, token: &str, ctl_token: &str) -> Vec<(String, String)> {
+        let app_bin = std::env::current_exe().map(|p| p.display().to_string()).unwrap_or_default();
         vec![
             ("MDT_TERMINAL_ID".into(), id.into()),
             ("MDT_HOOK_SOCKET".into(), self.socket.display().to_string()),
             ("MDT_HOOK_TOKEN".into(), token.into()),
+            ("MDT_CTL_SOCKET".into(), self.ctl_socket.display().to_string()),
+            ("MDT_CTL_TOKEN".into(), ctl_token.into()),
+            ("MDT_APP_BIN".into(), app_bin),
             (
                 "MDT_CLAUDE_SETTINGS".into(),
                 self.settings.display().to_string(),
@@ -265,6 +271,68 @@ mod tests {
             ("MDT_HOOK_TOKEN", "tok".into()),
             ("MDT_TERMINAL_ID", "t1".into()),
         ]
+    }
+
+    /// PATH with the shim dir and a fake `codex` (prints its args), plus the pane env.
+    fn codex_env(name: &str) -> (PathBuf, Vec<(&'static str, String)>) {
+        use std::os::unix::fs::PermissionsExt;
+        let d = tmp(name);
+        let f = d.join("codex");
+        std::fs::write(&f, "#!/bin/sh\nfor a in \"$@\"; do echo \"$a\"; done\n").unwrap();
+        std::fs::set_permissions(&f, std::fs::Permissions::from_mode(0o755)).unwrap();
+        let home = d.join("codex-home");
+        std::fs::create_dir_all(&home).unwrap();
+        let env = vec![
+            ("PATH", format!("{}:{}:/usr/bin:/bin", shim_dir(), d.display())),
+            ("MDT_TERMINAL_ID", "t1".into()),
+            ("MDT_SHIM_DIR", shim_dir()),
+            ("MDT_HOOK_BIN", "/x/mdt hook".into()),
+            ("CODEX_HOME", home.display().to_string()),
+        ];
+        (home, env)
+    }
+
+    #[test]
+    fn codex_shim_injects_notify() {
+        let (_, env) = codex_env("codex-inject");
+        assert_eq!(lines(&run_bash("codex foo", &env)), vec!["-c", r#"notify=["/x/mdt hook","codex-notify"]"#, "foo"]);
+    }
+
+    #[test]
+    fn codex_shim_keeps_user_notify() {
+        let (home, env) = codex_env("codex-user");
+        assert_eq!(lines(&run_bash("codex -c 'notify=[\"mine\"]' foo", &env)), vec![r#"-c"#, r#"notify=["mine"]"#, "foo"]);
+        std::fs::write(home.join("config.toml"), "model = \"x\"\n  notify = [\"mine\"]\n").unwrap();
+        assert_eq!(lines(&run_bash("codex foo", &env)), vec!["foo"]);
+    }
+
+    #[test]
+    fn codex_shim_passthrough_outside_terminal() {
+        let (_, mut env) = codex_env("codex-outside");
+        env.push(("MDT_CODEX_HOOKS_DISABLED", "1".into()));
+        assert_eq!(lines(&run_bash("codex foo", &env)), vec!["foo"]);
+        env.retain(|(k, _)| *k != "MDT_TERMINAL_ID" && *k != "MDT_CODEX_HOOKS_DISABLED");
+        assert_eq!(lines(&run_bash("codex foo", &env)), vec!["foo"]);
+    }
+
+    #[test]
+    fn mdt_hook_maps_codex_notify() {
+        let dir = tmp("codex-hook");
+        let sock = dir.join("h.sock");
+        let listener = std::os::unix::net::UnixListener::bind(&sock).unwrap();
+        let reader = std::thread::spawn(move || {
+            let (s, _) = listener.accept().unwrap();
+            let _ = s.set_read_timeout(Some(Duration::from_secs(3)));
+            BufReader::new(&s).lines().next().and_then(|l| l.ok())
+        });
+        let hook = res().join("terminal/bin/mdt-hook");
+        let json = r#"{"type":"agent-turn-complete","last-assistant-message":"done \"ok\""}"#;
+        let o = run_bash(&format!("'{}' codex-notify '{json}'", hook.display()), &hook_env(&sock));
+        assert!(o.status.success());
+        let line = reader.join().unwrap().expect("hook sent a line");
+        let m = crate::terminal::hooks::parse_line(&line, "tok").expect("valid line");
+        assert_eq!(m.event, "codex-agent-turn-complete");
+        assert_eq!(m.payload["last-assistant-message"], "done \"ok\"");
     }
 
     #[test]

@@ -153,9 +153,10 @@ function NeedsYouList({ items }: { items: NeedsYouItem[] }) {
 }
 
 const TerminalRow = React.memo(function TerminalRow({
-  id, projectId, tabId, label, status, agent, active, onSelect,
+  id, projectId, tabId, label, status, agent, active, helper, onSelect,
 }: {
   id: string; projectId: string; tabId: string; label: string; status: TermStatus | undefined; agent: string | undefined; active: boolean
+  helper: boolean
   onSelect: (id: string) => void
 }) {
   const t = useTranslations("Terminal")
@@ -195,7 +196,8 @@ const TerminalRow = React.memo(function TerminalRow({
       onDoubleClick={() => setDraft(label)}
       {...dnd.props(projectId, tabId)}
       className={cn(
-        "flex h-7 w-full items-center gap-2 rounded-lg pl-7 pr-2.5 text-left text-[13px] transition-colors",
+        "flex h-7 w-full items-center gap-2 rounded-lg pr-2.5 text-left text-[13px] transition-colors",
+        helper ? "pl-11" : "pl-7",
         active ? "bg-primary/[0.12] font-medium text-foreground" : "text-foreground/80 hover:bg-foreground/[0.05] hover:text-foreground",
         dnd.over && "ring-2 ring-inset ring-primary/50",
         dnd.draggingId && "opacity-50",
@@ -203,6 +205,7 @@ const TerminalRow = React.memo(function TerminalRow({
     >
       <StatusDot status={status} />
       <span className="min-w-0 flex-1 truncate">{label}</span>
+      {helper && <span className="shrink-0 rounded bg-foreground/[0.06] px-1 text-[11px] leading-4 text-muted-foreground">{t("helperTag")}</span>}
       <AgentTag agent={agent} />
     </button>
   )
@@ -226,9 +229,13 @@ const ProjectRow = React.memo(function ProjectRow({
   const selectProject = useTerminalStore((s) => s.selectProject)
   const focusTerminal = useTerminalStore((s) => s.focusTerminal)
   const open = !project.collapsed
-  const rows = project.tabs.flatMap((tab) =>
-    leafIds(tab.layout).map((id) => ({ id, tabId: tab.id, label: terminalLabel(tab, id, titles) })),
-  )
+  const children = useTerminalStore((s) => s.children)
+  const helperIds = React.useMemo(() => new Set(Object.values(children).flat()), [children])
+  const rows = project.tabs.flatMap((tab) => {
+    const all = leafIds(tab.layout).map((id) => ({ id, tabId: tab.id, label: terminalLabel(tab, id, titles), helper: helperIds.has(id) }))
+    // Helpers sit right under the agent that started them.
+    return all.filter((r) => !r.helper).flatMap((r) => [r, ...(children[r.id] ?? []).flatMap((c) => all.filter((x) => x.id === c))])
+  })
 
   return (
     <div>
@@ -281,7 +288,7 @@ const ProjectRow = React.memo(function ProjectRow({
             className="space-y-0.5 overflow-hidden px-2"
           >
             {rows.map((r) => (
-              <TerminalRow key={r.id} id={r.id} projectId={project.id} tabId={r.tabId} label={r.label} status={statuses[r.id]} agent={agents[r.id]} active={r.id === focusedId} onSelect={focusTerminal} />
+              <TerminalRow key={r.id} id={r.id} projectId={project.id} tabId={r.tabId} label={r.label} status={statuses[r.id]} agent={agents[r.id]} active={r.id === focusedId} helper={r.helper} onSelect={focusTerminal} />
             ))}
           </motion.div>
         )}
