@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import {
   IconArrowsMaximize, IconBell, IconFolderPlus, IconGitBranch, IconHome, IconLayoutColumns, IconLayoutRows, IconPlus,
-  IconSettings, IconTerminal2, IconX,
+  IconKeyboard, IconSettings, IconTerminal2, IconX,
 } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -24,6 +24,7 @@ import { usePaletteActions, type PaletteActionGroup } from "@/lib/palette-action
 import { agentName, LAUNCH_AGENTS } from "@/lib/terminal/agents"
 import { LaunchMenu } from "./launch-menu"
 import { TerminalSettings } from "./terminal-settings"
+import { ShortcutsDialog } from "./shortcuts-dialog"
 import { SplitView } from "./split-view"
 import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
 import { anyBusy, CloseGuardContext, useCloseGuard, type CloseGuard } from "./close-guard"
@@ -291,6 +292,8 @@ export function TerminalLayout() {
   const windowFocused = useWindowFocused()
   const home = useHomeDir()
   const cwds = useTerminalStore((s) => s.cwds)
+  const [settingsOpen, setSettingsOpen] = React.useState(false)
+  const [shortcutsOpen, setShortcutsOpen] = React.useState(false)
 
   const project = projects.find((p) => p.id === activeProjectId) ?? projects[0]
   const activeTab = project?.tabs.find((tab) => tab.id === project.activeTabId) ?? null
@@ -383,6 +386,9 @@ export function TerminalLayout() {
         return
       }
       switch (action) {
+        case "shortcuts":
+          setShortcutsOpen(true)
+          break
         case "zoomPane":
           if (focused && visibleLeaves().includes(focused)) st.toggleZoom(focused)
           break
@@ -430,7 +436,6 @@ export function TerminalLayout() {
     [home, t],
   )
 
-  const [settingsOpen, setSettingsOpen] = React.useState(false)
   // ⌘K actions while the Terminal is the open tool.
   const paletteGroup = React.useMemo((): PaletteActionGroup | null => {
     if (!toolActive) return null
@@ -469,6 +474,7 @@ export function TerminalLayout() {
           } },
         { id: "terminal-add-project", title: t("addProject"), Icon: IconFolderPlus, run: () => void addProject() },
         { id: "terminal-settings", title: t("settings"), Icon: IconSettings, run: () => setSettingsOpen(true) },
+        { id: "terminal-shortcuts", title: t("shortcutsTitle"), hint: "⌘/", Icon: IconKeyboard, run: () => setShortcutsOpen(true) },
       ],
     }
   }, [toolActive, t, addProject])
@@ -577,6 +583,7 @@ export function TerminalLayout() {
       </div>
       {dialog}
       {settingsOpen && <TerminalSettings open onOpenChange={setSettingsOpen} />}
+      <ShortcutsDialog open={shortcutsOpen} onOpenChange={setShortcutsOpen} />
     </ToolSidebarLayout>
     </CloseGuardContext.Provider>
   )

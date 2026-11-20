@@ -46,6 +46,8 @@ export interface Attention {
 
 interface TerminalState extends TerminalPersisted {
   statuses: Record<string, TermStatus>
+  /** When each running pane started running (ms); not persisted. */
+  runningSince: Record<string, number>
   /** Coding agent running in the foreground of a pane (manifest id); not persisted. */
   agents: Record<string, string>
   /** Waiting panes: when they started waiting and the program's reason, if it gave one. Not persisted. */
@@ -181,12 +183,14 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const statuses = { ...s.statuses }
       const attention = { ...s.attention }
       const agents = { ...s.agents }
+      const runningSince = { ...s.runningSince }
       ids.forEach((id) => {
+        delete runningSince[id]
         delete statuses[id]
         delete attention[id]
         delete agents[id]
       })
-      return { statuses, attention, agents }
+      return { statuses, attention, agents, runningSince }
     })
   const mapProject = (id: string, fn: (p: TerminalProject) => TerminalProject) => (s: TerminalState) => ({
     projects: s.projects.map((p) => (p.id === id ? fn(p) : p)),
@@ -218,7 +222,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -428,14 +432,16 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       set((st) => {
         if (!find(st.projects, id)) return st
         const { [id]: was, ...attention } = st.attention
+        const { [id]: started, ...runningSince } = st.runningSince
+        if (s === "running") runningSince[id] = started ?? Date.now()
         if (needsAttention(s))
           // Still waiting (e.g. a replay): keep when it started; a new reason replaces the old one.
           attention[id] = { since: was?.since ?? Date.now(), message: message || was?.message, command: command ?? was?.command }
         if (s === "idle") {
           const { [id]: _gone, ...rest } = st.statuses
-          return { statuses: rest, attention }
+          return { statuses: rest, attention, runningSince }
         }
-        return { statuses: { ...st.statuses, [id]: s }, attention }
+        return { statuses: { ...st.statuses, [id]: s }, attention, runningSince }
       }),
 
     setAgent: (id, agent) =>

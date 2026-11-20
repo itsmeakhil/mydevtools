@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { IconArrowsMinimize, IconChevronDown, IconChevronUp, IconPlayerPlay, IconRefresh, IconX } from "@tabler/icons-react"
 import { agentName, resumeCommand } from "@/lib/terminal/agents"
@@ -11,7 +11,7 @@ import type { SearchAddon } from "@xterm/addon-search"
 import { terminalExists, useTerminalStore } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
 import {
-  cwdFromOsc7, decodeOutput, encodeInput, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
+  cwdFromOsc7, decodeOutput, duration, encodeInput, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
 } from "@/lib/terminal/util"
 import {
   terminalAttach, terminalClearScrollback, terminalKill, terminalResize, terminalSpawn, terminalWrite,
@@ -31,6 +31,21 @@ const fontStack = (family: string) => {
   const f = family.replace(/["'\\]/g, "").trim()
   return f ? `"${f}", ${FONT}` : FONT
 }
+/** " · running 3m" for a busy pane; its own component so the clock only re-renders this text. */
+function RunningFor({ id }: { id: string }) {
+  const t = useTranslations("Terminal")
+  const locale = useLocale()
+  const since = useTerminalStore((s) => s.runningSince[id])
+  const [now, setNow] = React.useState(() => Date.now())
+  React.useEffect(() => {
+    const h = setInterval(() => setNow(Date.now()), 5_000)
+    return () => clearInterval(h)
+  }, [])
+  // Under 10 s it's just a command finishing; only longer runs are worth a label.
+  if (since === undefined || now - since < 10_000) return null
+  return <span className="tabular-nums">{` · ${t("runningFor", { duration: duration(now - since, locale) })}`}</span>
+}
+
 // Spawn is idempotent and reports the fallback on every call — warn once per session.
 const warnedFallback = new Set<string>()
 // Attaches for one id reach Rust in mount order, so a fast remount's attach can't be
@@ -453,6 +468,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
             >
               {label}
               {statusLabel && ` · ${statusLabel}`}
+              {status === "running" && <RunningFor id={id} />}
             </span>
           </>
         )}

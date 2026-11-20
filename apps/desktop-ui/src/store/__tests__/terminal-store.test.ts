@@ -230,6 +230,22 @@ describe("terminal store", () => {
     expect(S().dirty).toBe(true)
   })
 
+  it("runningSince keeps the start across repeated running, clears on any other status", () => {
+    jest.setSystemTime(1_000)
+    S().addProject("/x/a")
+    const id = leafIds(S().projects[0].tabs[0].layout)[0]
+    S().setStatus(id, "running")
+    jest.setSystemTime(9_000)
+    S().setStatus(id, "running")
+    expect(S().runningSince[id]).toBe(1_000)
+    S().setStatus(id, "done")
+    expect(S().runningSince[id]).toBeUndefined()
+    S().setStatus(id, "running")
+    expect(S().runningSince[id]).toBe(9_000)
+    S().closeTerminal(id)
+    expect(S().runningSince).toEqual({})
+  })
+
   it("setAgent tracks known panes only and closing forgets it", () => {
     S().addProject("/x/a")
     const id = leafIds(S().projects[0].tabs[0].layout)[0]
