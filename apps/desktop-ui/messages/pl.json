@@ -2694,6 +2694,18 @@
     "findPrevious": "Poprzednie dopasowanie",
     "findNext": "Następne dopasowanie",
     "closeFind": "Zamknij wyszukiwanie",
-    "noMatches": "Brak dopasowań"
+    "noMatches": "Brak dopasowań",
+    "closeRunningTitle": "Zamknąć działający terminal?",
+    "closeRunningBody": "Coś tu wciąż działa. Zamknięcie to zakończy.",
+    "close": "Zamknij",
+    "copy": "Kopiuj",
+    "paste": "Wklej",
+    "clear": "Wyczyść",
+    "optionAsMeta": "Używaj Option jako klawisza Meta",
+    "restart": "Uruchom ponownie",
+    "maximizePane": "Maksymalizuj panel",
+    "restorePane": "Przywróć panel",
+    "openHome": "Otwórz folder domowy",
+    "nextWaitingHint": "Przejdź do następnego terminala, który cię potrzebuje"
   }
 }

@@ -2694,6 +2694,18 @@
     "findPrevious": "Resultado anterior",
     "findNext": "Resultado seguinte",
     "closeFind": "Fechar pesquisa",
-    "noMatches": "Sem resultados"
+    "noMatches": "Sem resultados",
+    "closeRunningTitle": "Fechar o terminal em execução?",
+    "closeRunningBody": "Ainda há algo em execução aqui. Fechar irá terminá-lo.",
+    "close": "Fechar",
+    "copy": "Copiar",
+    "paste": "Colar",
+    "clear": "Limpar",
+    "optionAsMeta": "Usar Option como tecla Meta",
+    "restart": "Reiniciar",
+    "maximizePane": "Maximizar painel",
+    "restorePane": "Restaurar painel",
+    "openHome": "Abrir pasta pessoal",
+    "nextWaitingHint": "Ir para o próximo terminal que precisa de si"
   }
 }

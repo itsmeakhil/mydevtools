@@ -2694,6 +2694,18 @@
     "findPrevious": "Kết quả trước",
     "findNext": "Kết quả tiếp theo",
     "closeFind": "Đóng tìm kiếm",
-    "noMatches": "Không có kết quả"
+    "noMatches": "Không có kết quả",
+    "closeRunningTitle": "Đóng terminal đang chạy?",
+    "closeRunningBody": "Vẫn còn tiến trình đang chạy ở đây. Đóng sẽ kết thúc nó.",
+    "close": "Đóng",
+    "copy": "Sao chép",
+    "paste": "Dán",
+    "clear": "Xóa màn hình",
+    "optionAsMeta": "Dùng Option làm phím Meta",
+    "restart": "Khởi động lại",
+    "maximizePane": "Phóng to khung",
+    "restorePane": "Khôi phục khung",
+    "openHome": "Mở thư mục chính",
+    "nextWaitingHint": "Chuyển đến terminal tiếp theo đang cần bạn"
   }
 }

@@ -2694,6 +2694,18 @@
     "findPrevious": "Önceki eşleşme",
     "findNext": "Sonraki eşleşme",
     "closeFind": "Aramayı kapat",
-    "noMatches": "Eşleşme yok"
+    "noMatches": "Eşleşme yok",
+    "closeRunningTitle": "Çalışan terminal kapatılsın mı?",
+    "closeRunningBody": "Burada hâlâ çalışan bir şey var. Kapatmak onu sonlandırır.",
+    "close": "Kapat",
+    "copy": "Kopyala",
+    "paste": "Yapıştır",
+    "clear": "Temizle",
+    "optionAsMeta": "Option tuşunu Meta tuşu olarak kullan",
+    "restart": "Yeniden başlat",
+    "maximizePane": "Bölmeyi büyüt",
+    "restorePane": "Bölmeyi geri yükle",
+    "openHome": "Ana klasörü aç",
+    "nextWaitingHint": "Seni bekleyen sonraki terminale geç"
   }
 }

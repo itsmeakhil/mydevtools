@@ -90,12 +90,26 @@ export function nextWaiting(ids: string[], current: string | null): string | nul
   return ids[(i + 1) % ids.length]
 }
 
-export type TerminalShortcut = "splitRow" | "splitCol" | "newTab" | "nextTab" | "prevTab" | "nextWaiting"
+export type PaneDir = "left" | "right" | "up" | "down"
+export type TerminalShortcut =
+  | "splitRow" | "splitCol" | "newTab" | "nextTab" | "prevTab" | "nextWaiting" | "zoomPane"
+  | { focus: PaneDir } | { tab: number }
 
-/** ⌘D, ⌘⇧D, ⌘T, ⌘⇧], ⌘⇧[, ⌘J. ⌘W is not here: the macOS menu owns it (Rust emits terminal://close-pane). */
+/**
+ * ⌘D, ⌘⇧D, ⌘T, ⌘⇧], ⌘⇧[, ⌘J, ⌘⇧↵ (maximize pane), ⌘⌥ arrows (focus pane), ⌘1–⌘9 (tab; ⌘9 = last).
+ * ⌘W is not here: the macOS menu owns it (Rust emits terminal://close-pane).
+ */
 export function matchShortcut(e: { metaKey: boolean; ctrlKey: boolean; altKey: boolean; shiftKey: boolean; code: string }): TerminalShortcut | null {
-  if (!e.metaKey || e.ctrlKey || e.altKey) return null
+  if (!e.metaKey || e.ctrlKey) return null
+  if (e.altKey) {
+    if (e.shiftKey) return null
+    const dir = ({ ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down" } as const)[e.code as "ArrowLeft"]
+    return dir ? { focus: dir } : null
+  }
+  const digit = /^Digit([1-9])$/.exec(e.code)
+  if (digit) return e.shiftKey ? null : { tab: Number(digit[1]) }
   switch (e.code) {
+    case "Enter": return e.shiftKey ? "zoomPane" : null
     case "KeyD": return e.shiftKey ? "splitCol" : "splitRow"
     case "KeyT": return e.shiftKey ? null : "newTab"
     case "KeyJ": return e.shiftKey ? null : "nextWaiting"
@@ -103,6 +117,59 @@ export function matchShortcut(e: { metaKey: boolean; ctrlKey: boolean; altKey: b
     case "BracketLeft": return e.shiftKey ? "prevTab" : null
     default: return null
   }
+}
+
+/** Index for ⌘1–⌘9 in a list of `count` tabs: ⌘9 is always the last tab, others past the end are null. */
+export function tabIndexFor(n: number, count: number): number | null {
+  if (count === 0) return null
+  if (n === 9) return count - 1
+  return n <= count ? n - 1 : null
+}
+
+export interface PaneRect { id: string; left: number; top: number; right: number; bottom: number }
+
+/** Nearest pane from `fromId` in `dir`: edge-adjacent panes that overlap first, then by centre offset. */
+export function neighborPane(rects: PaneRect[], fromId: string, dir: PaneDir): string | null {
+  const from = rects.find((r) => r.id === fromId)
+  if (!from) return null
+  const horizontal = dir === "left" || dir === "right"
+  const EPS = 2 // hairline dividers
+  const ahead = rects.filter((r) => {
+    if (r.id === fromId) return false
+    if (dir === "left") return r.right <= from.left + EPS
+    if (dir === "right") return r.left >= from.right - EPS
+    if (dir === "up") return r.bottom <= from.top + EPS
+    return r.top >= from.bottom - EPS
+  })
+  const gap = (r: PaneRect) =>
+    dir === "left" ? from.left - r.right : dir === "right" ? r.left - from.right : dir === "up" ? from.top - r.bottom : r.top - from.bottom
+  const overlap = (r: PaneRect) =>
+    horizontal ? Math.min(r.bottom, from.bottom) - Math.max(r.top, from.top) : Math.min(r.right, from.right) - Math.max(r.left, from.left)
+  const centre = (r: PaneRect) => (horizontal ? (r.top + r.bottom) / 2 : (r.left + r.right) / 2)
+  const offset = (r: PaneRect) => Math.abs(centre(r) - centre(from))
+  const best = [...ahead].sort(
+    (a, b) => Number(overlap(b) > 0) - Number(overlap(a) > 0) || gap(a) - gap(b) || offset(a) - offset(b),
+  )[0]
+  return best?.id ?? null
+}
+
+/** Path from an OSC 7 payload (`file://host/path`, percent-encoded); null if it isn't a file URL. */
+export function cwdFromOsc7(data: string): string | null {
+  if (!data.startsWith("file://")) return null
+  const slash = data.indexOf("/", "file://".length)
+  if (slash < 0) return null
+  try {
+    return decodeURIComponent(data.slice(slash)) || null
+  } catch {
+    return null
+  }
+}
+
+/** `/Users/me/src` → `~/src` when `home` is `/Users/me`. */
+export function tildify(path: string, home: string | null): string {
+  if (!home) return path
+  const h = home.replace(/\/+$/, "")
+  return path === h ? "~" : path.startsWith(h + "/") ? "~" + path.slice(h.length) : path
 }
 
 export const FONT_SIZE = { min: 9, max: 24, default: 13 } as const

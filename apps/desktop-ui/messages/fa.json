@@ -2694,6 +2694,18 @@
     "findPrevious": "مورد قبلی",
     "findNext": "مورد بعدی",
     "closeFind": "بستن جستجو",
-    "noMatches": "موردی یافت نشد"
+    "noMatches": "موردی یافت نشد",
+    "closeRunningTitle": "ترمینال در حال اجرا بسته شود؟",
+    "closeRunningBody": "چیزی هنوز اینجا در حال اجراست. بستن، آن را متوقف می‌کند.",
+    "close": "بستن",
+    "copy": "کپی",
+    "paste": "چسباندن",
+    "clear": "پاک کردن",
+    "optionAsMeta": "استفاده از Option به‌عنوان کلید Meta",
+    "restart": "راه‌اندازی مجدد",
+    "maximizePane": "بزرگ کردن پنل",
+    "restorePane": "بازگرداندن پنل",
+    "openHome": "باز کردن پوشهٔ خانه",
+    "nextWaitingHint": "رفتن به ترمینال بعدی که به شما نیاز دارد"
   }
 }

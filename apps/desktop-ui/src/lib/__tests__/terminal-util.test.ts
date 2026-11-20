@@ -1,4 +1,4 @@
-import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify } from "@/lib/terminal/util"
 
 describe("terminal util", () => {
   it("round-trips UTF-8 (emoji, CJK, control bytes) through base64", () => {
@@ -55,6 +55,57 @@ describe("terminal util", () => {
     expect(k("KeyJ")).toBe("nextWaiting")
     expect(k("KeyW")).toBeNull()
     expect(k("KeyD", false, false)).toBeNull()
+    expect(k("Enter", true)).toBe("zoomPane")
+    expect(k("Enter")).toBeNull()
+    expect(k("Digit1")).toEqual({ tab: 1 })
+    expect(k("Digit9")).toEqual({ tab: 9 })
+    expect(k("Digit0")).toBeNull()
+    expect(k("Digit3", true)).toBeNull()
+    const alt = (code: string) => matchShortcut({ code, shiftKey: false, metaKey: true, ctrlKey: false, altKey: true })
+    expect(alt("ArrowLeft")).toEqual({ focus: "left" })
+    expect(alt("ArrowDown")).toEqual({ focus: "down" })
+    expect(alt("KeyD")).toBeNull()
+  })
+
+  it("tabIndexFor: ⌘9 is the last tab, out-of-range digits do nothing", () => {
+    expect(tabIndexFor(1, 3)).toBe(0)
+    expect(tabIndexFor(3, 3)).toBe(2)
+    expect(tabIndexFor(4, 3)).toBeNull()
+    expect(tabIndexFor(9, 3)).toBe(2)
+    expect(tabIndexFor(9, 12)).toBe(11)
+    expect(tabIndexFor(1, 0)).toBeNull()
+  })
+
+  it("neighborPane picks the adjacent pane in a direction", () => {
+    // [a | b]
+    // [a | c]   a spans full height on the left; b over c on the right.
+    const rects = [
+      { id: "a", left: 0, top: 0, right: 100, bottom: 200 },
+      { id: "b", left: 101, top: 0, right: 200, bottom: 100 },
+      { id: "c", left: 101, top: 101, right: 200, bottom: 200 },
+    ]
+    expect(neighborPane(rects, "a", "right")).toBe("b") // equal gap: nearer centre wins
+    expect(neighborPane(rects, "c", "left")).toBe("a")
+    expect(neighborPane(rects, "b", "down")).toBe("c")
+    expect(neighborPane(rects, "c", "up")).toBe("b")
+    expect(neighborPane(rects, "a", "left")).toBeNull()
+    expect(neighborPane(rects, "a", "up")).toBeNull()
+    expect(neighborPane(rects, "zzz", "up")).toBeNull()
+  })
+
+  it("cwdFromOsc7 decodes file URLs", () => {
+    expect(cwdFromOsc7("file://mac.local/Users/me/my%20dir")).toBe("/Users/me/my dir")
+    expect(cwdFromOsc7("file:///tmp")).toBe("/tmp")
+    expect(cwdFromOsc7("http://x/y")).toBeNull()
+    expect(cwdFromOsc7("file://host")).toBeNull()
+    expect(cwdFromOsc7("file://h/%E0%A4%A")).toBeNull()
+  })
+
+  it("tildify shortens the home folder", () => {
+    expect(tildify("/Users/me/src", "/Users/me")).toBe("~/src")
+    expect(tildify("/Users/me", "/Users/me/")).toBe("~")
+    expect(tildify("/Users/meow", "/Users/me")).toBe("/Users/meow")
+    expect(tildify("/tmp", null)).toBe("/tmp")
   })
 
   describe("writeQueue", () => {

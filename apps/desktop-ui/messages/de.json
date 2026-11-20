@@ -2694,6 +2694,18 @@
     "findPrevious": "Vorheriger Treffer",
     "findNext": "Nächster Treffer",
     "closeFind": "Suche schließen",
-    "noMatches": "Keine Treffer"
+    "noMatches": "Keine Treffer",
+    "closeRunningTitle": "Laufendes Terminal schließen?",
+    "closeRunningBody": "Hier läuft noch etwas. Beim Schließen wird es beendet.",
+    "close": "Schließen",
+    "copy": "Kopieren",
+    "paste": "Einfügen",
+    "clear": "Leeren",
+    "optionAsMeta": "Wahltaste als Meta-Taste verwenden",
+    "restart": "Neu starten",
+    "maximizePane": "Bereich maximieren",
+    "restorePane": "Bereich wiederherstellen",
+    "openHome": "Benutzerordner öffnen",
+    "nextWaitingHint": "Zum nächsten Terminal springen, das dich braucht"
   }
 }

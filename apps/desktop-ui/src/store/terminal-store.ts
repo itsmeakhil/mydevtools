@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { toast } from "sonner"
-import { leaf, splitAt, removeLeaf, leafIds, setSizes, type SplitNode } from "@/lib/terminal/layout"
+import { leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import type { TermStatus } from "@/lib/terminal/status"
 import { loadTerminalState, saveTerminalState, terminalKill } from "@/lib/desktop/terminal-bridge"
 import { clampFontSize, FONT_SIZE } from "@/lib/terminal/util"
@@ -19,6 +19,8 @@ export interface TerminalPersisted {
   projects: TerminalProject[]; activeProjectId: string | null
   /** Shared by every pane (⌘+ / ⌘− / ⌘0). Older saves lack it. */
   fontSize?: number
+  /** ⌥ sends Meta (readline word jumps) instead of typing ⌥ characters. Off by default: non-US layouts type @ € etc. with ⌥. */
+  optionAsMeta?: boolean
 }
 
 interface TerminalState extends TerminalPersisted {
@@ -26,6 +28,11 @@ interface TerminalState extends TerminalPersisted {
   /** Live window titles set by the shell/program (OSC 0/2); not persisted. */
   titles: Record<string, string>
   fontSize: number
+  optionAsMeta: boolean
+  /** Live current directory per pane from OSC 7; not persisted. */
+  cwds: Record<string, string>
+  /** Pane maximized over its tab (⌘⇧↵); only honoured while it is also the focused pane. Not persisted. */
+  zoomedId: string | null
   /** New pane id → the pane whose current directory it opens in (read once at spawn); not persisted. */
   cwdFrom: Record<string, string>
   focusedTerminalId: string | null
@@ -47,11 +54,16 @@ interface TerminalState extends TerminalPersisted {
   renameTerminal: (terminalId: string, name: string) => void
   split: (terminalId: string, dir: "row" | "col") => void
   closeTerminal: (terminalId: string) => void
+  /** Replace an exited pane with a fresh shell in the same slot, opening in its last directory. */
+  restartTerminal: (terminalId: string) => void
+  toggleZoom: (terminalId: string) => void
   resize: (tabId: string, path: number[], sizes: number[]) => void
   focusTerminal: (terminalId: string) => void
   setStatus: (id: string, s: TermStatus) => void
   setTitle: (id: string, title: string) => void
   setFontSize: (size: number) => void
+  setOptionAsMeta: (on: boolean) => void
+  setCwd: (id: string, cwd: string) => void
 }
 
 const uid = () => crypto.randomUUID()
@@ -100,9 +112,9 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       let ok = false
       do {
         rerun = false
-        const { projects, activeProjectId, fontSize } = get()
+        const { projects, activeProjectId, fontSize, optionAsMeta } = get()
         try {
-          await saveTerminalState({ projects, activeProjectId, fontSize })
+          await saveTerminalState({ projects, activeProjectId, fontSize, optionAsMeta })
           ok = true
         } catch (e) {
           ok = false
@@ -147,6 +159,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
           projects: [...loaded, ...s.projects.filter((p) => !ids.has(p.id))],
           activeProjectId: s.activeProjectId ?? d.activeProjectId ?? null,
           fontSize: s.dirty || d.fontSize === undefined ? s.fontSize : clampFontSize(d.fontSize),
+          optionAsMeta: s.dirty || d.optionAsMeta === undefined ? s.optionAsMeta : d.optionAsMeta === true,
           loaded: true,
         }
       })
@@ -161,6 +174,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
   return {
     projects: [], activeProjectId: null, statuses: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {},
+    optionAsMeta: false, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
     // Idempotent: a no-op once loaded; concurrent callers share one request.
@@ -260,7 +274,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         ...p,
         tabs: p.tabs.map((t) => (t.id === hit.t.id ? { ...t, layout: splitAt(t.layout, terminalId, dir, newId) } : t)),
       })))
-      set((s) => ({ focusedTerminalId: newId, cwdFrom: { ...s.cwdFrom, [newId]: terminalId } }))
+      set((s) => ({ focusedTerminalId: newId, zoomedId: null, cwdFrom: { ...s.cwdFrom, [newId]: terminalId } }))
     },
 
     closeTerminal: (terminalId) => {
@@ -277,6 +291,30 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         const { [terminalId]: _gone, ...names } = hit.t.terminalNames
         return { ...p, tabs: p.tabs.map((t) => (t.id === hit.t.id ? { ...t, layout, terminalNames: names } : t)) }
       }))
+    },
+
+    restartTerminal: (oldId) => {
+      const hit = find(get().projects, oldId)
+      if (!hit) return
+      // The exited session stays in Rust until the new pane has spawned from its cwd (the pane kills it then).
+      const newId = uid()
+      dropStatuses([oldId])
+      const { [oldId]: name, ...rest } = hit.t.terminalNames
+      const terminalNames = name ? { ...rest, [newId]: name } : rest
+      mutate(mapProject(hit.p.id, (p) => ({
+        ...p,
+        tabs: p.tabs.map((t) => (t.id === hit.t.id ? { ...t, layout: replaceLeaf(t.layout, oldId, newId), terminalNames } : t)),
+      })))
+      set((s) => ({
+        cwdFrom: { ...s.cwdFrom, [newId]: oldId },
+        focusedTerminalId: s.focusedTerminalId === oldId ? newId : s.focusedTerminalId,
+      }))
+    },
+
+    toggleZoom: (terminalId) => {
+      const hit = find(get().projects, terminalId)
+      if (!hit || leafIds(hit.t.layout).length < 2) return
+      set((s) => ({ zoomedId: s.zoomedId === terminalId ? null : terminalId, focusedTerminalId: terminalId }))
     },
 
     resize: (tabId, path, sizes) =>
@@ -320,5 +358,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const fontSize = clampFontSize(size)
       if (fontSize !== get().fontSize) mutate(() => ({ fontSize }))
     },
+
+    setOptionAsMeta: (on) => {
+      if (on !== get().optionAsMeta) mutate(() => ({ optionAsMeta: on }))
+    },
+
+    setCwd: (id, cwd) => set((st) => (st.cwds[id] === cwd ? st : { cwds: { ...st.cwds, [id]: cwd } })),
   }
 })

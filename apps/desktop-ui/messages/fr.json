@@ -2694,6 +2694,18 @@
     "findPrevious": "Résultat précédent",
     "findNext": "Résultat suivant",
     "closeFind": "Fermer la recherche",
-    "noMatches": "Aucun résultat"
+    "noMatches": "Aucun résultat",
+    "closeRunningTitle": "Fermer le terminal en cours d'exécution ?",
+    "closeRunningBody": "Quelque chose est encore en cours ici. La fermeture l'arrêtera.",
+    "close": "Fermer",
+    "copy": "Copier",
+    "paste": "Coller",
+    "clear": "Effacer",
+    "optionAsMeta": "Utiliser Option comme touche Méta",
+    "restart": "Redémarrer",
+    "maximizePane": "Agrandir le panneau",
+    "restorePane": "Restaurer le panneau",
+    "openHome": "Ouvrir le dossier personnel",
+    "nextWaitingHint": "Aller au prochain terminal qui a besoin de vous"
   }
 }

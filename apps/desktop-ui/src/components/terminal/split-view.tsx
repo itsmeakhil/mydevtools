@@ -23,6 +23,7 @@ export function SplitView({ node, path, ctx }: { node: SplitNode; path: number[]
   if (node.kind === "leaf") {
     return (
       <TerminalPane
+        key={node.id /* a restarted pane gets a new id: start clean */}
         id={node.id}
         cwd={ctx.cwd}
         projectName={ctx.projectName}
@@ -30,6 +31,7 @@ export function SplitView({ node, path, ctx }: { node: SplitNode; path: number[]
         status={status}
         focused={focused}
         visible={ctx.visible}
+        split={ctx.tab.layout.kind === "split"}
       />
     )
   }

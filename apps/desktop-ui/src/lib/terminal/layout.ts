@@ -47,3 +47,9 @@ export function setSizes(root: SplitNode, path: number[], sizes: number[]): Spli
   const [i, ...rest] = path
   return { ...root, children: root.children.map((c, j) => (j === i ? setSizes(c, rest, sizes) : c)) }
 }
+
+/** Same tree with leaf `id` renamed to `newId` (sizes kept). */
+export function replaceLeaf(root: SplitNode, id: string, newId: string): SplitNode {
+  if (root.kind === "leaf") return root.id === id ? leaf(newId) : root
+  return { ...root, children: root.children.map((c) => replaceLeaf(c, id, newId)) }
+}

@@ -2694,6 +2694,18 @@
     "findPrevious": "Corrispondenza precedente",
     "findNext": "Corrispondenza successiva",
     "closeFind": "Chiudi ricerca",
-    "noMatches": "Nessuna corrispondenza"
+    "noMatches": "Nessuna corrispondenza",
+    "closeRunningTitle": "Chiudere il terminale in esecuzione?",
+    "closeRunningBody": "Qualcosa è ancora in esecuzione. Chiudendo verrà terminato.",
+    "close": "Chiudi",
+    "copy": "Copia",
+    "paste": "Incolla",
+    "clear": "Pulisci",
+    "optionAsMeta": "Usa Opzione come tasto Meta",
+    "restart": "Riavvia",
+    "maximizePane": "Ingrandisci riquadro",
+    "restorePane": "Ripristina riquadro",
+    "openHome": "Apri cartella Inizio",
+    "nextWaitingHint": "Vai al prossimo terminale che ha bisogno di te"
   }
 }

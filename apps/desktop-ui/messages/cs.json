@@ -2694,6 +2694,18 @@
     "findPrevious": "Předchozí shoda",
     "findNext": "Další shoda",
     "closeFind": "Zavřít hledání",
-    "noMatches": "Žádné shody"
+    "noMatches": "Žádné shody",
+    "closeRunningTitle": "Zavřít běžící terminál?",
+    "closeRunningBody": "Něco tu stále běží. Zavřením se to ukončí.",
+    "close": "Zavřít",
+    "copy": "Kopírovat",
+    "paste": "Vložit",
+    "clear": "Vymazat",
+    "optionAsMeta": "Použít Option jako klávesu Meta",
+    "restart": "Restartovat",
+    "maximizePane": "Maximalizovat panel",
+    "restorePane": "Obnovit panel",
+    "openHome": "Otevřít domovskou složku",
+    "nextWaitingHint": "Přejít na další terminál, který vás potřebuje"
   }
 }

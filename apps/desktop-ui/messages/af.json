@@ -2694,6 +2694,18 @@
     "findPrevious": "Vorige treffer",
     "findNext": "Volgende treffer",
     "closeFind": "Sluit soek",
-    "noMatches": "Geen treffers"
+    "noMatches": "Geen treffers",
+    "closeRunningTitle": "Sluit lopende terminaal?",
+    "closeRunningBody": "Iets loop nog hier. Om te sluit sal dit beëindig.",
+    "close": "Sluit",
+    "copy": "Kopieer",
+    "paste": "Plak",
+    "clear": "Maak skoon",
+    "optionAsMeta": "Gebruik Option as Meta-sleutel",
+    "restart": "Herbegin",
+    "maximizePane": "Maksimeer paneel",
+    "restorePane": "Herstel paneel",
+    "openHome": "Open tuisgids",
+    "nextWaitingHint": "Spring na die volgende terminaal wat jou nodig het"
   }
 }

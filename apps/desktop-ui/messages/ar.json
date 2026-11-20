@@ -2694,6 +2694,18 @@
     "findPrevious": "التطابق السابق",
     "findNext": "التطابق التالي",
     "closeFind": "إغلاق البحث",
-    "noMatches": "لا توجد تطابقات"
+    "noMatches": "لا توجد تطابقات",
+    "closeRunningTitle": "إغلاق الطرفية قيد التشغيل؟",
+    "closeRunningBody": "لا يزال هناك شيء قيد التشغيل هنا. سيؤدي الإغلاق إلى إنهائه.",
+    "close": "إغلاق",
+    "copy": "نسخ",
+    "paste": "لصق",
+    "clear": "مسح",
+    "optionAsMeta": "استخدام مفتاح Option كمفتاح Meta",
+    "restart": "إعادة التشغيل",
+    "maximizePane": "تكبير اللوحة",
+    "restorePane": "استعادة اللوحة",
+    "openHome": "فتح المجلد الرئيسي",
+    "nextWaitingHint": "الانتقال إلى الطرفية التالية التي تحتاجك"
   }
 }

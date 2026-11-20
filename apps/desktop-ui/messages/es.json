@@ -2694,6 +2694,18 @@
     "findPrevious": "Coincidencia anterior",
     "findNext": "Coincidencia siguiente",
     "closeFind": "Cerrar búsqueda",
-    "noMatches": "Sin coincidencias"
+    "noMatches": "Sin coincidencias",
+    "closeRunningTitle": "¿Cerrar la terminal en ejecución?",
+    "closeRunningBody": "Algo sigue ejecutándose aquí. Al cerrar, se detendrá.",
+    "close": "Cerrar",
+    "copy": "Copiar",
+    "paste": "Pegar",
+    "clear": "Limpiar",
+    "optionAsMeta": "Usar Opción como tecla Meta",
+    "restart": "Reiniciar",
+    "maximizePane": "Maximizar panel",
+    "restorePane": "Restaurar panel",
+    "openHome": "Abrir carpeta de inicio",
+    "nextWaitingHint": "Ir a la siguiente terminal que te necesita"
   }
 }

@@ -2694,6 +2694,18 @@
     "findPrevious": "Padanan sebelumnya",
     "findNext": "Padanan seterusnya",
     "closeFind": "Tutup carian",
-    "noMatches": "Tiada padanan"
+    "noMatches": "Tiada padanan",
+    "closeRunningTitle": "Tutup terminal yang sedang berjalan?",
+    "closeRunningBody": "Sesuatu masih berjalan di sini. Menutupnya akan menamatkannya.",
+    "close": "Tutup",
+    "copy": "Salin",
+    "paste": "Tampal",
+    "clear": "Kosongkan",
+    "optionAsMeta": "Guna Option sebagai kekunci Meta",
+    "restart": "Mula semula",
+    "maximizePane": "Maksimumkan panel",
+    "restorePane": "Pulihkan panel",
+    "openHome": "Buka folder rumah",
+    "nextWaitingHint": "Lompat ke terminal seterusnya yang memerlukan anda"
   }
 }
