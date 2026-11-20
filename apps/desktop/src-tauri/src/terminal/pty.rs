@@ -121,6 +121,8 @@ pub struct Session {
     fresh: std::sync::atomic::AtomicBool,
     /// `Some(code)` once the shell's last command finished (OSC 133 D); `None` while one runs.
     last_cmd: Mutex<Option<Option<i32>>>,
+    /// The pane started work (a shell command, an agent turn) since the last control-socket input.
+    worked: std::sync::atomic::AtomicBool,
     /// `on_child_closed` already reported this helper (close and exit both end it).
     closed_reported: std::sync::atomic::AtomicBool,
 }
@@ -158,9 +160,14 @@ impl Session {
         self.fresh.load(std::sync::atomic::Ordering::SeqCst)
     }
 
+    pub fn worked(&self) -> bool {
+        self.worked.load(std::sync::atomic::Ordering::SeqCst)
+    }
+
     /// Input from the control socket (a helper's command, `send`).
     pub fn send(&self, bytes: &[u8]) -> Result<(), String> {
         self.fresh.store(false, std::sync::atomic::Ordering::SeqCst);
+        self.worked.store(false, std::sync::atomic::Ordering::SeqCst);
         self.write(bytes)
     }
 
@@ -250,6 +257,8 @@ pub struct TerminalState {
     sessions: DashMap<String, Arc<Session>>,
     /// Per-launch secret the hook script must echo back over the socket.
     pub token: String,
+    /// Per-launch key for the per-pane control tokens. Never exported or logged.
+    ctl_secret: [u8; 32],
     pub statuses: Mutex<super::hooks::StatusMap>,
     /// Set once in `setup`; unset (e.g. in tests) → plain login shell.
     pub launch: std::sync::OnceLock<super::env::Launch>,
@@ -287,9 +296,12 @@ impl Default for TerminalState {
     fn default() -> Self {
         let mut b = [0u8; 32];
         getrandom::fill(&mut b).expect("os rng");
+        let mut ctl_secret = [0u8; 32];
+        getrandom::fill(&mut ctl_secret).expect("os rng");
         Self {
             sessions: DashMap::new(),
             token: b.iter().map(|x| format!("{x:02x}")).collect(),
+            ctl_secret,
             statuses: Mutex::default(),
             launch: std::sync::OnceLock::new(),
             on_exit: std::sync::OnceLock::new(),
@@ -359,6 +371,7 @@ impl TerminalState {
             det: Mutex::new(super::detect::Pane::new(req.rows, req.cols)),
             fresh: true.into(),
             last_cmd: Mutex::new(None),
+            worked: true.into(),
             closed_reported: false.into(),
         });
 
@@ -396,12 +409,17 @@ impl TerminalState {
                                 super::osc::Osc::Progress(p) => s.det.lock().unwrap().set_progress(p),
                                 super::osc::Osc::CommandStart => {
                                     *s.last_cmd.lock().unwrap() = None;
+                                    s.worked.store(true, std::sync::atomic::Ordering::SeqCst);
                                     s.det.lock().unwrap().take_agent_seen();
                                     commands.start(std::time::Instant::now());
                                     status(Shell, super::hooks::TermStatus::Running, None, None)
                                 }
                                 super::osc::Osc::CommandEnd(code) => {
-                                    *s.last_cmd.lock().unwrap() = Some(code);
+                                    // The rc files send D before every prompt, the first one too:
+                                    // only a D that closes a C is a finished command.
+                                    if commands.running() {
+                                        *s.last_cmd.lock().unwrap() = Some(code);
+                                    }
                                     let agent = s.det.lock().unwrap().take_agent_seen();
                                     if let Some((st, cmd)) = commands.end(code, std::time::Instant::now(), agent) {
                                         status(Shell, st, None, Some(cmd))
@@ -438,10 +456,16 @@ impl TerminalState {
             return Err(format!("environment variable not allowed: {k}"));
         }
         let (argv, env) = match self.launch.get() {
-            Some(l) => super::env::shell_launch(&self.shell, &l.res_dir, l.pane_env(&req.id, &self.token)),
+            Some(l) => super::env::shell_launch(&self.shell, &l.res_dir, l.pane_env(&req.id, &self.token, &self.ctl_token(&req.id))),
             None => (vec![self.shell.clone(), "-l".into()], vec![]),
         };
         self.spawn(req, env.into_iter().chain(extra).collect(), argv)
+    }
+
+    /// The pane's control-socket token (`MDT_CTL_TOKEN`): keyed by a secret no pane sees,
+    /// so nothing in one pane's env yields another pane's token.
+    pub fn ctl_token(&self, pane_id: &str) -> String {
+        super::ctl::hmac_sha256_hex(&self.ctl_secret, pane_id.as_bytes())
     }
 
     /// Kill and forget a session; `wait`ers see it closed.
@@ -461,6 +485,9 @@ impl TerminalState {
     pub fn status_changed(&self, id: &str, status: super::hooks::TermStatus) {
         if let Some(s) = self.sessions.get(id) {
             s.fresh.store(true, std::sync::atomic::Ordering::SeqCst);
+            if status == super::hooks::TermStatus::Running {
+                s.worked.store(true, std::sync::atomic::Ordering::SeqCst);
+            }
         }
         let _ = self.bus.send((id.to_string(), Some(status)));
     }

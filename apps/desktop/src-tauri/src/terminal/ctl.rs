@@ -37,10 +37,19 @@ fn err(msg: &str) -> Value {
 }
 
 /// Answer one request. Never logs: requests carry the token.
-/// Per-pane control token (`MDT_CTL_TOKEN`): binds a request to the pane it claims to come from.
-pub fn pane_token(launch_token: &str, pane_id: &str) -> String {
+/// HMAC-SHA256 (RFC 2104) as lowercase hex. Keys the per-pane control tokens.
+pub fn hmac_sha256_hex(key: &[u8], msg: &[u8]) -> String {
     use sha2::{Digest, Sha256};
-    Sha256::digest(format!("{launch_token}:{pane_id}")).iter().map(|b| format!("{b:02x}")).collect()
+    let mut k = [0u8; 64];
+    if key.len() > 64 {
+        k[..32].copy_from_slice(&Sha256::digest(key));
+    } else {
+        k[..key.len()].copy_from_slice(key);
+    }
+    let pad = |b: u8| k.map(|x| x ^ b);
+    let inner = Sha256::new().chain_update(pad(0x36)).chain_update(msg).finalize();
+    let outer = Sha256::new().chain_update(pad(0x5c)).chain_update(inner).finalize();
+    outer.iter().map(|b| format!("{b:02x}")).collect()
 }
 
 /// Constant-time string compare (no early exit on the first differing byte).
@@ -50,7 +59,7 @@ fn same(a: &str, b: &str) -> bool {
 
 pub async fn handle(st: &Arc<TerminalState>, line: &str) -> Value {
     let Ok(r) = serde_json::from_str::<Req>(line) else { return err("bad request") };
-    if !same(&r.token, &pane_token(&st.token, &r.caller)) {
+    if !same(&r.token, &st.ctl_token(&r.caller)) {
         return err("bad token");
     }
     if !st.is_live(&r.caller) {
@@ -184,13 +193,17 @@ fn outcome(st: &TerminalState, s: &Session, id: &str, until: &str, status: Optio
         return Some(("exit", code));
     }
     let status = status?;
-    // Some(code) once the shell's last command has finished (OSC 133 D).
+    // Some(code) once the shell's last command has finished (OSC 133 C … D).
     let last = s.last_command();
+    // Idle only counts once the pane has started on our last input: the prompt that was
+    // already showing (or the shell's first one) predates the command we typed. Done is
+    // only ever reported for finished work (an agent turn, a long command), so it always counts.
+    let worked = s.worked();
     let hit = match (until, status) {
-        (_, TermStatus::Waiting) => true,
-        ("done", TermStatus::Done) | ("idle", TermStatus::Idle | TermStatus::Done) => true,
+        (_, TermStatus::Waiting) | ("done" | "idle", TermStatus::Done) => true,
+        ("idle", TermStatus::Idle) => worked,
         // Back at the prompt after a command: done (short commands never report Done).
-        ("done", TermStatus::Idle) => last.is_some(),
+        ("done", TermStatus::Idle) => worked && last.is_some(),
         _ => false,
     };
     hit.then(|| (name(status), last.flatten()))
@@ -317,7 +330,7 @@ mod tests {
     }
 
     async fn call(st: &Arc<TerminalState>, caller: &str, op: &str, args: Value) -> Value {
-        let mut req = json!({"token": pane_token(&st.token, caller), "caller": caller, "op": op});
+        let mut req = json!({"token": st.ctl_token(caller), "caller": caller, "op": op});
         req.as_object_mut().unwrap().extend(args.as_object().unwrap().clone());
         handle(st, &req.to_string()).await
     }
@@ -338,7 +351,7 @@ mod tests {
         opt_in(&st, "p");
         let bad = json!({"token": "nope", "caller": "a", "op": "list"}).to_string();
         assert_eq!(handle(&st, &bad).await, json!({"error": "bad token"}));
-        let bad = json!({"token": pane_token(&st.token, "ghost"), "caller": "ghost", "op": "list"}).to_string();
+        let bad = json!({"token": st.ctl_token("ghost"), "caller": "ghost", "op": "list"}).to_string();
         assert_eq!(handle(&st, &bad).await, json!({"error": "unknown caller"}));
         assert_eq!(handle(&st, "not json").await, json!({"error": "bad request"}));
         // An exited pane is not a caller either.
@@ -359,18 +372,112 @@ mod tests {
         pane(&st, "a", Some("p"));
         pane(&st, "b", Some("p"));
         let bad_token = json!({"error": "bad token"});
-        let as_b = json!({"token": pane_token(&st.token, "a"), "caller": "b", "op": "list"}).to_string();
+        let as_b = json!({"token": st.ctl_token("a"), "caller": "b", "op": "list"}).to_string();
         assert_eq!(handle(&st, &as_b).await, bad_token, "a's token can't speak for b");
         let launch = json!({"token": st.token, "caller": "a", "op": "list"}).to_string();
         assert_eq!(handle(&st, &launch).await, bad_token, "the shared hook token is not a ctl token");
         assert_eq!(call(&st, "b", "list", json!({})).await, json!([]));
         // Each pane is handed its own token.
         let l = crate::terminal::env::Launch { res_dir: "/r".into(), socket: "/h".into(), ctl_socket: "/c".into(), settings: "/s".into() };
-        let env = l.pane_env("a", &st.token);
+        let env = l.pane_env("a", &st.token, &st.ctl_token("a"));
         let got = env.iter().find(|(k, _)| k == "MDT_CTL_TOKEN").map(|(_, v)| v.as_str());
-        assert_eq!(got, Some(pane_token(&st.token, "a").as_str()));
+        assert_eq!(got, Some(st.ctl_token("a").as_str()));
         assert_eq!(got.unwrap().len(), 64);
-        assert_ne!(pane_token(&st.token, "a"), pane_token(&st.token, "b"));
+        assert_ne!(st.ctl_token("a"), st.ctl_token("b"));
+        st.kill_all();
+    }
+
+    #[test]
+    fn hmac_sha256_matches_rfc_4231() {
+        assert_eq!(
+            hmac_sha256_hex(b"Jefe", b"what do ya want for nothing?"),
+            "5bdcc146bf60754e6a042426089575c75a003f089d2739839dec58b964ec3843"
+        );
+        // Case 6: a key longer than the block is hashed first.
+        assert_eq!(
+            hmac_sha256_hex(&[0xaa; 131], b"Test Using Larger Than Block-Size Key - Hash Key First"),
+            "60e431591ee0b67f0d8a26aacbf5b77f8e0bc6213728c5140546040f0ee37f54"
+        );
+    }
+
+    /// Everything a pane can see (its env) must not let it speak for another pane.
+    #[tokio::test]
+    async fn cannot_derive_another_panes_token_from_pane_env() {
+        use sha2::{Digest, Sha256};
+        let st = state();
+        pane(&st, "a", Some("p"));
+        pane(&st, "b", Some("p"));
+        let l = crate::terminal::env::Launch { res_dir: "/r".into(), socket: "/h".into(), ctl_socket: "/c".into(), settings: "/s".into() };
+        let env: std::collections::HashMap<_, _> = l.pane_env("a", &st.token, &st.ctl_token("a")).into_iter().collect();
+        let (hook, mine) = (&env["MDT_HOOK_TOKEN"], &env["MDT_CTL_TOKEN"]);
+        let sha = |s: String| Sha256::digest(s).iter().map(|b| format!("{b:02x}")).collect::<String>();
+        let forged = [
+            sha(format!("{hook}:b")),
+            sha(format!("{mine}:b")),
+            hmac_sha256_hex(hook.as_bytes(), b"b"),
+            hmac_sha256_hex(mine.as_bytes(), b"b"),
+            mine.clone(),
+            hook.clone(),
+        ];
+        for t in forged {
+            let req = json!({"token": t, "caller": "b", "op": "list"}).to_string();
+            assert_eq!(handle(&st, &req).await, json!({"error": "bad token"}), "forged {t}");
+        }
+        let own = json!({"token": mine, "caller": "a", "op": "list"}).to_string();
+        assert_eq!(handle(&st, &own).await, json!([]));
+        st.kill_all();
+    }
+
+    fn with_status(st: &Arc<TerminalState>) {
+        let weak = Arc::downgrade(st);
+        let _ = st.on_status.set(Arc::new(move |id: &str, src, s, _, _| {
+            if let Some(st) = weak.upgrade() {
+                apply_status_if_live(&st, id, src, s, None);
+            }
+        }));
+    }
+
+    /// Shell integration ends every prompt with `D;$?` then `A`, the first one too. That first
+    /// prompt comes after `run` typed the command but before the command starts: not done.
+    #[tokio::test]
+    async fn first_prompt_does_not_count_as_done_or_idle() {
+        use std::os::unix::fs::PermissionsExt;
+        let dir = std::env::temp_dir().join(format!("mdt-ctl-shell-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let fake = dir.join("rc-shell");
+        std::fs::write(&fake, "#!/bin/sh\nprintf '\\033]133;D;0\\007\\033]133;A\\007'\nexec /bin/sh\n").unwrap();
+        std::fs::set_permissions(&fake, std::fs::Permissions::from_mode(0o755)).unwrap();
+        let mut st = TerminalState::default();
+        st.shell = fake.display().to_string();
+        let st = Arc::new(st);
+        with_status(&st);
+        opt_in(&st, "p");
+        pane(&st, "a", Some("p"));
+        let h = run(&st, "a", r"sleep 2; printf '\033]133;C\007\033]133;D;3\007\033]133;A\007'").await;
+        let r = call(&st, "a", "wait", json!({"id": h, "until": "idle", "timeout_s": 1})).await;
+        assert_eq!(r["status"], "timeout", "first prompt taken as idle: {r}");
+        let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 5})).await;
+        assert_eq!((r["status"].as_str(), r["exit_code"].as_i64()), (Some("idle"), Some(3)), "{r}");
+        st.kill_all();
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    /// End to end with the real bash integration: `wait` returns when the command really ends.
+    #[tokio::test]
+    async fn wait_done_with_real_shell_integration() {
+        let mut st = TerminalState::default();
+        st.shell = "/bin/bash".into();
+        let st = Arc::new(st);
+        let res = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("resources");
+        let _ = st.launch.set(crate::terminal::env::Launch { res_dir: res, socket: "/nonexistent/h".into(), ctl_socket: "/nonexistent/c".into(), settings: "/nonexistent/s".into() });
+        with_status(&st);
+        opt_in(&st, "p");
+        pane(&st, "a", Some("p"));
+        let t = Instant::now();
+        let h = run(&st, "a", "sh -c 'sleep 1; exit 3'").await;
+        let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 15})).await;
+        assert_eq!((r["status"].as_str(), r["exit_code"].as_i64()), (Some("idle"), Some(3)), "{r}");
+        assert!(t.elapsed() >= Duration::from_secs(1), "returned before the command finished: {r}");
         st.kill_all();
     }
 
@@ -554,7 +661,7 @@ mod tests {
                 out
             }
         };
-        let list = format!("{}\n", json!({"token": pane_token(&st.token, "a"), "caller": "a", "op": "list"}));
+        let list = format!("{}\n", json!({"token": st.ctl_token("a"), "caller": "a", "op": "list"}));
         assert_eq!(ask(list.into_bytes()).await, "[]\n");
         assert_eq!(std::fs::metadata(&path).unwrap().permissions().mode() & 0o777, 0o600);
         let big = ask(vec![b'x'; 70 * 1024]).await;

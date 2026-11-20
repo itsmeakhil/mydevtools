@@ -189,6 +189,11 @@ impl Commands {
         (self.start, self.hold_prompt) = (Some(now), false);
     }
 
+    /// A command started (OSC 133 C) and has not ended yet.
+    pub fn running(&self) -> bool {
+        self.start.is_some()
+    }
+
     /// `agent` = an agent ran in this command (it reports its own status).
     pub fn end(&mut self, code: Option<i32>, now: Instant, agent: bool) -> Option<(TermStatus, CmdEnd)> {
         let took = now.duration_since(self.start.take()?);
