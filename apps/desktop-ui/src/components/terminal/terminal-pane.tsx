@@ -5,16 +5,17 @@ import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
 import { IconArrowsMinimize, IconChevronDown, IconChevronUp, IconPlayerPlay, IconRefresh, IconX } from "@tabler/icons-react"
 import { agentName, resumeCommand } from "@/lib/terminal/agents"
+import { blobToBase64, imageTooLarge, pngIn } from "@/lib/terminal/paste-image"
 import "@xterm/xterm/css/xterm.css"
 import type { IMarker, Terminal as XTerm } from "@xterm/xterm"
 import type { SearchAddon } from "@xterm/addon-search"
 import { terminalExists, useTerminalStore } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
 import {
-  cwdFromOsc7, decodeOutput, duration, encodeInput, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
+  cwdFromOsc7, decodeOutput, duration, encodeInput, IMAGE_ADDON_OPTIONS, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
 } from "@/lib/terminal/util"
 import {
-  terminalAttach, terminalClearScrollback, terminalKill, terminalResize, terminalSpawn, terminalWrite,
+  terminalAttach, terminalClearScrollback, terminalKill, terminalResize, terminalSaveImage, terminalSpawn, terminalWrite,
 } from "@/lib/desktop/terminal-bridge"
 import { openExternal } from "@/lib/desktop/external-links"
 import { cn } from "@/lib/utils"
@@ -117,6 +118,8 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   /** GPU renderer on/off: hidden panes give their WebGL context back (WebKit caps live contexts at ~16). */
   const gpu = React.useRef({ on: () => {}, off: () => {} })
   const visibleRef = React.useRef(visible)
+  /** Latest image-paste handler, for the paste listener set up once per pane. */
+  const pasteImageRef = React.useRef<(png: Blob) => Promise<void>>(async () => {})
   const onShortcut = React.useRef<(a: PaneShortcut) => void>(() => {})
   const wantFocus = React.useRef(false)
   const fontSize = useTerminalStore((s) => s.fontSize)
@@ -136,9 +139,11 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   const [query, setQuery] = React.useState("")
   const [noMatch, setNoMatch] = React.useState(false)
   const findInput = React.useRef<HTMLInputElement>(null)
-  const strings = React.useRef<{ exited: string; folderMissing: (path: string) => string }>({ exited: "", folderMissing: () => "" })
+  const strings = React.useRef<{ exited: string; folderMissing: (path: string) => string; imageTooLarge: string }>({
+    exited: "", folderMissing: () => "", imageTooLarge: "",
+  })
   React.useEffect(() => {
-    strings.current = { exited: t("processExited"), folderMissing: (path) => t("folderMissing", { path }) }
+    strings.current = { exited: t("processExited"), folderMissing: (path) => t("folderMissing", { path }), imageTooLarge: t("imageTooLarge") }
   }, [t])
 
   React.useEffect(() => {
@@ -148,7 +153,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     let cleanup = () => {}
 
     ;(async () => {
-      const [{ Terminal }, { FitAddon }, { WebLinksAddon }, { SearchAddon }, { Unicode11Addon }, { WebglAddon }] =
+      const [{ Terminal }, { FitAddon }, { WebLinksAddon }, { SearchAddon }, { Unicode11Addon }, { WebglAddon }, { ImageAddon }] =
         await Promise.all([
           import("@xterm/xterm"),
           import("@xterm/addon-fit"),
@@ -156,6 +161,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
           import("@xterm/addon-search"),
           import("@xterm/addon-unicode11"),
           import("@xterm/addon-webgl"),
+          import("@xterm/addon-image"),
         ])
       if (disposed) return
       const openLink = (_e: MouseEvent, uri: string) =>
@@ -186,6 +192,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       // Emoji and CJK take two cells, as in agent TUIs' own width tables.
       term.loadAddon(new Unicode11Addon())
       term.unicode.activeVersion = "11"
+      term.loadAddon(new ImageAddon(IMAGE_ADDON_OPTIONS))
       termRef.current = term
 
       // OSC 133 A = a prompt starts here (written by our zsh/bash integration, fish, nushell…).
@@ -309,7 +316,18 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       const mo = new MutationObserver(() => (term.options.theme = themeFor(host)))
       mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "style", "data-theme"] })
 
+      // ⌘V with a screenshot on the clipboard: save it and type its path (agents take images as paths).
+      const onPaste = (e: ClipboardEvent) => {
+        const png = pngIn(e.clipboardData?.files)
+        if (!png) return // text: xterm's own paste handles it
+        e.preventDefault()
+        e.stopPropagation()
+        void pasteImageRef.current(png)
+      }
+      host.addEventListener("paste", onPaste, true)
+
       cleanup = () => {
+        host.removeEventListener("paste", onPaste, true)
         cancelAnimationFrame(frame)
         ro.disconnect()
         mo.disconnect()
@@ -455,6 +473,29 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   }
   const paste = () =>
     navigator.clipboard.readText().then((text) => text && termRef.current?.paste(text)).catch((e) => toast.error(errMsg(e)))
+  const pasteImage = async (png: Blob) => {
+    if (imageTooLarge(png)) return void toast.error(strings.current.imageTooLarge)
+    try {
+      const path = await terminalSaveImage(await blobToBase64(png))
+      termRef.current?.paste(`${shellQuote([path])} `)
+    } catch (e) {
+      toast.error(errMsg(e))
+    }
+  }
+  React.useEffect(() => {
+    pasteImageRef.current = pasteImage
+  })
+  // Context menu: read an image from the system clipboard (asks WebKit's paste permission).
+  const pasteImageFromClipboard = async () => {
+    try {
+      for (const item of await navigator.clipboard.read()) {
+        if (item.types.includes("image/png")) return void (await pasteImage(await item.getType("image/png")))
+      }
+      toast.error(t("noClipboardImage"))
+    } catch (e) {
+      toast.error(errMsg(e))
+    }
+  }
 
   return (
     <div
@@ -664,6 +705,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
           <ContextMenuItem onSelect={paste}>
             {t("paste")}<ContextMenuShortcut>⌘V</ContextMenuShortcut>
           </ContextMenuItem>
+          <ContextMenuItem onSelect={() => void pasteImageFromClipboard()}>{t("pasteImage")}</ContextMenuItem>
           <ContextMenuItem onSelect={insertPaths}>{t("insertPath")}</ContextMenuItem>
           <ContextMenuSeparator />
           <ContextMenuItem onSelect={() => store().split(id, "row")}>

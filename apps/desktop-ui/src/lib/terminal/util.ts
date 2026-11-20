@@ -271,3 +271,6 @@ export function normalizePrefs(raw: unknown): TerminalPrefs {
 export function shellQuote(paths: string[]): string {
   return paths.map((p) => (/^[\w@%+=:,./-]+$/.test(p) ? p : `'${p.replace(/'/g, `'\\''`)}'`)).join(" ")
 }
+
+/** Inline images (sixel, iTerm IIP): one image ≤ 16 MP, all images in a pane ≤ 32 MB. */
+export const IMAGE_ADDON_OPTIONS = { sixelSupport: true, iipSupport: true, pixelLimit: 16_777_216, storageLimit: 32 } as const

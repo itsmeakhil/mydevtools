@@ -4,5 +4,6 @@ pub mod git;
 pub mod hooks;
 pub mod notify;
 pub mod osc;
+pub mod paste;
 pub mod pty;
 pub mod restore;
