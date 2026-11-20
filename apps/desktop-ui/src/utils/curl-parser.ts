@@ -6,7 +6,7 @@ export function parseCurlCommand(curlCommand: string): Partial<ApiRequestState> 
         headers: [],
         params: [],
         body: { type: "none", content: "" },
-        auth: { type: "none" },
+        auth: { type: "inherit" },
     }
 
     // Case-insensitive, and tolerant of `curl.exe` — must match the paste

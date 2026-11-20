@@ -12,11 +12,15 @@ import { moveCollectionSecretsToVault } from "@/lib/api-client/move-to-vault"
 import { cloneWithNewIds, findItem, insertAt, locate, moveWithin, removeItem, type Location } from "@/lib/api-client/collection-tree"
 import { useCipherKey } from "@/lib/use-cipher-key"
 import { importBrunoFolder } from "@/lib/import/bruno"
+import { BrunoWriteError, readBrunoLink, serializeBrunoCollection } from "@/lib/import/bruno-write"
+import { useTranslations } from "next-intl"
 import type { Environment } from "../use-environments"
 
 const STORAGE_KEY = "api-client-collections"
 // Root-level manifest only: a nested bruno.json (e.g. a vendored sample) is not this folder's identity.
 const BRUNO_MANIFEST = /^(bruno\.json|opencollection\.yml)$/
+/** Files read for a folder collection — ours (`*.yaml`) or Bruno (`*.bru`, `*.yml`, `bruno.json`). */
+const isCollectionFile = (name: string) => /\.(ya?ml|bru)$/.test(name) || name === "bruno.json"
 
 function sortCollections(cols: Collection[]) {
     return [...cols].sort((a, b) => a.name.localeCompare(b.name))
@@ -55,6 +59,16 @@ export function useCollections() {
     /** Collections already warned about literal credentials — once per session is enough. */
     const secretWarnedRef = React.useRef(new Set<string>())
     const cipherKey = useCipherKey()
+    const tf = useTranslations("ApiClient.fileSync")
+    const tc = useTranslations("ApiClient.collectionToasts")
+    type FileSyncKey = Parameters<typeof tf>[0]
+    /** Why a live-linked Bruno write was refused (or failed), in the user's language. */
+    const brunoWriteMessage = (e: unknown): string => {
+        if (!(e instanceof BrunoWriteError)) return tf("errors.writeFailed", { reason: e instanceof Error ? e.message : String(e) })
+        const partKey = `parts.${e.params.part}` as FileSyncKey
+        const part = e.params.part ? (tf.has(partKey) ? tf(partKey) : e.params.part) : ""
+        return tf(`errors.${e.code}` as FileSyncKey, { name: e.params.name ?? "", part })
+    }
     // Latest file collections for toast-action callbacks (they outlive the closing render).
     const fileCollectionsRef = React.useRef(fileCollections)
     fileCollectionsRef.current = fileCollections
@@ -80,15 +94,25 @@ export function useCollections() {
         for (const path of paths) {
             try {
                 await allowCollectionDir(path)
-                const { collection, warnings } = parseCollection(await readCollectionFiles(path))
-                warnings.forEach((w) => console.warn(`[file-collection] ${path}: ${w}`))
-                loaded.push({ ...collection, source: { kind: "file", path } })
+                const files = await readCollectionFiles(path, isCollectionFile)
+                if (files.some((e) => e.relPath === MANIFEST_FILE)) {
+                    const { collection, warnings } = parseCollection(files.filter((e) => e.relPath.endsWith(".yaml")))
+                    warnings.forEach((w) => console.warn(`[file-collection] ${path}: ${w}`))
+                    loaded.push({ ...collection, source: { kind: "file", path } })
+                } else if (files.some((e) => BRUNO_MANIFEST.test(e.relPath))) {
+                    // Previous id map keeps ids (and open tabs' links) stable across reloads.
+                    const prev = fileCollectionsRef.current.find((c) => c.source?.path === path)?.source
+                    const { collection, link } = readBrunoLink(path, files, prev?.kind === "bruno" ? prev.pathOf : undefined)
+                    loaded.push({ ...collection, source: { kind: "bruno", path, ...link } })
+                } else {
+                    throw new Error("no collection.yaml or bruno.json")
+                }
                 failedFilePathsRef.current.delete(path)
             } catch (e) {
                 console.error(`Failed to read folder collection at ${path}`, e)
                 if (!failedFilePathsRef.current.has(path)) {
                     failedFilePathsRef.current.add(path)
-                    toast.error(`Couldn't read folder collection: ${path}`)
+                    toast.error(tc("readFolderFailed", { path }))
                 }
             }
         }
@@ -98,15 +122,41 @@ export function useCollections() {
         })
     }, [])
 
-    // Load folder collections on mount and when the window regains focus
-    // (catches git pulls / external editor changes — no file watcher in v1).
     React.useEffect(() => {
-        if (!isDesktop()) return
-        void reloadFileCollections()
-        const onFocus = () => void reloadFileCollections()
-        window.addEventListener("focus", onFocus)
-        return () => window.removeEventListener("focus", onFocus)
+        if (isDesktop()) void reloadFileCollections()
     }, [reloadFileCollections])
+
+    // Reload when files change on disk (git pull, external editor). Our own writes
+    // fire events too; a reload that matches state is a no-op, and the hold after
+    // a write just avoids re-reading mid-save.
+    // ponytail: any change re-reads every folder collection; per-root reload if many get slow.
+    const ownWriteUntilRef = React.useRef(0)
+    const watchKey = fileCollections.map((c) => c.source!.path).sort().join("\n")
+    React.useEffect(() => {
+        if (!isDesktop() || !watchKey) return
+        let cancelled = false
+        let stop: (() => void) | undefined
+        let timer: ReturnType<typeof setTimeout> | undefined
+        const schedule = () => {
+            clearTimeout(timer)
+            timer = setTimeout(() => void reloadFileCollections(), Math.max(0, ownWriteUntilRef.current - Date.now()))
+        }
+        const onFocus = () => void reloadFileCollections()
+        import("@/lib/desktop/collection-files")
+            .then(({ watchCollectionDirs }) => watchCollectionDirs(watchKey.split("\n"), schedule))
+            .then((s) => (cancelled ? s() : (stop = s)))
+            .catch((e) => {
+                // No watcher (permission/platform) — fall back to reloading on focus.
+                console.warn("[file-collection] watch unavailable, reloading on focus instead", e)
+                if (!cancelled) window.addEventListener("focus", onFocus)
+            })
+        return () => {
+            cancelled = true
+            clearTimeout(timer)
+            stop?.()
+            window.removeEventListener("focus", onFocus)
+        }
+    }, [watchKey, reloadFileCollections])
 
     /**
      * Persist a mutated folder collection: swap state optimistically, then write
@@ -120,17 +170,44 @@ export function useCollections() {
     ): Promise<boolean> => {
         const next = { ...target, ...patch, items: nextItems }
         setFileCollections((cur) => cur.map((c) => (c.id === target.id ? next : c)))
+        const src = target.source
+        if (src?.kind === "bruno") {
+            // Live-linked Bruno folder: diff against the disk snapshot, then adopt the
+            // written files as the new snapshot. Refusals restore the previous state.
+            try {
+                const { files, pathOf } = serializeBrunoCollection(next, src)
+                const prev = Object.entries(src.files).map(([relPath, content]) => ({ relPath, content }))
+                const { writes, deletes } = diffFiles(prev, files)
+                if (writes.length > 0 || deletes.length > 0) {
+                    const { writeCollectionFiles } = await import("@/lib/desktop/collection-files")
+                    ownWriteUntilRef.current = Date.now() + 60_000
+                    try {
+                        await writeCollectionFiles(src.path, writes, deletes)
+                    } finally {
+                        ownWriteUntilRef.current = Date.now() + 500
+                    }
+                }
+                const snapshot = Object.fromEntries(files.map((f) => [f.relPath, f.content]))
+                setFileCollections((cur) => cur.map((c) => (c.id === target.id ? { ...next, source: { ...src, files: snapshot, pathOf } } : c)))
+                return true
+            } catch (e) {
+                setFileCollections((cur) => cur.map((c) => (c.id === target.id ? target : c)))
+                if (!(e instanceof BrunoWriteError)) console.error("Error writing Bruno collection", e)
+                toast.error(brunoWriteMessage(e), { duration: 10000 })
+                return false
+            }
+        }
         // Literal credentials are redacted by the serializer (never written to git-able
         // files) — tell the user once so a "missing" token isn't a mystery, and offer
         // to move them into the encrypted vault (rewrites fields to {{vault.*}} tokens).
         if (!secretWarnedRef.current.has(target.id) && countLiteralAuthSecrets(next) > 0) {
             secretWarnedRef.current.add(target.id)
             toast.warning(
-                "Credentials typed directly are not saved into collection files — keep them in the encrypted vault as {{vault.NAME}} tokens",
+                tc("secretsWarning", { token: "{{vault.NAME}}" }),
                 {
                     duration: 10000,
                     action: {
-                        label: "Move to vault",
+                        label: tc("moveToVault"),
                         onClick: () => void moveFileCollectionSecrets(target.id),
                     },
                 }
@@ -140,13 +217,18 @@ export function useCollections() {
             const { writes, deletes } = diffFiles(serializeCollection(target), serializeCollection(next))
             if (writes.length > 0 || deletes.length > 0) {
                 const { writeCollectionFiles } = await import("@/lib/desktop/collection-files")
-                await writeCollectionFiles(target.source!.path, writes, deletes)
+                ownWriteUntilRef.current = Date.now() + 60_000
+                try {
+                    await writeCollectionFiles(target.source!.path, writes, deletes)
+                } finally {
+                    ownWriteUntilRef.current = Date.now() + 500
+                }
             }
             return true
         } catch (e) {
             setFileCollections((cur) => cur.map((c) => (c.id === target.id ? target : c)))
             console.error("Error writing folder collection", e)
-            toast.error(`Failed to write collection files: ${e instanceof Error ? e.message : String(e)}`)
+            toast.error(tc("writeFilesFailed", { message: e instanceof Error ? e.message : String(e) }))
             return false
         }
     }
@@ -159,15 +241,11 @@ export function useCollections() {
             const { collection: moved, moved: count } = await moveCollectionSecretsToVault(target, cipherKey)
             if (count === 0) return
             if (await mutateFileCollection(target, moved.items)) {
-                toast.success(
-                    count === 1
-                        ? "1 credential moved to the vault"
-                        : `${count} credentials moved to the vault`
-                )
+                toast.success(tc("movedToVault", { count }))
             }
         } catch (e) {
             console.error("Error moving credentials to vault", e)
-            toast.error(e instanceof Error ? e.message : "Failed to move credentials to the vault")
+            toast.error(e instanceof Error ? e.message : tc("moveToVaultFailed"))
         }
     }
 
@@ -223,7 +301,7 @@ export function useCollections() {
                 if (!cancelled) setCollections(cols)
             } catch (error) {
                 console.error("Error fetching collections:", error)
-                toast.error("Failed to load collections")
+                toast.error(tc("loadFailed"))
             } finally {
                 if (!cancelled) setIsLoading(false)
             }
@@ -342,7 +420,7 @@ export function useCollections() {
         } catch (e) {
             setCollections(prev)
             console.error("Error adding folder", e)
-            toast.error("Failed to add folder")
+            toast.error(tc("addFolderFailed"))
         }
     }
 
@@ -363,7 +441,7 @@ export function useCollections() {
             const { loadCollectionRegistry, saveCollectionRegistry } = await import("@/lib/desktop/collection-files")
             await saveCollectionRegistry((await loadCollectionRegistry()).filter((p) => p !== fileCol.source!.path))
             setFileCollections((cur) => cur.filter((c) => c.id !== itemId))
-            toast.success("Folder collection removed from list (files kept)")
+            toast.success(tc("folderRemoved"))
             return
         }
 
@@ -378,11 +456,11 @@ export function useCollections() {
                 try {
                     await authedFetch(`/api/backend/api-client/collections/${itemId}`, { method: "DELETE" })
                     broadcastApiClientUpdate("collections")
-                    toast.success("Collection deleted")
+                    toast.success(tc("deleted", { count: 1 }))
                 } catch (e) {
                     setCollections(prev)
                     console.error("Error deleting collection", e)
-                    toast.error("Failed to delete collection")
+                    toast.error(tc("deleteFailed", { count: 1 }))
                 }
             }
             return
@@ -406,7 +484,7 @@ export function useCollections() {
         } catch (e) {
             setCollections(prev)
             console.error("Error deleting item", e)
-            toast.error("Failed to delete item")
+            toast.error(tc("deleteItemFailed"))
         }
     }
 
@@ -422,7 +500,7 @@ export function useCollections() {
                 ? [...targetCollection.items, request]
                 : addItemToParent(targetCollection.items, parentId, request)
             const ok = await mutateFileCollection(targetCollection, nextItems)
-            if (ok) toast.success("Request saved")
+            if (ok) toast.success(tc("requestSaved"))
             return ok
         }
 
@@ -445,12 +523,12 @@ export function useCollections() {
             ])
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             broadcastApiClientUpdate("collections")
-            toast.success("Request saved")
+            toast.success(tc("requestSaved"))
             return true
         } catch (e) {
             setCollections(prev)
             console.error("Error saving request", e)
-            toast.error("Failed to save request")
+            toast.error(tc("saveFailed"))
             return false
         }
     }
@@ -580,7 +658,7 @@ export function useCollections() {
         } catch (e) {
             setCollections(prev)
             console.error("Error renaming folder", e)
-            toast.error("Failed to rename folder")
+            toast.error(tc("renameFolderFailed"))
         }
     }
 
@@ -605,6 +683,12 @@ export function useCollections() {
             toast.error(failMsg)
             return false
         }
+    }
+
+    /** Replace one collection's item tree in a single commit (OpenAPI "Sync from spec"). */
+    const replaceItems = (collectionId: string, nextItems: Collection["items"], ops: object[], failMsg: string): Promise<boolean> => {
+        const target = allCollections.find((c) => c.id === collectionId)
+        return target ? commitItems(target, nextItems, ops, failMsg) : Promise.resolve(false)
     }
 
     /** Copy a request or folder (fresh ids throughout) right below the original. */
@@ -772,11 +856,11 @@ export function useCollections() {
             }
             setCollections((prev) => sortCollections([...prev, final]))
             broadcastApiClientUpdate("collections")
-            if (!quiet) toast.success(`Imported "${incoming.name}"`)
+            if (!quiet) toast.success(tc("imported", { name: incoming.name }))
             return final
         } catch (e) {
             console.error("Error importing collection", e)
-            toast.error("Failed to import collection")
+            toast.error(tc("importFailed"))
             return null
         }
     }
@@ -792,19 +876,24 @@ export function useCollections() {
             const created = (await res.json()) as Collection
             setCollections((prev) => sortCollections([...prev, created]))
             broadcastApiClientUpdate("collections")
-            toast.success("Collection created")
+            toast.success(tc("created"))
             return created
         } catch (e) {
             console.error("Error creating collection", e)
-            toast.error("Failed to create collection")
+            toast.error(tc("createFailed"))
         }
     }
 
-    const renameCollection = async (collectionId: string, name: string) => {
+    /** Patch collection-level fields (name, defaults, variables) on a DB or folder collection. */
+    const patchCollection = async (
+        collectionId: string,
+        patch: Partial<Collection>,
+        messages: { ok: string; fail: string } = { ok: "Collection saved", fail: "Failed to save collection" },
+    ) => {
         const fileCol = fileCollections.find((c) => c.id === collectionId)
         if (fileCol) {
-            if (await mutateFileCollection(fileCol, fileCol.items, { name })) {
-                toast.success("Collection renamed")
+            if (await mutateFileCollection(fileCol, fileCol.items, patch)) {
+                toast.success(messages.ok)
             }
             return
         }
@@ -813,23 +902,26 @@ export function useCollections() {
         const prev = collections
         // Optimistic update
         setCollections((cur) =>
-            sortCollections(cur.map((c) => (c.id === collectionId ? { ...c, name } : c)))
+            sortCollections(cur.map((c) => (c.id === collectionId ? { ...c, ...patch } : c)))
         )
         try {
             const res = await authedFetch(`/api/backend/api-client/collections/${collectionId}`, {
                 method: "PATCH",
-                body: JSON.stringify({ name }),
+                body: JSON.stringify(patch),
             })
             const updated = (await res.json()) as Collection
             setCollections((cur) => sortCollections(cur.map((c) => (c.id === updated.id ? updated : c))))
             broadcastApiClientUpdate("collections")
-            toast.success("Collection renamed")
+            toast.success(messages.ok)
         } catch (e) {
             setCollections(prev)
-            console.error("Error renaming collection", e)
-            toast.error("Failed to rename collection")
+            console.error(messages.fail, e)
+            toast.error(messages.fail)
         }
     }
+
+    const renameCollection = (collectionId: string, name: string) =>
+        patchCollection(collectionId, { name }, { ok: "Collection renamed", fail: "Failed to rename collection" })
 
     const deleteMultipleCollections = async (ids: string[]) => {
         if (ids.length === 0) return
@@ -845,7 +937,7 @@ export function useCollections() {
             setFileCollections((cur) => cur.filter((c) => !fileIds.has(c.id)))
             ids = ids.filter((id) => !fileIds.has(id))
             if (ids.length === 0) {
-                toast.success("Folder collections removed from list (files kept)")
+                toast.success(tc("foldersRemoved"))
                 return
             }
         }
@@ -884,11 +976,11 @@ export function useCollections() {
             // Handle results with appropriate feedback
             if (failedIds.length === 0) {
                 // All successful
-                toast.success(ids.length === 1 ? "Collection deleted" : `${ids.length} collections deleted`)
+                toast.success(tc("deleted", { count: ids.length }))
             } else if (successfulIds.length === 0) {
                 // All failed
                 console.error("Failed to delete collections:", failedIds)
-                toast.error(ids.length === 1 ? "Failed to delete collection" : "Failed to delete collections")
+                toast.error(tc("deleteFailed", { count: ids.length }))
                 throw new Error("All collections failed to delete")
             } else {
                 // Partial failure
@@ -897,13 +989,13 @@ export function useCollections() {
                     .filter(Boolean)
                     .join(", ")
                 console.error("Partial failure deleting collections:", failedIds)
-                toast.error(`Deleted ${successfulIds.length} of ${ids.length} collections. Failed: ${failedNames || "unknown"}`)
+                toast.error(tc("partialDelete", { done: successfulIds.length, total: ids.length, names: failedNames || "?" }))
                 throw new Error(`Partial failure: ${failedIds.length} collections failed to delete`)
             }
         } catch (error) {
             console.error("Failed to delete collections:", error)
             if (!(error instanceof Error) || !error.message.includes("Partial failure")) {
-                toast.error("Failed to delete collections")
+                toast.error(tc("deleteFailed", { count: ids.length }))
             }
             throw error // Re-throw so caller knows deletion failed
         }
@@ -912,11 +1004,12 @@ export function useCollections() {
     /**
      * Pick a folder and open it as a file-backed collection. A folder with a
      * `collection.yaml` is opened as-is; a Bruno collection (`bruno.json` /
-     * `opencollection.yml`) is imported as a regular collection, leaving the
-     * Bruno folder untouched; any other folder is initialized (name = folder
+     * `opencollection.yml`) is live-linked — edits write back to its files
+     * (`mode: "copy"` imports it as a regular collection instead, leaving the
+     * folder untouched); any other folder is initialized (name = folder
      * basename). Desktop only.
      */
-    const openFolderCollection = async (): Promise<{ collection: Collection; environments: Environment[] } | null> => {
+    const openFolderCollection = async (mode: "link" | "copy" = "link"): Promise<{ collection: Collection; environments: Environment[] } | null> => {
         if (!isDesktop()) return null
         try {
             const { pickFolder, readCollectionFiles, writeCollectionFiles, loadCollectionRegistry, saveCollectionRegistry } =
@@ -924,21 +1017,36 @@ export function useCollections() {
             const path = await pickFolder()
             if (!path) return null
 
-            const registry = await loadCollectionRegistry()
-            if (registry.includes(path)) {
-                toast.info("This folder collection is already open")
-                const open = fileCollections.find((c) => c.source?.path === path)
-                return open ? { collection: open, environments: [] } : null
-            }
-
-            const files = await readCollectionFiles(path, (n) => /\.(ya?ml|bru)$/.test(n) || n === "bruno.json")
-            if (!files.some((e) => e.relPath === MANIFEST_FILE) && files.some((e) => BRUNO_MANIFEST.test(e.relPath))) {
+            const files = await readCollectionFiles(path, isCollectionFile)
+            const isBruno = !files.some((e) => e.relPath === MANIFEST_FILE) && files.some((e) => BRUNO_MANIFEST.test(e.relPath))
+            if (mode === "copy") {
+                if (!isBruno) {
+                    toast.error(tf("notBruno"))
+                    return null
+                }
                 // Shallowest first: the importer roots at the first manifest it finds,
                 // and the walk can reach a nested bruno.json before the root one.
                 const byDepth = [...files].sort((a, b) => a.relPath.split("/").length - b.relPath.split("/").length)
                 const { collection, environments } = importBrunoFolder(byDepth.map((e) => ({ path: e.relPath, text: e.content })))
                 const created = await importCollection(collection)
                 return created ? { collection: created, environments } : null
+            }
+
+            const registry = await loadCollectionRegistry()
+            if (registry.includes(path)) {
+                toast.info(tc("alreadyOpen"))
+                const open = fileCollections.find((c) => c.source?.path === path)
+                return open ? { collection: open, environments: [] } : null
+            }
+
+            if (isBruno) {
+                const { collection, link, environments } = readBrunoLink(path, files)
+                const col: Collection = { ...collection, source: { kind: "bruno", path, ...link } }
+                await saveCollectionRegistry([...registry, path])
+                setFileCollections((cur) => [...cur.filter((c) => c.id !== col.id), col])
+                if (link.readOnly) toast.info(tf("readOnlyOpenCollection"), { duration: 10000 })
+                else toast.success(tf("linked", { name: col.name }))
+                return { collection: col, environments }
             }
 
             let col: Collection
@@ -956,11 +1064,11 @@ export function useCollections() {
 
             await saveCollectionRegistry([...registry, path])
             setFileCollections((cur) => [...cur.filter((c) => c.id !== col.id), col])
-            toast.success(`Opened folder collection "${col.name}"`)
+            toast.success(tc("opened", { name: col.name }))
             return { collection: col, environments: [] }
         } catch (e) {
             console.error("Error opening folder collection", e)
-            toast.error(`Couldn't open folder as collection: ${e instanceof Error ? e.message : String(e)}`)
+            toast.error(tc("openFailed", { message: e instanceof Error ? e.message : String(e) }))
             return null
         }
     }
@@ -974,6 +1082,7 @@ export function useCollections() {
         toggleFolder,
         createCollection,
         renameCollection,
+        patchCollection,
         renameFolder,
         patchFolder,
         updateRequest,
@@ -982,6 +1091,7 @@ export function useCollections() {
         duplicateItem,
         duplicateCollection,
         moveItem,
+        replaceItems,
         setCollectionWorkspace,
         isLoading
     }

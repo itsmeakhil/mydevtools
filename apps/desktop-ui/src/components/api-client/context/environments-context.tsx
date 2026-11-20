@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import { useEnvironments } from "../use-environments"
-import type { Environment } from "../use-environments"
+import type { Environment, EnvironmentVariable } from "../use-environments"
+import { variablesToRecord } from "@/lib/api-client/variables"
 
 // ── Types ──────────────────────────────────────────────────────────────────
 
@@ -10,6 +11,10 @@ type EnvironmentsState = {
     environments: Environment[]
     activeEnvId: string | null
     activeEnvironmentVariables: Record<string, string>
+    globals: EnvironmentVariable[]
+    globalVariables: Record<string, string>
+    /** Values of secret-flagged globals + active-environment variables, by key — for masking and redaction. */
+    secretVariables: Record<string, string>
 }
 
 type EnvironmentsActions = {
@@ -17,7 +22,7 @@ type EnvironmentsActions = {
     addEnvironment: (name: string) => Promise<string>
     updateEnvironment: (id: string, updates: Partial<Environment>) => void
     deleteEnvironment: (id: string) => void
-    substituteVariables: (text: string) => string
+    updateGlobals: (next: EnvironmentVariable[]) => Promise<void>
 }
 
 // ── Contexts ───────────────────────────────────────────────────────────────
@@ -35,24 +40,24 @@ export function EnvironmentsProvider({ children }: { children: React.ReactNode }
         addEnvironment,
         updateEnvironment,
         deleteEnvironment,
-        substituteVariables,
+        globals,
+        updateGlobals,
     } = useEnvironments()
 
-    const activeEnvironmentVariables = React.useMemo<Record<string, string>>(() => {
-        if (!activeEnvId) return {}
-        const activeEnv = environments.find((env) => env.id === activeEnvId)
-        if (!activeEnv) return {}
-        return activeEnv.variables.reduce((acc, variable) => {
-            if (variable.enabled && variable.key) {
-                acc[variable.key] = variable.value
-            }
-            return acc
-        }, {} as Record<string, string>)
-    }, [environments, activeEnvId])
+    const activeVariables = React.useMemo(
+        () => environments.find((env) => env.id === activeEnvId)?.variables ?? [],
+        [environments, activeEnvId],
+    )
+    const activeEnvironmentVariables = React.useMemo(() => variablesToRecord(activeVariables), [activeVariables])
+    const globalVariables = React.useMemo(() => variablesToRecord(globals), [globals])
+    const secretVariables = React.useMemo(
+        () => variablesToRecord([...globals, ...activeVariables].filter((v) => v.secret)),
+        [globals, activeVariables],
+    )
 
     const state = React.useMemo<EnvironmentsState>(
-        () => ({ environments, activeEnvId, activeEnvironmentVariables }),
-        [environments, activeEnvId, activeEnvironmentVariables]
+        () => ({ environments, activeEnvId, activeEnvironmentVariables, globals, globalVariables, secretVariables }),
+        [environments, activeEnvId, activeEnvironmentVariables, globals, globalVariables, secretVariables]
     )
 
     const actions = React.useMemo<EnvironmentsActions>(
@@ -61,10 +66,10 @@ export function EnvironmentsProvider({ children }: { children: React.ReactNode }
             addEnvironment,
             updateEnvironment,
             deleteEnvironment,
-            substituteVariables,
+            updateGlobals,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [setActiveEnvId, addEnvironment, updateEnvironment, deleteEnvironment, substituteVariables]
+        [setActiveEnvId, addEnvironment, updateEnvironment, deleteEnvironment, updateGlobals]
     )
 
     return (

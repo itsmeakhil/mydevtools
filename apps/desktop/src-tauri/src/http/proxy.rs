@@ -16,6 +16,8 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::OnceLock;
 use tauri::ipc::Channel;
 
+use crate::http::net::NetConfig;
+
 const DEFAULT_MAX_REDIRECTS: usize = 5;
 const MAX_REDIRECTS_CAP: usize = 50;
 const DEFAULT_TIMEOUT_MS: u64 = 30_000;
@@ -97,28 +99,11 @@ fn is_textual_content_type(ct: &str) -> bool {
             .any(|t| l.contains(t))
 }
 
-// One pooled client per (proxy mode, cert checking) so TLS sessions + keep-alive
-// connections are reused across sends; building a client per request cost a full
-// handshake each time. Insecure clients get their own pool so a connection opened
-// with verification off is never reused by a request that wants it on.
-static CLIENTS: [OnceLock<reqwest::Client>; 4] = [OnceLock::new(), OnceLock::new(), OnceLock::new(), OnceLock::new()];
-
-fn plain_client(bypass_proxy: bool, insecure: bool) -> Result<reqwest::Client, String> {
-    let slot = &CLIENTS[bypass_proxy as usize | (insecure as usize) << 1];
-    if let Some(c) = slot.get() {
-        return Ok(c.clone());
-    }
-    let mut builder = reqwest::Client::builder()
-        .redirect(reqwest::redirect::Policy::none())
-        .user_agent("mydevtools-desktop");
-    if bypass_proxy {
-        builder = builder.no_proxy();
-    }
-    if insecure {
-        builder = builder.danger_accept_invalid_certs(true);
-    }
-    let client = builder.build().map_err(|e| e.to_string())?;
-    Ok(slot.get_or_init(|| client).clone())
+/// Pooled client for one hop (see `net::client_for`): proxy mode, cert checking,
+/// client certificate and extra CAs all key the pool, so TLS sessions are reused
+/// only between requests that would build an identical client.
+fn client_for(url: &reqwest::Url, net: &NetConfig, insecure: bool) -> Result<reqwest::Client, String> {
+    crate::http::net::client_for(url, net, insecure, is_local_target(url))
 }
 
 fn build_body(body: &Value) -> Result<Option<BodyKind>, String> {
@@ -148,6 +133,15 @@ enum BodyKind {
 }
 
 impl BodyKind {
+    /// Raw bytes for hashing (digest auth-int); multipart is assembled by reqwest, so unknown.
+    fn bytes(&self) -> Option<&[u8]> {
+        match self {
+            BodyKind::Text(s) => Some(s.as_bytes()),
+            BodyKind::Bytes(b) => Some(b),
+            BodyKind::Multipart(_) => None,
+        }
+    }
+
     fn apply(&self, mut req: reqwest::RequestBuilder) -> Result<reqwest::RequestBuilder, String> {
         match self {
             BodyKind::Text(s) => Ok(req.body(s.clone())),
@@ -200,13 +194,25 @@ impl SendOptions {
     }
 }
 
+fn is_credential_header(name: &str) -> bool {
+    ["authorization", "cookie", "proxy-authorization"].iter().any(|h| name.eq_ignore_ascii_case(h))
+}
+
 struct Walked {
     response: reqwest::Response,
     chain: Vec<Value>,
+    /// Every request actually sent (redirect hops and digest retries) for the Timeline.
+    hops: Vec<Value>,
+}
+
+/// Milliseconds with one decimal — sub-millisecond phases on loopback still read.
+fn ms(d: std::time::Duration) -> f64 {
+    (d.as_secs_f64() * 10_000.0).round() / 10.0
 }
 
 async fn fetch_following_redirects(
-    client: &reqwest::Client,
+    net: &NetConfig,
+    insecure: bool,
     initial_url: &str,
     method: &str,
     headers: &Map<String, Value>,
@@ -214,11 +220,17 @@ async fn fetch_following_redirects(
     timeout: std::time::Duration,
     is_multipart: bool,
     max_redirects: Option<usize>,
+    digest_creds: Option<&crate::http::digest::Credentials>,
+    t0: std::time::Instant,
 ) -> Result<Walked, String> {
     let mut current_url = initial_url.to_string();
     let mut current_method = method.to_uppercase();
     let mut drop_body = false;
     let mut chain: Vec<Value> = Vec::new();
+    let mut hops: Vec<Value> = Vec::new();
+    // Digest is answered only for the origin the user addressed, never for a
+    // host a redirect points at.
+    let origin = reqwest::Url::parse(initial_url).map_err(|_| "Invalid URL format".to_string())?.origin();
 
     let follow = max_redirects.is_some();
     let max_redirects = max_redirects.unwrap_or(0);
@@ -226,29 +238,84 @@ async fn fetch_following_redirects(
         let url = reqwest::Url::parse(&current_url).map_err(|_| "Invalid URL format".to_string())?;
         assert_hop_allowed(&url)?;
 
-        let m = reqwest::Method::from_bytes(current_method.as_bytes()).map_err(|e| e.to_string())?;
-        let mut req = client.request(m, url).timeout(timeout);
-        for (k, v) in headers {
-            // Let reqwest set the multipart boundary itself.
-            if is_multipart && k.to_lowercase() == "content-type" {
-                continue;
-            }
-            if let Some(s) = v.as_str() {
-                req = req.header(k, s);
-            }
-        }
+        // Per hop: a redirect to another host gets that host's certificate and
+        // proxy rule, never the previous host's identity.
+        let client = client_for(&url, net, insecure)?;
         let use_body = !drop_body && current_method != "GET" && current_method != "HEAD";
-        if use_body {
-            if let Some(b) = body {
-                req = b.apply(req)?;
+        // Set after a Digest 401 on this hop; the hop is resent once with it.
+        let mut authorization: Option<String> = None;
+        let response = loop {
+            let m = reqwest::Method::from_bytes(current_method.as_bytes()).map_err(|e| e.to_string())?;
+            let mut req = client.request(m, url.clone()).timeout(timeout);
+            for (k, v) in headers {
+                // Let reqwest set the multipart boundary itself.
+                if is_multipart && k.to_lowercase() == "content-type" {
+                    continue;
+                }
+                if authorization.is_some() && k.eq_ignore_ascii_case("authorization") {
+                    continue;
+                }
+                // Like curl and browsers: credentials go only to the origin the
+                // user addressed, never to a host a redirect points at.
+                if url.origin() != origin && is_credential_header(k) {
+                    continue;
+                }
+                if let Some(s) = v.as_str() {
+                    req = req.header(k, s);
+                }
             }
-        }
+            if let Some(a) = &authorization {
+                req = req.header("Authorization", a);
+            }
+            if use_body {
+                if let Some(b) = body {
+                    req = b.apply(req)?;
+                }
+            }
 
-        let response = req.send().await.map_err(|e| full_error_chain(&e))?;
+            let request = req.build().map_err(|e| full_error_chain(&e))?;
+            let sent: Vec<Value> = request
+                .headers()
+                .iter()
+                .map(|(k, v)| json!([k.as_str(), String::from_utf8_lossy(v.as_bytes())]))
+                .collect();
+            let hop_start = t0.elapsed();
+            let response = client.execute(request).await.map_err(|e| full_error_chain(&e))?;
+            let status = response.status().as_u16();
+            hops.push(json!({
+                "method": current_method,
+                "url": current_url,
+                "status": status,
+                "startMs": ms(hop_start),
+                "ttfbMs": ms(t0.elapsed() - hop_start),
+                "headers": sent,
+            }));
+
+            if status == 401 && authorization.is_none() && url.origin() == origin {
+                if let Some(creds) = digest_creds {
+                    let challenge = crate::http::digest::pick_challenge(
+                        response.headers().get_all("www-authenticate").iter().filter_map(|v| v.to_str().ok()),
+                    );
+                    let uri = match url.query() {
+                        Some(q) => format!("{}?{q}", url.path()),
+                        None => url.path().to_string(),
+                    };
+                    let body_bytes = if use_body { body.as_ref().map_or(Some(&[][..]), BodyKind::bytes) } else { Some(&[][..]) };
+                    let cnonce = uuid::Uuid::new_v4().simple().to_string();
+                    if let Some(a) = challenge.and_then(|c| {
+                        crate::http::digest::authorization(&c, creds, &current_method, &uri, body_bytes, &cnonce, 1)
+                    }) {
+                        authorization = Some(a);
+                        continue;
+                    }
+                }
+            }
+            break response;
+        };
         let status = response.status().as_u16();
         let is_redirect = (300..400).contains(&status) && status != 304;
         if !is_redirect || !follow {
-            return Ok(Walked { response, chain });
+            return Ok(Walked { response, chain, hops });
         }
         let Some(location) = response
             .headers()
@@ -256,7 +323,7 @@ async fn fetch_following_redirects(
             .and_then(|l| l.to_str().ok())
             .map(str::to_string)
         else {
-            return Ok(Walked { response, chain });
+            return Ok(Walked { response, chain, hops });
         };
         chain.push(json!({ "url": current_url, "status": status }));
         let next = reqwest::Url::parse(&current_url)
@@ -319,14 +386,14 @@ pub async fn http_request(input: Value) -> Value {
     };
     let is_multipart = matches!(body, Some(BodyKind::Multipart(_)));
     let opts = SendOptions::from_input(&input);
+    // Digest credentials ride separately so Rust can answer the 401 challenge.
+    let digest_creds = crate::http::digest::Credentials::from_input(&input["digestAuth"]);
+    let net = NetConfig::from_input(&input);
 
-    let client = match plain_client(is_local_target(&parsed), opts.insecure) {
-        Ok(c) => c,
-        Err(e) => return envelope_error(0, "Error", &e),
-    };
     let started = std::time::Instant::now();
     let walked = match fetch_following_redirects(
-        &client,
+        &net,
+        opts.insecure,
         url,
         method,
         &headers,
@@ -334,6 +401,8 @@ pub async fn http_request(input: Value) -> Value {
         std::time::Duration::from_millis(timeout_ms),
         is_multipart,
         opts.max_redirects,
+        digest_creds.as_ref(),
+        started,
     )
     .await
     {
@@ -364,6 +433,7 @@ pub async fn http_request(input: Value) -> Value {
         .unwrap_or("")
         .to_string();
 
+    let download_start = started.elapsed();
     let bytes = match read_body_capped(response, declared_len).await {
         Ok(b) => b,
         Err(e) => return envelope_error(0, "Error", &e),
@@ -385,6 +455,11 @@ pub async fn http_request(input: Value) -> Value {
         "isBase64": is_base64,
         "time": time,
         "size": size,
+        "timeline": {
+            "hops": walked.hops,
+            "downloadMs": ms(started.elapsed() - download_start),
+            "totalMs": ms(started.elapsed()),
+        },
     })
 }
 
@@ -399,10 +474,11 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
     }
     let parsed = reqwest::Url::parse(&url).map_err(|_| "Invalid URL format".to_string())?;
     assert_hop_allowed(&parsed)?;
-    let bypass_proxy = is_local_target(&parsed);
+    let net = NetConfig::from_input(&input);
     let method = input["method"].as_str().unwrap_or("GET").to_string();
     let headers = input["headers"].as_object().cloned().unwrap_or_default();
     let body = input["body"].as_str().map(str::to_string);
+    let insecure = input["verifySsl"].as_bool() == Some(false);
 
     let id = STREAM_ID.fetch_add(1, Ordering::Relaxed);
     let (cancel_tx, mut cancel_rx) = tokio::sync::watch::channel(false);
@@ -412,10 +488,11 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
         let emit = |v: Value| {
             let _ = channel.send(v);
         };
-        let client = match plain_client(bypass_proxy, false) {
+        let client = match client_for(&parsed, &net, insecure) {
             Ok(c) => c,
             Err(e) => {
                 emit(json!({ "kind": "error", "message": e }));
+                streams().remove(&id);
                 return;
             }
         };
@@ -423,6 +500,7 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
             Ok(m) => m,
             Err(e) => {
                 emit(json!({ "kind": "error", "message": e.to_string() }));
+                streams().remove(&id);
                 return;
             }
         };
@@ -454,11 +532,18 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
             "headers": resp_headers,
         }));
         let mut stream = response.bytes_stream();
+        let mut pending: Vec<u8> = Vec::new();
         loop {
             tokio::select! {
                 _ = cancel_rx.changed() => break,
                 chunk = stream.next() => match chunk {
-                    Some(Ok(bytes)) => emit(json!({ "kind": "chunk", "data": String::from_utf8_lossy(&bytes) })),
+                    Some(Ok(bytes)) => {
+                        pending.extend_from_slice(&bytes);
+                        let text = take_utf8(&mut pending);
+                        if !text.is_empty() {
+                            emit(json!({ "kind": "chunk", "data": text }));
+                        }
+                    }
                     Some(Err(e)) => {
                         emit(json!({ "kind": "error", "message": e.to_string() }));
                         break;
@@ -467,11 +552,30 @@ pub async fn http_request_stream(input: Value, channel: Channel<Value>) -> Resul
                 },
             }
         }
+        if !pending.is_empty() {
+            emit(json!({ "kind": "chunk", "data": String::from_utf8_lossy(&pending) }));
+        }
         emit(json!({ "kind": "end" }));
         streams().remove(&id);
     });
 
     Ok(id)
+}
+
+/// Drain the decodable prefix of `pending`, keeping a multi-byte character
+/// split across network chunks for the next call (lossy only for bytes that
+/// are invalid UTF-8, never for a split character).
+fn take_utf8(pending: &mut Vec<u8>) -> String {
+    let keep = match std::str::from_utf8(pending) {
+        Ok(_) => 0,
+        // error_len() == None: the input ends mid-character.
+        Err(e) if e.error_len().is_none() => pending.len() - e.valid_up_to(),
+        Err(_) => 0,
+    };
+    let tail = pending.split_off(pending.len() - keep);
+    let text = String::from_utf8_lossy(pending).into_owned();
+    *pending = tail;
+    text
 }
 
 pub fn cancel_stream(id: u64) {
@@ -483,6 +587,66 @@ pub fn cancel_stream(id: u64) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn take_utf8_keeps_a_character_split_across_chunks() {
+        let euro = "€".as_bytes(); // 3 bytes
+        let mut pending = b"a".to_vec();
+        pending.extend_from_slice(&euro[..2]);
+        assert_eq!(take_utf8(&mut pending), "a");
+        assert_eq!(pending, euro[..2].to_vec());
+        pending.extend_from_slice(&euro[2..]);
+        assert_eq!(take_utf8(&mut pending), "€");
+        assert!(pending.is_empty());
+        // Genuinely invalid bytes are replaced, not held forever.
+        let mut bad = vec![b'x', 0xff, b'y'];
+        assert_eq!(take_utf8(&mut bad), "x\u{fffd}y");
+        assert!(bad.is_empty());
+    }
+    use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+    /// One-shot HTTP server: answers every connection with `reply(request_head)`.
+    async fn serve(reply: impl Fn(&str) -> String + Send + 'static) -> u16 {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        tokio::spawn(async move {
+            while let Ok((mut sock, _)) = listener.accept().await {
+                let mut buf = vec![0u8; 8192];
+                let n = sock.read(&mut buf).await.unwrap_or(0);
+                let head = String::from_utf8_lossy(&buf[..n]).to_lowercase();
+                let _ = sock.write_all(reply(&head).as_bytes()).await;
+            }
+        });
+        port
+    }
+
+    #[tokio::test]
+    async fn credentials_are_not_forwarded_to_another_origin_on_redirect() {
+        let other = serve(|head| {
+            let seen = ["authorization:", "cookie:", "x-custom:"]
+                .iter()
+                .filter(|h| head.contains(*h))
+                .map(|h| h.trim_end_matches(':'))
+                .collect::<Vec<_>>()
+                .join(",");
+            format!("HTTP/1.1 200 OK\r\ncontent-type: text/plain\r\ncontent-length: {}\r\nconnection: close\r\n\r\n{seen}", seen.len())
+        })
+        .await;
+        let first = serve(move |_| {
+            format!("HTTP/1.1 302 Found\r\nlocation: http://127.0.0.1:{other}/landing\r\ncontent-length: 0\r\nconnection: close\r\n\r\n")
+        })
+        .await;
+
+        let r = http_request(json!({
+            "url": format!("http://127.0.0.1:{first}/start"),
+            "method": "GET",
+            "headers": { "Authorization": "Bearer secret", "Cookie": "sid=1", "X-Custom": "keep" },
+        }))
+        .await;
+        assert_eq!(r["status"], 200, "{r}");
+        // Different port = different origin: only the non-credential header survives.
+        assert_eq!(r["body"], "x-custom", "{r}");
+    }
 
     #[test]
     fn local_target_detection() {
@@ -513,6 +677,139 @@ mod tests {
         assert!(is_textual_content_type("text/html"));
         assert!(!is_textual_content_type("application/octet-stream"));
         assert!(!is_textual_content_type(""));
+    }
+
+    /// Local stand-in for an HTTP proxy: records the request head, answers 200.
+    async fn fake_http_proxy() -> (String, tokio::sync::mpsc::Receiver<String>) {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let (tx, rx) = tokio::sync::mpsc::channel(4);
+        tokio::spawn(async move {
+            while let Ok((mut sock, _)) = listener.accept().await {
+                let mut buf = vec![0u8; 4096];
+                let n = sock.read(&mut buf).await.unwrap_or(0);
+                let _ = tx.send(String::from_utf8_lossy(&buf[..n]).to_string()).await;
+                let _ = sock.write_all(b"HTTP/1.1 200 OK\r\ncontent-length: 7\r\ncontent-type: text/plain\r\n\r\nproxied").await;
+            }
+        });
+        (format!("http://{addr}"), rx)
+    }
+
+    #[tokio::test]
+    async fn manual_http_proxy_with_credentials_and_bypass() {
+        let (proxy_url, mut seen) = fake_http_proxy().await;
+        let net = |bypass: &str| json!({ "mode": "manual", "url": proxy_url, "username": "u", "password": "p", "bypass": bypass });
+
+        // `upstream.test` doesn't resolve: a 200 can only have come from the proxy.
+        let r = http_request(json!({ "url": "http://upstream.test/x", "method": "GET", "net": { "proxy": net("") } })).await;
+        assert_eq!(r["status"], 200, "{r}");
+        assert_eq!(r["body"], "proxied");
+        let head = seen.recv().await.unwrap().to_lowercase();
+        assert!(head.starts_with("get http://upstream.test/x http/1.1"), "{head}");
+        assert!(head.contains("proxy-authorization: basic dtpw"), "{head}"); // base64("u:p")
+
+        // Bypassed host: goes direct (and fails to resolve) instead of via the proxy.
+        let r = http_request(json!({ "url": "http://upstream.test/x", "method": "GET", "net": { "proxy": net("*.other, upstream.test") } })).await;
+        assert!(r["error"].is_string(), "{r}");
+        // Mode off: direct as well.
+        let r = http_request(json!({ "url": "http://upstream.test/x", "method": "GET", "net": { "proxy": { "mode": "off" } } })).await;
+        assert!(r["error"].is_string(), "{r}");
+        assert!(seen.try_recv().is_err(), "the proxy must not see bypassed or direct requests");
+    }
+
+    #[tokio::test]
+    async fn manual_socks5_proxy_with_credentials() {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let addr = listener.local_addr().unwrap();
+        let (tx, mut rx) = tokio::sync::mpsc::channel::<(String, String)>(1);
+        tokio::spawn(async move {
+            let (mut s, _) = listener.accept().await.unwrap();
+            let mut b = [0u8; 512];
+            s.read_exact(&mut b[..2]).await.unwrap(); // VER, NMETHODS
+            let n = b[1] as usize;
+            s.read_exact(&mut b[..n]).await.unwrap();
+            s.write_all(&[5, 2]).await.unwrap(); // username/password
+            s.read_exact(&mut b[..2]).await.unwrap(); // VER, ULEN
+            let ulen = b[1] as usize;
+            let mut user = vec![0u8; ulen];
+            s.read_exact(&mut user).await.unwrap();
+            s.read_exact(&mut b[..1]).await.unwrap();
+            let mut pass = vec![0u8; b[0] as usize];
+            s.read_exact(&mut pass).await.unwrap();
+            s.write_all(&[1, 0]).await.unwrap();
+            s.read_exact(&mut b[..5]).await.unwrap(); // VER CMD RSV ATYP=3 LEN
+            assert_eq!(b[3], 3, "socks5h sends the hostname");
+            let mut host = vec![0u8; b[4] as usize + 2];
+            s.read_exact(&mut host).await.unwrap();
+            s.write_all(&[5, 0, 0, 1, 0, 0, 0, 0, 0, 0]).await.unwrap();
+            let target = String::from_utf8_lossy(&host[..host.len() - 2]).to_string();
+            let _ = s.read(&mut b).await;
+            s.write_all(b"HTTP/1.1 200 OK\r\ncontent-length: 5\r\ncontent-type: text/plain\r\n\r\nsocks").await.unwrap();
+            tx.send((target, format!("{}:{}", String::from_utf8_lossy(&user), String::from_utf8_lossy(&pass)))).await.unwrap();
+        });
+        let r = http_request(json!({ "url": "http://upstream.test/", "method": "GET", "net": { "proxy": {
+            "mode": "manual", "url": format!("socks5h://{addr}"), "username": "u", "password": "p"
+        } } })).await;
+        assert_eq!(r["status"], 200, "{r}");
+        assert_eq!(r["body"], "socks");
+        assert_eq!(rx.recv().await.unwrap(), ("upstream.test".to_string(), "u:p".to_string()));
+    }
+
+    #[tokio::test]
+    #[ignore] // network
+    async fn client_certificate_mtls() {
+        // badssl.com publishes this test identity (password "badssl.com").
+        let pfx = reqwest::get("https://badssl.com/certs/badssl.com-client.p12").await.unwrap().bytes().await.unwrap();
+        let path = std::env::temp_dir().join(format!("mdt-badssl-{}.p12", std::process::id()));
+        std::fs::write(&path, &pfx).unwrap();
+        let url = "https://client.badssl.com/";
+
+        let r = http_request(json!({ "url": url, "method": "GET" })).await;
+        assert_eq!(r["status"], 400, "no certificate presented: {r}");
+
+        let with_cert = |host: &str, pass: &str| json!({ "url": url, "method": "GET", "net": { "certs": [
+            { "host": host, "pfxPath": path.to_string_lossy(), "passphrase": pass }
+        ] } });
+        let r = http_request(with_cert("*.badssl.com", "badssl.com")).await;
+        assert_eq!(r["status"], 200, "{r}");
+        // Pattern for another host: no identity offered.
+        let r = http_request(with_cert("example.com", "badssl.com")).await;
+        assert_eq!(r["status"], 400, "{r}");
+        let r = http_request(with_cert("*.badssl.com", "wrong")).await;
+        assert!(r["error"].as_str().unwrap_or("").contains("wrong passphrase"), "{r}");
+        let _ = std::fs::remove_file(path);
+    }
+
+    #[tokio::test]
+    #[ignore] // network
+    async fn digest_challenge_and_timeline() {
+        for alg in ["MD5", "SHA-256"] {
+            let url = format!("https://httpbin.org/digest-auth/auth/user/passwd/{alg}");
+            let r = http_request(json!({ "url": url, "method": "GET", "digestAuth": { "username": "user", "password": "passwd" } })).await;
+            assert_eq!(r["status"], 200, "{alg}: {r}");
+            let hops = r["timeline"]["hops"].as_array().unwrap();
+            assert_eq!(hops.len(), 2, "{alg}: 401 then the answered retry");
+            assert_eq!(hops[0]["status"], 401);
+            let auth = hops[1]["headers"].as_array().unwrap().iter()
+                .find(|h| h[0] == "authorization").and_then(|h| h[1].as_str()).unwrap_or("");
+            assert!(auth.starts_with("Digest ") && auth.contains(&format!("algorithm={alg}")), "{alg}: {auth}");
+            assert!(r["timeline"]["totalMs"].as_f64().unwrap() >= hops[1]["ttfbMs"].as_f64().unwrap());
+        }
+        // No credentials → the 401 comes back untouched, one hop.
+        let r = http_request(json!({ "url": "https://httpbin.org/digest-auth/auth/user/passwd/MD5", "method": "GET" })).await;
+        assert_eq!(r["status"], 401);
+        assert_eq!(r["timeline"]["hops"].as_array().unwrap().len(), 1);
+        // Wrong password → exactly one retry, then the 401.
+        let r = http_request(json!({ "url": "https://httpbin.org/digest-auth/auth/user/passwd/MD5", "method": "GET", "digestAuth": { "username": "user", "password": "nope" } })).await;
+        assert_eq!(r["status"], 401);
+        assert_eq!(r["timeline"]["hops"].as_array().unwrap().len(), 2);
+        // Redirect hops are timed in order.
+        let r = http_request(json!({ "url": "https://httpbin.org/redirect/2", "method": "GET" })).await;
+        let hops = r["timeline"]["hops"].as_array().unwrap();
+        assert_eq!(hops.iter().map(|h| h["status"].as_u64().unwrap()).collect::<Vec<_>>(), vec![302, 302, 200]);
+        assert!(hops[1]["startMs"].as_f64().unwrap() >= hops[0]["startMs"].as_f64().unwrap());
     }
 
     #[tokio::test]

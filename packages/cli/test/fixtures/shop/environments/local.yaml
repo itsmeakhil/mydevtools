@@ -1,0 +1,7 @@
+name: local
+variables:
+  - key: user
+    value: ada
+  - key: unused
+    value: x
+    enabled: false

@@ -1,6 +1,6 @@
 //! "Claude needs you" (Dock badge + notification), hide-on-close and confirm-quit.
 
-use super::hooks::{self, Transition};
+use super::hooks::{self, TermStatus, Transition};
 use super::pty::TerminalState;
 use serde_json::json;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -17,6 +17,12 @@ pub fn should_notify(window_focused: bool, viewing: Option<&str>, id: &str) -> b
 pub struct Ui {
     viewing: Mutex<Option<String>>,
     waiting_body: Mutex<String>,
+    done_body: Mutex<String>,
+    failed_body: Mutex<String>,
+    /// User settings: which kinds notify (the badge always counts), and with a sound.
+    notify_blocked: AtomicBool,
+    notify_done: AtomicBool,
+    notify_sound: AtomicBool,
     /// A quit was handed to the UI and not yet answered.
     quit_pending: AtomicBool,
 }
@@ -27,6 +33,11 @@ impl Default for Ui {
             viewing: Mutex::default(),
             // Replaced by the localized string from `terminal_set_strings`.
             waiting_body: Mutex::new("Claude is waiting for you".into()),
+            done_body: Mutex::new("Finished, ready for review".into()),
+            failed_body: Mutex::new("Command failed".into()),
+            notify_blocked: AtomicBool::new(true),
+            notify_done: AtomicBool::new(true),
+            notify_sound: AtomicBool::new(false),
             quit_pending: AtomicBool::new(false),
         }
     }
@@ -40,8 +51,8 @@ fn show(app: &AppHandle) {
     }
 }
 
-/// Update the Dock badge after any transition; notify on entering Waiting.
-pub fn on_transition(t: &Transition, message: Option<&str>, app: &AppHandle) {
+/// Update the Dock badge after any transition; notify on entering Waiting or Done.
+pub fn on_transition(t: &Transition, message: Option<&str>, cmd: Option<super::osc::CmdEnd>, app: &AppHandle) {
     let term = app.state::<Arc<TerminalState>>();
     let win = app.get_webview_window("main");
     #[cfg(target_os = "macos")]
@@ -53,12 +64,24 @@ pub fn on_transition(t: &Transition, message: Option<&str>, app: &AppHandle) {
         return;
     }
     let ui = app.state::<Ui>();
+    let wanted = if t.status == TermStatus::Done { &ui.notify_done } else { &ui.notify_blocked };
+    if !wanted.load(Ordering::Relaxed) {
+        return;
+    }
     let focused = win.and_then(|w| w.is_focused().ok()).unwrap_or(false);
     if !should_notify(focused, ui.viewing.lock().unwrap().as_deref(), &t.id) {
         return;
     }
-    let body = message.map_or_else(|| ui.waiting_body.lock().unwrap().clone(), str::to_owned);
+    let fallback = match (t.status, cmd) {
+        (TermStatus::Done, _) => &ui.done_body,
+        (_, Some(_)) => &ui.failed_body,
+        _ => &ui.waiting_body,
+    };
+    let body = message.map_or_else(|| fallback.lock().unwrap().clone(), str::to_owned);
     let mut b = app.notification().builder().body(body).extra("terminalId", &t.id);
+    if ui.notify_sound.load(Ordering::Relaxed) {
+        b = b.sound("default");
+    }
     // No title → the plugin falls back to productName.
     if let Ok(s) = term.get(&t.id) {
         b = b.title(&s.project_name);
@@ -72,7 +95,7 @@ pub fn on_transition(t: &Transition, message: Option<&str>, app: &AppHandle) {
 pub fn forget(app: &AppHandle, id: &str) {
     let t = app.state::<Arc<TerminalState>>().statuses.lock().unwrap().remove(id);
     if let Some(t) = t {
-        hooks::publish(app, &t, None);
+        hooks::publish(app, &t, None, None);
     }
 }
 
@@ -155,7 +178,15 @@ pub fn on_run_event(app: &AppHandle, event: &RunEvent) {
         #[cfg(target_os = "macos")]
         RunEvent::Reopen { .. } => show(app),
         // Also reached by paths that skip ExitRequested (Dock menu Quit, logout).
-        RunEvent::Exit => app.state::<Arc<TerminalState>>().kill_all(),
+        RunEvent::Exit => {
+            let term = app.state::<Arc<TerminalState>>();
+            if let Ok(mut db) = app.state::<crate::state::AppState>().db.lock() {
+                if let Err(e) = super::restore::save_all(&mut db, &term) {
+                    eprintln!("terminal: scrollback not saved: {e}");
+                }
+            }
+            term.kill_all();
+        }
         _ => {}
     }
 }
@@ -273,7 +304,7 @@ pub fn terminal_set_viewing(app: AppHandle, ui: State<'_, Ui>, id: Option<String
     if let Some(id) = &id {
         let t = app.state::<Arc<TerminalState>>().statuses.lock().unwrap().clear_waiting(id);
         if let Some(t) = t {
-            hooks::publish(&app, &t, None);
+            hooks::publish(&app, &t, None, None);
         }
     }
     *ui.viewing.lock().unwrap() = id;
@@ -281,9 +312,24 @@ pub fn terminal_set_viewing(app: AppHandle, ui: State<'_, Ui>, id: Option<String
 
 /// `quit_title` is accepted for the UI contract; the quit dialog itself is rendered by the UI.
 #[tauri::command]
-pub fn terminal_set_strings(ui: State<'_, Ui>, waiting_body: String, quit_title: String) {
+pub fn terminal_set_strings(
+    ui: State<'_, Ui>,
+    waiting_body: String,
+    done_body: String,
+    failed_body: String,
+    quit_title: String,
+) {
     let _ = quit_title;
     *ui.waiting_body.lock().unwrap() = waiting_body;
+    *ui.done_body.lock().unwrap() = done_body;
+    *ui.failed_body.lock().unwrap() = failed_body;
+}
+
+#[tauri::command]
+pub fn terminal_set_notify(ui: State<'_, Ui>, blocked: bool, done: bool, sound: bool) {
+    ui.notify_blocked.store(blocked, Ordering::Relaxed);
+    ui.notify_done.store(done, Ordering::Relaxed);
+    ui.notify_sound.store(sound, Ordering::Relaxed);
 }
 
 #[tauri::command]

@@ -22,6 +22,10 @@ import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
 import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
 import { generateCode } from "./generate-code"
+import { mapStrings, RUN_REQUEST } from "@/lib/terminal/request-curl"
+import { isDesktop } from "@/lib/desktop/is-desktop"
+import { useRouter } from "next/navigation"
+import { openInTerminal } from "@/lib/terminal/open-in-terminal"
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard"
 import { CollectionsSidebar } from "./collections/collections-sidebar"
 import { ToolSidebarLayout } from "@/components/tools/tool-sidebar"
@@ -43,23 +47,25 @@ import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard, Send, Save, Plus, Plug, Boxes, X, Copy, ArrowRight, ArrowLeft, Link2, Terminal, Layers } from "lucide-react"
+import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard, Send, Save, Plus, Plug, Boxes, X, Copy, ArrowRight, ArrowLeft, Link2, Terminal, SquareTerminal, Layers, Network, Puzzle } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { ensureHttpScheme } from "@/lib/url-normalize"
-import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { ensureFreshToken } from "@/lib/oauth2"
-import { signAwsSigV4 } from "@/lib/auth/aws-sigv4"
-import { signHawk } from "@/lib/auth/hawk"
-import { signDigest } from "@/lib/auth/digest"
-import { signJwt } from "@/lib/auth/jwt-bearer"
+import { digestCredentials } from "@/lib/auth/digest"
+import { applyHeaderAuth, applyPayloadAuth } from "@/lib/api-client/apply-auth"
+import { introspectionBody } from "@/lib/graphql-introspect"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
-import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
-import { resolveResponsePath } from "@/lib/response-path"
+import { evaluateAssertions } from "@/lib/api-client/assertions"
+import { collectionNet } from "@/lib/api-client/network-settings"
+import { streamSse, wantsEventStream, type StreamEvent } from "@/lib/api-client/sse"
+import { isSubscriptionOperation, toWebSocketUrl } from "@/lib/api-client/graphql-operation"
+import { subscribeGraphqlWs } from "@/lib/graphql-subscriptions"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
-import { withFolderDefaults, findRequestAncestors } from "@/lib/folder-inheritance"
-import { requestFromTab, requestFingerprint, savePatch } from "@/lib/api-client/saved-request"
+import { withFolderDefaults, findRequestAncestors, findRequestContext, listInheritedHeaders } from "@/lib/folder-inheritance"
+import { SECRET_MASK, staticVariables, substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
+import { requestFromTab, requestFingerprint, savePatch, syncTabWithStored } from "@/lib/api-client/saved-request"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
 import { useJsonBodyValidation } from "./use-json-validation"
@@ -83,6 +89,8 @@ const CodeGenerator = dynamic(
 const GrpcPanel = dynamic(() => import("./grpc-panel").then(m => ({ default: m.GrpcPanel })), { ssr: false, loading: () => null })
 const WebSocketPanel = dynamic(() => import("./websocket-panel").then(m => ({ default: m.WebSocketPanel })), { ssr: false, loading: () => null })
 const ImportDialog = dynamic(() => import("./import-dialog").then(m => ({ default: m.ImportDialog })), { ssr: false, loading: () => null })
+const PluginsDialog = dynamic(() => import("./plugins-dialog").then(m => ({ default: m.PluginsDialog })), { ssr: false, loading: () => null })
+const NetworkSettingsDialog = dynamic(() => import("./network/network-settings-dialog").then(m => ({ default: m.NetworkSettingsDialog })), { ssr: false, loading: () => null })
 const CookieJarDialog = dynamic(() => import("./cookie-jar-dialog").then(m => ({ default: m.CookieJarDialog })), { ssr: false, loading: () => null })
 const MetricsDialog = dynamic(() => import("./metrics-dialog").then(m => ({ default: m.MetricsDialog })), { ssr: false, loading: () => null })
 
@@ -115,6 +123,10 @@ function buildRequestUrl(raw: string): URL {
 function ApiClientInner() {
     const t = useTranslations("ApiClient")
     const tNav = useTranslations("Navigation")
+    const tNet = useTranslations("ApiClient.network")
+    const tPlugins = useTranslations("ApiClient.plugins")
+    const tSave = useTranslations("ApiClient.saveExample")
+    const router = useRouter()
     const { tabs, activeTabId, activeTab } = useTabs()
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab, updateTab } = useTabsActions()
 
@@ -129,7 +141,7 @@ function ApiClientInner() {
     const { saveRequest, updateRequest, addFolder, createCollection } = useCollectionsActions()
     const { history } = useHistoryState()
     const { addHistoryItem } = useHistoryActions()
-    const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
+    const { environments, activeEnvId, activeEnvironmentVariables, globalVariables, secretVariables } = useEnvironmentsState()
     const { setActiveEnvId, updateEnvironment } = useEnvironmentsActions()
     // Cipher key for cross-tool {{vault.*}} / {{env.*}} secret resolution.
     const cipherKey = useCipherKey()
@@ -145,6 +157,8 @@ function ApiClientInner() {
     const [helpOpen, setHelpOpen] = React.useState(false)
     const [saveOpen, setSaveOpen] = React.useState(false)
     const [cookieJarOpen, setCookieJarOpen] = React.useState(false)
+    const [networkOpen, setNetworkOpen] = React.useState(false)
+    const [pluginsOpen, setPluginsOpen] = React.useState(false)
     const [importOpen, setImportOpen] = React.useState(false)
     const [saveExampleOpen, setSaveExampleOpen] = React.useState(false)
     const [metricsOpen, setMetricsOpen] = React.useState(false)
@@ -173,15 +187,16 @@ function ApiClientInner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab.id])
 
-    /** Compiled plugin instances; loaded once on mount. */
+    /** Compiled instances of the enabled plugins; reloaded when the Plugins dialog changes them. */
     const pluginInstancesRef = React.useRef<PluginInstance[]>([])
-    React.useEffect(() => {
+    const reloadPlugins = React.useCallback(() => {
         pluginInstancesRef.current = loadPlugins()
             .filter((p) => p.enabled)
             .map((p) => instantiatePlugin(p))
             .filter((r) => r.instance)
             .map((r) => r.instance!)
     }, [])
+    React.useEffect(reloadPlugins, [reloadPlugins])
 
     const handleSaveExample = (name: string) => {
         if (!activeTab.response) return
@@ -206,7 +221,7 @@ function ApiClientInner() {
             },
         }
         updateActiveTab({ examples: [...(activeTab.examples ?? []), example] })
-        toast.success(`Saved example "${name}"`)
+        toast.success(tSave("saved", { name }))
     }
 
     const handleDeleteExample = React.useCallback((id: string) => {
@@ -226,7 +241,7 @@ function ApiClientInner() {
             },
             isLoading: false,
         })
-        toast.success(`Loaded example "${example.name}"`)
+        toast.success(tSave("loaded", { name: example.name }))
     }, [updateActiveTab])
 
     // One stable setter per RequestTabs field. Inline `(v) => updateActiveTab({...})`
@@ -243,6 +258,9 @@ function ApiClientInner() {
             testScript: make("testScript"),
             graphqlSchema: make("graphqlSchema"),
             comments: make("comments"),
+            assertions: make("assertions"),
+            description: make("description"),
+            omitHeaders: make("omitHeaders"),
             settings: (patch: RequestSettings) => updateActiveTab(patch),
         }
     }, [updateActiveTab])
@@ -252,6 +270,31 @@ function ApiClientInner() {
         () => ({ timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl }),
         [timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl],
     )
+    // Values the editor can show for {{vars}} — globals < collection < environment.
+    const activeSourceId = activeTab.source?.requestId
+    const activeContext = React.useMemo(
+        () => (activeSourceId ? findRequestContext(collections, activeSourceId) : null),
+        [collections, activeSourceId],
+    )
+    const activeCollection = activeContext?.collection
+    // Default headers this request gets from its collection/folders (B3 omit list).
+    const { headers: activeHeaders, omitHeaders: activeOmitHeaders } = activeTab
+    const inheritedHeaders = React.useMemo(
+        () => (activeContext
+            ? listInheritedHeaders([activeContext.collection, ...activeContext.folders], activeHeaders, activeOmitHeaders)
+            : []),
+        [activeContext, activeHeaders, activeOmitHeaders],
+    )
+    // Secret values are masked here — this map only feeds the editor's hover text.
+    const editorVariables = React.useMemo(() => {
+        const vars = staticVariables({
+            globals: globalVariables,
+            collection: variablesToRecord(activeCollection?.variables),
+            environment: activeEnvironmentVariables,
+        })
+        for (const key of Object.keys(secretVariables)) if (Object.hasOwn(vars, key)) vars[key] = SECRET_MASK
+        return vars
+    }, [globalVariables, activeCollection, activeEnvironmentVariables, secretVariables])
     const openSaveExample = React.useCallback(() => setSaveExampleOpen(true), [])
 
     // Scroll position memory for mobile panel toggle
@@ -344,12 +387,60 @@ function ApiClientInner() {
     React.useEffect(() => { tabsRef.current = tabs }, [tabs])
     const collectionsRef = React.useRef(collections)
     React.useEffect(() => { collectionsRef.current = collections }, [collections])
+
+    // Folder collections reload when their files change on disk: refresh clean
+    // tabs, never clobber unsaved edits (warn once per disk version instead).
+    const diskConflictsRef = React.useRef(new Set<string>())
+    React.useEffect(() => {
+        for (const tab of tabsRef.current) {
+            const requestId = tab.source?.requestId
+            if (!requestId) continue
+            const ctx = findRequestContext(collections, requestId)
+            if (!ctx?.collection.source) continue
+            const parent = ctx.folders.length ? ctx.folders[ctx.folders.length - 1].items : ctx.collection.items
+            const stored = parent.find((i): i is CollectionRequest => i.id === requestId)
+            if (!stored) continue
+            const sync = syncTabWithStored(tab, stored)
+            if (sync.kind === "mark-saved") {
+                updateTab(tab.id, { savedFingerprint: sync.fingerprint })
+            } else if (sync.kind === "refresh") {
+                updateTab(tab.id, { ...requestFromTab(stored as unknown as ApiRequestState), savedFingerprint: sync.fingerprint })
+            } else if (sync.kind === "conflict" && !diskConflictsRef.current.has(`${tab.id}:${sync.fingerprint}`)) {
+                diskConflictsRef.current.add(`${tab.id}:${sync.fingerprint}`)
+                toast.warning(t("fileSync.changedOnDisk", { name: stored.name }), { duration: 10000 })
+            }
+        }
+    }, [collections, updateTab, t])
     const handleCopyCurl = React.useCallback(() => {
         void copyToClipboard(generateCode(withFolderDefaults(activeTabRef.current, collectionsRef.current), "curl"), {
             successMessage: t("toasts.curlCopied"),
             errorMessage: t("toasts.copyFailed"),
         })
     }, [copyToClipboard, t])
+
+    // Run in Terminal: resolve the request like a send would (variables + vault/env secrets), make it a curl
+    // command, and hand that to a new terminal tab as $REQUEST_CURL so tokens never reach shell history.
+    const runInTerminalImpl = React.useCallback(async () => {
+        try {
+            const tab = withFolderDefaults(activeTab, collections)
+            const collection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+            const secrets = await resolveSecretVariables([JSON.stringify(tab)], cipherKey)
+            const sub = (text: string) => substituteVariables(text, {
+                globals: globalVariables,
+                collection: variablesToRecord(collection?.variables),
+                environment: activeEnvironmentVariables,
+                session: sessionVarsRef.current,
+                secrets,
+            })
+            const curl = generateCode(mapStrings(tab, sub), "curl")
+            await openInTerminal({ name: tab.name || "curl", run: RUN_REQUEST, env: { REQUEST_CURL: curl } }, router.push)
+        } catch (e) {
+            toast.error(e instanceof Error ? e.message : String(e))
+        }
+    }, [activeTab, collections, cipherKey, globalVariables, activeEnvironmentVariables, router])
+    const runInTerminalRef = React.useRef(runInTerminalImpl)
+    React.useEffect(() => { runInTerminalRef.current = runInTerminalImpl }, [runInTerminalImpl])
+    const handleRunInTerminal = React.useCallback(() => void runInTerminalRef.current(), [])
 
     const handleSaveRequest = async (parentId: string, name: string) => {
         const tab = { ...activeTabRef.current, name }
@@ -442,20 +533,19 @@ function ApiClientInner() {
         // never cached in component state.
         let secretVars: Record<string, string> = {}
 
-        const substituteAll = (text: string): string => {
-            if (!text) return text
-            return text.replace(/\{\{(.+?)\}\}/g, (m, k) => {
-                const key = (k as string).trim()
-                if (key.startsWith("response.")) {
-                    const resolved = resolveResponsePath(key.slice("response.".length), previousResponse)
-                    return resolved ?? m
-                }
-                if (scriptEnvUnsets.has(key)) return m
-                if (key in scriptEnvOverlay) return scriptEnvOverlay[key]
-                if (key in sessionVarsRef.current) return sessionVarsRef.current[key]
-                return activeEnvironmentVariables[key] ?? secretVars[key] ?? resolveDynamicVar(key) ?? m
-            })
-        }
+        // Collection variables of the collection this tab was opened from (live).
+        const sendCollection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+        const collectionVars = variablesToRecord(sendCollection?.variables)
+        const substituteAll = (text: string): string => substituteVariables(text, {
+            globals: globalVariables,
+            collection: collectionVars,
+            environment: activeEnvironmentVariables,
+            session: sessionVarsRef.current,
+            overlay: scriptEnvOverlay,
+            unsets: scriptEnvUnsets,
+            secrets: secretVars,
+            previousResponse,
+        })
 
         try {
             // Working request state. Pre-request script may rewrite url/method/headers/body.
@@ -479,6 +569,8 @@ function ApiClientInner() {
                     },
                     environment: { ...activeEnvironmentVariables },
                     variables: { ...sessionVarsRef.current },
+                    collectionVariables: collectionVars,
+                    globals: globalVariables,
                 }
                 const r = await runScript(sendTab.preRequestScript, preCtx)
                 scriptTests.push(...r.tests)
@@ -536,57 +628,15 @@ function ApiClientInner() {
                 headersObj[substituteAll(k)] = substituteAll(v)
             })
 
-            // Add Auth — credentials are trimmed: copy-pasted tokens routinely carry leading/trailing
-            // whitespace which most servers reject as malformed.
-            if (sendTab.auth.type === "bearer" && sendTab.auth.token) {
-                headersObj["Authorization"] = `Bearer ${substituteAll(sendTab.auth.token).trim()}`
-            } else if (sendTab.auth.type === "basic" && sendTab.auth.username && sendTab.auth.password) {
-                const credentials = encodeBasicCredentials(
-                    substituteAll(sendTab.auth.username).trim(),
-                    substituteAll(sendTab.auth.password),
-                )
-                headersObj["Authorization"] = `Basic ${credentials}`
-            } else if (sendTab.auth.type === "api-key" && sendTab.auth.apiKeyKey && sendTab.auth.apiKeyValue) {
-                const key = substituteAll(sendTab.auth.apiKeyKey).trim()
-                const val = substituteAll(sendTab.auth.apiKeyValue).trim()
-                if (sendTab.auth.apiKeyLocation === "query") {
-                    urlObj.searchParams.append(key, val)
-                } else {
-                    headersObj[key] = val
-                }
-            } else if (sendTab.auth.type === "jwt-bearer" && sendTab.auth.jwtBearer) {
-                try {
-                    const cfg = sendTab.auth.jwtBearer
-                    let extra: Record<string, unknown> | undefined
-                    if (cfg.extraClaimsJson && cfg.extraClaimsJson.trim()) {
-                        extra = JSON.parse(cfg.extraClaimsJson) as Record<string, unknown>
-                    }
-                    const jwt = await signJwt({
-                        algorithm: cfg.algorithm,
-                        secret: cfg.secret,
-                        privateKeyPem: cfg.privateKeyPem,
-                        ttlSeconds: cfg.ttlSeconds,
-                        claims: {
-                            iss: cfg.issuer || undefined,
-                            sub: cfg.subject || undefined,
-                            aud: cfg.audience || undefined,
-                            extra,
-                        },
-                    })
-                    headersObj["Authorization"] = `Bearer ${jwt}`
-                } catch (err) {
-                    toast.error(`JWT signing failed: ${(err as Error).message}`)
-                    updateActiveTab({ isLoading: false })
-                    return
-                }
-            } else if (sendTab.auth.type === "aws-sigv4" && sendTab.auth.awsSigV4) {
-                // Defer signing until after the body is built — it has to hash the payload.
-                // We mark the intent here and apply at the end of body assembly.
-            } else if (sendTab.auth.type === "hawk" && sendTab.auth.hawk) {
-                // Same — deferred to post-body assembly.
-            } else if (sendTab.auth.type === "digest" && sendTab.auth.digest) {
-                // Digest with qop=auth-int also needs body. Deferred.
-            } else if (sendTab.auth.type === "oauth2" && sendTab.auth.oauth2) {
+            // Header/URL auth (bearer, basic, api-key, jwt-bearer); OAuth2 below writes back to the tab.
+            try {
+                await applyHeaderAuth(sendTab.auth, { headers: headersObj, url: urlObj }, substituteAll)
+            } catch (err) {
+                toast.error(t("toasts.jwtFailed", { message: (err as Error).message }))
+                updateActiveTab({ isLoading: false })
+                return
+            }
+            if (sendTab.auth.type === "oauth2" && sendTab.auth.oauth2) {
                 // Refresh / re-fetch as needed. The fresh config is persisted back
                 // into tab state so subsequent sends reuse the same access token.
                 try {
@@ -606,7 +656,7 @@ function ApiClientInner() {
                         headersObj["Authorization"] = `${tokenType} ${fresh.accessToken}`
                     }
                 } catch (err) {
-                    toast.error(`OAuth token refresh failed: ${(err as Error).message}`)
+                    toast.error(t("toasts.oauthRefreshFailed", { message: (err as Error).message }))
                     updateActiveTab({ isLoading: false })
                     return
                 }
@@ -714,7 +764,7 @@ function ApiClientInner() {
                         try {
                             variables = JSON.parse(substituteAll(rawVars))
                         } catch (e) {
-                            toast.error(`Invalid GraphQL variables JSON: ${(e as Error).message}`)
+                            toast.error(t("toasts.invalidGraphqlVars", { message: (e as Error).message }))
                             updateActiveTab({ isLoading: false })
                             return
                         }
@@ -738,33 +788,9 @@ function ApiClientInner() {
                 ? bodyPayload
                 : (bodyContent ?? "")
             try {
-                if (sendTab.auth.type === "aws-sigv4" && sendTab.auth.awsSigV4) {
-                    await signAwsSigV4({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.awsSigV4,
-                    })
-                } else if (sendTab.auth.type === "hawk" && sendTab.auth.hawk) {
-                    await signHawk({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.hawk,
-                    })
-                } else if (sendTab.auth.type === "digest" && sendTab.auth.digest) {
-                    await signDigest({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.digest,
-                    })
-                }
+                await applyPayloadAuth(sendTab.auth, { method: workMethod, url: urlObj, headers: headersObj, body: bodyForSigning })
             } catch (signErr) {
-                toast.error(`Auth signing failed: ${(signErr as Error).message}`)
+                toast.error(t("toasts.authSigningFailed", { message: (signErr as Error).message }))
                 updateActiveTab({ isLoading: false })
                 return
             }
@@ -849,6 +875,96 @@ function ApiClientInner() {
                 return
             }
 
+            // ── Live streams: SSE (`Accept: text/event-stream`) and GraphQL subscriptions ──
+            // Messages land on the sending tab's response as they arrive; Cancel stops them.
+            const gql = sendTab.body.type === "graphql" && bodyContent
+                ? JSON.parse(bodyContent) as { query: string; variables?: Record<string, unknown> }
+                : null
+            const isSubscription = !!gql && isSubscriptionOperation(gql.query)
+            if (isSubscription || wantsEventStream(headersObj)) {
+                const tabId = sendTab.id
+                const started = performance.now()
+                const open = (r: Pick<ApiResponse, "status" | "statusText" | "headers">) => updateTab(tabId, {
+                    response: { ...r, body: "", time: Math.round(performance.now() - started), size: 0, streamEvents: [] },
+                })
+                const append = (events: StreamEvent[]) => updateTab(tabId, (tab) => tab.response ? {
+                    // ponytail: keeps the newest 1000 in memory; add a "save transcript" if people need more.
+                    response: { ...tab.response, streamEvents: [...(tab.response.streamEvents ?? []), ...events].slice(-1000) },
+                } : {})
+                let streamError: string | undefined
+                let raw = ""
+                if (gql && isSubscription) {
+                    streamError = await new Promise<string | undefined>((resolve) => {
+                        let acked = false
+                        const handle = subscribeGraphqlWs({
+                            url: toWebSocketUrl(urlObj.toString()),
+                            query: gql.query,
+                            variables: gql.variables,
+                            // Browsers can't set WebSocket headers; graphql-ws servers read auth from here.
+                            connectionParams: headersObj,
+                            onNext: (data, errors) => append([{
+                                event: errors?.length ? "error" : "next",
+                                data: JSON.stringify(errors?.length ? { data, errors } : data, null, 2),
+                                timestamp: Date.now(),
+                            }]),
+                            // A graphql-ws `error` ends the operation; no `complete` follows it.
+                            // Before the ack, `ready` rejects with the reason instead.
+                            onError: (e) => {
+                                if (!acked) return
+                                append([{ event: "error", data: e.message, timestamp: Date.now() }])
+                                handle.close()
+                                resolve(undefined)
+                            },
+                            onComplete: () => resolve(undefined),
+                        })
+                        handle.ready.then(
+                            () => { acked = true; open({ status: 101, statusText: "Switching Protocols", headers: {} }) },
+                            (e: Error) => resolve(e.message),
+                        )
+                        controller.signal.addEventListener("abort", () => { handle.close(); resolve(undefined) }, { once: true })
+                    })
+                } else {
+                    const r = await streamSse({
+                        input: {
+                            url: urlObj.toString(),
+                            method: workMethod,
+                            headers: headersObj,
+                            body: typeof bodyPayload === "string" ? bodyPayload : (bodyContent ?? undefined),
+                            verifySsl: sendTab.verifySsl,
+                            net: collectionNet({ certs: sendCollection?.clientCerts, caPaths: sendCollection?.caPaths }, substituteAll),
+                        },
+                        signal: controller.signal,
+                        onMeta: open,
+                        onEvents: append,
+                    })
+                    streamError = r.error
+                    raw = r.raw
+                }
+                updateTab(tabId, (tab) => ({
+                    isLoading: false,
+                    response: !tab.response
+                        ? (streamError ? { status: 0, statusText: API_CLIENT_ERROR_STATUS_TEXT, headers: {}, body: streamError, time: 0, size: 0, error: streamError } : null)
+                        : {
+                            ...tab.response,
+                            body: raw,
+                            streamEvents: streamError
+                                ? [...(tab.response.streamEvents ?? []), { event: "error", data: streamError, timestamp: Date.now() }]
+                                : tab.response.streamEvents,
+                        },
+                }))
+                addHistoryItem({
+                    method: workMethod as RequestMethod,
+                    url: sendTab.url,
+                    params: sendTab.params,
+                    headers: sendTab.headers,
+                    body: sendTab.body,
+                    auth: sendTab.auth,
+                    preRequestScript: sendTab.preRequestScript,
+                    testScript: sendTab.testScript,
+                }, historyName(sendTab.name, workMethod, sendTab.url), streamError ? 0 : (isSubscription ? 101 : 200))
+                return
+            }
+
             // Plugins: onBeforeSend lets installed plugins mutate URL / headers / body.
             const pluginRequest = {
                 method: workMethod,
@@ -871,6 +987,11 @@ function ApiClientInner() {
                 followRedirects: sendTab.followRedirects,
                 maxRedirects: sendTab.maxRedirects,
                 verifySsl: sendTab.verifySsl,
+                digestAuth: sendTab.auth.type === "digest" && !sendTab.auth.digest?.nonce?.trim()
+                    ? digestCredentials(sendTab.auth.digest, substituteAll)
+                    : undefined,
+                // Collection certificates/CAs; global ones are merged in api-fetch.
+                net: collectionNet({ certs: sendCollection?.clientCerts, caPaths: sendCollection?.caPaths }, substituteAll),
             }, controller.signal)
             const proxyData = {
                 ...rawEnvelope,
@@ -897,8 +1018,9 @@ function ApiClientInner() {
             // Observability: record metric for the metrics dashboard. Resolved
             // {{vault.*}}/{{env.*}} secrets are redacted back to their tokens —
             // the metrics panel renders these URLs.
+            // Secret-flagged environment/global values are redacted the same way.
             const redactSecrets = (text: string): string =>
-                Object.entries(secretVars).reduce(
+                Object.entries({ ...secretVariables, ...secretVars }).reduce(
                     (acc, [token, value]) => (value ? acc.split(value).join(`{{${token}}}`) : acc),
                     text,
                 )
@@ -958,6 +1080,8 @@ function ApiClientInner() {
                     },
                     environment: { ...activeEnvironmentVariables, ...scriptEnvOverlay },
                     variables: { ...sessionVarsRef.current },
+                    collectionVariables: collectionVars,
+                    globals: globalVariables,
                 }
                 const r = await runScript(sendTab.testScript, postCtx)
                 scriptTests.push(...r.tests)
@@ -970,6 +1094,13 @@ function ApiClientInner() {
                 }
                 sessionVarsRef.current = r.variables
             }
+
+            scriptTests.push(...evaluateAssertions(sendTab.assertions, {
+                status: proxyData.status,
+                headers: proxyData.headers ?? {},
+                body: proxyData.body ?? "",
+                time: proxyData.time ?? 0,
+            }))
 
             // Persist script-induced env mutations to the active environment.
             if (
@@ -1009,6 +1140,7 @@ function ApiClientInner() {
                     error: proxyData.error,
                     setCookies: proxyData.setCookies,
                     redirectChain: proxyData.redirectChain as ApiResponse["redirectChain"],
+                    timeline: proxyData.timeline as ApiResponse["timeline"],
                 },
                 scriptResults: (scriptTests.length || scriptLogs.length || scriptErrors.length)
                     ? { tests: scriptTests, logs: scriptLogs, errors: scriptErrors }
@@ -1087,11 +1219,14 @@ function ApiClientInner() {
         activeTab,
         collections,
         updateActiveTab,
+        updateTab,
         isMobile,
         formatJson,
         runScript,
         addHistoryItem,
         activeEnvironmentVariables,
+        globalVariables,
+        secretVariables,
         activeEnvId,
         environments,
         updateEnvironment,
@@ -1103,6 +1238,42 @@ function ApiClientInner() {
     const sendRef = React.useRef(sendImpl)
     React.useEffect(() => { sendRef.current = sendImpl }, [sendImpl])
     const handleSend = React.useCallback(() => sendRef.current(), [])
+
+    // GraphQL introspection target: the tab's URL, params, headers and auth with
+    // variables resolved — what a send would use, minus scripts and body signers.
+    const introspectionTargetImpl = React.useCallback(async (): Promise<{ url: string; headers: Record<string, string> }> => {
+        const tab = withFolderDefaults(activeTab, collections)
+        const collection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+        const secrets = await resolveSecretVariables(
+            [tab.url, JSON.stringify({ params: tab.params, headers: tab.headers, auth: tab.auth })],
+            cipherKey,
+        )
+        const sub = (text: string) => substituteVariables(text, {
+            globals: globalVariables,
+            collection: variablesToRecord(collection?.variables),
+            environment: activeEnvironmentVariables,
+            session: sessionVarsRef.current,
+            secrets,
+        })
+        const urlObj = buildRequestUrl(sub(tab.url))
+        tab.params.forEach((p) => { if (p.active && p.key) urlObj.searchParams.append(sub(p.key), sub(p.value)) })
+        const headers: Record<string, string> = {}
+        tab.headers.forEach((h) => { if (h.active && h.key) headers[sub(h.key)] = sub(h.value) })
+        const auth = tab.auth
+        await applyHeaderAuth(auth, { headers, url: urlObj }, sub)
+        if (auth.type === "oauth2" && auth.oauth2) {
+            const fresh = await ensureFreshToken(auth.oauth2)
+            if (fresh.accessToken) headers["Authorization"] = `${fresh.tokenType || "Bearer"} ${fresh.accessToken}`
+        }
+        // Body signers hash exactly what fetchGraphQLSchema will POST.
+        headers["Content-Type"] = "application/json"
+        await applyPayloadAuth(auth, { method: "POST", url: urlObj, headers, body: introspectionBody() })
+        // ponytail: NTLM/SPNEGO introspection unsupported (their proxy routes return 501 on desktop anyway).
+        return { url: urlObj.toString(), headers }
+    }, [activeTab, collections, cipherKey, globalVariables, activeEnvironmentVariables])
+    const introspectionTargetRef = React.useRef(introspectionTargetImpl)
+    React.useEffect(() => { introspectionTargetRef.current = introspectionTargetImpl }, [introspectionTargetImpl])
+    const resolveIntrospectionTarget = React.useCallback(() => introspectionTargetRef.current(), [])
 
     const handleCurlPaste = React.useCallback((curl: string) => {
         try {
@@ -1194,17 +1365,20 @@ function ApiClientInner() {
                 shortcut("nextTab", t("shortcuts.nextTab"), ArrowRight),
                 shortcut("prevTab", t("shortcuts.prevTab"), ArrowLeft),
                 shortcut("focusUrl", t("shortcuts.focusUrl"), Link2),
+                ...(isDesktop() ? [{ id: "run-in-terminal", title: t("toolbar.runInTerminal"), Icon: SquareTerminal, run: handleRunInTerminal }] : []),
                 { id: "import-curl", title: t("toolbar.importCurl"), Icon: Terminal, run: () => setImportCurlOpen(true) },
                 { id: "import-collection", title: t("toolbar.importCollection"), Icon: Download, run: () => setImportOpen(true) },
                 { id: "generate-code", title: t("toolbar.code"), Icon: IconCode, run: () => setCodeGenOpen(true) },
                 { id: "environments", title: t("environmentManager.manageDialogTitle"), Icon: IconSettings, run: () => setEnvMgrOpen(true) },
                 { id: "cookies", title: t("toolbar.cookies"), Icon: Cookie, run: () => setCookieJarOpen(true) },
+                { id: "network", title: tNet("title"), Icon: Network, run: () => setNetworkOpen(true) },
+                { id: "plugins", title: tPlugins("title"), Icon: Puzzle, run: () => setPluginsOpen(true) },
                 { id: "shortcuts", title: t("toolbar.shortcuts"), Icon: Keyboard, run: () => setHelpOpen(true) },
                 switchEnv(null, t("environmentManager.noEnvironment")),
                 ...environments.map((env) => switchEnv(env.id, env.name)),
             ],
         }
-    }, [t, tNav, isMac, runShortcut, addTab, duplicateTab, environments, setActiveEnvId])
+    }, [t, tNav, tNet, tPlugins, isMac, runShortcut, addTab, duplicateTab, environments, setActiveEnvId, handleRunInTerminal])
     usePaletteActions(paletteGroup)
 
     // Desktop request column — reused whether it sits full-width (no response yet)
@@ -1224,6 +1398,7 @@ function ApiClientInner() {
                 onCopyCurl={handleCopyCurl}
                 urlHistory={urlHistory}
                 tabId={activeTab.id}
+                variables={editorVariables}
             />
             <div className="flex-1 min-h-0">
                 <RequestTabs
@@ -1231,6 +1406,9 @@ function ApiClientInner() {
                     setParams={setField.params}
                     headers={activeTab.headers}
                     setHeaders={setField.headers}
+                    inheritedHeaders={inheritedHeaders}
+                    omitHeaders={activeOmitHeaders}
+                    setOmitHeaders={setField.omitHeaders}
                     body={activeTab.body}
                     setBody={setField.body}
                     auth={activeTab.auth}
@@ -1240,6 +1418,7 @@ function ApiClientInner() {
                     testScript={activeTab.testScript}
                     setTestScript={setField.testScript}
                     graphqlUrl={activeTab.url}
+                    resolveIntrospectionTarget={resolveIntrospectionTarget}
                     graphqlSchema={activeTab.graphqlSchema}
                     setGraphqlSchema={setField.graphqlSchema}
                     examples={activeTab.examples}
@@ -1249,6 +1428,10 @@ function ApiClientInner() {
                     setComments={setField.comments}
                     settings={requestSettings}
                     setSettings={setField.settings}
+                    assertions={activeTab.assertions}
+                    setAssertions={setField.assertions}
+                    description={activeTab.description}
+                    setDescription={setField.description}
                 />
             </div>
         </div>
@@ -1300,6 +1483,14 @@ function ApiClientInner() {
                                         <DropdownMenuItem onSelect={() => setCookieJarOpen(true)}>
                                             <Cookie className="h-4 w-4 mr-2" />
                                             {t("toolbar.cookies")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setNetworkOpen(true)}>
+                                            <Network className="h-4 w-4 mr-2" />
+                                            {tNet("title")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
+                                            <Puzzle className="h-4 w-4 mr-2" />
+                                            {tPlugins("title")}
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
@@ -1396,6 +1587,14 @@ function ApiClientInner() {
                                             <Cookie className="h-4 w-4 mr-2" />
                                             {t("toolbar.cookies")}
                                         </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setNetworkOpen(true)}>
+                                            <Network className="h-4 w-4 mr-2" />
+                                            {tNet("title")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
+                                            <Puzzle className="h-4 w-4 mr-2" />
+                                            {tPlugins("title")}
+                                        </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
                                             <Activity className="h-4 w-4 mr-2" />
@@ -1441,6 +1640,8 @@ function ApiClientInner() {
                         )}
                         <HelpShortcutsDialog open={helpOpen} onOpenChange={setHelpOpen} />
                         <CookieJarDialog open={cookieJarOpen} onOpenChange={setCookieJarOpen} />
+                        {pluginsOpen && <PluginsDialog open={pluginsOpen} onOpenChange={setPluginsOpen} onChange={reloadPlugins} />}
+                        {networkOpen && <NetworkSettingsDialog open={networkOpen} onOpenChange={setNetworkOpen} />}
                         <ImportDialog open={importOpen} onOpenChange={setImportOpen} />
                         <SaveExampleDialog
                             open={saveExampleOpen}
@@ -1536,12 +1737,16 @@ function ApiClientInner() {
                                             onCopyCurl={handleCopyCurl}
                                             urlHistory={urlHistory}
                                             tabId={activeTab.id}
+                                            variables={editorVariables}
                                         />
                                         <RequestTabs
                                             params={activeTab.params}
                                             setParams={setField.params}
                                             headers={activeTab.headers}
                                             setHeaders={setField.headers}
+                                            inheritedHeaders={inheritedHeaders}
+                                            omitHeaders={activeOmitHeaders}
+                                            setOmitHeaders={setField.omitHeaders}
                                             body={activeTab.body}
                                             setBody={setField.body}
                                             auth={activeTab.auth}
@@ -1551,6 +1756,7 @@ function ApiClientInner() {
                                             testScript={activeTab.testScript}
                                             setTestScript={setField.testScript}
                                             graphqlUrl={activeTab.url}
+                                            resolveIntrospectionTarget={resolveIntrospectionTarget}
                                             graphqlSchema={activeTab.graphqlSchema}
                                             setGraphqlSchema={setField.graphqlSchema}
                                             examples={activeTab.examples}
@@ -1560,6 +1766,10 @@ function ApiClientInner() {
                                             setComments={setField.comments}
                                             settings={requestSettings}
                                             setSettings={setField.settings}
+                                            assertions={activeTab.assertions}
+                                            setAssertions={setField.assertions}
+                                            description={activeTab.description}
+                                            setDescription={setField.description}
                                         />
                                     </div>
                                 </div>

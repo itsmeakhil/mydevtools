@@ -26,6 +26,19 @@ async function sha256Hex(s: string): Promise<string> {
         .join("")
 }
 
+/** Download a spec's text — through the Rust proxy on desktop (no CORS, no webview leak). */
+export async function fetchOpenApiText(url: string): Promise<string> {
+    if (isDesktop()) {
+        const { proxyGet } = await import("@/lib/desktop/proxy-get")
+        const r = await proxyGet(url)
+        if (!r.ok) throw new Error(`HTTP ${r.status}`)
+        return r.isBase64 ? new TextDecoder().decode(Uint8Array.from(atob(r.body), (c) => c.charCodeAt(0))) : r.body
+    }
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    return res.text()
+}
+
 export function watchOpenApi(opts: OpenApiWatchOptions): OpenApiWatchHandle {
     const interval = Math.max(30_000, opts.intervalMs ?? 60_000)
     let lastHash: string | null = null
@@ -36,18 +49,7 @@ export function watchOpenApi(opts: OpenApiWatchOptions): OpenApiWatchHandle {
         // Offline: skip silently (the caller already tolerates missed ticks).
         if (typeof navigator !== "undefined" && !navigator.onLine) return
         try {
-            let text: string
-            if (isDesktop()) {
-                // Route through the Rust proxy (no CORS, no webview leak).
-                const { proxyGet } = await import("@/lib/desktop/proxy-get")
-                const r = await proxyGet(opts.url)
-                if (!r.ok) throw new Error(`HTTP ${r.status}`)
-                text = r.isBase64 ? atob(r.body) : r.body
-            } else {
-                const res = await fetch(opts.url)
-                if (!res.ok) throw new Error(`HTTP ${res.status}`)
-                text = await res.text()
-            }
+            const text = await fetchOpenApiText(opts.url)
             const hash = await sha256Hex(text)
             if (hash !== lastHash) {
                 lastHash = hash

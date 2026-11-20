@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { IconCopy, IconCheck } from "@tabler/icons-react"
 import { ApiRequestState } from "./types"
-import { generateCode, CodeLanguage } from "./generate-code"
+import { generateCode, CodeLanguage, CODE_LANGUAGES } from "./generate-code"
 import { useTranslations } from "next-intl"
 
 interface CodeGeneratorProps {
@@ -58,15 +58,13 @@ export function CodeGenerator({ request, open, onOpenChange }: CodeGeneratorProp
                 <div className="space-y-4">
                     <div className="flex items-center justify-between">
                         <Select value={language} onValueChange={(val) => setLanguage(val as CodeLanguage)}>
-                            <SelectTrigger className="w-[150px]">
+                            <SelectTrigger className="w-[190px]">
                                 <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="curl">{t("languageCurl")}</SelectItem>
-                                <SelectItem value="javascript">{t("languageJavaScript")}</SelectItem>
-                                <SelectItem value="typescript">TypeScript</SelectItem>
-                                <SelectItem value="python">{t("languagePython")}</SelectItem>
-                                <SelectItem value="go">{t("languageGo")}</SelectItem>
+                                {CODE_LANGUAGES.map(([value, label]) => (
+                                    <SelectItem key={value} value={value}>{label}</SelectItem>
+                                ))}
                             </SelectContent>
                         </Select>
                         <Button variant="outline" size="sm" onClick={handleCopy}>

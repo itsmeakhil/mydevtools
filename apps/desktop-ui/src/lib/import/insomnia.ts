@@ -125,7 +125,8 @@ function convertBody(b: InsBody | undefined): RequestBody {
 }
 
 function convertAuth(a: InsAuth | undefined): RequestAuth {
-    if (!a || a.disabled || !a.type) return { type: "none" }
+    if (!a || !a.type) return { type: "inherit" } // Insomnia's default: inherit from folder
+    if (a.disabled) return { type: "none" }
     switch (a.type) {
         case "basic":
             return { type: "basic", username: opt(a.username), password: opt(a.password) }

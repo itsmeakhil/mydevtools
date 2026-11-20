@@ -6,7 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collection, CollectionRequest } from "../types"
 import { CollectionItem, TREE_DRAG_MIME } from "./collection-item"
-import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy } from "lucide-react"
+import { FolderPlus, FolderGit2, Trash2, Pencil, MoreHorizontal, Search, X, FileDown, Play, Server, Link2, Globe, Copy, Settings2, Lock, BookOpen, RefreshCw } from "lucide-react"
 import { filterTree, moveDestinations, resolveDrop, type DropPosition } from "@/lib/api-client/collection-tree"
 import { buildShareUrl } from "@/lib/share-link"
 import { apiFetch } from "@/lib/desktop/api-fetch"
@@ -18,10 +18,18 @@ const CollectionRunnerDialog = dynamic(
     () => import("../collection-runner-dialog").then((m) => ({ default: m.CollectionRunnerDialog })),
     { ssr: false, loading: () => null },
 )
+const MockServerDialog = dynamic(
+    () => import("../mock-server-dialog").then((m) => ({ default: m.MockServerDialog })),
+    { ssr: false, loading: () => null },
+)
+const OpenApiSyncDialog = dynamic(
+    () => import("./openapi-sync-dialog").then((m) => ({ default: m.OpenApiSyncDialog })),
+    { ssr: false, loading: () => null },
+)
 import { useWorkspacesContext } from "../context/workspaces-context"
 import { WorkspacesDialog } from "../workspaces-dialog"
 import { Briefcase } from "lucide-react"
-import { FolderDefaultsDialog } from "../folder-defaults-dialog"
+import { FolderDefaultsDialog, type DefaultsTarget } from "../folder-defaults-dialog"
 import type { CollectionFolder } from "../types"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { VirtualHistoryList } from "./virtual-history-list"
@@ -78,7 +86,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
         [loadRequest, panel],
     )
     const { collections, isLoading } = useCollectionsState()
-    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, deleteMultipleCollections: onDeleteMultiple, openFolderCollection, duplicateItem, duplicateCollection, setCollectionWorkspace, moveItem } = useCollectionsActions()
+    const { addFolder: onAddFolder, deleteItem: onDelete, toggleFolder: onToggle, createCollection: onCreateCollection, renameCollection: onRenameCollection, renameFolder: onRenameFolder, patchFolder, patchCollection, deleteMultipleCollections: onDeleteMultiple, openFolderCollection, duplicateItem, duplicateCollection, setCollectionWorkspace, moveItem } = useCollectionsActions()
     const tActions = useTranslations("ApiClient.collectionActions")
 
     // Drag/drop + "Move to…". Collections are read through a ref so these
@@ -97,6 +105,8 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
         [moveTo],
     )
     const [moveSource, setMoveSource] = React.useState<Collection["items"][number] | null>(null)
+    const [syncTarget, setSyncTarget] = React.useState<Collection | null>(null)
+    const tSync = useTranslations("ApiClient.openApiSync")
     const [collectionDropTarget, setCollectionDropTarget] = React.useState<string | null>(null)
 
     const onDuplicateItem = React.useCallback(
@@ -153,7 +163,12 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
     const [targetParentId, setTargetParentId] = React.useState<string | null>(null)
     const [targetCollectionId, setTargetCollectionId] = React.useState<string | null>(null)
     const [runnerCollection, setRunnerCollection] = React.useState<Collection | null>(null)
-    const [folderDefaultsTarget, setFolderDefaultsTarget] = React.useState<CollectionFolder | null>(null)
+    const [mockCollection, setMockCollection] = React.useState<Collection | null>(null)
+    const tMock = useTranslations("ApiClient.mockServer")
+    const [defaultsTarget, setDefaultsTarget] = React.useState<DefaultsTarget | null>(null)
+    const editFolderDefaults = React.useCallback((item: CollectionFolder) => setDefaultsTarget({ kind: "folder", item }), [])
+    const tDefaults = useTranslations("ApiClient.collectionDefaults")
+    const tDocs = useTranslations("ApiClient.docs")
 
     // One workspace mechanism: the active workspace (WorkspacesProvider) narrows
     // to collections assigned to it; no workspace selected shows everything.
@@ -468,6 +483,11 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                         <FolderGit2 className="h-3 w-3 text-muted-foreground shrink-0" />
                                                     </span>
                                                 )}
+                                                {collection.source?.kind === "bruno" && collection.source.readOnly && (
+                                                    <span title={tRoot("fileSync.readOnlyOpenCollection")} aria-label={tRoot("fileSync.readOnlyOpenCollection")}>
+                                                        <Lock className="h-3 w-3 text-muted-foreground shrink-0" />
+                                                    </span>
+                                                )}
                                             </div>
                                             <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Button
@@ -489,10 +509,14 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                             <MoreHorizontal className="h-3.5 w-3.5 text-muted-foreground" />
                                                         </Button>
                                                     </DropdownMenuTrigger>
-                                                    <DropdownMenuContent align="end" className="w-40">
+                                                    <DropdownMenuContent align="end" className="w-52">
                                                         <DropdownMenuItem onClick={() => openRenameCollectionDialog(collection)}>
                                                             <Pencil className="h-4 w-4 mr-2" />
                                                             {t("rename")}
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem onClick={() => setDefaultsTarget({ kind: "collection", item: collection })}>
+                                                            <Settings2 className="h-4 w-4 mr-2" />
+                                                            {tDefaults("collectionMenu")}
                                                         </DropdownMenuItem>
                                                         {/* Workspace ids are app-local, so folder (git) collections don't carry one. */}
                                                         {!collection.source && workspaces.length > 0 && (
@@ -520,7 +544,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => setRunnerCollection(collection)}>
                                                             <Play className="h-4 w-4 mr-2" />
-                                                            Run collection
+                                                            {t("runCollection")}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem
                                                             onClick={async () => {
@@ -537,29 +561,35 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                                         baseUrl = `${window.location.origin}/api/mock/${collection.id}/`
                                                                     }
                                                                     await navigator.clipboard.writeText(baseUrl)
-                                                                    toast.success("Mock URL copied — append the request path to invoke")
+                                                                    toast.success(t("mockUrlCopied"))
                                                                 } catch (e) {
-                                                                    toast.error((e as Error)?.message || "Could not copy to clipboard")
+                                                                    toast.error((e as Error)?.message || t("copyFailed"))
                                                                 }
                                                             }}
                                                         >
                                                             <Server className="h-4 w-4 mr-2" />
-                                                            Copy mock URL
+                                                            {t("copyMockUrl")}
                                                         </DropdownMenuItem>
+                                                        {desktop && (
+                                                            <DropdownMenuItem onClick={() => setMockCollection(collection)}>
+                                                                <Server className="h-4 w-4 mr-2" />
+                                                                {tMock("menu")}
+                                                            </DropdownMenuItem>
+                                                        )}
                                                         <DropdownMenuItem
                                                             onClick={async () => {
                                                                 if (typeof window === "undefined") return
                                                                 try {
                                                                     const url = await buildShareUrl(window.location.origin, collection)
                                                                     await navigator.clipboard.writeText(url)
-                                                                    toast.success("Share link copied — recipient sees a read-only snapshot")
+                                                                    toast.success(t("shareLinkCopied"))
                                                                 } catch (e) {
                                                                     toast.error((e as Error).message)
                                                                 }
                                                             }}
                                                         >
                                                             <Link2 className="h-4 w-4 mr-2" />
-                                                            Copy share link
+                                                            {t("copyShareLink")}
                                                         </DropdownMenuItem>
                                                         {/* Public mocks need a hosted origin — desktop is offline-only. */}
                                                         {!isDesktop() && <DropdownMenuItem
@@ -588,21 +618,38 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                             <Globe className="h-4 w-4 mr-2" />
                                                             Publish as public mock
                                                         </DropdownMenuItem>}
+                                                        <DropdownMenuItem onClick={() => setSyncTarget(collection)}>
+                                                            <RefreshCw className="h-4 w-4 mr-2" />
+                                                            {tSync("menuItem")}
+                                                        </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/postman").then((m) => m.downloadCollectionAsPostman(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
-                                                            Export (Postman v2.1)
+                                                            {t("exportAs", { format: "Postman v2.1" })}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/openapi").then((m) => m.downloadCollectionAsOpenApi(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
-                                                            Export (OpenAPI 3.0)
+                                                            {t("exportAs", { format: "OpenAPI 3.0" })}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/har").then((m) => m.downloadCollectionAsHar(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
-                                                            Export (HAR 1.2)
+                                                            {t("exportAs", { format: "HAR 1.2" })}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem onClick={() => void import("@/lib/export/insomnia").then((m) => m.downloadCollectionAsInsomnia(collection))}>
                                                             <FileDown className="h-4 w-4 mr-2" />
-                                                            Export (Insomnia v4)
+                                                            {t("exportAs", { format: "Insomnia v4" })}
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem
+                                                            onClick={async () => {
+                                                                try {
+                                                                    const m = await import("@/lib/export/docs-html")
+                                                                    if (await m.saveCollectionDocsHtml(collection)) toast.success(tDocs("exported"))
+                                                                } catch {
+                                                                    toast.error(tDocs("exportFailed"))
+                                                                }
+                                                            }}
+                                                        >
+                                                            <BookOpen className="h-4 w-4 mr-2" />
+                                                            {tDocs("exportHtml")}
                                                         </DropdownMenuItem>
                                                         <DropdownMenuItem
                                                             className="text-destructive focus:text-destructive"
@@ -626,7 +673,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                                                     onAddFolder={openAddFolderDialog}
                                                     onLoadRequest={onLoadRequest}
                                                     onRenameFolder={onRenameFolder}
-                                                    onEditFolderDefaults={setFolderDefaultsTarget}
+                                                    onEditFolderDefaults={editFolderDefaults}
                                                     onDuplicate={onDuplicateItem}
                                                     onMoveTo={setMoveSource}
                                                     // Filtered trees hide siblings, so drop indices would be wrong.
@@ -659,7 +706,7 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                             <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                             <input
                                 type="text"
-                                placeholder="Search history..."
+                                placeholder={t("searchHistory")}
                                 value={historySearch}
                                 onChange={(e) => setHistorySearch(e.target.value)}
                                 className="w-full h-8 pl-8 pr-7 text-[13px] bg-card border border-input rounded-md outline-none placeholder:text-muted-foreground/80 focus:border-primary focus:ring-[3px] focus:ring-primary/25 transition-[border-color,box-shadow]"
@@ -838,7 +885,17 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 onOpenChange={(o) => { if (!o) setRunnerCollection(null) }}
                 collection={runnerCollection}
             />
+            {mockCollection && (
+                <MockServerDialog collection={mockCollection} onOpenChange={(o) => { if (!o) setMockCollection(null) }} />
+            )}
             <WorkspacesDialog open={workspaceDialogOpen} onOpenChange={setWorkspaceDialogOpen} />
+            {syncTarget && (
+                <OpenApiSyncDialog
+                    // Live object, so "Apply" re-diffs against edits made while the dialog is open.
+                    collection={collections.find((c) => c.id === syncTarget.id) ?? null}
+                    onOpenChange={(o) => { if (!o) setSyncTarget(null) }}
+                />
+            )}
             <Dialog open={moveSource !== null} onOpenChange={(o) => { if (!o) setMoveSource(null) }}>
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
@@ -872,12 +929,13 @@ function CollectionsSidebarImpl({ onLoadRequest: loadRequest }: CollectionsSideb
                 </DialogContent>
             </Dialog>
             <FolderDefaultsDialog
-                open={folderDefaultsTarget !== null}
-                onOpenChange={(o) => { if (!o) setFolderDefaultsTarget(null) }}
-                folder={folderDefaultsTarget}
+                open={defaultsTarget !== null}
+                onOpenChange={(o) => { if (!o) setDefaultsTarget(null) }}
+                target={defaultsTarget}
                 onSave={(patch) => {
-                    if (folderDefaultsTarget) {
-                        void patchFolder(folderDefaultsTarget.id, patch)
+                    if (defaultsTarget?.kind === "folder") void patchFolder(defaultsTarget.item.id, patch)
+                    if (defaultsTarget?.kind === "collection") {
+                        void patchCollection(defaultsTarget.item.id, patch, { ok: tDefaults("saved"), fail: tDefaults("saveFailed") })
                     }
                 }}
             />

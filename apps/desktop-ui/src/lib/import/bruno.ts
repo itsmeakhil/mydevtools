@@ -27,6 +27,7 @@ import type {
 } from "@/components/api-client/types"
 import type { Environment, EnvironmentVariable } from "@/components/api-client/use-environments"
 import type { OAuth2GrantType } from "@/lib/oauth2"
+import { parseBruAssertion, type Assertion } from "@/lib/api-client/assertions"
 
 const METHODS: RequestMethod[] = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"]
 
@@ -36,9 +37,9 @@ function id(): string { return crypto.randomUUID() }
 // A file is a sequence of `name {` … `}` (dict or raw text) and `name [` … `]`
 // (array) blocks. Closing brackets sit at column 0; inner lines are indented 2.
 
-interface BruBlock { lines: string[] }
-type BruBlocks = Map<string, BruBlock>
-interface Entry { key: string; value: string; enabled: boolean }
+export interface BruBlock { lines: string[] }
+export type BruBlocks = Map<string, BruBlock>
+export interface Entry { key: string; value: string; enabled: boolean }
 
 export function parseBruBlocks(text: string): BruBlocks {
     const out: BruBlocks = new Map()
@@ -58,7 +59,7 @@ export function parseBruBlocks(text: string): BruBlocks {
 }
 
 /** `key: value` lines; `~key` = disabled; `'''` opens a multi-line value. */
-function dict(block: BruBlock | undefined): Entry[] {
+export function dict(block: BruBlock | undefined): Entry[] {
     if (!block) return []
     const out: Entry[] = []
     const ls = block.lines
@@ -85,7 +86,7 @@ function dict(block: BruBlock | undefined): Entry[] {
     return out
 }
 
-function text(block: BruBlock | undefined): string {
+export function text(block: BruBlock | undefined): string {
     return block ? block.lines.map((l) => l.replace(/^ {2}/, "")).join("\n") : ""
 }
 
@@ -103,6 +104,15 @@ function get(entries: Entry[], key: string): string | undefined {
 
 function toKv(entries: Entry[]): KeyValueItem[] {
     return entries.map((e) => ({ id: id(), key: e.key, value: e.value, active: e.enabled }))
+}
+
+/** `assert { res.status: eq 200 }` rows; operators we don't support are dropped. */
+function bruAssertions(block: BruBlock | undefined): Assertion[] | undefined {
+    const rows = dict(block).flatMap((e) => {
+        const parsed = parseBruAssertion(e.value)
+        return parsed ? [{ id: id(), enabled: e.enabled, target: e.key, ...parsed }] : []
+    })
+    return rows.length ? rows : undefined
 }
 
 function joinScripts(...parts: Array<string | undefined>): string | undefined {
@@ -123,7 +133,9 @@ function grantType(raw: string | undefined): OAuth2GrantType {
     return raw === "authorization_code" || raw === "password" ? raw : "client_credentials"
 }
 
-function bruAuth(mode: string | undefined, blocks: BruBlocks): RequestAuth {
+export function bruAuth(mode: string | undefined, blocks: BruBlocks): RequestAuth {
+    if (mode === "inherit") return { type: "inherit" }
+    if (mode === "none") return { type: "none" }
     const block = (name: string) => dict(blocks.get(`auth:${name}`))
     if (mode === "basic" || (!mode && blocks.has("auth:basic"))) {
         const a = block("basic")
@@ -159,12 +171,15 @@ function bruAuth(mode: string | undefined, blocks: BruBlocks): RequestAuth {
     return { type: "none" }
 }
 
-function bruBody(mode: string | undefined, blocks: BruBlocks): RequestBody {
+export function bruBody(mode: string | undefined, blocks: BruBlocks): RequestBody {
     const has = (n: string) => blocks.has(n)
     if (mode === "json" || (!mode && (has("body:json") || has("body")))) {
         return { type: "json", content: text(blocks.get("body:json") ?? blocks.get("body")) }
     }
-    if (mode === "text" || mode === "xml" || mode === "sparql" || (!mode && (has("body:text") || has("body:xml")))) {
+    if (mode === "xml" || (!mode && has("body:xml"))) {
+        return { type: "xml", content: text(blocks.get("body:xml")) }
+    }
+    if (mode === "text" || mode === "sparql" || (!mode && has("body:text"))) {
         return { type: "text", content: text(blocks.get(`body:${mode ?? (has("body:text") ? "text" : "xml")}`)) }
     }
     if (mode === "formUrlEncoded" || (!mode && has("body:form-urlencoded"))) {
@@ -187,13 +202,14 @@ function bruBody(mode: string | undefined, blocks: BruBlocks): RequestBody {
     return { type: "none", content: "" }
 }
 
-/** Folder-level defaults shared by `folder.bru` and request files. */
-function bruDefaults(blocks: BruBlocks, authMode: string | undefined) {
+/** Folder-level defaults shared by `folder.bru`, `collection.bru` and request files. */
+export function bruDefaults(blocks: BruBlocks, authMode: string | undefined) {
     return {
         headers: toKv(dict(blocks.get("headers"))),
         auth: bruAuth(authMode, blocks),
         preRequestScript: joinScripts(text(blocks.get("script:pre-request"))),
         testScript: joinScripts(text(blocks.get("script:post-response")), text(blocks.get("tests"))),
+        docs: text(blocks.get("docs")).trim() || undefined,
     }
 }
 
@@ -223,16 +239,19 @@ export function parseBruRequest(text: string): CollectionRequest {
         auth: d.auth,
         preRequestScript: d.preRequestScript,
         testScript: d.testScript,
+        assertions: bruAssertions(blocks.get("assert")),
+        description: d.docs,
     }
 }
 
 export function parseBrunoEnvironment(text: string, name: string): Environment {
     const blocks = parseBruBlocks(text)
-    const toVar = (e: Entry): EnvironmentVariable => ({ id: id(), key: e.key, value: e.value, enabled: e.enabled })
+    const toVar = (secret: boolean) => (e: Entry): EnvironmentVariable =>
+        ({ id: id(), key: e.key, value: e.value, enabled: e.enabled, ...(secret && { secret }) })
     return {
         id: id(),
         name,
-        variables: [...dict(blocks.get("vars")), ...array(blocks.get("vars:secret"))].map(toVar),
+        variables: [...dict(blocks.get("vars")).map(toVar(false)), ...array(blocks.get("vars:secret")).map(toVar(true))],
     }
 }
 
@@ -321,6 +340,7 @@ function ocDefaults(doc: Yaml) {
         auth: ocAuth(block.auth ?? doc.auth),
         preRequestScript: s.pre,
         testScript: s.test,
+        docs: str(doc.docs).trim() || undefined,
     }
 }
 
@@ -339,6 +359,7 @@ export function parseOpenCollectionRequestYaml(text: string): CollectionRequest 
         auth: d.auth,
         preRequestScript: d.preRequestScript,
         testScript: d.testScript,
+        description: d.docs,
     }
 }
 
@@ -352,6 +373,7 @@ function parseOpenCollectionEnvironment(text: string, fallbackName: string): Env
             key: str(v.name),
             value: v.secret === true ? "" : str(v.value),
             enabled: v.disabled !== true,
+            ...(v.secret === true && { secret: true }),
         })),
     }
 }
@@ -372,7 +394,13 @@ const basename = (p: string) => p.slice(p.lastIndexOf("/") + 1)
 const dirname = (p: string) => (p.includes("/") ? p.slice(0, p.lastIndexOf("/")) : "")
 const stripExt = (p: string) => p.replace(/\.(bru|ya?ml)$/, "")
 
-export function importBrunoFolder(input: BrunoFile[]): BrunoImportResult {
+export interface BrunoImportOptions {
+    /** Stable ids for live-linked folders (default: random). `relPath` is the
+     *  request file, or the folder's directory ("" = collection root). */
+    idFor?: (kind: "request" | "folder", relPath: string) => string
+}
+
+export function importBrunoFolder(input: BrunoFile[], opts: BrunoImportOptions = {}): BrunoImportResult {
     const files = input.map((f) => ({ ...f, path: f.path.replace(/\\/g, "/").replace(/^\.?\//, "") }))
     // Root = wherever the manifest lives (tolerates a zip with a wrapping directory).
     const manifest = files.find((f) => /(^|\/)(bruno\.json|opencollection\.yml)$/.test(f.path))
@@ -389,6 +417,7 @@ export function importBrunoFolder(input: BrunoFile[]): BrunoImportResult {
     }
 
     const environments: Environment[] = []
+    let collectionDefaults: Partial<Collection> = {}
     const folders = new Map<string, Node>()   // dir path → folder node
     const children = new Map<string, Node[]>() // dir path → nodes
     const push = (dir: string, node: Node) => {
@@ -401,7 +430,7 @@ export function importBrunoFolder(input: BrunoFile[]): BrunoImportResult {
             node = {
                 name: basename(dir),
                 order: Number.MAX_SAFE_INTEGER, // folders without seq sort after seq'd siblings, by path
-                item: { id: id(), name: basename(dir), type: "folder", items: [], isOpen: false },
+                item: { id: opts.idFor?.("folder", dir) ?? id(), name: basename(dir), type: "folder", items: [], isOpen: false },
             }
             folders.set(dir, node)
             if (dir) push(dirname(dir), node)
@@ -438,6 +467,20 @@ export function importBrunoFolder(input: BrunoFile[]): BrunoImportResult {
             if (d.auth.type !== "none") folder.defaultAuth = d.auth
             folder.preRequestScript = d.preRequestScript
             folder.testScript = d.testScript
+            folder.description = d.docs
+            return
+        }
+        if (base === "collection.bru" && dir === "") {
+            const blocks = parseBruBlocks(file.text)
+            const d = bruDefaults(blocks, get(dict(blocks.get("auth")), "mode"))
+            const variables = toKv(dict(blocks.get("vars:pre-request")))
+            collectionDefaults = {
+                ...(d.headers.length && { defaultHeaders: d.headers }),
+                ...(d.auth.type !== "none" && { defaultAuth: d.auth }),
+                ...(d.preRequestScript && { preRequestScript: d.preRequestScript }),
+                ...(d.testScript && { testScript: d.testScript }),
+                ...(variables.length && { variables }),
+            }
             return
         }
         if (base === "bruno.json" || base === "collection.bru" || base === "opencollection.yml") return
@@ -456,6 +499,7 @@ export function importBrunoFolder(input: BrunoFile[]): BrunoImportResult {
         } else {
             return
         }
+        if (opts.idFor) request.id = opts.idFor("request", p)
         folderNode(dir)
         push(dir, { name: request.name, seq: seq ? Number(seq) : undefined, order, item: request })
     })
@@ -468,5 +512,5 @@ export function importBrunoFolder(input: BrunoFile[]): BrunoImportResult {
                 return n.item
             })
 
-    return { collection: { id: id(), name, items: build("") }, environments }
+    return { collection: { id: opts.idFor?.("folder", "") ?? id(), name, items: build(""), ...collectionDefaults }, environments }
 }

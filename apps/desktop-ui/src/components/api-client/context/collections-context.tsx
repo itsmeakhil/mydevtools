@@ -5,6 +5,7 @@ import { Collection } from "../types"
 import { useCollections } from "../collections/use-collections"
 import { useEnvironmentsActions } from "./environments-context"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 import type { Location } from "@/lib/api-client/collection-tree"
 
 // ── Types ──────────────────────────────────────────────────────────────────
@@ -23,15 +24,19 @@ type CollectionsActions = {
     toggleFolder: (folderId: string) => Promise<void>
     createCollection: (name: string) => Promise<Collection | void>
     renameCollection: (collectionId: string, name: string) => Promise<void>
+    patchCollection: (collectionId: string, patch: Partial<Collection>, messages?: { ok: string; fail: string }) => Promise<void>
     renameFolder: (folderId: string, name: string) => Promise<void>
     patchFolder: (folderId: string, patch: Partial<import("../types").CollectionFolder>) => Promise<void>
     deleteMultipleCollections: (ids: string[]) => Promise<void>
     importCollection: (incoming: Collection) => Promise<Collection | null>
-    /** Desktop only: open (or initialize) a folder of YAML files as a git-friendly collection, or import a Bruno folder. */
-    openFolderCollection: () => Promise<Collection | null>
+    /** Desktop only: open (or initialize) a folder of YAML files as a git-friendly collection, or
+     *  live-link a Bruno folder (`"copy"`: import the Bruno folder as a regular collection instead). */
+    openFolderCollection: (mode?: "link" | "copy") => Promise<Collection | null>
     duplicateItem: (itemId: string, name: string, failMsg: string) => Promise<boolean>
     duplicateCollection: (collectionId: string, name: string) => Promise<Collection | null>
     moveItem: (itemId: string, to: Location, failMsg: string) => Promise<boolean>
+    /** Commit a whole new item tree for one collection (with the matching backend delta ops). */
+    replaceItems: (collectionId: string, nextItems: Collection["items"], ops: object[], failMsg: string) => Promise<boolean>
     setCollectionWorkspace: (collectionId: string, workspace: string | null, failMsg: string) => Promise<void>
 }
 
@@ -43,6 +48,7 @@ const CollectionsActionsCtx = React.createContext<CollectionsActions | null>(nul
 // ── Provider ───────────────────────────────────────────────────────────────
 
 export function CollectionsProvider({ children }: { children: React.ReactNode }) {
+    const tToast = useTranslations("ApiClient.toasts")
     const {
         collections,
         isLoading,
@@ -52,6 +58,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
         toggleFolder,
         createCollection,
         renameCollection,
+        patchCollection,
         renameFolder,
         patchFolder,
         updateRequest,
@@ -61,14 +68,15 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
         duplicateItem,
         duplicateCollection,
         moveItem,
+        replaceItems,
         setCollectionWorkspace,
     } = useCollections()
     const { addEnvironment, updateEnvironment } = useEnvironmentsActions()
 
     // A Bruno folder brings its environments along; they live in the sibling
     // environments context, so they are created here rather than in the hook.
-    const openFolderCollectionWithEnvs = async (): Promise<Collection | null> => {
-        const opened = await openFolderCollection()
+    const openFolderCollectionWithEnvs = async (mode?: "link" | "copy"): Promise<Collection | null> => {
+        const opened = await openFolderCollection(mode)
         if (!opened) return null
         try {
             for (const env of opened.environments) {
@@ -76,7 +84,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
                 if (envId) await updateEnvironment(envId, { variables: env.variables })
             }
         } catch (e) {
-            toast.error(`Imported the collection, but not its environments: ${e instanceof Error ? e.message : String(e)}`)
+            toast.error(tToast("envsNotImported", { message: e instanceof Error ? e.message : String(e) }))
         }
         return opened.collection
     }
@@ -99,6 +107,7 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             toggleFolder,
             createCollection,
             renameCollection,
+            patchCollection,
             renameFolder,
             patchFolder,
             updateRequest,
@@ -108,10 +117,11 @@ export function CollectionsProvider({ children }: { children: React.ReactNode })
             duplicateItem,
             duplicateCollection,
             moveItem,
+            replaceItems,
             setCollectionWorkspace,
         }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, renameFolder, patchFolder, updateRequest, deleteMultipleCollections, importCollection, openFolderCollection, duplicateItem, duplicateCollection, moveItem, setCollectionWorkspace, addEnvironment, updateEnvironment]
+        [addFolder, deleteItem, saveRequest, toggleFolder, createCollection, renameCollection, patchCollection, renameFolder, patchFolder, updateRequest, deleteMultipleCollections, importCollection, openFolderCollection, duplicateItem, duplicateCollection, moveItem, replaceItems, setCollectionWorkspace, addEnvironment, updateEnvironment]
     )
 
     return (

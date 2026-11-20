@@ -1,48 +1,108 @@
 # Changelog
 
-## 0.2.0
+All notable changes to MyDevTools. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-### Added
+## [0.2.1] — Unreleased
 
-- **Terminal**: reorder tabs by dragging. Drag a tab in the tab bar, or a terminal row in the sidebar, onto another tab of the same project to move it there. Running shells keep going while they move.
-- **Terminal**: links in terminal output are clickable. Plain URLs and OSC 8 hyperlinks open in your default browser.
+Mostly an API Client release: it closes most of the gap with Bruno for day-to-day use. The Terminal becomes a place to run coding agents side by side: it shows which agent each pane runs and whether it needs you, starts tasks in their own git worktrees, and connects to your saved databases, environments and API requests.
 
-### Improved
+### Changed — read before upgrading
 
-- **JSON Formatter, JSON Visualizer & Email Validator**: a compact title bar matching Notes and Password Manager, leaving more room for your content. The tool launcher is gone from the header; hover the title for the tool's description.
+- **"No auth" now means no auth.** Previously a request set to *No auth* silently used its folder's or collection's auth. Now it sends no auth. A new **Inherit** option takes the nearest folder/collection auth and is the default for new requests. Existing requests saved as *No auth* are migrated to *Inherit* on first launch, so nothing you have today changes behaviour. The database is backed up to `mydevtools.db.bak-v3` before the migration runs. (#439)
+
+### Added — API Client
+
+**Variables and scripting**
+- Collection-level auth, headers, variables and pre/post scripts, inherited by folders and requests.
+- Default headers, with a per-request option to leave any of them out.
+- Global variables and secret environment variables.
+- Dynamic variables (`{{$uuid}}`, `{{$timestamp}}`, …) and variable highlighting in the URL bar.
+- Scripts: async/await, `pm.sendRequest`, chai-style `expect`, `require()` for `uuid` and `crypto-js`.
+- A declarative Assertions tab for checks that need no script.
+- Better imports: Bruno script globals, `pm.collectionVariables` and `pm.globals`.
+
+**Collections and files**
+- Open a Bruno folder in place. Edits are written back as `.bru` files, and changes made on disk show up in the app.
+- `mdt run`: run collections from a terminal or CI, with the same HTML report as the app.
+- Markdown docs on requests, folders and collections. Export a collection's docs as one offline HTML file.
+- Sync a collection from its OpenAPI spec.
+- Collections sidebar: search, drag and drop, duplicate, move, and workspace assignment.
+- An unsaved-changes dot on tabs, and ⌘S saves in place.
+
+**Requests and protocols**
+- Client certificates (PEM and PFX), custom CA files, and a manual HTTP/HTTPS/SOCKS5 proxy.
+- Digest auth answers the server's 401 challenge. OAuth 2 gains the password and refresh_token grants.
+- Custom HTTP methods, binary file bodies and XML bodies.
+- A per-request Settings tab for timeout, redirects, SSL verification and the cookie jar.
+- Live Server-Sent Events streams, GraphQL subscriptions and NDJSON responses.
+- Live gRPC calls, including client-streaming and bidirectional.
+- GraphQL autocomplete and a schema docs explorer.
+- A JSONPath filter for JSON responses.
+- Import and export the cookie jar.
+
+**Tools around requests**
+- A Timeline tab that shows exactly what was sent, and when.
+- Code generation for 16 clients, covering every auth type.
+- Runner: sign requests with any auth type, run a selected subset, stop on the first failure, add a delay between requests, and export an HTML report.
+- Mock server: choose the port and latency, start and stop it, read its request log, and match `:param` routes.
+- A plugins dialog to add, enable, disable and delete plugins.
+- A shared shortcut map, tab cycling, and ⌘K palette actions.
+- All new strings are translated into the 27 supported languages.
+
+### Added — Terminal
+
+- Find in scrollback, zoom, clear, and faster GPU (WebGL) rendering.
+- Jump between prompts. The status bar shows the shell's current directory.
+- Agent status: panes show when a command is running, when an agent is blocked on you, and when it has finished. Works for Claude and about 20 other coding agents (Codex, Gemini, opencode, Cursor, Amp and more), read from their screens using herdr's detection rules. (#442, #444)
+- The "needs you" list says why a pane is waiting and for how long, and puts blocked panes first. (#443)
+- Each pane shows which agent it is running. (#445)
+- Long shell commands (30 s or more) notify you when they finish or fail, with the exit code and how long they took. (#446)
+- Start an agent or a saved project command from the new-tab menu. (#447)
+- Start a task in its own git worktree, so agents working in parallel don't edit the same files. Closing the tab offers to remove the worktree; the branch is kept. (#448)
+- After a restart, a pane that was running Claude or Codex offers to resume that session. (#449)
+- Jump to any terminal pane from ⌘K anywhere in the app, and run terminal actions from it. (#450)
+- Terminal settings: font, line height, cursor, scrollback, copy on select, and which notifications to show. (#451)
+- Insert file paths from a file picker, quoted for the shell. (#452)
+- Layout presets (side by side, stacked, three columns, grid of four), and saving a tab's layout. (#453)
+- Screen reader announcements when a pane needs you, an optional screen reader mode, and a visible focus ring on the active pane. (#454)
+- A keyboard shortcut sheet (⌘/), and how long a busy pane has been running. (#455)
+- Open a saved database connection in its own CLI (`psql`, `mysql`, `sqlite3`, `redis-cli`), already signed in. (#457)
+- Open a terminal tab with an Environment Manager environment's variables set. (#458)
+- Run the current API Client request as `curl` in a terminal tab. (#459)
+- A triage board (⌘B): every pane as a card, with what's waiting on you first and the longest wait on top. It shows the last lines of each pane's output, and you can reply to a pane from its card. (#462)
+- Status shows who reported it (the program, the shell, or the screen), and the sources no longer contradict each other. Codex panes report a finished turn exactly through Codex's own `notify` hook; a `notify` you set yourself is never replaced. (#463)
+- Inline images (sixel and iTerm) render in panes. ⌘V with a screenshot on the clipboard saves it as a file and types its path, which is how agents take images. (#464)
+- Commit a project's launch commands and workspaces to `.mydevtools/terminal.json`. A workspace is a split layout with each pane's command, an Environment Manager set by name, and optionally its own git worktree. Nothing from the file runs until you trust its exact content, and any outside edit asks again. (#465)
+- Agents can start helper panes with `mdt-term` (`run`, `send`, `read`, `wait`, `close`; `mdt-term --skill` explains it). Opt in per project in Terminal settings. Helpers show nested under the agent that started them, an agent can only drive its own helpers, there are at most 4 per agent, and helpers can't start helpers. Closing an agent asks, then closes its helpers too.
+- Terminals come back after a restart, with their scrollback and working directory.
+- Closing a terminal always asks first, with a stronger warning when a command is running or an agent is waiting for you. (#461)
+- Restart a pane whose shell has exited. It opens in the same directory.
+- A right-click menu on panes, plus shortcuts: ⌘⌥ arrows to move focus, ⌘1–9 to jump to a pane, ⌘⇧↵ to maximize.
+- An Option-as-Meta setting, off by default so ⌥ still types characters like @ and € on non-US keyboards.
+- The "needs you" badge is now a warning colour instead of an error red.
 
 ### Fixed
 
-- **Desktop**: external links open in your default browser. Previously links that opened a new window did nothing, and other external links replaced the app's own window with the web page.
-- **Terminal**: closing a tab no longer makes the next new tab reuse an existing number. New tabs always get the next unused number, so you never see two "Terminal 2" tabs.
+- Fixed a crash at launch on macOS: two windows both claimed to be the main window. (#438)
+- Requests no longer send credentials to another site when they follow a redirect. Applies to both the app and `mdt`.
+- Collection share links no longer contain literal credentials.
+- Edits were sometimes lost after quitting right after opening a tab. They are now saved.
+- SSE streams no longer break multi-byte characters that arrive split across chunks, and they respect the SSL verification setting.
+- The sidebar and tab bar no longer redraw on every keystroke.
 
-## 0.1.20
+### Security
 
-### Added
+- Passwords and tokens handed to the Terminal (database CLIs, environments, API requests) reach only that pane's process as environment variables. They are never typed into the shell or its history, and never saved. Variables that would change how the shell starts, such as `PATH` or `LD_PRELOAD`, are refused. (#457–#459)
+- Repo terminal configs are treated as untrusted: commands, environments and worktrees from `.mydevtools/terminal.json` run only after you approve that exact content. Control, bidirectional-override and zero-width characters are refused so the approval dialog shows exactly what runs, and the file is never read or written through a symlink. (#465)
+- Helper panes are controlled over a local socket only your user can open, with a separate token per pane that panes can't derive for each other. Helpers run with your full access, outside any sandbox the agent itself runs in.
+- Upgraded Next.js from 16.4.3 to 16.4.6 to pick up a security fix. (#438)
+- Every webview page now has a Content Security Policy, which blocks scripts from sending data out through `import()`. (#435)
 
-- **Terminal**: new built-in terminal tool. Group terminals by project, open them in tabs and split panes, and see each project's git branch and changed-file count in the sidebar and status bar. Scrollback survives switching tools, and your layout is saved between launches.
-- **Terminal**: Claude Code awareness. Terminals launched from the app report when Claude is working or waiting on you, collected in a "Needs you" inbox. You get a "Claude needs you" notification and a Dock badge with the waiting count (macOS), and clicking the notification jumps to that terminal.
-- **Terminal**: double-click a terminal in the sidebar to rename it (Enter saves, Esc cancels, an empty name falls back to the shell's window title).
-- **Terminal**: the sidebar Terminal entry shows a count of terminals waiting on you.
-- **Desktop (macOS)**: closing the window hides the app instead of quitting, and quitting with terminals still running asks for confirmation first.
+### Known limitations
 
-### Fixed
+- Files dragged from Finder can't be dropped into a terminal pane; use **Insert file path…** in the pane's right-click menu.
+- Converting a PFX certificate uses the system `/usr/bin/openssl`, so it only works on macOS.
 
-- **Data Explorer**: MongoDB collection tables scroll again. Large collections previously clipped the table, status bar and pagination.
-- **Code editors**: Copy from the editor context menu now works in the desktop app, and clicking or typing in an editor no longer logs clipboard errors.
-- **Desktop**: ⌘W no longer closes a pane while a dialog or the rename field is open.
-- **Desktop**: if a quit is blocked because terminal state failed to save, the app always explains why.
+## [0.2.0]
 
-## 0.1.14
-
-### Fixed
-
-- **Markdown Preview & HTML**: exporting HTML now confirms with a "Saved <name>" toast instead of failing silently, so you can tell the download actually happened.
-
-### Added
-
-- **Markdown Preview & HTML**: name your export before downloading — a file name field next to the export button, with path separators and illegal characters stripped automatically (falls back to `export.html`).
-
-### Internal
-
-- CI: ThreatCrush security scan runs on every pull request, with results uploaded as SARIF to GitHub code scanning.
+Baseline for this changelog. Earlier changes are in the git history.

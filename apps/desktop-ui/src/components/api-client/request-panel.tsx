@@ -47,6 +47,8 @@ interface RequestPanelProps {
     /** Copies the current request as a cURL command; button hidden when absent. */
     onCopyCurl?: () => void
     urlHistory?: string[]
+    /** Variables known before sending (globals < collection < environment); defaults to the active environment. */
+    variables?: Record<string, string>
     /** Pass activeTab.id so local URL state resets on tab switch. */
     tabId?: string
 }
@@ -79,8 +81,10 @@ function RequestPanelImpl({
     onCopyCurl,
     urlHistory = [],
     tabId,
+    variables,
 }: RequestPanelProps) {
     const { activeEnvironmentVariables } = useEnvironmentsState()
+    const knownVariables = variables ?? activeEnvironmentVariables
     const t = useTranslations("ApiClient.requestPanel")
     const tMethod = useTranslations("ApiClient.customMethod")
     /** Non-null while the custom-method input replaces the method select. */
@@ -159,12 +163,12 @@ function RequestPanelImpl({
                 key,
                 start: match.index,
                 end: match.index + fullToken.length,
-                ...classifyVariable(key, activeEnvironmentVariables),
+                ...classifyVariable(key, knownVariables),
             })
         }
 
         return tokens
-    }, [localUrl, activeEnvironmentVariables])
+    }, [localUrl, knownVariables])
 
     // Highlight backdrop behind the (transparent) URL input, kept in step with
     // the input's horizontal scroll.
@@ -445,7 +449,7 @@ function RequestPanelImpl({
                         className="h-9 px-4 border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive"
                     >
                         <X className="h-4 w-4 mr-2" />
-                        Cancel
+                        {t("cancel")}
                     </Button>
                 ) : (
                 <>

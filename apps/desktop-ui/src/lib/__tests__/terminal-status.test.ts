@@ -1,4 +1,4 @@
-import { needsYou, projectWaitingCount, totalWaiting } from "../terminal/status"
+import { needsYou, newlyNeedingYou, projectWaitingCount, totalWaiting } from "../terminal/status"
 import { leaf, splitAt } from "../terminal/layout"
 import type { TerminalProject } from "@/store/terminal-store"
 
@@ -18,7 +18,19 @@ describe("terminal status", () => {
     expect(r.map((x) => x.terminalId)).toEqual(["a", "c"])
     expect(r[0]).toMatchObject({ projectId: "p1", projectName: "p1", terminalName: "zsh" })
   })
-  it("projectWaitingCount counts waiting only", () => {
+  it("needsYou lists blocked before finished, each in project order", () => {
+    const r = needsYou(projects, { a: "done", b: "waiting", c: "waiting" })
+    expect(r.map((x) => [x.terminalId, x.status])).toEqual([["b", "waiting"], ["c", "waiting"], ["a", "done"]])
+  })
+  it("counts include done", () => {
+    expect(projectWaitingCount(projects[0], { a: "done", b: "waiting" })).toBe(2)
+    expect(totalWaiting(projects, { a: "done", b: "running", c: "idle" })).toBe(1)
+  })
+  it("newlyNeedingYou: entering or switching attention states only", () => {
+    expect(newlyNeedingYou({ a: "running", b: "waiting", c: "waiting" }, { a: "waiting", b: "waiting", c: "done", d: "running" }))
+      .toEqual(["a", "c"])
+  })
+  it("projectWaitingCount ignores idle", () => {
     expect(projectWaitingCount(projects[0], { a: "waiting", b: "idle" })).toBe(1)
   })
   it("totalWaiting ignores idle/running and unknown ids", () => {

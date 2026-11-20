@@ -6,6 +6,8 @@ import { ApiRequestState, API_CLIENT_DEFAULT_TAB_NAME } from "../types"
 
 const TABS_STORAGE_KEY = "api-client-tabs"
 const ACTIVE_TAB_STORAGE_KEY = "api-client-active-tab"
+/** Set once tabs saved before `none` stopped meaning "inherit" are rewritten. */
+const TABS_AUTH_V2_KEY = "api-client-tabs-auth-v2"
 
 /**
  * Shape a tab for localStorage. Always drops runtime state (response, loading,
@@ -24,6 +26,21 @@ export function slimTabsForStorage(tabs: ApiRequestState[], aggressive = false):
             body: withoutFileBytes(rest.body, ""),
         }
     })
+}
+
+/**
+ * Tabs read back from localStorage. Drops persisted responses from older builds
+ * (MB-sized bodies blow the per-origin quota). With `legacyAuth` (saved before
+ * `none` stopped meaning "inherit"), a tab's `none` becomes `inherit` so it keeps
+ * sending its folder/collection auth.
+ */
+export function restoreTabs(tabs: ApiRequestState[], legacyAuth: boolean): ApiRequestState[] {
+    return tabs.map((t) => ({
+        ...t,
+        ...(legacyAuth && t.auth?.type === "none" && { auth: { ...t.auth, type: "inherit" as const } }),
+        response: null,
+        isLoading: false,
+    }))
 }
 
 function persistTabs(tabs: ApiRequestState[]) {
@@ -62,7 +79,7 @@ export const createNewTab = (kind: "rest" | "websocket" | "grpc" = "rest"): ApiR
         formData: [{ id: crypto.randomUUID(), key: "", value: "", active: true, valueType: "text" }],
         urlEncoded: [{ id: crypto.randomUUID(), key: "", value: "", active: true }],
     },
-    auth: { type: "none" },
+    auth: { type: "inherit" },
     response: null,
     isLoading: false,
     ...(kind === "websocket" && {
@@ -86,7 +103,7 @@ type TabsActions = {
     duplicateTab(id: string): void
     renameTab(id: string, name: string): void
     /** Patch any tab by id (an async save may finish after the user switched tabs). */
-    updateTab(id: string, patch: Partial<ApiRequestState>): void
+    updateTab(id: string, patch: Partial<ApiRequestState> | ((tab: ApiRequestState) => Partial<ApiRequestState>)): void
     /** Move `fromId` to `toId`'s slot. Id-based so a memoized caller holding a stale tabs array can't overwrite edits. */
     reorderTabs(fromId: string, toId: string): void
     setActiveTabId(id: string): void
@@ -124,14 +141,10 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
             try {
                 const parsedTabs = JSON.parse(storedTabs)
                 if (Array.isArray(parsedTabs) && parsedTabs.length > 0) {
-                    // Drop persisted responses from older builds — they could carry MB-sized
-                    // bodies that blow the per-origin localStorage quota.
-                    const sanitized = parsedTabs.map((t: ApiRequestState) => ({
-                        ...t,
-                        response: null,
-                        isLoading: false,
-                    }))
+                    const legacyAuth = localStorage.getItem(TABS_AUTH_V2_KEY) === null
+                    const sanitized = restoreTabs(parsedTabs, legacyAuth)
                     setTabs(sanitized)
+                    if (legacyAuth) persistTabs(sanitized)
                     if (storedActiveTabId) {
                         setActiveTabId(storedActiveTabId)
                     } else {
@@ -143,6 +156,8 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
                 try { localStorage.removeItem(TABS_STORAGE_KEY) } catch { /* noop */ }
             }
         }
+        // After any legacy rewrite above (fresh installs too): a `none` saved from now on is explicit.
+        try { localStorage.setItem(TABS_AUTH_V2_KEY, "1") } catch { /* noop */ }
         setIsInitialized(true)
     }, [])
 
@@ -250,8 +265,8 @@ export function TabsProvider({ children }: { children: React.ReactNode }) {
             setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, name } : tab))
         },
 
-        updateTab(id: string, patch: Partial<ApiRequestState>) {
-            setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, ...patch } : tab))
+        updateTab(id: string, patch: Partial<ApiRequestState> | ((tab: ApiRequestState) => Partial<ApiRequestState>)) {
+            setTabs((prev) => prev.map((tab) => tab.id === id ? { ...tab, ...(typeof patch === "function" ? patch(tab) : patch) } : tab))
         },
 
         reorderTabs(fromId: string, toId: string) {

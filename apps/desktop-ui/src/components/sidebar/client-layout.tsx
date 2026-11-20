@@ -16,6 +16,7 @@ import { initWorkspaceScopeReset } from '@/lib/workspace-scope-reset';
 import { useToolUsage } from '@/hooks/use-tool-usage';
 import { findItemByUrl } from '@/components/dashboard/types';
 import { useTerminalStatusListener } from '@/components/terminal/use-terminal-status-listener';
+import { TerminalAnnouncer } from '@/components/terminal/terminal-announcer';
 
 // Reset workspace-scoped stores whenever the active workspace changes
 // (module-level, mirrors workspace-store's own subscribeOnce pattern).
@@ -82,7 +83,13 @@ function ToolUsageTracker() {
 // ⌘Q confirm). Lives in the shell so it works while the Terminal tab is closed;
 // the hook no-ops outside the desktop app.
 function TerminalAttention() {
-  return useTerminalStatusListener();
+  const dialog = useTerminalStatusListener();
+  return (
+    <>
+      {dialog}
+      <TerminalAnnouncer />
+    </>
+  );
 }
 
 function Layout({ children }: { children: React.ReactNode }) {

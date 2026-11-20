@@ -1,6 +1,6 @@
 import { createNewTab } from "@/components/api-client/context/tabs-context"
 import type { ApiRequestState, Collection, CollectionRequest } from "@/components/api-client/types"
-import { isTabDirty, requestFingerprint, savePatch } from "../saved-request"
+import { isTabDirty, requestFingerprint, requestFromTab, savePatch, syncTabWithStored } from "../saved-request"
 import { withFolderDefaults } from "../../folder-inheritance"
 
 const linked = (patch: Partial<ApiRequestState> = {}): ApiRequestState => {
@@ -25,6 +25,8 @@ describe("isTabDirty", () => {
         expect(isTabDirty({ ...linked(), verifySsl: false })).toBe(true)
         expect(isTabDirty({ ...linked(), followRedirects: false })).toBe(true)
         expect(isTabDirty({ ...linked(), maxRedirects: 2 })).toBe(true)
+        expect(isTabDirty({ ...linked(), omitHeaders: ["x-app"] })).toBe(true)
+        expect(isTabDirty({ ...linked(), omitHeaders: [] })).toBe(false)
     })
 
     it("ignores runtime state, refreshed OAuth tokens and stripped file bytes", () => {
@@ -80,8 +82,38 @@ describe("withFolderDefaults", () => {
         expect(tab.headers).toEqual([])
     })
 
-    it("returns drafts unchanged", () => {
-        const tab = createNewTab()
-        expect(withFolderDefaults(tab, collections)).toBe(tab)
+    it("gives drafts no folder defaults; their inherit sends no auth", () => {
+        const tab = { ...createNewTab(), headers: [] }
+        const sent = withFolderDefaults(tab, collections)
+        expect(sent.headers).toEqual([])
+        expect(sent.auth).toEqual({ type: "none" })
+    })
+})
+
+describe("syncTabWithStored (file changed on disk)", () => {
+    const stored = (tab: ApiRequestState, patch: Partial<CollectionRequest> = {}): CollectionRequest =>
+        ({ ...requestFromTab(tab), id: "r1", ...patch })
+
+    it("does nothing when the stored request is what the tab was based on", () => {
+        const tab = linked()
+        expect(syncTabWithStored(tab, stored(tab))).toEqual({ kind: "none" })
+        expect(syncTabWithStored({ ...tab, savedFingerprint: undefined }, stored(tab, { url: "x" })).kind).toBe("none")
+    })
+
+    it("refreshes a clean tab when the file changed", () => {
+        const tab = linked()
+        expect(syncTabWithStored(tab, stored(tab, { url: "https://api.test/v2" })).kind).toBe("refresh")
+    })
+
+    it("re-baselines when the tab already matches disk (own save landing)", () => {
+        const tab = linked()
+        const edited = { ...tab, url: "https://api.test/v2" }
+        expect(syncTabWithStored(edited, stored(edited)).kind).toBe("mark-saved")
+    })
+
+    it("flags a conflict instead of clobbering unsaved edits", () => {
+        const tab = linked()
+        const edited = { ...tab, url: "https://api.test/mine" }
+        expect(syncTabWithStored(edited, stored(tab, { url: "https://api.test/theirs" })).kind).toBe("conflict")
     })
 })

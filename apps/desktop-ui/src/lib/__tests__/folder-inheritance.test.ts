@@ -1,5 +1,5 @@
-import { applyFolderInheritance, findRequestAncestors } from "../folder-inheritance"
-import type { CollectionFolder, CollectionRequest } from "@/components/api-client/types"
+import { applyFolderInheritance, findRequestAncestors, findRequestContext, listInheritedHeaders, withFolderDefaults } from "../folder-inheritance"
+import type { Collection, CollectionFolder, CollectionRequest } from "@/components/api-client/types"
 
 const req = (id: string, name: string, over: Partial<CollectionRequest> = {}): CollectionRequest => ({
     id,
@@ -51,13 +51,15 @@ describe("applyFolderInheritance", () => {
         ])
     })
 
-    it("inherits ancestor auth only when request auth is none", () => {
+    it("inherits ancestor auth only when request auth is inherit; none sends no auth", () => {
         const ancestor: CollectionFolder = {
             id: "f1", name: "Root", type: "folder", items: [],
             defaultAuth: { type: "bearer", token: "shared" },
         }
+        const inheritReq = applyFolderInheritance(req("r", "x", { auth: { type: "inherit" } }), [ancestor])
+        expect(inheritReq.auth).toEqual({ type: "bearer", token: "shared" })
         const noneReq = applyFolderInheritance(req("r", "x", { auth: { type: "none" } }), [ancestor])
-        expect(noneReq.auth).toEqual({ type: "bearer", token: "shared" })
+        expect(noneReq.auth).toEqual({ type: "none" })
 
         const overrideReq = applyFolderInheritance(
             req("r", "x", { auth: { type: "bearer", token: "own" } }),
@@ -83,5 +85,79 @@ describe("applyFolderInheritance", () => {
     it("is a no-op when ancestor chain is empty", () => {
         const r = req("r", "x")
         expect(applyFolderInheritance(r, [])).toBe(r)
+    })
+
+    it("nearest ancestor's header wins over outer ones", () => {
+        const out = applyFolderInheritance(req("r", "x"), [
+            { defaultHeaders: [{ id: "1", key: "X-Env", value: "collection", active: true }] },
+            { defaultHeaders: [{ id: "2", key: "x-env", value: "folder", active: true }] },
+        ])
+        expect(out.headers.map((h) => h.value)).toEqual(["folder"])
+    })
+
+    it("explicit inherit takes the nearest auth, or sends none when nothing is set", () => {
+        const inherit = req("r", "x", { auth: { type: "inherit" } })
+        const chain = [
+            { defaultAuth: { type: "basic" as const, username: "col" } },
+            { defaultAuth: { type: "bearer" as const, token: "folder" } },
+        ]
+        expect(applyFolderInheritance(inherit, chain).auth).toEqual({ type: "bearer", token: "folder" })
+        expect(applyFolderInheritance(inherit, [chain[0]]).auth).toEqual({ type: "basic", username: "col" })
+        expect(applyFolderInheritance(inherit, []).auth).toEqual({ type: "none" })
+        expect(applyFolderInheritance(inherit, [{ defaultAuth: { type: "inherit" } }]).auth).toEqual({ type: "none" })
+    })
+})
+
+describe("withFolderDefaults", () => {
+    const r = req("r1", "x", { auth: { type: "inherit" }, preRequestScript: "// req" })
+    const folder: CollectionFolder = { id: "f", name: "F", type: "folder", items: [r], preRequestScript: "// folder" }
+    const collection: Collection = {
+        id: "c", name: "C", items: [folder],
+        defaultAuth: { type: "bearer", token: "{{token}}" },
+        defaultHeaders: [{ id: "h", key: "X-App", value: "1", active: true }],
+        preRequestScript: "// collection",
+    }
+
+    it("applies collection defaults as the root of the chain, live", () => {
+        const out = withFolderDefaults({ ...r, source: { requestId: "r1" } }, [collection])
+        expect(out.auth).toEqual({ type: "bearer", token: "{{token}}" })
+        expect(out.headers.map((h) => h.key)).toEqual(["X-App"])
+        expect(out.preRequestScript).toBe("// collection\n\n// folder\n\n// req")
+        // Changing the collection changes the next send — nothing was copied.
+        const edited = { ...collection, defaultAuth: { type: "basic" as const, username: "u" } }
+        expect(withFolderDefaults({ ...r, source: { requestId: "r1" } }, [edited]).auth.type).toBe("basic")
+    })
+
+    it("a draft tab with inherit sends no auth", () => {
+        expect(withFolderDefaults(r, [collection]).auth).toEqual({ type: "none" })
+    })
+
+    it("findRequestContext returns the collection and folder chain", () => {
+        const ctx = findRequestContext([collection], "r1")
+        expect(ctx?.collection.id).toBe("c")
+        expect(ctx?.folders.map((f) => f.id)).toEqual(["f"])
+        expect(findRequestContext([collection], "nope")).toBeNull()
+    })
+})
+
+describe("default headers with per-request omit (B3)", () => {
+    const chain = [
+        { name: "Col", defaultHeaders: [
+            { id: "1", key: "X-App", value: "1", active: true },
+            { id: "2", key: "X-Trace", value: "col", active: true },
+            { id: "3", key: "X-Off", value: "x", active: false },
+        ] },
+        { name: "Folder", defaultHeaders: [{ id: "4", key: "x-trace", value: "folder", active: true }] },
+    ]
+
+    it("lists active inherited headers, nearest wins, request keys excluded", () => {
+        const list = listInheritedHeaders(chain, [{ id: "r", key: "X-App", value: "own", active: true }], ["X-TRACE"])
+        expect(list).toEqual([{ key: "x-trace", value: "folder", from: "Folder", omitted: true }])
+    })
+
+    it("an omitted header is not sent; the rest still are", () => {
+        const out = applyFolderInheritance(req("r", "x", { omitHeaders: ["x-app"] }), chain)
+        expect(out.headers.map((h) => `${h.key}=${h.value}`)).toEqual(["x-trace=folder"])
+        expect(applyFolderInheritance(req("r", "x"), chain).headers.map((h) => h.key)).toEqual(["x-trace", "X-App"])
     })
 })

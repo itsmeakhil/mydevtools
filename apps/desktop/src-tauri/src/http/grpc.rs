@@ -4,12 +4,16 @@
 //! already 5-byte-framed gRPC messages (see `lib/grpc-web.ts` sendNativeGrpc).
 //! This is a raw h2 transport whose one job reqwest can't do: surface HTTP/2
 //! trailers, where `grpc-status`/`grpc-message` live. ALPN "h2" TLS for
-//! https targets; prior-knowledge (h2c) for http targets. Unary,
-//! server-streaming and client-streaming all reduce to "send N framed
-//! messages, return all response DATA bytes + trailers".
+//! https targets; prior-knowledge (h2c) for http targets. `proxy_grpc`
+//! reduces unary / server-streaming / staged client-streaming to "send N framed
+//! messages, return all response DATA bytes + trailers"; `stream_*` keeps a call
+//! open so client and server messages interleave (bidi).
 
 use base64::Engine;
+use dashmap::DashMap;
 use serde_json::{json, Map, Value};
+use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::{Arc, OnceLock};
 use std::time::{Duration, Instant};
 use tokio::io::{AsyncRead, AsyncWrite};
 
@@ -47,13 +51,6 @@ pub async fn proxy_grpc(input: Value) -> Value {
 }
 
 async fn run(input: &Value) -> Result<Value, String> {
-    let url = input["url"].as_str().ok_or("missing url")?;
-    let parsed = reqwest::Url::parse(url).map_err(|e| format!("invalid url: {e}"))?;
-    crate::http::proxy::assert_hop_allowed(&parsed)?;
-    let https = parsed.scheme() == "https";
-    let host = parsed.host_str().ok_or("url has no host")?.to_string();
-    let port = parsed.port().unwrap_or(if https { 443 } else { 80 });
-
     // Request frames — already 5-byte framed by the webview.
     let mut frames: Vec<Vec<u8>> = Vec::new();
     if let Some(list) = input["bodyFrames"].as_array() {
@@ -69,15 +66,31 @@ async fn run(input: &Value) -> Result<Value, String> {
     if frames.is_empty() {
         frames.push(Vec::new());
     }
+    let (client, request) = open(input).await?;
+    send_and_collect(client, request, frames).await
+}
+
+/// Connect (TLS + ALPN h2 for https, prior-knowledge h2c for http), handshake,
+/// and build the POST request carrying the caller's metadata. Shared by the
+/// one-shot call and live streaming sessions.
+async fn open(input: &Value) -> Result<(h2::client::SendRequest<bytes::Bytes>, http::Request<()>), String> {
+    let url = input["url"].as_str().ok_or("missing url")?;
+    let parsed = reqwest::Url::parse(url).map_err(|e| format!("invalid url: {e}"))?;
+    crate::http::proxy::assert_hop_allowed(&parsed)?;
+    let https = parsed.scheme() == "https";
+    let host = parsed.host_str().ok_or("url has no host")?.to_string();
+    let port = parsed.port().unwrap_or(if https { 443 } else { 80 });
 
     let tcp = tokio::net::TcpStream::connect((host.as_str(), port))
         .await
         .map_err(|e| format!("connect to {host}:{port} failed: {e}"))?;
     let io: Box<dyn AsyncRw> = if https {
-        let connector = native_tls::TlsConnector::builder()
-            .request_alpns(&["h2"])
-            .build()
-            .map_err(|e| format!("TLS setup failed: {e}"))?;
+        let mut builder = native_tls::TlsConnector::builder();
+        builder.request_alpns(&["h2"]);
+        // Client certificate + extra CAs from Preferences / the collection.
+        // ponytail: proxies don't apply here — this is a raw TCP connect.
+        crate::http::net::apply_native_tls(&mut builder, &crate::http::net::NetConfig::from_input(input), &parsed)?;
+        let connector = builder.build().map_err(|e| format!("TLS setup failed: {e}"))?;
         let connector = tokio_native_tls::TlsConnector::from(connector);
         Box::new(
             connector
@@ -95,7 +108,7 @@ async fn run(input: &Value) -> Result<Value, String> {
     tokio::spawn(async move {
         let _ = connection.await;
     });
-    let mut client = client.ready().await.map_err(|e| e.to_string())?;
+    let client = client.ready().await.map_err(|e| e.to_string())?;
 
     let mut builder = http::Request::builder()
         .method("POST")
@@ -118,7 +131,14 @@ async fn run(input: &Value) -> Result<Value, String> {
         }
     }
     let request = builder.body(()).map_err(|e| format!("bad request: {e}"))?;
+    Ok((client, request))
+}
 
+async fn send_and_collect(
+    mut client: h2::client::SendRequest<bytes::Bytes>,
+    request: http::Request<()>,
+    frames: Vec<Vec<u8>>,
+) -> Result<Value, String> {
     let (response_fut, mut send_stream) =
         client.send_request(request, false).map_err(|e| e.to_string())?;
     let last = frames.len() - 1;
@@ -126,28 +146,35 @@ async fn run(input: &Value) -> Result<Value, String> {
         send_frame(&mut send_stream, frame, i == last).await?;
     }
 
+    let mut body_bytes: Vec<u8> = Vec::new();
+    let mut envelope = read_response(response_fut, |chunk| body_bytes.extend_from_slice(chunk)).await?;
+    envelope["body"] = json!(b64().encode(&body_bytes));
+    envelope["sizeBytes"] = json!(body_bytes.len());
+    Ok(envelope)
+}
+
+/// Await the response, hand every DATA chunk to `on_data`, and return
+/// `{status, headers, trailers, grpcStatus?, grpcMessage?}`.
+async fn read_response(
+    response_fut: h2::client::ResponseFuture,
+    mut on_data: impl FnMut(&[u8]),
+) -> Result<Value, String> {
     let response = response_fut
         .await
         .map_err(|e| format!("gRPC request failed: {e}"))?;
     let status = response.status().as_u16();
-    let mut headers_map = Map::new();
-    for (k, v) in response.headers() {
-        headers_map.insert(k.to_string(), json!(v.to_str().unwrap_or("")));
-    }
+    let headers_map = headers_json(response.headers());
 
     let mut recv = response.into_body();
-    let mut body_bytes: Vec<u8> = Vec::new();
     while let Some(chunk) = std::future::poll_fn(|cx| recv.poll_data(cx)).await {
         let chunk = chunk.map_err(|e| format!("stream error: {e}"))?;
         let _ = recv.flow_control().release_capacity(chunk.len());
-        body_bytes.extend_from_slice(&chunk);
+        on_data(&chunk);
     }
-    let mut trailers_map = Map::new();
-    if let Ok(Some(trailers)) = std::future::poll_fn(|cx| recv.poll_trailers(cx)).await {
-        for (k, v) in trailers.iter() {
-            trailers_map.insert(k.to_string(), json!(v.to_str().unwrap_or("")));
-        }
-    }
+    let trailers_map = match std::future::poll_fn(|cx| recv.poll_trailers(cx)).await {
+        Ok(Some(trailers)) => headers_json(&trailers),
+        _ => Map::new(),
+    };
 
     // grpc-status normally arrives in trailers; trailers-only responses put it
     // straight on the headers.
@@ -163,10 +190,8 @@ async fn run(input: &Value) -> Result<Value, String> {
 
     let mut envelope = json!({
         "status": status,
-        "body": b64().encode(&body_bytes),
         "headers": headers_map,
         "trailers": trailers_map,
-        "sizeBytes": body_bytes.len(),
     });
     if let Some(s) = grpc_status {
         envelope["grpcStatus"] = json!(s);
@@ -175,6 +200,135 @@ async fn run(input: &Value) -> Result<Value, String> {
         envelope["grpcMessage"] = json!(m);
     }
     Ok(envelope)
+}
+
+fn headers_json(headers: &http::HeaderMap) -> Map<String, Value> {
+    headers
+        .iter()
+        .map(|(k, v)| (k.to_string(), json!(v.to_str().unwrap_or(""))))
+        .collect()
+}
+
+// ── Live calls (client-streaming / bidi) ─────────────────────────────────
+//
+// The webview opens a call, then sends messages one at a time while server
+// messages stream back — they interleave, unlike `proxy_grpc` which sends
+// everything and then reads. Messages arrive already 5-byte framed; server
+// DATA goes back raw (base64) and the webview reassembles frames.
+
+enum Cmd {
+    Send(Vec<u8>),
+    End,
+}
+
+struct Session {
+    cmds: tokio::sync::mpsc::UnboundedSender<Cmd>,
+    cancel: tokio::sync::watch::Sender<bool>,
+}
+
+static SESSIONS: OnceLock<DashMap<u64, Session>> = OnceLock::new();
+static SESSION_ID: AtomicU64 = AtomicU64::new(1);
+
+fn sessions() -> &'static DashMap<u64, Session> {
+    SESSIONS.get_or_init(DashMap::new)
+}
+
+pub type Emit = Arc<dyn Fn(Value) + Send + Sync>;
+
+/// Open a live call. Emits `{kind:"data", data}`* (base64 DATA bytes), then
+/// exactly one of `{kind:"end", status, headers, trailers, grpcStatus?,
+/// grpcMessage?, cancelled?}` or `{kind:"error", message}`. Returns the call id
+/// for `stream_send` / `stream_end` / `stream_cancel`.
+pub async fn stream_start(input: Value, emit: Emit) -> Result<u64, String> {
+    let (mut client, request) = tokio::time::timeout(Duration::from_millis(DEFAULT_TIMEOUT_MS), open(&input))
+        .await
+        .map_err(|_| format!("gRPC connect timed out after {DEFAULT_TIMEOUT_MS}ms"))??;
+    let (response_fut, mut send_stream) =
+        client.send_request(request, false).map_err(|e| e.to_string())?;
+
+    let id = SESSION_ID.fetch_add(1, Ordering::Relaxed);
+    let (cmd_tx, mut cmd_rx) = tokio::sync::mpsc::unbounded_channel();
+    let (cancel_tx, cancel_rx) = tokio::sync::watch::channel(false);
+    sessions().insert(id, Session { cmds: cmd_tx, cancel: cancel_tx });
+
+    // Writer: user messages out until End, cancel, or the call finishing.
+    let mut write_cancel = cancel_rx.clone();
+    let write_emit = emit.clone();
+    tokio::spawn(async move {
+        loop {
+            tokio::select! {
+                biased;
+                _ = write_cancel.changed() => {
+                    send_stream.send_reset(h2::Reason::CANCEL);
+                    break;
+                }
+                cmd = cmd_rx.recv() => match cmd {
+                    Some(Cmd::Send(frame)) => {
+                        if let Err(e) = send_frame(&mut send_stream, frame, false).await {
+                            write_emit(json!({ "kind": "error", "message": e }));
+                            break;
+                        }
+                    }
+                    Some(Cmd::End) | None => {
+                        let _ = send_frame(&mut send_stream, Vec::new(), true).await;
+                        break;
+                    }
+                },
+            }
+        }
+    });
+
+    // Reader: server messages in, then the final status.
+    let mut read_cancel = cancel_rx;
+    tokio::spawn(async move {
+        let data_emit = emit.clone();
+        let on_data = move |chunk: &[u8]| data_emit(json!({ "kind": "data", "data": b64().encode(chunk) }));
+        let cancelled = json!({ "kind": "end", "cancelled": true, "headers": {}, "trailers": {} });
+        let event = tokio::select! {
+            biased;
+            _ = read_cancel.changed() => cancelled,
+            r = read_response(response_fut, on_data) => match r {
+                Ok(mut end) => {
+                    end["kind"] = json!("end");
+                    end
+                }
+                // The writer's RST_STREAM can surface here before the flag is seen.
+                Err(_) if *read_cancel.borrow() => cancelled,
+                Err(e) => json!({ "kind": "error", "message": e }),
+            },
+        };
+        sessions().remove(&id);
+        emit(event);
+    });
+
+    Ok(id)
+}
+
+fn session_cmd(id: u64, cmd: Cmd) -> Result<(), String> {
+    sessions()
+        .get(&id)
+        .ok_or("gRPC stream is closed")?
+        .cmds
+        .send(cmd)
+        .map_err(|_| "gRPC stream is closed".to_string())
+}
+
+/// Queue one already-framed message (base64) on a live call.
+pub fn stream_send(id: u64, frame: &str) -> Result<(), String> {
+    let bytes = b64().decode(frame).map_err(|e| format!("bad frame base64: {e}"))?;
+    session_cmd(id, Cmd::Send(bytes))
+}
+
+/// Half-close: no more client messages; server messages keep arriving.
+pub fn stream_end(id: u64) -> Result<(), String> {
+    session_cmd(id, Cmd::End)
+}
+
+/// Abort the call (RST_STREAM CANCEL). No-op if it already finished.
+pub fn stream_cancel(id: u64) {
+    if let Some(s) = sessions().get(&id) {
+        let _ = s.cancel.send(true);
+    }
 }
 
 /// Send one framed message respecting h2 flow control (chunked to the window).
@@ -275,5 +429,81 @@ mod tests {
         assert_eq!(envelope["trailers"]["grpc-status"], "0");
         let body = b64().decode(envelope["body"].as_str().unwrap()).unwrap();
         assert_eq!(&body, b"\x00\x00\x00\x00\x02hi");
+    }
+
+    /// h2c server that answers headers at once, echoes every DATA chunk as it
+    /// arrives, and sends grpc-status 0 once the client half-closes.
+    async fn echo_server() -> u16 {
+        let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        tokio::spawn(async move {
+            let (socket, _) = listener.accept().await.unwrap();
+            let mut conn = h2::server::handshake(socket).await.unwrap();
+            let (request, mut respond) = conn.accept().await.unwrap().unwrap();
+            tokio::spawn(async move { while conn.accept().await.is_some() {} });
+            let response = Response::builder().status(StatusCode::OK).body(()).unwrap();
+            let mut send = respond.send_response(response, false).unwrap();
+            let mut body = request.into_body();
+            while let Some(Ok(chunk)) = std::future::poll_fn(|cx| body.poll_data(cx)).await {
+                let _ = body.flow_control().release_capacity(chunk.len());
+                if send.send_data(chunk, false).is_err() {
+                    return;
+                }
+            }
+            let mut trailers = HeaderMap::new();
+            trailers.insert("grpc-status", HeaderValue::from_static("0"));
+            let _ = send.send_trailers(trailers);
+        });
+        port
+    }
+
+    async fn live(port: u16) -> (u64, tokio::sync::mpsc::UnboundedReceiver<Value>) {
+        let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
+        let emit: Emit = Arc::new(move |v| {
+            let _ = tx.send(v);
+        });
+        let input = json!({ "url": format!("http://127.0.0.1:{port}/pkg.Svc/Chat") });
+        (stream_start(input, emit).await.unwrap(), rx)
+    }
+
+    async fn next(rx: &mut tokio::sync::mpsc::UnboundedReceiver<Value>) -> Value {
+        tokio::time::timeout(Duration::from_secs(3), rx.recv()).await.unwrap().unwrap()
+    }
+
+    #[tokio::test]
+    async fn bidi_messages_interleave_then_end_with_status() {
+        let (id, mut rx) = live(echo_server().await).await;
+        for msg in [&b"\x00\x00\x00\x00\x01a"[..], b"\x00\x00\x00\x00\x01b"] {
+            stream_send(id, &b64().encode(msg)).unwrap();
+            // The reply arrives before the client half-closes.
+            let ev = next(&mut rx).await;
+            assert_eq!(ev["kind"], "data");
+            assert_eq!(b64().decode(ev["data"].as_str().unwrap()).unwrap(), msg);
+        }
+        stream_end(id).unwrap();
+        let end = next(&mut rx).await;
+        assert_eq!(end["kind"], "end", "{end}");
+        assert_eq!(end["grpcStatus"], 0);
+        assert!(stream_send(id, "AA==").is_err(), "finished call must be gone");
+    }
+
+    #[tokio::test]
+    async fn cancel_ends_the_call() {
+        let (id, mut rx) = live(echo_server().await).await;
+        stream_cancel(id);
+        let end = next(&mut rx).await;
+        assert_eq!(end["kind"], "end");
+        assert_eq!(end["cancelled"], true);
+        assert!(stream_end(id).is_err());
+    }
+
+    #[tokio::test]
+    async fn live_call_rejects_blocked_targets() {
+        let (tx, _rx) = tokio::sync::mpsc::unbounded_channel::<Value>();
+        let emit: Emit = Arc::new(move |v| {
+            let _ = tx.send(v);
+        });
+        let e = stream_start(json!({ "url": "http://169.254.169.254/S/M" }), emit).await.unwrap_err();
+        assert!(e.contains("Blocked target"), "{e}");
     }
 }

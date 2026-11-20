@@ -1,3 +1,4 @@
+import { applyFolderInheritance } from "@/lib/folder-inheritance"
 import { importPostmanCollection, importPostmanCollectionWithMeta } from "../import/postman"
 import { importHar } from "../import/har"
 import { detectImportFormat } from "../import/detect"
@@ -280,11 +281,11 @@ describe("importPostmanCollectionWithMeta (real-world v2.1)", () => {
         ],
     })
 
-    it("surfaces collection variables", () => {
-        const { variables } = importPostmanCollectionWithMeta(realWorld)
-        expect(variables).toEqual([
-            { key: "baseUrl", value: "https://api.acme.test" },
-            { key: "authToken", value: "" },
+    it("maps collection variables to collection.variables", () => {
+        const { collection } = importPostmanCollectionWithMeta(realWorld)
+        expect(collection.variables?.map(({ key, value, active }) => ({ key, value, active }))).toEqual([
+            { key: "baseUrl", value: "https://api.acme.test", active: true },
+            { key: "authToken", value: "", active: true },
         ])
     })
 
@@ -299,29 +300,30 @@ describe("importPostmanCollectionWithMeta (real-world v2.1)", () => {
             apiKeyLocation: "header",
         })
         expect(folder.preRequestScript).toContain("folder pre")
-        // Collection pre-script is prepended to the top-level folder.
-        expect(folder.preRequestScript!.indexOf("pm.environment.set")).toBeLessThan(
-            folder.preRequestScript!.indexOf("folder pre"),
-        )
+        // The collection pre-script stays on the collection (runs first at send time).
+        expect(folder.preRequestScript).not.toContain("pm.environment.set")
+        expect(collection.preRequestScript).toContain("pm.environment.set")
     })
 
-    it("bakes collection auth into root requests without their own auth", () => {
+    it("keeps collection auth on the collection; requests without auth inherit it live", () => {
         const { collection } = importPostmanCollectionWithMeta(realWorld)
+        expect(collection.defaultAuth).toEqual({ type: "bearer", token: "{{authToken}}" })
         const login = collection.items[1] as CollectionRequest
-        expect(login.auth).toEqual({ type: "bearer", token: "{{authToken}}" })
-        // Request under an auth-carrying folder inherits the folder auth at
-        // runtime instead — stays "none" here.
+        expect(login.auth).toEqual({ type: "inherit" })
         const folder = collection.items[0] as import("@/components/api-client/types").CollectionFolder
         const listUsers = folder.items[0] as CollectionRequest
-        expect(listUsers.auth).toEqual({ type: "none" })
+        expect(listUsers.auth).toEqual({ type: "inherit" })
+        // Resolved at send time: collection auth for root requests, folder auth below the folder.
+        expect(applyFolderInheritance(login, [collection]).auth).toEqual({ type: "bearer", token: "{{authToken}}" })
+        expect(applyFolderInheritance(listUsers, [collection, folder]).auth.type).toBe("api-key")
     })
 
-    it("prepends collection test script to root request's own tests", () => {
+    it("runs the collection test script before the request's own tests at send time", () => {
         const { collection } = importPostmanCollectionWithMeta(realWorld)
         const login = collection.items[1] as CollectionRequest
-        expect(login.testScript).toContain("status ok")
-        expect(login.testScript).toContain("has token")
-        expect(login.testScript!.indexOf("status ok")).toBeLessThan(login.testScript!.indexOf("has token"))
+        expect(login.testScript).not.toContain("status ok")
+        const tests = applyFolderInheritance(login, [collection]).testScript!
+        expect(tests.indexOf("status ok")).toBeLessThan(tests.indexOf("has token"))
     })
 
     it("imports graphql bodies with query + variables", () => {

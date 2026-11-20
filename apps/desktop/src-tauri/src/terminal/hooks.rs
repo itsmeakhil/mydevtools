@@ -5,6 +5,7 @@ use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::time::{Duration, Instant};
 use tauri::{AppHandle, Emitter, State};
 
 #[derive(Serialize, Clone, Copy, PartialEq, Eq, Debug)]
@@ -12,7 +13,17 @@ use tauri::{AppHandle, Emitter, State};
 pub enum TermStatus {
     Idle,
     Running,
+    /// Blocked on the user (permission prompt, question, error).
     Waiting,
+    /// Finished a turn; ready for review.
+    Done,
+}
+
+impl TermStatus {
+    /// Waiting or Done: counts toward the badge, notifies, cleared by looking at the pane.
+    pub fn needs_you(self) -> bool {
+        matches!(self, Self::Waiting | Self::Done)
+    }
 }
 
 #[derive(Deserialize, Debug)]
@@ -29,12 +40,39 @@ pub fn parse_line(line: &str, token: &str) -> Option<HookMsg> {
     (m.token == token).then_some(m)
 }
 
+/// Who reported a status. A program reporting about itself (hooks, OSC 7501) is the most
+/// precise; the shell (OSC 133) knows only run/prompt; the screen reader guesses.
+#[derive(Serialize, Clone, Copy, PartialEq, Eq, Debug)]
+#[serde(rename_all = "lowercase")]
+pub enum Source {
+    Shell,
+    Program,
+    Screen,
+}
+
+/// States a program source can report; while it is active, the screen reader may only fill the rest.
+pub const ALL_STATES: &[TermStatus] = &[TermStatus::Idle, TermStatus::Running, TermStatus::Waiting, TermStatus::Done];
+
 pub fn status_for(event: &str) -> Option<TermStatus> {
     match event {
-        "claude-UserPromptSubmit" | "claude-PreToolUse" | "shell-exec" => Some(TermStatus::Running),
-        "claude-Notification" | "claude-Stop" => Some(TermStatus::Waiting),
-        "claude-SessionEnd" | "shell-prompt" => Some(TermStatus::Idle),
+        "claude-UserPromptSubmit" | "claude-PreToolUse" => Some(TermStatus::Running),
+        "claude-Notification" => Some(TermStatus::Waiting),
+        "claude-Stop" => Some(TermStatus::Done),
+        "claude-SessionEnd" => Some(TermStatus::Idle),
+        // Codex's `notify` only fires when a turn ends; approvals still come from the screen.
+        "codex-agent-turn-complete" => Some(TermStatus::Done),
         _ => None,
+    }
+}
+
+/// States the program behind a hook event reports itself (the screen reader fills the rest).
+pub fn covers_for(event: &str) -> Option<&'static [TermStatus]> {
+    if event.starts_with("claude-") {
+        Some(ALL_STATES)
+    } else if event.starts_with("codex-") {
+        Some(&[TermStatus::Done])
+    } else {
+        None
     }
 }
 
@@ -42,65 +80,111 @@ pub fn status_for(event: &str) -> Option<TermStatus> {
 pub struct Transition {
     pub id: String,
     pub status: TermStatus,
+    /// Entered Waiting or Done (from anything else, or switched between the two).
     pub entered_waiting: bool,
+    pub source: Source,
 }
 
+/// Shell prompt/exec status arrives in-band as OSC 133 (see `osc.rs`), so it is
+/// ordered with the output; only Claude's hooks come over the socket.
 #[derive(Default)]
 pub struct StatusMap {
     status: HashMap<String, TermStatus>,
-    /// Last `seq` per (terminal, shell pid): shell-* hooks are backgrounded, so
-    /// separate connections can arrive out of order.
-    /// Pruned per terminal by `remove`.
-    shell_seq: HashMap<(String, u64), u64>,
+    /// Per pane: the states an active program source reports itself (cleared at the next shell prompt).
+    covers: HashMap<String, &'static [TermStatus]>,
+    /// Who set each pane's current status.
+    by: HashMap<String, Source>,
+    /// When the program last reported Done (a spinner left on screen just after is stale).
+    done_at: HashMap<String, Instant>,
 }
+
+/// After a program's Done, the screen's Running is taken as a stale spinner for this long.
+const AFTER_DONE: Duration = Duration::from_secs(2);
 
 impl StatusMap {
     pub fn apply(&mut self, id: &str, s: TermStatus) -> Option<Transition> {
+        self.apply_inner(id, s, Source::Program)
+    }
+
+    fn apply_inner(&mut self, id: &str, s: TermStatus, source: Source) -> Option<Transition> {
+        self.by.insert(id.to_string(), source);
         let prev = self.status.insert(id.to_string(), s);
-        (prev != Some(s)).then(|| Transition {
-            id: id.to_string(),
-            status: s,
-            entered_waiting: s == TermStatus::Waiting,
-        })
+        (prev != Some(s)).then(|| Transition { id: id.to_string(), status: s, entered_waiting: s.needs_you(), source })
     }
 
-    /// Map a hook event to a status and apply it. A `shell-*` event carrying
-    /// `{pid, seq}` is dropped unless its seq is newer than the last one seen
-    /// for that (terminal, pid).
-    pub fn apply_event(&mut self, m: &HookMsg) -> Option<Transition> {
-        let s = status_for(&m.event)?;
-        if m.event.starts_with("shell-") {
-            let num = |k: &str| m.payload.get(k).and_then(Value::as_u64);
-            if let (Some(pid), Some(seq)) = (num("pid"), num("seq")) {
-                let last = self.shell_seq.entry((m.terminal_id.clone(), pid)).or_insert(0);
-                if seq <= *last {
-                    return None;
-                }
-                *last = seq;
-            }
+    /// A program source (hooks, OSC 7501) started reporting these states for pane `id`.
+    pub fn set_program_covers(&mut self, id: &str, covers: &'static [TermStatus]) {
+        self.covers.insert(id.to_string(), covers);
+    }
+
+    /// Arbitration: the program owns what it reports, the screen fills the rest, and the shell
+    /// defers to an active program until its next prompt (which ends the program's claims).
+    pub fn apply_from(&mut self, id: &str, source: Source, s: TermStatus) -> Option<Transition> {
+        self.apply_from_at(id, source, s, Instant::now())
+    }
+
+    /// `apply_from` at time `now`. A program covering only some states (Codex: Done) leaves
+    /// the screen to report the rest, so the screen may also end a status it set itself.
+    pub fn apply_from_at(&mut self, id: &str, source: Source, s: TermStatus, now: Instant) -> Option<Transition> {
+        let covered = self.covers.get(id).copied();
+        if source == Source::Program && s == TermStatus::Done {
+            self.done_at.insert(id.to_string(), now);
         }
-        self.apply(&m.terminal_id, s)
+        // The screen detector reports edges only: any non-Running reading means the old turn's
+        // spinner is gone, so the next Running is a new turn and must not be dropped.
+        if source == Source::Screen && s != TermStatus::Running {
+            self.done_at.remove(id);
+        }
+        let just_done = self.done_at.get(id).is_some_and(|t| now.saturating_duration_since(*t) < AFTER_DONE);
+        match source {
+            Source::Screen if s == TermStatus::Running && just_done => None,
+            Source::Screen if covered.is_some_and(|c| c.contains(&s)) && self.by.get(id) != Some(&Source::Screen) => None,
+            Source::Shell if s == TermStatus::Idle => {
+                self.covers.remove(id);
+                self.done_at.remove(id);
+                self.apply_inner(id, s, source)
+            }
+            Source::Shell if covered.is_some() => None,
+            _ => self.apply_inner(id, s, source),
+        }
     }
 
+    /// Input went to pane `id` (ctl send, the user typing): new work may start, so a Running
+    /// read from the screen is no longer taken as the last turn's leftover spinner.
+    pub fn new_input(&mut self, id: &str) {
+        self.done_at.remove(id);
+    }
+
+    /// The user looked at the pane: it no longer needs them.
     pub fn clear_waiting(&mut self, id: &str) -> Option<Transition> {
-        (self.status.get(id) == Some(&TermStatus::Waiting)).then(|| self.apply(id, TermStatus::Idle))?
+        self.status
+            .get(id)
+            .is_some_and(|s| s.needs_you())
+            .then(|| self.apply_inner(id, TermStatus::Idle, Source::Shell))?
     }
 
     /// Forget a terminal that was killed or exited; `Some` (as Idle) if it had a status.
     pub fn remove(&mut self, id: &str) -> Option<Transition> {
-        self.shell_seq.retain(|(t, _), _| t != id);
+        self.covers.remove(id);
+        self.by.remove(id);
+        self.done_at.remove(id);
         self.status.remove(id).map(|_| Transition {
             id: id.to_string(),
             status: TermStatus::Idle,
             entered_waiting: false,
+            source: Source::Shell,
         })
     }
 
     pub fn waiting_count(&self) -> usize {
         self.status
             .values()
-            .filter(|s| **s == TermStatus::Waiting)
+            .filter(|s| s.needs_you())
             .count()
+    }
+
+    pub fn get(&self, id: &str) -> Option<TermStatus> {
+        self.status.get(id).copied()
     }
 
     pub fn snapshot(&self) -> HashMap<String, TermStatus> {
@@ -112,8 +196,28 @@ impl StatusMap {
 /// of a killed/exited pane can arrive after `remove` and would resurrect its status.
 /// Checked under the statuses lock; `forget` runs after exit is marked, so no race.
 pub fn apply_if_live(state: &TerminalState, m: &HookMsg) -> Option<Transition> {
+    apply_status_if_live(state, &m.terminal_id, Source::Program, status_for(&m.event)?, covers_for(&m.event))
+}
+
+/// Same guard for status read from the PTY output (a kill can race the reader thread).
+/// `covers`: for a program source, the states it reports itself.
+pub fn apply_status_if_live(
+    state: &TerminalState,
+    id: &str,
+    source: Source,
+    s: TermStatus,
+    covers: Option<&'static [TermStatus]>,
+) -> Option<Transition> {
     let mut statuses = state.statuses.lock().unwrap();
-    state.is_live(&m.terminal_id).then(|| statuses.apply_event(m))?
+    if !state.is_live(id) {
+        return None;
+    }
+    if let Some(c) = covers {
+        statuses.set_program_covers(id, c);
+    }
+    let t = statuses.apply_from(id, source, s)?;
+    state.status_changed(id, t.status);
+    Some(t)
 }
 
 /// AF_UNIX paths are capped (~104 bytes on macOS); fall back to a short /tmp dir.
@@ -141,25 +245,31 @@ fn ensure_private_dir(dir: &Path, uid: u32) -> Result<(), String> {
     Ok(())
 }
 
+/// Bind a 0600 socket at `path` (replacing a stale one) in a private, owned directory.
+#[cfg(unix)]
+pub fn bind_private(path: &Path) -> Result<tokio::net::UnixListener, String> {
+    use std::os::unix::fs::PermissionsExt;
+    if let Some(dir) = path.parent() {
+        ensure_private_dir(dir, unsafe { libc::getuid() })?;
+    }
+    let _ = std::fs::remove_file(path);
+    let listener = tokio::net::UnixListener::bind(path)
+        .map_err(|e| format!("bind {}: {e}", path.display()))?;
+    std::fs::set_permissions(path, std::fs::Permissions::from_mode(0o600))
+        .map_err(|e| format!("chmod socket: {e}"))?;
+    Ok(listener)
+}
+
 #[cfg(unix)]
 pub async fn serve(
     path: PathBuf,
     token: String,
     on_msg: impl Fn(HookMsg) + Send + Sync + 'static,
 ) -> Result<(), String> {
-    use std::os::unix::fs::PermissionsExt;
     use std::time::Duration;
     use tokio::io::{AsyncBufReadExt, AsyncReadExt, BufReader};
-    use tokio::net::UnixListener;
 
-    if let Some(dir) = path.parent() {
-        ensure_private_dir(dir, unsafe { libc::getuid() })?;
-    }
-    let _ = std::fs::remove_file(&path);
-    let listener =
-        UnixListener::bind(&path).map_err(|e| format!("bind {}: {e}", path.display()))?;
-    std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o600))
-        .map_err(|e| format!("chmod socket: {e}"))?;
+    let listener = bind_private(&path)?;
     let on_msg = Arc::new(on_msg);
     let token = Arc::new(token);
     loop {
@@ -197,12 +307,13 @@ pub async fn serve(
 }
 
 /// Emit `terminal://status` and update badge/notification for a transition.
-pub fn publish(app: &AppHandle, t: &Transition, message: Option<&str>) {
+/// `cmd`: set when a long shell command's end caused it.
+pub fn publish(app: &AppHandle, t: &Transition, message: Option<&str>, cmd: Option<super::osc::CmdEnd>) {
     let _ = app.emit(
         "terminal://status",
-        json!({"id": t.id, "status": t.status, "message": message}),
+        json!({"id": t.id, "status": t.status, "message": message, "command": cmd, "source": t.source}),
     );
-    notify::on_transition(t, message, app);
+    notify::on_transition(t, message, cmd, app);
 }
 
 /// Spawn the hook server for this launch (call from `setup`); returns the socket path.
@@ -215,12 +326,15 @@ pub fn start(app: &AppHandle, data_dir: &Path, state: Arc<TerminalState>) -> Pat
     let ret = path.clone();
     tauri::async_runtime::spawn(async move {
         let r = serve(path, token, move |m| {
+            if let (Some(sid), Ok(s)) = (m.payload.get("session_id").and_then(Value::as_str), state.get(&m.terminal_id)) {
+                *s.agent_session.lock().unwrap() = Some(sid.to_string());
+            }
             let t = apply_if_live(&state, &m);
             if let Some(t) = t {
                 let msg = (m.event == "claude-Notification")
                     .then(|| m.payload.get("message").and_then(Value::as_str))
                     .flatten();
-                publish(&app, &t, msg);
+                publish(&app, &t, msg, None);
             }
         })
         .await;
@@ -240,7 +354,7 @@ pub fn terminal_statuses(state: State<'_, Arc<TerminalState>>) -> HashMap<String
 pub fn terminal_clear_waiting(app: AppHandle, state: State<'_, Arc<TerminalState>>, id: String) {
     let t = state.statuses.lock().unwrap().clear_waiting(&id);
     if let Some(t) = t {
-        publish(&app, &t, None);
+        publish(&app, &t, None, None);
     }
 }
 
@@ -275,34 +389,16 @@ mod tests {
             ("claude-UserPromptSubmit", Running),
             ("claude-PreToolUse", Running),
             ("claude-Notification", Waiting),
-            ("claude-Stop", Waiting),
+            ("claude-Stop", Done),
             ("claude-SessionEnd", Idle),
-            ("shell-prompt", Idle),
-            ("shell-exec", Running),
         ] {
             assert_eq!(status_for(e), Some(s), "{e}");
         }
         assert_eq!(status_for("claude-Unknown"), None);
-    }
-
-    #[test]
-    fn stale_shell_seq_is_dropped_per_pid() {
-        let ev = |event: &str, pid: u64, seq: u64| HookMsg {
-            token: "tok".into(),
-            terminal_id: "t1".into(),
-            event: event.into(),
-            payload: json!({"pid": pid, "seq": seq}),
-        };
-        let mut m = StatusMap::default();
-        assert_eq!(m.apply_event(&ev("shell-prompt", 10, 2)).unwrap().status, TermStatus::Idle);
-        assert!(m.apply_event(&ev("shell-exec", 10, 1)).is_none()); // late, older
-        assert_eq!(m.snapshot()["t1"], TermStatus::Idle);
-        // another shell's counter is independent
-        assert_eq!(m.apply_event(&ev("shell-exec", 11, 1)).unwrap().status, TermStatus::Running);
-        // claude-* events are never seq-gated
-        let mut c = ev("claude-Stop", 10, 0);
-        c.payload = json!({});
-        assert_eq!(m.apply_event(&c).unwrap().status, TermStatus::Waiting);
+        assert_eq!(status_for("codex-agent-turn-complete"), Some(Done));
+        assert_eq!(covers_for("codex-agent-turn-complete"), Some(&[Done][..]));
+        assert_eq!(covers_for("claude-Stop"), Some(ALL_STATES));
+        assert_eq!(status_for("shell-prompt"), None, "prompts come in-band as OSC 133");
     }
 
     #[test]
@@ -317,25 +413,83 @@ mod tests {
         assert_eq!(t.status, TermStatus::Idle);
         assert_eq!(m.waiting_count(), 0);
         assert!(m.clear_waiting("a").is_none());
+        // Done counts and clears the same way; switching blocked → done notifies again.
+        assert!(m.apply("a", TermStatus::Done).unwrap().entered_waiting);
+        assert_eq!(m.waiting_count(), 1);
+        assert!(m.apply("a", TermStatus::Waiting).unwrap().entered_waiting);
+        assert_eq!(m.clear_waiting("a").unwrap().status, TermStatus::Idle);
     }
 
     #[test]
-    fn remove_drops_status_and_shell_seq() {
+    fn screen_cannot_override_program_owned_states() {
+        use TermStatus::*;
+        let mut m = StatusMap::default();
+        m.set_program_covers("a", &[Running, Done]);
+        assert_eq!(m.apply_from("a", Source::Program, Done).unwrap().source, Source::Program);
+        assert!(m.apply_from("a", Source::Screen, Running).is_none(), "program owns running");
+        assert_eq!(m.snapshot()["a"], Done);
+        let t = m.apply_from("a", Source::Screen, Waiting).expect("program can't report blocked");
+        assert_eq!((t.status, t.source), (Waiting, Source::Screen));
+        assert!(m.apply_from("a", Source::Shell, Running).is_none(), "shell defers while a program reports");
+        // Back at the shell prompt: the program is gone, so are its claims.
+        assert_eq!(m.apply_from("a", Source::Shell, Idle).unwrap().status, Idle);
+        assert_eq!(m.apply_from("a", Source::Screen, Running).unwrap().status, Running);
+    }
+
+    /// Codex reports only Done (notify hook); the screen reads its spinner for Running.
+    #[test]
+    fn codex_does_not_stick_at_running_after_its_turn() {
+        use std::time::{Duration, Instant};
+        use TermStatus::*;
+        let t0 = Instant::now();
+        let mut m = StatusMap::default();
+        m.set_program_covers("a", &[Done]);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, t0).unwrap().status, Running);
+        assert_eq!(m.apply_from_at("a", Source::Program, Done, t0).unwrap().status, Done);
+        // A stale spinner still on screen just after the notify hook: not a new turn.
+        assert!(m.apply_from_at("a", Source::Screen, Running, t0 + Duration::from_millis(400)).is_none());
+        assert_eq!(m.get("a"), Some(Done));
+        // A real new turn later shows Running again, and its end on screen is let through
+        // (the screen set the current status, so it may also end it).
+        let later = t0 + Duration::from_secs(3);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, later).unwrap().status, Running);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Done, later).unwrap().status, Done);
+        // Once the program set the status, a covered screen reading is ignored again.
+        assert_eq!(m.apply_from_at("a", Source::Program, Waiting, later).unwrap().status, Waiting);
+        assert!(m.apply_from_at("a", Source::Screen, Done, later).is_none());
+    }
+
+    /// The screen detector is edge-triggered: a new turn's Running is reported once. When the
+    /// old turn's screen is gone or new input went in, that Running must not be dropped.
+    #[test]
+    fn a_new_codex_turn_right_after_done_shows_running() {
+        use std::time::{Duration, Instant};
+        use TermStatus::*;
+        let t0 = Instant::now();
+        let soon = t0 + Duration::from_millis(800);
+        for gone in [Idle, Done] {
+            let mut m = StatusMap::default();
+            m.set_program_covers("a", &[Done]);
+            m.apply_from_at("a", Source::Program, Done, t0);
+            // The old turn's screen settled (a covered or no-op reading still counts as evidence).
+            let _ = m.apply_from_at("a", Source::Screen, gone, t0 + Duration::from_millis(400));
+            assert_eq!(m.apply_from_at("a", Source::Screen, Running, soon).map(|t| t.status), Some(Running), "after screen {gone:?}");
+        }
+        let mut m = StatusMap::default();
+        m.set_program_covers("a", &[Done]);
+        m.apply_from_at("a", Source::Program, Done, t0);
+        m.new_input("a"); // ctl send / the user typed the next prompt
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, soon).map(|t| t.status), Some(Running));
+    }
+
+    #[test]
+    fn remove_drops_status() {
         let mut m = StatusMap::default();
         m.apply("a", TermStatus::Waiting);
         assert_eq!(m.remove("a").unwrap().status, TermStatus::Idle);
         assert_eq!(m.waiting_count(), 0);
         assert!(m.snapshot().is_empty());
         assert!(m.remove("a").is_none());
-        let ev = |seq: u64| HookMsg {
-            token: "tok".into(),
-            terminal_id: "a".into(),
-            event: "shell-exec".into(),
-            payload: json!({"pid": 10, "seq": seq}),
-        };
-        m.apply_event(&ev(5));
-        m.remove("a");
-        assert!(m.apply_event(&ev(1)).is_some()); // seq memory forgotten
     }
 
     #[test]
@@ -356,7 +510,7 @@ mod tests {
             cwd: "/tmp".into(),
             cols: 80,
             rows: 24,
-            project_name: "p".into(),
+            ..Default::default()
         };
         st.spawn(req, vec![], vec!["/bin/sh".into(), "-c".into(), "sleep 5".into()]).unwrap();
         assert!(apply_if_live(&st, &msg("b")).unwrap().entered_waiting);

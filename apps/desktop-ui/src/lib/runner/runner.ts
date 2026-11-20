@@ -14,14 +14,16 @@ import type {
     CollectionFolder,
     CollectionRequest,
 } from "@/components/api-client/types"
-import type { ScriptContext, ScriptResult } from "@/components/api-client/workers/scripts-runner.worker"
-import { encodeBasicCredentials } from "@/lib/basic-auth"
+import type { ScriptContext, ScriptResult } from "@/lib/api-client/script-run"
+import { digestCredentials } from "@/lib/auth/digest"
+import { applyHeaderAuth, applyPayloadAuth } from "@/lib/api-client/apply-auth"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
-import { resolveDynamicVar } from "@/lib/api-client/dynamic-vars"
+import { substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
 import { ensureFreshToken } from "@/lib/oauth2"
 import { ensureHttpScheme } from "@/lib/url-normalize"
 import { applyFolderInheritance, findRequestAncestors } from "@/lib/folder-inheritance"
-import { resolveResponsePath } from "@/lib/response-path"
+import { evaluateAssertions } from "@/lib/api-client/assertions"
+import { collectionNet, type NetworkSettings } from "@/lib/api-client/network-settings"
 import type { ApiResponse } from "@/components/api-client/types"
 import type { RequestRunResult, RunnerProgressEvent } from "./types"
 
@@ -33,13 +35,26 @@ interface RunnerInput {
     /** When present, runs `dataRows.length` iterations; each row's keys become the highest-priority vars. */
     dataRows?: Record<string, string>[]
     environmentVariables: Record<string, string>
+    /** Lowest-precedence variables (below collection variables). */
+    globalVariables?: Record<string, string>
     runScript: (script: string, ctx: ScriptContext) => Promise<ScriptResult>
     onProgress?: (event: RunnerProgressEvent) => void
     abortSignal?: AbortSignal
+    /** Stop after the first request that fails (network error, script error or failed test). */
+    bail?: boolean
+    /** Pause between requests. */
+    delayMs?: number
+    /** Run only these request ids (default: every request). */
+    only?: ReadonlySet<string>
+}
+
+/** A request counts as failed on a network error, a script error or any failed test/assertion. */
+export function requestFailed(r: RequestRunResult): boolean {
+    return !!r.networkError || r.errors.length > 0 || r.tests.some((t) => !t.pass)
 }
 
 /** Flatten a (possibly nested) collection into request order, optionally rooted at a folder. */
-function walkRequests(items: Array<CollectionFolder | CollectionRequest>, out: CollectionRequest[]): void {
+export function walkRequests(items: Array<CollectionFolder | CollectionRequest>, out: CollectionRequest[]): void {
     for (const item of items) {
         if ("type" in item && item.type === "folder") {
             walkRequests(item.items, out)
@@ -67,30 +82,27 @@ function buildRequestUrlSafe(raw: string): URL {
     try { return new URL(raw) } catch { return new URL(ensureHttpScheme(raw)) }
 }
 
-/** Substitution layer that mirrors `handleSend` plus iteration-row + response-chain support. */
+/** Same precedence as `handleSend` (lib/api-client/variables.ts), plus the data row. */
 function makeSubstitute(args: {
     env: Record<string, string>
+    globals: Record<string, string>
+    collectionVars: Record<string, string>
     sessionVars: Record<string, string>
     envOverlay: Record<string, string>
     envUnsets: Set<string>
     row: Record<string, string>
     previousResponse: ApiResponse | null
 }) {
-    return (text: string): string => {
-        if (!text) return text
-        return text.replace(/\{\{(.+?)\}\}/g, (m, k) => {
-            const key = (k as string).trim()
-            if (key.startsWith("response.")) {
-                const resolved = resolveResponsePath(key.slice("response.".length), args.previousResponse)
-                return resolved ?? m
-            }
-            if (key in args.row) return args.row[key]
-            if (args.envUnsets.has(key)) return m
-            if (key in args.envOverlay) return args.envOverlay[key]
-            if (key in args.sessionVars) return args.sessionVars[key]
-            return args.env[key] ?? resolveDynamicVar(key) ?? m
-        })
-    }
+    return (text: string): string => substituteVariables(text, {
+        globals: args.globals,
+        collection: args.collectionVars,
+        environment: args.env,
+        session: args.sessionVars,
+        overlay: args.envOverlay,
+        unsets: args.envUnsets,
+        row: args.row,
+        previousResponse: args.previousResponse,
+    })
 }
 
 async function executeRequest(args: {
@@ -98,6 +110,10 @@ async function executeRequest(args: {
     iteration: number
     row: Record<string, string>
     env: Record<string, string>
+    globals: Record<string, string>
+    collectionVars: Record<string, string>
+    /** Collection client certificates / CA files (global ones are merged in api-fetch). */
+    net?: Pick<NetworkSettings, "certs" | "caPaths">
     sessionVars: Record<string, string>
     envOverlay: Record<string, string>
     envUnsets: Set<string>
@@ -121,6 +137,8 @@ async function executeRequest(args: {
 
     const substitute = makeSubstitute({
         env: args.env,
+        globals: args.globals,
+        collectionVars: args.collectionVars,
         sessionVars: args.sessionVars,
         envOverlay: args.envOverlay,
         envUnsets: args.envUnsets,
@@ -146,6 +164,8 @@ async function executeRequest(args: {
             },
             environment: { ...args.env, ...args.envOverlay },
             variables: { ...args.sessionVars, ...args.row },
+            collectionVariables: args.collectionVars,
+            globals: args.globals,
         }
         const r = await args.runScript(req.preRequestScript, ctx)
         result.tests.push(...r.tests)
@@ -178,20 +198,18 @@ async function executeRequest(args: {
         headersObj[substitute(k)] = substitute(v)
     }
 
-    // Auth.
-    if (req.auth.type === "bearer" && req.auth.token) {
-        headersObj["Authorization"] = `Bearer ${substitute(req.auth.token).trim()}`
-    } else if (req.auth.type === "basic" && req.auth.username && req.auth.password) {
-        headersObj["Authorization"] = `Basic ${encodeBasicCredentials(
-            substitute(req.auth.username).trim(),
-            substitute(req.auth.password),
-        )}`
-    } else if (req.auth.type === "api-key" && req.auth.apiKeyKey && req.auth.apiKeyValue) {
-        const key = substitute(req.auth.apiKeyKey).trim()
-        const val = substitute(req.auth.apiKeyValue).trim()
-        if (req.auth.apiKeyLocation === "query") urlObj.searchParams.append(key, val)
-        else headersObj[key] = val
-    } else if (req.auth.type === "oauth2" && req.auth.oauth2) {
+    // Auth (header/URL); body-hashing signers run after the body is built.
+    if (req.auth.type === "ntlm" || req.auth.type === "spnego") {
+        result.networkError = `${req.auth.type === "ntlm" ? "NTLM" : "SPNEGO"} auth is not supported in the collection runner`
+        return result
+    }
+    try {
+        await applyHeaderAuth(req.auth, { headers: headersObj, url: urlObj }, substitute)
+    } catch (e) {
+        result.networkError = `JWT signing failed: ${(e as Error).message}`
+        return result
+    }
+    if (req.auth.type === "oauth2" && req.auth.oauth2) {
         try {
             const fresh = await ensureFreshToken(req.auth.oauth2)
             if (fresh.accessToken) {
@@ -277,6 +295,18 @@ async function executeRequest(args: {
         }
     }
 
+    try {
+        await applyPayloadAuth(req.auth, {
+            method: workMethod,
+            url: urlObj,
+            headers: headersObj,
+            body: typeof bodyPayload === "string" ? bodyPayload : (bodyContent ?? ""),
+        })
+    } catch (e) {
+        result.networkError = `Auth signing failed: ${(e as Error).message}`
+        return result
+    }
+
     // Send.
     let proxyData: {
         status: number
@@ -303,11 +333,21 @@ async function executeRequest(args: {
                 followRedirects: req.followRedirects,
                 maxRedirects: req.maxRedirects,
                 verifySsl: req.verifySsl,
+                // The proxy answers the server's Digest challenge (realm/nonce come from the 401).
+                digestAuth: req.auth.type === "digest" ? digestCredentials(req.auth.digest, substitute) : undefined,
+                net: collectionNet(args.net, substitute),
             }),
         })
         proxyData = await res.json()
     } catch (e) {
         result.networkError = (e as Error).message
+        return result
+    }
+    // The proxy reports connection/DNS/TLS/timeout/blocked-host failures in the
+    // envelope (status 0 or 403) — not a response, so no test script or
+    // assertions run against the error text.
+    if (proxyData.error) {
+        result.networkError = proxyData.error
         return result
     }
 
@@ -342,6 +382,8 @@ async function executeRequest(args: {
             },
             environment: { ...args.env, ...args.envOverlay },
             variables: { ...args.sessionVars, ...args.row },
+            collectionVariables: args.collectionVars,
+            globals: args.globals,
         }
         const r = await args.runScript(req.testScript, ctx)
         result.tests.push(...r.tests)
@@ -353,6 +395,13 @@ async function executeRequest(args: {
         Object.assign(args.sessionVars, r.variables)
     }
 
+    result.tests.push(...evaluateAssertions(req.assertions, {
+        status: proxyData.status,
+        headers: proxyData.headers ?? {},
+        body: proxyData.body ?? "",
+        time: proxyData.time ?? 0,
+    }))
+
     return result
 }
 
@@ -362,8 +411,9 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
         : opts.collection.items
     if (!rootItems) return []
 
-    const requests: CollectionRequest[] = []
-    walkRequests(rootItems, requests)
+    const all: CollectionRequest[] = []
+    walkRequests(rootItems, all)
+    const requests = opts.only ? all.filter((r) => opts.only!.has(r.id)) : all
     const iterations = opts.dataRows && opts.dataRows.length > 0
         ? opts.dataRows.length
         : Math.max(1, opts.iterations || 1)
@@ -371,6 +421,7 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
     const total = requests.length * iterations
     opts.onProgress?.({ kind: "started", total })
 
+    const collectionVars = variablesToRecord(opts.collection.variables)
     const sessionVars: Record<string, string> = {}
     const envOverlay: Record<string, string> = {}
     const envUnsets = new Set<string>()
@@ -385,9 +436,11 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
                 opts.onProgress?.({ kind: "aborted" })
                 return out
             }
-            // Materialise folder defaults (headers / auth / scripts) for this request.
-            const ancestors = findRequestAncestors(rootItems, req.id) ?? []
-            const inherited = ancestors.length > 0 ? applyFolderInheritance(req, ancestors) : req
+            // Collection + folder defaults (headers / auth / scripts) for this request.
+            // Ancestors come from the whole collection, so a folder-scoped run still
+            // gets the defaults of the folders above it.
+            const ancestors = findRequestAncestors(opts.collection.items, req.id) ?? []
+            const inherited = applyFolderInheritance(req, [opts.collection, ...ancestors])
 
             const sink: { response: ApiResponse | null } = { response: null }
             const result = await executeRequest({
@@ -395,6 +448,9 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
                 iteration: it,
                 row,
                 env: opts.environmentVariables,
+                globals: opts.globalVariables ?? {},
+                collectionVars,
+                net: { certs: opts.collection.clientCerts, caPaths: opts.collection.caPaths },
                 sessionVars,
                 envOverlay,
                 envUnsets,
@@ -408,6 +464,11 @@ export async function runCollection(opts: RunnerInput): Promise<RequestRunResult
             if (sink.response) previousResponse = sink.response
             opts.onProgress?.({ kind: "request-done", result, index: idx })
             idx++
+            if (opts.bail && requestFailed(result)) {
+                opts.onProgress?.({ kind: "finished", results: out })
+                return out
+            }
+            if (opts.delayMs && idx < total) await new Promise((r) => setTimeout(r, opts.delayMs))
         }
     }
 

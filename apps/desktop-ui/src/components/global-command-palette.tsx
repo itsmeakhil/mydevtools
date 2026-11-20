@@ -22,11 +22,18 @@ import {
   getToolEntries, paletteFilter, type PaletteEntry,
 } from './palette-entries'
 import { useRegisteredPaletteActions, type PaletteAction } from '@/lib/palette-actions'
+import { TerminalPaletteGroup } from './terminal/terminal-palette'
 
 export function GlobalCommandPalette() {
   const [open, setOpen] = React.useState(false)
   const [modLabel, setModLabel] = React.useState('⌘')
   const [recentEntries, setRecentEntries] = React.useState<PaletteEntry[]>([])
+  const [query, setQuery] = React.useState('')
+  // Every close clears the search, so the next open starts from the default view.
+  const closePalette = React.useCallback(() => {
+    setOpen(false)
+    setQuery('')
+  }, [])
   const router = useRouter()
   const { user } = useAuth(false)
   const pinnedTools = usePinnedToolsForActiveWorkspace()
@@ -96,7 +103,7 @@ export function GlobalCommandPalette() {
 
       if (open) {
         e.preventDefault()
-        setOpen(false)
+        closePalette()
         return
       }
 
@@ -122,7 +129,7 @@ export function GlobalCommandPalette() {
       document.removeEventListener('keydown', down)
       document.removeEventListener('open-command-palette', openPalette)
     }
-  }, [open])
+  }, [open, closePalette])
 
   const run = React.useCallback(
     (entry: PaletteEntry) => {
@@ -138,12 +145,12 @@ export function GlobalCommandPalette() {
         }
         return mapped
       })
-      setOpen(false)
+      closePalette()
       setTimeout(() => {
         router.push(entry.url)
       }, 0)
     },
-    [router, user, entries]
+    [router, user, entries, closePalette]
   )
 
   const commandSurfaceClass =
@@ -156,7 +163,7 @@ export function GlobalCommandPalette() {
     'flex h-5 w-5 shrink-0 items-center justify-center text-muted-foreground group-aria-selected:text-foreground'
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={(o) => (o ? setOpen(true) : closePalette())}>
       <DialogContent
         showCloseButton={false}
         onCloseAutoFocus={(e) => {
@@ -183,6 +190,8 @@ export function GlobalCommandPalette() {
           loop
         >
           <CommandInput
+            value={query}
+            onValueChange={setQuery}
             placeholder="Search tools and pages…"
             aria-label="Search tools and pages"
             className="focus-visible:outline-none placeholder:text-muted-foreground/60"
@@ -201,7 +210,7 @@ export function GlobalCommandPalette() {
                         keywords={[action.title.toLowerCase(), [action.title, ...(action.keywords ?? [])].join(' ').toLowerCase()]}
                         onSelect={() => {
                           pendingActionRef.current = action
-                          setOpen(false)
+                          closePalette()
                         }}
                         className={itemClass}
                       >
@@ -221,6 +230,15 @@ export function GlobalCommandPalette() {
                 <CommandSeparator />
               </React.Fragment>
             )}
+            <TerminalPaletteGroup
+              query={query}
+              itemClass={itemClass}
+              chipClass={chipClass}
+              onPick={(run) => {
+                pendingActionRef.current = { id: 'terminal-pane', title: '', run }
+                closePalette()
+              }}
+            />
             {recentEntries.length > 0 && (
               <React.Fragment>
                 <CommandGroup heading="Recent">

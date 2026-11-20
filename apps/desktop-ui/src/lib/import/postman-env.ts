@@ -47,6 +47,7 @@ export function importPostmanEnvironment(raw: string | object): ImportedPostmanE
             key: v.key,
             value: String(v.value ?? ""),
             enabled: v.enabled !== false,
+            ...(v.type === "secret" && { secret: true }),
         })
         if (v.type === "secret") secretKeys.push(v.key)
     }

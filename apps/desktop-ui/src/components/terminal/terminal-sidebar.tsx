@@ -1,19 +1,22 @@
 "use client"
 
 import * as React from "react"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { AnimatePresence, motion } from "framer-motion"
 import { IconChevronRight, IconFolder, IconFolderPlus, IconTrash } from "@tabler/icons-react"
 import { useToolSidebarRail } from "@/components/tools/tool-sidebar"
 import { Input } from "@/components/ui/input"
 import { useTerminalStore, type TerminalProject, type TerminalTab } from "@/store/terminal-store"
 import { leafIds } from "@/lib/terminal/layout"
-import { needsYou, projectWaitingCount, type TermStatus } from "@/lib/terminal/status"
+import { needsYou, projectWaitingCount, type NeedsYouItem, type TermStatus } from "@/lib/terminal/status"
+import { ago, duration } from "@/lib/terminal/util"
+import { agentName } from "@/lib/terminal/agents"
 import { cn } from "@/lib/utils"
 
 export function StatusDot({ status }: { status: TermStatus | undefined }) {
   const t = useTranslations("Terminal")
-  const label = status === "waiting" ? t("statusWaiting") : status === "running" ? t("statusRunning") : t("statusIdle")
+  const label =
+    status === "waiting" ? t("statusWaiting") : status === "done" ? t("statusDone") : status === "running" ? t("statusRunning") : t("statusIdle")
   return (
     <span
       role="img"
@@ -21,9 +24,17 @@ export function StatusDot({ status }: { status: TermStatus | undefined }) {
       title={label}
       className={cn(
         "size-2 shrink-0 rounded-full",
-        status === "waiting" ? "bg-destructive" : status === "running" ? "bg-success" : "border border-muted-foreground/60",
+        status === "waiting" ? "bg-warning" : status === "done" ? "bg-primary" : status === "running" ? "bg-success" : "border border-muted-foreground/60",
       )}
     />
+  )
+}
+
+/** Which coding agent a pane is running (Codex, Gemini…). */
+export function AgentTag({ agent }: { agent: string | undefined }) {
+  if (!agent) return null
+  return (
+    <span className="shrink-0 rounded bg-foreground/[0.06] px-1 text-[11px] leading-4 text-muted-foreground">{agentName(agent)}</span>
   )
 }
 
@@ -74,42 +85,78 @@ export function useTabReorder() {
 }
 
 function NeedsYouBox() {
-  const t = useTranslations("Terminal")
   const projects = useTerminalStore((s) => s.projects)
   const statuses = useTerminalStore((s) => s.statuses)
+  const items = React.useMemo(() => needsYou(projects, statuses), [projects, statuses])
+  return items.length > 0 ? <NeedsYouList items={items} /> : null
+}
+
+/** Mounted only while something needs you, so its clock starts fresh each time. */
+function NeedsYouList({ items }: { items: NeedsYouItem[] }) {
+  const t = useTranslations("Terminal")
+  const projects = useTerminalStore((s) => s.projects)
   const titles = useTerminalStore((s) => s.titles)
   const focusTerminal = useTerminalStore((s) => s.focusTerminal)
-  const items = React.useMemo(() => needsYou(projects, statuses), [projects, statuses])
-  if (items.length === 0) return null
+  const attention = useTerminalStore((s) => s.attention)
+  const agents = useTerminalStore((s) => s.agents)
+  const locale = useLocale()
+  // Re-render periodically so "5m ago" stays current.
+  const [now, setNow] = React.useState(() => Date.now())
+  React.useEffect(() => {
+    const h = setInterval(() => setNow(Date.now()), 30_000)
+    return () => clearInterval(h)
+  }, [])
   // Same precedence as the sidebar rows: custom name, then the live shell title, then the tab name.
   const labelOf = (projectId: string, id: string, fallback: string) => {
     const tab = projects.find((p) => p.id === projectId)?.tabs.find((tb) => leafIds(tb.layout).includes(id))
     return tab ? terminalLabel(tab, id, titles) : fallback
   }
   return (
-    <div className="mx-2 mt-2 rounded-xl border border-destructive/30 bg-destructive/[0.06] p-1.5">
-      <p className="px-1.5 pb-1 pt-0.5 text-[11px] font-semibold text-destructive">{t("needsYou", { count: items.length })}</p>
-      {items.map((it) => (
-        <button
-          key={it.terminalId}
-          type="button"
-          onClick={() => focusTerminal(it.terminalId)}
-          className="flex h-7 w-full items-center gap-2 rounded-lg px-1.5 text-left text-[13px] text-foreground/90 transition-colors hover:bg-foreground/[0.05]"
-        >
-          <StatusDot status="waiting" />
-          <span className="min-w-0 truncate">
-            {it.projectName} / {labelOf(it.projectId, it.terminalId, it.terminalName)}
-          </span>
-        </button>
-      ))}
+    <div className="mx-2 mt-2 rounded-xl border border-warning/40 bg-warning/[0.08] p-1.5">
+      <p className="flex items-center px-1.5 pb-1 pt-0.5 text-[11px] font-semibold text-foreground">
+        {t("needsYou", { count: items.length })}
+        <kbd title={t("nextWaitingHint")} className="ml-auto font-sans text-[11px] font-normal text-muted-foreground">⌘J</kbd>
+      </p>
+      {items.map((it) => {
+        const a = attention[it.terminalId]
+        return (
+          <button
+            key={it.terminalId}
+            type="button"
+            onClick={() => focusTerminal(it.terminalId)}
+            title={a?.message}
+            className="flex w-full items-start gap-2 rounded-lg px-1.5 py-1 text-left text-[13px] text-foreground/90 transition-colors hover:bg-foreground/[0.05]"
+          >
+            <span className="flex h-5 items-center"><StatusDot status={it.status} /></span>
+            <span className="min-w-0 flex-1">
+              <span className="flex items-baseline gap-2">
+                <span className="min-w-0 truncate">
+                  {it.projectName} / {labelOf(it.projectId, it.terminalId, it.terminalName)}
+                </span>
+                <AgentTag agent={agents[it.terminalId]} />
+                {a && <span className="ml-auto shrink-0 text-[11px] tabular-nums text-muted-foreground">{ago(a.since, now, locale)}</span>}
+              </span>
+              {(a?.message || a?.command) && (
+                <span className="block truncate text-[12px] text-muted-foreground">
+                  {a.message ??
+                    (a.command?.code
+                      ? t("commandFailed", { code: a.command.code, duration: duration(a.command.ms, locale) })
+                      : t("commandFinished", { duration: duration(a.command?.ms ?? 0, locale) }))}
+                </span>
+              )}
+            </span>
+          </button>
+        )
+      })}
     </div>
   )
 }
 
 const TerminalRow = React.memo(function TerminalRow({
-  id, projectId, tabId, label, status, active, onSelect,
+  id, projectId, tabId, label, status, agent, active, helper, onSelect,
 }: {
-  id: string; projectId: string; tabId: string; label: string; status: TermStatus | undefined; active: boolean
+  id: string; projectId: string; tabId: string; label: string; status: TermStatus | undefined; agent: string | undefined; active: boolean
+  helper: boolean
   onSelect: (id: string) => void
 }) {
   const t = useTranslations("Terminal")
@@ -149,7 +196,8 @@ const TerminalRow = React.memo(function TerminalRow({
       onDoubleClick={() => setDraft(label)}
       {...dnd.props(projectId, tabId)}
       className={cn(
-        "flex h-7 w-full items-center gap-2 rounded-lg pl-7 pr-2.5 text-left text-[13px] transition-colors",
+        "flex h-7 w-full items-center gap-2 rounded-lg pr-2.5 text-left text-[13px] transition-colors",
+        helper ? "pl-11" : "pl-7",
         active ? "bg-primary/[0.12] font-medium text-foreground" : "text-foreground/80 hover:bg-foreground/[0.05] hover:text-foreground",
         dnd.over && "ring-2 ring-inset ring-primary/50",
         dnd.draggingId && "opacity-50",
@@ -157,18 +205,21 @@ const TerminalRow = React.memo(function TerminalRow({
     >
       <StatusDot status={status} />
       <span className="min-w-0 flex-1 truncate">{label}</span>
+      {helper && <span className="shrink-0 rounded bg-foreground/[0.06] px-1 text-[11px] leading-4 text-muted-foreground">{t("helperTag")}</span>}
+      <AgentTag agent={agent} />
     </button>
   )
 })
 
 const ProjectRow = React.memo(function ProjectRow({
-  project, active, branch, waiting, statuses, titles, focusedId, onRemove,
+  project, active, branch, waiting, statuses, agents, titles, focusedId, onRemove,
 }: {
   project: TerminalProject
   active: boolean
   branch: string | null | undefined
   waiting: number
   statuses: Record<string, TermStatus>
+  agents: Record<string, string>
   titles: Record<string, string>
   focusedId: string | null
   onRemove: (p: TerminalProject) => void
@@ -178,9 +229,13 @@ const ProjectRow = React.memo(function ProjectRow({
   const selectProject = useTerminalStore((s) => s.selectProject)
   const focusTerminal = useTerminalStore((s) => s.focusTerminal)
   const open = !project.collapsed
-  const rows = project.tabs.flatMap((tab) =>
-    leafIds(tab.layout).map((id) => ({ id, tabId: tab.id, label: terminalLabel(tab, id, titles) })),
-  )
+  const children = useTerminalStore((s) => s.children)
+  const helperIds = React.useMemo(() => new Set(Object.values(children).flat()), [children])
+  const rows = project.tabs.flatMap((tab) => {
+    const all = leafIds(tab.layout).map((id) => ({ id, tabId: tab.id, label: terminalLabel(tab, id, titles), helper: helperIds.has(id) }))
+    // Helpers sit right under the agent that started them.
+    return all.filter((r) => !r.helper).flatMap((r) => [r, ...(children[r.id] ?? []).flatMap((c) => all.filter((x) => x.id === c))])
+  })
 
   return (
     <div>
@@ -206,7 +261,7 @@ const ProjectRow = React.memo(function ProjectRow({
         >
           <span className="min-w-0 truncate">{project.name}</span>
           {!open && waiting > 0 ? (
-            <span className="ml-auto shrink-0 rounded-full bg-destructive/[0.12] px-1.5 text-[11px] font-medium tabular-nums text-destructive">
+            <span className="ml-auto shrink-0 rounded-full bg-warning/[0.18] px-1.5 text-[11px] font-medium tabular-nums text-foreground">
               {waiting}
             </span>
           ) : branch ? (
@@ -233,7 +288,7 @@ const ProjectRow = React.memo(function ProjectRow({
             className="space-y-0.5 overflow-hidden px-2"
           >
             {rows.map((r) => (
-              <TerminalRow key={r.id} id={r.id} projectId={project.id} tabId={r.tabId} label={r.label} status={statuses[r.id]} active={r.id === focusedId} onSelect={focusTerminal} />
+              <TerminalRow key={r.id} id={r.id} projectId={project.id} tabId={r.tabId} label={r.label} status={statuses[r.id]} agent={agents[r.id]} active={r.id === focusedId} helper={r.helper} onSelect={focusTerminal} />
             ))}
           </motion.div>
         )}
@@ -249,6 +304,7 @@ export function TerminalSidebar({
   const projects = useTerminalStore((s) => s.projects)
   const statuses = useTerminalStore((s) => s.statuses)
   const titles = useTerminalStore((s) => s.titles)
+  const agents = useTerminalStore((s) => s.agents)
   const focusedId = useTerminalStore((s) => s.focusedTerminalId)
   const activeId = useTerminalStore((s) => s.activeProjectId) ?? projects[0]?.id
 
@@ -280,6 +336,7 @@ export function TerminalSidebar({
             branch={git[p.id]?.branch}
             waiting={projectWaitingCount(p, statuses)}
             statuses={statuses}
+            agents={agents}
             titles={titles}
             focusedId={focusedId}
             onRemove={onRemoveProject}

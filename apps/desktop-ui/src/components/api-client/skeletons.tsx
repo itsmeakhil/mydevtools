@@ -1,10 +1,12 @@
 "use client"
 
 import { Skeleton } from "@/components/ui/skeleton"
+import { useTranslations } from "next-intl"
 
 export function CollectionsSidebarSkeleton() {
+    const t = useTranslations("ApiClient.loading")
     return (
-        <div className="space-y-2 p-3" role="status" aria-busy="true" aria-label="Loading collections">
+        <div className="space-y-2 p-3" role="status" aria-busy="true" aria-label={t("collections")}>
             {Array.from({ length: 6 }).map((_, i) => (
                 <Skeleton key={i} className="h-8 w-full rounded-lg" />
             ))}
@@ -13,8 +15,9 @@ export function CollectionsSidebarSkeleton() {
 }
 
 export function HistoryListSkeleton() {
+    const t = useTranslations("ApiClient.loading")
     return (
-        <div className="space-y-2 p-3" role="status" aria-busy="true" aria-label="Loading history">
+        <div className="space-y-2 p-3" role="status" aria-busy="true" aria-label={t("history")}>
             {Array.from({ length: 8 }).map((_, i) => (
                 <Skeleton key={i} className="h-12 w-full rounded-lg" />
             ))}
@@ -23,8 +26,9 @@ export function HistoryListSkeleton() {
 }
 
 export function ResponsePanelSkeleton() {
+    const t = useTranslations("ApiClient.loading")
     return (
-        <div className="space-y-2 p-4" role="status" aria-busy="true" aria-label="Loading response">
+        <div className="space-y-2 p-4" role="status" aria-busy="true" aria-label={t("response")}>
             <Skeleton className="h-5 w-40" />
             <Skeleton className="h-32 w-full" />
             <Skeleton className="h-5 w-1/2" />

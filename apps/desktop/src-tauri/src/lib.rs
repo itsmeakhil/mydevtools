@@ -1,3 +1,4 @@
+mod csp;
 mod db;
 mod dbtools;
 mod error;
@@ -8,7 +9,7 @@ mod terminal;
 
 use router::ApiResponse;
 use state::AppState;
-use tauri::Manager;
+use tauri::{Emitter, Manager};
 use tauri_plugin_window_state::StateFlags;
 
 #[tauri::command]
@@ -43,13 +44,58 @@ fn http_request_stream_cancel(id: u64) {
 }
 
 #[tauri::command]
-async fn mock_server_start(app: tauri::AppHandle) -> Result<u16, String> {
-    http::mock_server::start(app).await
+async fn mock_server_start(
+    app: tauri::AppHandle,
+    port: Option<u16>,
+    latency_ms: Option<u64>,
+) -> Result<u16, String> {
+    http::mock_server::start(app, port, latency_ms).await
+}
+
+#[tauri::command]
+async fn mock_server_stop() {
+    http::mock_server::stop().await
+}
+
+#[tauri::command]
+async fn mock_server_status() -> http::mock_server::Status {
+    http::mock_server::status().await
+}
+
+#[tauri::command]
+fn mock_server_clear_log() {
+    http::mock_server::clear_log()
 }
 
 #[tauri::command]
 async fn proxy_grpc(input: serde_json::Value) -> Result<serde_json::Value, String> {
     Ok(http::grpc::proxy_grpc(input).await)
+}
+
+#[tauri::command]
+async fn grpc_stream_start(
+    input: serde_json::Value,
+    channel: tauri::ipc::Channel<serde_json::Value>,
+) -> Result<u64, String> {
+    let emit: http::grpc::Emit = std::sync::Arc::new(move |v| {
+        let _ = channel.send(v);
+    });
+    http::grpc::stream_start(input, emit).await
+}
+
+#[tauri::command]
+fn grpc_stream_send(id: u64, frame: String) -> Result<(), String> {
+    http::grpc::stream_send(id, &frame)
+}
+
+#[tauri::command]
+fn grpc_stream_end(id: u64) -> Result<(), String> {
+    http::grpc::stream_end(id)
+}
+
+#[tauri::command]
+fn grpc_stream_cancel(id: u64) {
+    http::grpc::stream_cancel(id)
 }
 
 /// Registry of opened folder-collection dirs, stored as a JSON file in the app
@@ -93,6 +139,11 @@ fn secure_file_read(state: tauri::State<'_, AppState>, id: String) -> Result<tau
     router::secure_files::read_plaintext(&state, &id).map(tauri::ipc::Response::new)
 }
 
+/// `mdt-term` (the agent helper CLI): run before any Tauri setup, returns the exit code.
+pub fn term_cli(args: &[String]) -> i32 {
+    terminal::ctl::cli(args)
+}
+
 pub fn run() {
     let builder = tauri::Builder::default()
         .plugin(tauri_plugin_dialog::init())
@@ -127,7 +178,30 @@ pub fn run() {
             let _ = term.on_exit.set(std::sync::Arc::new(move |id: &str| {
                 terminal::notify::forget(&handle, id)
             }));
+            let handle = app.handle().clone();
+            let _ = term.on_status.set(std::sync::Arc::new(move |id, source, status, msg, cmd| {
+                let term = handle.state::<std::sync::Arc<terminal::pty::TerminalState>>();
+                // OSC 7501 reports every state, so it takes over from the screen reader for this run.
+                let covers = (source == terminal::hooks::Source::Program).then_some(terminal::hooks::ALL_STATES);
+                if let Some(t) = terminal::hooks::apply_status_if_live(&term, id, source, status, covers) {
+                    terminal::hooks::publish(&handle, &t, msg.as_deref(), cmd);
+                }
+            }));
+            term.start_agent_poller();
+            let handle = app.handle().clone();
+            let _ = term.on_agent.set(std::sync::Arc::new(move |id, agent| {
+                let _ = handle.emit("terminal://agent", serde_json::json!({"id": id, "agent": agent}));
+            }));
+            let handle = app.handle().clone();
+            let _ = term.on_spawn_child.set(std::sync::Arc::new(move |v| {
+                let _ = handle.emit("terminal://spawn-child", v);
+            }));
+            let handle = app.handle().clone();
+            let _ = term.on_child_closed.set(std::sync::Arc::new(move |v| {
+                let _ = handle.emit("terminal://child-closed", v);
+            }));
             let socket = terminal::hooks::start(app.handle(), &dir, term.clone());
+            let ctl_socket = terminal::ctl::start(&socket, term.clone());
             // Bundled at $RESOURCE/resources/terminal; in dev tauri-build copies it next to
             // the binary (target/<profile>/resources), which resource_dir() resolves to.
             // Unresolvable / not absolute / scripts missing → no integration at all:
@@ -141,10 +215,18 @@ pub fn run() {
                             eprintln!("terminal: claude hooks settings not written: {e}");
                             dir.join("terminal/claude-hooks.json")
                         });
-                    let _ = term.launch.set(terminal::env::Launch { res_dir, socket, settings });
+                    let _ = term.launch.set(terminal::env::Launch { res_dir, socket, ctl_socket, settings });
                 }
                 r => eprintln!("terminal: shell integration disabled, resources unusable: {r:?}"),
             }
+
+            // Created here rather than from config so every asset response, worker
+            // scripts included, carries the CSP (see csp.rs).
+            let main = app.config().app.windows.iter().find(|w| w.label == "main")
+                .ok_or("main window config missing")?;
+            tauri::WebviewWindowBuilder::from_config(app.handle(), main)?
+                .on_web_resource_request(|_req, res| csp::apply(res))
+                .build()?;
 
             // window-state plugin restores the last saved geometry, which can be
             // wider/taller than the current monitor (smaller screen, unplugged
@@ -174,7 +256,14 @@ pub fn run() {
             http_request_stream,
             http_request_stream_cancel,
             mock_server_start,
+            mock_server_stop,
+            mock_server_status,
+            mock_server_clear_log,
             proxy_grpc,
+            grpc_stream_start,
+            grpc_stream_send,
+            grpc_stream_end,
+            grpc_stream_cancel,
             fs_allow_collection_dir,
             file_collections_registry_load,
             file_collections_registry_save,
@@ -184,13 +273,22 @@ pub fn run() {
             terminal::pty::terminal_write,
             terminal::pty::terminal_resize,
             terminal::pty::terminal_kill,
+            terminal::pty::terminal_clear_scrollback,
             terminal::hooks::terminal_statuses,
             terminal::hooks::terminal_clear_waiting,
             terminal::git::terminal_git_info,
+            terminal::pty::terminal_screen_tail,
+            terminal::paste::terminal_save_image,
+            terminal::project_file::terminal_project_file_read,
+            terminal::project_file::terminal_project_file_write,
+            terminal::notify::terminal_set_notify,
+            terminal::git::terminal_worktree_add,
+            terminal::git::terminal_worktree_remove,
             terminal::notify::terminal_set_viewing,
             terminal::notify::terminal_set_strings,
             terminal::notify::app_quit_confirmed,
-            terminal::notify::app_quit_cancelled
+            terminal::notify::app_quit_cancelled,
+            terminal::ctl::terminal_set_project_prefs
         ]);
     #[cfg(target_os = "macos")]
     let builder = builder
