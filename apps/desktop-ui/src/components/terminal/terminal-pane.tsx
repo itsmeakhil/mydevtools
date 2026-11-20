@@ -11,7 +11,7 @@ import type { SearchAddon } from "@xterm/addon-search"
 import { terminalExists, useTerminalStore } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
 import {
-  cwdFromOsc7, decodeOutput, duration, encodeInput, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
+  cwdFromOsc7, decodeOutput, duration, encodeInput, IMAGE_ADDON_OPTIONS, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
 } from "@/lib/terminal/util"
 import {
   terminalAttach, terminalClearScrollback, terminalKill, terminalResize, terminalSpawn, terminalWrite,
@@ -148,7 +148,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     let cleanup = () => {}
 
     ;(async () => {
-      const [{ Terminal }, { FitAddon }, { WebLinksAddon }, { SearchAddon }, { Unicode11Addon }, { WebglAddon }] =
+      const [{ Terminal }, { FitAddon }, { WebLinksAddon }, { SearchAddon }, { Unicode11Addon }, { WebglAddon }, { ImageAddon }] =
         await Promise.all([
           import("@xterm/xterm"),
           import("@xterm/addon-fit"),
@@ -156,6 +156,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
           import("@xterm/addon-search"),
           import("@xterm/addon-unicode11"),
           import("@xterm/addon-webgl"),
+          import("@xterm/addon-image"),
         ])
       if (disposed) return
       const openLink = (_e: MouseEvent, uri: string) =>
@@ -186,6 +187,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       // Emoji and CJK take two cells, as in agent TUIs' own width tables.
       term.loadAddon(new Unicode11Addon())
       term.unicode.activeVersion = "11"
+      term.loadAddon(new ImageAddon(IMAGE_ADDON_OPTIONS))
       termRef.current = term
 
       // OSC 133 A = a prompt starts here (written by our zsh/bash integration, fish, nushell…).
