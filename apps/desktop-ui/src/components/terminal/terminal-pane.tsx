@@ -8,6 +8,7 @@ import { agentName, resumeCommand } from "@/lib/terminal/agents"
 import { blobToBase64, imageToPaste, imageTooLarge } from "@/lib/terminal/paste-image"
 import "@xterm/xterm/css/xterm.css"
 import type { IMarker, Terminal as XTerm } from "@xterm/xterm"
+import { blockAt, commandText, failedTarget, onMark, outputText, type Block, type Mark } from "@/lib/terminal/blocks"
 import type { SearchAddon } from "@xterm/addon-search"
 import { terminalExists, useTerminalStore, withHelpers } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
@@ -25,6 +26,7 @@ import {
 } from "@/components/ui/context-menu"
 import { AgentTag, StatusDot } from "./terminal-sidebar"
 import { useCloseGuard } from "./close-guard"
+import { BlockBar } from "./block-bar"
 
 const FONT = 'ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace'
 /** The user's font first, the system monospace stack as fallback. Quotes are stripped so the name can't break the list. */
@@ -122,6 +124,12 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
   /** Latest image-paste handler, for the paste listener set up once per pane. */
   const pasteImageRef = React.useRef<(png: Blob) => Promise<void>>(async () => {})
   const onShortcut = React.useRef<(a: PaneShortcut) => void>(() => {})
+  /** Command blocks from the shell's OSC 133 marks (newest last). */
+  const blocksRef = React.useRef<Block[]>([])
+  const copyLastOutputRef = React.useRef(() => {})
+  /** The block under the pointer, and where its toolbar goes (px from the top of the terminal area). */
+  const [hover, setHover] = React.useState<{ block: Block; top: number; cmd: string | null; out: string | null } | null>(null)
+  const [hasOutput, setHasOutput] = React.useState(false)
   const wantFocus = React.useRef(false)
   const fontSize = useTerminalStore((s) => s.fontSize)
   const prefs = useTerminalStore((s) => s.prefs)
@@ -183,6 +191,8 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
         // Keeps the default ANSI palette legible on the light theme's white pane.
         minimumContrastRatio: 4.5,
         theme: themeFor(host),
+        // Failed commands are marked on the scrollbar.
+        overviewRuler: { width: 8 },
       })
       const fit = new FitAddon()
       term.loadAddon(fit)
@@ -196,13 +206,23 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
       term.loadAddon(new ImageAddon(IMAGE_ADDON_OPTIONS))
       termRef.current = term
 
-      // OSC 133 A = a prompt starts here (written by our zsh/bash integration, fish, nushell…).
-      let marks: IMarker[] = []
+      // OSC 133 (our zsh/bash integration, fish, nushell…): A = prompt, B = input starts,
+      // C = command output starts, D;<exit> = it ended. Each becomes a marker that follows its row.
+      const failColor = token(host, "--destructive")
       const prompts = term.parser.registerOscHandler(133, (data) => {
-        if (data.startsWith("A")) {
-          const m = term.registerMarker(0)
-          if (m) marks.push(m)
-          if (marks.length > 500) marks = marks.filter((x) => !x.isDisposed)
+        const x = term.buffer.active.cursorX
+        const kind = data[0]
+        const mark: Mark | null =
+          kind === "A" ? { kind } : kind === "B" ? { kind, x } : kind === "C" ? { kind }
+          : kind === "D" ? { kind, x, exit: /^D;-?\d+/.test(data) ? Number(data.slice(2).split(";")[0]) : undefined } : null
+        const at = mark && term.registerMarker(0)
+        if (!mark || !at) return false
+        const before = blocksRef.current[blocksRef.current.length - 1]
+        blocksRef.current = onMark(blocksRef.current, mark, at, Date.now())
+        const after = blocksRef.current[blocksRef.current.length - 1]
+        // Just finished with a failure: tick the scrollbar at its prompt.
+        if (mark.kind === "D" && after !== before && after?.exit) {
+          term.registerDecoration({ marker: after.prompt as IMarker, overviewRulerOptions: { color: failColor, position: "full" } })
         }
         return false
       })
@@ -232,10 +252,21 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
           case "prevPrompt":
           case "nextPrompt": {
             const top = term.buffer.active.viewportY
-            const line = promptTarget(marks.filter((m) => !m.isDisposed).map((m) => m.line), top, action === "prevPrompt" ? "prev" : "next")
+            const lines = blocksRef.current.filter((b) => !b.prompt.isDisposed).map((b) => b.prompt.line)
+            const line = promptTarget(lines, top, action === "prevPrompt" ? "prev" : "next")
             if (line !== null) term.scrollToLine(line)
             else if (action === "nextPrompt") term.scrollToBottom()
+            return
           }
+          case "prevFailed":
+          case "nextFailed": {
+            const line = failedTarget(blocksRef.current, term.buffer.active.viewportY, action === "prevFailed" ? "prev" : "next")
+            if (line !== null) term.scrollToLine(line)
+            return
+          }
+          case "copyLastOutput":
+            copyLastOutputRef.current()
+            return
         }
       }
       // Returning false keeps xterm from also sending the key to the shell.
@@ -441,6 +472,52 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
     else gpu.current.off()
   }, [visible])
 
+  // Command blocks: copy, re-run, and the hover toolbar.
+  const copyText = (text: string, done: string) =>
+    navigator.clipboard.writeText(text).then(() => toast.success(done), (e) => toast.error(errMsg(e)))
+  const lastOutput = () => {
+    const term = termRef.current
+    if (!term) return null
+    for (const b of [...blocksRef.current].reverse()) {
+      const text = outputText(term.buffer.active, b)
+      if (text !== null) return text
+    }
+    return null
+  }
+  React.useEffect(() => {
+    copyLastOutputRef.current = () => {
+      const text = lastOutput()
+      if (text === null) toast.info(t("noOutputYet"))
+      else void copyText(text, t("outputCopied"))
+    }
+  })
+  /** Why the hovered command can't run again now (null = it can). */
+  const rerunBlocked = (cmd: string | null) =>
+    cmd === null ? t("rerunNoCommand") : cmd.includes("\n") ? t("rerunMultiline") : status === "running" || status === "waiting" ? t("rerunBusy") : null
+  const hoverFrame = React.useRef(0)
+  const onPointer = (e: React.MouseEvent<HTMLDivElement>) => {
+    const term = termRef.current
+    const screen = term?.element?.querySelector(".xterm-screen")
+    if (!term || !screen) return
+    const { clientY } = e
+    const wrap = e.currentTarget.getBoundingClientRect()
+    cancelAnimationFrame(hoverFrame.current)
+    hoverFrame.current = requestAnimationFrame(() => {
+      const r = screen.getBoundingClientRect()
+      const cell = r.height / term.rows
+      const row = Math.floor((clientY - r.top) / cell)
+      const top = term.buffer.active.viewportY
+      const b = row >= 0 && row < term.rows ? blockAt(blocksRef.current, top + row) : null
+      // Only finished or running commands get a toolbar (not the prompt you're typing at).
+      if (!b || !b.output) return setHover(null)
+      const y = Math.max(0, (b.prompt.line - top) * cell) + (r.top - wrap.top)
+      // A running block's output grows: re-read it while the pointer is over it.
+      if (hover?.block === b && hover.top === y && hover.out !== null) return
+      const buf = term.buffer.active
+      setHover({ block: b, top: y, cmd: commandText(buf, b), out: outputText(buf, b) })
+    })
+  }
+
   const onFocus = () => {
     if (useTerminalStore.getState().focusedTerminalId !== id) useTerminalStore.getState().focusTerminal(id)
   }
@@ -564,7 +641,13 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
           </button>
         </span>
       </div>
-      <ContextMenu onOpenChange={(open) => open && setHasSelection(!!termRef.current?.hasSelection())}>
+      <ContextMenu
+        onOpenChange={(open) => {
+          if (!open) return
+          setHasSelection(!!termRef.current?.hasSelection())
+          setHasOutput(lastOutput() !== null)
+        }}
+      >
         <ContextMenuTrigger asChild>
       {/* Padding lives on the wrapper: FitAddon sizes cols/rows from the host's own box. */}
       <div
@@ -575,8 +658,35 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
           // Which pane gets keystrokes, without relying on the dimming alone.
           split && focused && !zoomed && "ring-1 ring-inset ring-primary/50",
         )}
+        onMouseMove={onPointer}
+        onMouseLeave={() => {
+          cancelAnimationFrame(hoverFrame.current)
+          setHover(null)
+        }}
+        onWheel={() => setHover(null)}
       >
         <div ref={hostRef} className="min-h-0 flex-1" />
+        {hover && !findOpen && (() => {
+          const { cmd, out } = hover
+          return (
+            <BlockBar
+              top={hover.top}
+              exit={hover.block.exit}
+              ms={hover.block.ms}
+              canCopyCommand={cmd !== null}
+              canCopyOutput={!!out}
+              rerunBlocked={rerunBlocked(cmd)}
+              onCopyCommand={() => cmd && void copyText(cmd, t("commandCopied"))}
+              onCopyOutput={() => out && void copyText(out, t("outputCopied"))}
+              onRerun={() => {
+                if (!cmd) return
+                void terminalWrite(id, encodeInput(`${cmd}\r`)).catch((e) => toast.error(errMsg(e)))
+                setHover(null)
+                termRef.current?.focus()
+              }}
+            />
+          )
+        })()}
         {resume && !exited && (
           <div className="absolute inset-x-2 bottom-2 z-10 flex items-center gap-2 rounded-md border border-border bg-popover px-2.5 py-1.5 text-[12px] text-muted-foreground">
             <span className="min-w-0 flex-1 truncate" title={resume.cmd}>
@@ -702,6 +812,9 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
         >
           <ContextMenuItem disabled={!hasSelection} onSelect={copy}>
             {t("copy")}<ContextMenuShortcut>⌘C</ContextMenuShortcut>
+          </ContextMenuItem>
+          <ContextMenuItem disabled={!hasOutput} onSelect={() => copyLastOutputRef.current()}>
+            {t("copyLastOutput")}<ContextMenuShortcut>⌘⇧C</ContextMenuShortcut>
           </ContextMenuItem>
           <ContextMenuItem onSelect={paste}>
             {t("paste")}<ContextMenuShortcut>⌘V</ContextMenuShortcut>

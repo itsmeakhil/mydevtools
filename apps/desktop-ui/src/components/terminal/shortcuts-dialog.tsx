@@ -20,6 +20,8 @@ export function ShortcutsDialog({ open, onOpenChange }: { open: boolean; onOpenC
     ["⌘F", t("find")],
     ["⌘K", t("clear")],
     ["⌘↑  ⌘↓", t("scPromptJump")],
+    ["⌘⇧↑  ⌘⇧↓", t("scFailedJump")],
+    ["⌘⇧C", t("copyLastOutput")],
     ["⌘+  ⌘−  ⌘0", t("scFontSize")],
     ["⌘/", t("shortcutsTitle")],
   ]

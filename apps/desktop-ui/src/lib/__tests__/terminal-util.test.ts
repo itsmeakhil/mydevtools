@@ -199,6 +199,10 @@ describe("terminal util", () => {
     expect(k("KeyK", { ctrlKey: true })).toBeNull()
     expect(k("KeyF", { metaKey: false })).toBeNull()
     expect(k("KeyD")).toBeNull() // layout-level shortcut, not the pane's
+    expect(k("ArrowUp", { shiftKey: true })).toBe("prevFailed")
+    expect(k("ArrowDown", { shiftKey: true })).toBe("nextFailed")
+    expect(k("KeyC", { shiftKey: true })).toBe("copyLastOutput")
+    expect(k("KeyC")).toBeNull() // plain ⌘C stays copy
   })
 
   it("promptTarget finds the prompt above/below the top visible line", () => {

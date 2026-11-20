@@ -3432,6 +3432,19 @@
     "openHome": "Abrir carpeta de inicio",
     "nextWaitingHint": "Ir a la siguiente terminal que te necesita",
     "palettePanes": "Paneles del terminal",
-    "startAgent": "Iniciar {agent}"
+    "startAgent": "Iniciar {agent}",
+    "blockExit": "Código de salida {code}",
+    "blockOk": "Correcto",
+    "blockCopyCommand": "Copiar comando",
+    "blockCopyOutput": "Copiar salida",
+    "blockRerun": "Volver a ejecutar",
+    "rerunBusy": "Espera a que termine el comando actual",
+    "rerunMultiline": "Los comandos de varias líneas no se pueden volver a ejecutar desde aquí",
+    "rerunNoCommand": "Este shell no informa del texto del comando",
+    "copyLastOutput": "Copiar última salida",
+    "outputCopied": "Salida copiada",
+    "commandCopied": "Comando copiado",
+    "noOutputYet": "Aún no hay salida de ningún comando terminado",
+    "scFailedJump": "Comando fallido anterior / siguiente"
   }
 }

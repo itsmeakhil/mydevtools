@@ -3432,6 +3432,19 @@
     "openHome": "Otwórz folder domowy",
     "nextWaitingHint": "Przejdź do następnego terminala, który cię potrzebuje",
     "palettePanes": "Panele terminala",
-    "startAgent": "Uruchom {agent}"
+    "startAgent": "Uruchom {agent}",
+    "blockExit": "Kod wyjścia {code}",
+    "blockOk": "Sukces",
+    "blockCopyCommand": "Kopiuj polecenie",
+    "blockCopyOutput": "Kopiuj wynik",
+    "blockRerun": "Uruchom ponownie",
+    "rerunBusy": "Poczekaj, aż bieżące polecenie się zakończy",
+    "rerunMultiline": "Poleceń wielowierszowych nie można stąd uruchomić ponownie",
+    "rerunNoCommand": "Ta powłoka nie przekazuje tekstu polecenia",
+    "copyLastOutput": "Kopiuj ostatni wynik",
+    "outputCopied": "Skopiowano wynik",
+    "commandCopied": "Skopiowano polecenie",
+    "noOutputYet": "Brak jeszcze wyniku zakończonego polecenia",
+    "scFailedJump": "Poprzednie / następne nieudane polecenie"
   }
 }

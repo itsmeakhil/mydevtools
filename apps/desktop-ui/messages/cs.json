@@ -3432,6 +3432,19 @@
     "openHome": "Otevřít domovskou složku",
     "nextWaitingHint": "Přejít na další terminál, který vás potřebuje",
     "palettePanes": "Panely terminálu",
-    "startAgent": "Spustit {agent}"
+    "startAgent": "Spustit {agent}",
+    "blockExit": "Návratový kód {code}",
+    "blockOk": "Úspěch",
+    "blockCopyCommand": "Kopírovat příkaz",
+    "blockCopyOutput": "Kopírovat výstup",
+    "blockRerun": "Spustit znovu",
+    "rerunBusy": "Počkejte, až aktuální příkaz doběhne",
+    "rerunMultiline": "Víceřádkové příkazy odsud znovu spustit nelze",
+    "rerunNoCommand": "Tento shell nehlásí text příkazu",
+    "copyLastOutput": "Kopírovat poslední výstup",
+    "outputCopied": "Výstup zkopírován",
+    "commandCopied": "Příkaz zkopírován",
+    "noOutputYet": "Zatím žádný výstup dokončeného příkazu",
+    "scFailedJump": "Předchozí / další neúspěšný příkaz"
   }
 }

@@ -3432,6 +3432,19 @@
     "openHome": "Åbn hjemmemappe",
     "nextWaitingHint": "Gå til næste terminal, der har brug for dig",
     "palettePanes": "Terminalruder",
-    "startAgent": "Start {agent}"
+    "startAgent": "Start {agent}",
+    "blockExit": "Exitkode {code}",
+    "blockOk": "Lykkedes",
+    "blockCopyCommand": "Kopiér kommando",
+    "blockCopyOutput": "Kopiér output",
+    "blockRerun": "Kør igen",
+    "rerunBusy": "Vent til den aktuelle kommando er færdig",
+    "rerunMultiline": "Kommandoer over flere linjer kan ikke køres igen herfra",
+    "rerunNoCommand": "Denne shell oplyser ikke kommandoteksten",
+    "copyLastOutput": "Kopiér seneste output",
+    "outputCopied": "Output kopieret",
+    "commandCopied": "Kommando kopieret",
+    "noOutputYet": "Intet output fra en færdig kommando endnu",
+    "scFailedJump": "Forrige / næste mislykkede kommando"
   }
 }

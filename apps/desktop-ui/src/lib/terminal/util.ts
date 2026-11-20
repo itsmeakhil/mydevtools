@@ -179,13 +179,22 @@ export const FONT_SIZE = { min: 9, max: 24, default: 13 } as const
 export const clampFontSize = (n: number) =>
   Number.isFinite(n) ? Math.min(FONT_SIZE.max, Math.max(FONT_SIZE.min, Math.round(n))) : FONT_SIZE.default
 
-export type PaneShortcut = "find" | "clear" | "zoomIn" | "zoomOut" | "zoomReset" | "prevPrompt" | "nextPrompt"
+export type PaneShortcut =
+  | "find" | "clear" | "zoomIn" | "zoomOut" | "zoomReset" | "prevPrompt" | "nextPrompt"
+  | "prevFailed" | "nextFailed" | "copyLastOutput"
 
-/** Shortcuts the focused pane handles itself: ⌘F, ⌘K, ⌘= (⌘+), ⌘−, ⌘0, ⌘↑, ⌘↓. */
+/** Shortcuts the focused pane handles itself: ⌘F, ⌘K, ⌘= (⌘+), ⌘−, ⌘0, ⌘↑, ⌘↓, ⌘⇧↑, ⌘⇧↓, ⌘⇧C. */
 export function matchPaneShortcut(e: { metaKey: boolean; ctrlKey: boolean; altKey: boolean; shiftKey: boolean; code: string }): PaneShortcut | null {
   if (!e.metaKey || e.ctrlKey || e.altKey) return null
   if (e.code === "Equal") return "zoomIn" // ⌘= and ⌘+ (⇧=)
-  if (e.shiftKey) return null
+  if (e.shiftKey) {
+    switch (e.code) {
+      case "ArrowUp": return "prevFailed"
+      case "ArrowDown": return "nextFailed"
+      case "KeyC": return "copyLastOutput"
+      default: return null
+    }
+  }
   switch (e.code) {
     case "KeyF": return "find"
     case "KeyK": return "clear"

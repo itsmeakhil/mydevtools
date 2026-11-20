@@ -3432,6 +3432,19 @@
     "openHome": "Öppna hemmapp",
     "nextWaitingHint": "Gå till nästa terminal som behöver dig",
     "palettePanes": "Terminalrutor",
-    "startAgent": "Starta {agent}"
+    "startAgent": "Starta {agent}",
+    "blockExit": "Slutkod {code}",
+    "blockOk": "Lyckades",
+    "blockCopyCommand": "Kopiera kommando",
+    "blockCopyOutput": "Kopiera utdata",
+    "blockRerun": "Kör igen",
+    "rerunBusy": "Vänta tills det aktuella kommandot är klart",
+    "rerunMultiline": "Kommandon på flera rader kan inte köras igen härifrån",
+    "rerunNoCommand": "Det här skalet rapporterar inte kommandotexten",
+    "copyLastOutput": "Kopiera senaste utdata",
+    "outputCopied": "Utdata kopierad",
+    "commandCopied": "Kommando kopierat",
+    "noOutputYet": "Inga utdata från ett färdigt kommando än",
+    "scFailedJump": "Föregående / nästa misslyckade kommando"
   }
 }
