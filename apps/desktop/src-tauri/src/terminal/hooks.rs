@@ -5,6 +5,7 @@ use serde_json::{json, Value};
 use std::collections::HashMap;
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::time::{Duration, Instant};
 use tauri::{AppHandle, Emitter, State};
 
 #[derive(Serialize, Clone, Copy, PartialEq, Eq, Debug)]
@@ -91,7 +92,14 @@ pub struct StatusMap {
     status: HashMap<String, TermStatus>,
     /// Per pane: the states an active program source reports itself (cleared at the next shell prompt).
     covers: HashMap<String, &'static [TermStatus]>,
+    /// Who set each pane's current status.
+    by: HashMap<String, Source>,
+    /// When the program last reported Done (a spinner left on screen just after is stale).
+    done_at: HashMap<String, Instant>,
 }
+
+/// After a program's Done, the screen's Running is taken as a stale spinner for this long.
+const AFTER_DONE: Duration = Duration::from_secs(2);
 
 impl StatusMap {
     pub fn apply(&mut self, id: &str, s: TermStatus) -> Option<Transition> {
@@ -99,6 +107,7 @@ impl StatusMap {
     }
 
     fn apply_inner(&mut self, id: &str, s: TermStatus, source: Source) -> Option<Transition> {
+        self.by.insert(id.to_string(), source);
         let prev = self.status.insert(id.to_string(), s);
         (prev != Some(s)).then(|| Transition { id: id.to_string(), status: s, entered_waiting: s.needs_you(), source })
     }
@@ -111,11 +120,23 @@ impl StatusMap {
     /// Arbitration: the program owns what it reports, the screen fills the rest, and the shell
     /// defers to an active program until its next prompt (which ends the program's claims).
     pub fn apply_from(&mut self, id: &str, source: Source, s: TermStatus) -> Option<Transition> {
+        self.apply_from_at(id, source, s, Instant::now())
+    }
+
+    /// `apply_from` at time `now`. A program covering only some states (Codex: Done) leaves
+    /// the screen to report the rest, so the screen may also end a status it set itself.
+    pub fn apply_from_at(&mut self, id: &str, source: Source, s: TermStatus, now: Instant) -> Option<Transition> {
         let covered = self.covers.get(id).copied();
+        if source == Source::Program && s == TermStatus::Done {
+            self.done_at.insert(id.to_string(), now);
+        }
+        let just_done = self.done_at.get(id).is_some_and(|t| now.saturating_duration_since(*t) < AFTER_DONE);
         match source {
-            Source::Screen if covered.is_some_and(|c| c.contains(&s)) => None,
+            Source::Screen if s == TermStatus::Running && just_done => None,
+            Source::Screen if covered.is_some_and(|c| c.contains(&s)) && self.by.get(id) != Some(&Source::Screen) => None,
             Source::Shell if s == TermStatus::Idle => {
                 self.covers.remove(id);
+                self.done_at.remove(id);
                 self.apply_inner(id, s, source)
             }
             Source::Shell if covered.is_some() => None,
@@ -134,6 +155,8 @@ impl StatusMap {
     /// Forget a terminal that was killed or exited; `Some` (as Idle) if it had a status.
     pub fn remove(&mut self, id: &str) -> Option<Transition> {
         self.covers.remove(id);
+        self.by.remove(id);
+        self.done_at.remove(id);
         self.status.remove(id).map(|_| Transition {
             id: id.to_string(),
             status: TermStatus::Idle,
@@ -400,6 +423,29 @@ mod tests {
         // Back at the shell prompt: the program is gone, so are its claims.
         assert_eq!(m.apply_from("a", Source::Shell, Idle).unwrap().status, Idle);
         assert_eq!(m.apply_from("a", Source::Screen, Running).unwrap().status, Running);
+    }
+
+    /// Codex reports only Done (notify hook); the screen reads its spinner for Running.
+    #[test]
+    fn codex_does_not_stick_at_running_after_its_turn() {
+        use std::time::{Duration, Instant};
+        use TermStatus::*;
+        let t0 = Instant::now();
+        let mut m = StatusMap::default();
+        m.set_program_covers("a", &[Done]);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, t0).unwrap().status, Running);
+        assert_eq!(m.apply_from_at("a", Source::Program, Done, t0).unwrap().status, Done);
+        // A stale spinner still on screen just after the notify hook: not a new turn.
+        assert!(m.apply_from_at("a", Source::Screen, Running, t0 + Duration::from_millis(400)).is_none());
+        assert_eq!(m.get("a"), Some(Done));
+        // A real new turn later shows Running again, and its end on screen is let through
+        // (the screen set the current status, so it may also end it).
+        let later = t0 + Duration::from_secs(3);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Running, later).unwrap().status, Running);
+        assert_eq!(m.apply_from_at("a", Source::Screen, Done, later).unwrap().status, Done);
+        // Once the program set the status, a covered screen reading is ignored again.
+        assert_eq!(m.apply_from_at("a", Source::Program, Waiting, later).unwrap().status, Waiting);
+        assert!(m.apply_from_at("a", Source::Screen, Done, later).is_none());
     }
 
     #[test]
