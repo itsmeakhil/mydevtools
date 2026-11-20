@@ -3373,6 +3373,8 @@
     "cursorBlink": "Миготливий курсор",
     "scrollbackLines": "Рядків прокрутки",
     "copyOnSelect": "Копіювати під час виділення",
+    "screenReader": "Підтримка зчитувача екрана",
+    "screenReaderHint": "VoiceOver зможе читати вивід; потребує більше памʼяті",
     "settingsNotifications": "Сповіщення",
     "notifyBlocked": "Коли агентові потрібне введення",
     "notifyDone": "Коли завдання завершено",

@@ -3373,6 +3373,8 @@
     "cursorBlink": "Blinkende markør",
     "scrollbackLines": "Tilbakerullingslinjer",
     "copyOnSelect": "Kopier ved markering",
+    "screenReader": "Støtte for skjermleser",
+    "screenReaderHint": "VoiceOver kan lese utdata; bruker mer minne",
     "settingsNotifications": "Varsler",
     "notifyBlocked": "Når en agent trenger input",
     "notifyDone": "Når en oppgave er ferdig",

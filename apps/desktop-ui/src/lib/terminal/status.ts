@@ -34,3 +34,7 @@ export const projectWaitingCount = (p: TerminalProject, statuses: Record<string,
 /** Counts only terminals that still exist in `projects` (closed panes can't inflate it). */
 export const totalWaiting = (projects: TerminalProject[], statuses: Record<string, TermStatus>) =>
   projects.reduce((n, p) => n + projectWaitingCount(p, statuses), 0)
+
+/** Panes that just started needing you (entered waiting/done, or switched between them). */
+export const newlyNeedingYou = (prev: Record<string, TermStatus>, next: Record<string, TermStatus>) =>
+  Object.keys(next).filter((id) => needsAttention(next[id]) && prev[id] !== next[id])

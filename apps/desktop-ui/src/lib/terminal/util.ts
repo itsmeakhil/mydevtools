@@ -231,13 +231,15 @@ export interface TerminalPrefs {
   cursorBlink: boolean
   scrollback: number
   copyOnSelect: boolean
+  /** xterm's accessibility tree, so VoiceOver can read output (costs memory). */
+  screenReader: boolean
   notifyBlocked: boolean
   notifyDone: boolean
   notifySound: boolean
 }
 
 export const DEFAULT_PREFS: TerminalPrefs = {
-  fontFamily: "", lineHeight: 1, cursorStyle: "block", cursorBlink: true, scrollback: 10_000, copyOnSelect: false,
+  fontFamily: "", lineHeight: 1, cursorStyle: "block", cursorBlink: true, scrollback: 10_000, copyOnSelect: false, screenReader: false,
   notifyBlocked: true, notifyDone: true, notifySound: false,
 }
 export const LINE_HEIGHTS = [1, 1.1, 1.2, 1.3, 1.4] as const
@@ -255,6 +257,7 @@ export function normalizePrefs(raw: unknown): TerminalPrefs {
     cursorBlink: bool("cursorBlink"),
     scrollback: pick(r.scrollback, SCROLLBACK_SIZES, DEFAULT_PREFS.scrollback),
     copyOnSelect: bool("copyOnSelect"),
+    screenReader: bool("screenReader"),
     notifyBlocked: bool("notifyBlocked"),
     notifyDone: bool("notifyDone"),
     notifySound: bool("notifySound"),

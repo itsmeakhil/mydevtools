@@ -3373,6 +3373,8 @@
     "cursorBlink": "カーソルを点滅",
     "scrollbackLines": "スクロールバック行数",
     "copyOnSelect": "選択時にコピー",
+    "screenReader": "スクリーンリーダー対応",
+    "screenReaderHint": "VoiceOver で出力を読み上げます（メモリ使用量が増えます）",
     "settingsNotifications": "通知",
     "notifyBlocked": "エージェントが入力を必要とするとき",
     "notifyDone": "タスクが完了したとき",

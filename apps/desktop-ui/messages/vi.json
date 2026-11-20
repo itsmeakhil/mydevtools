@@ -3373,6 +3373,8 @@
     "cursorBlink": "Con trỏ nhấp nháy",
     "scrollbackLines": "Số dòng cuộn lại",
     "copyOnSelect": "Sao chép khi chọn",
+    "screenReader": "Hỗ trợ trình đọc màn hình",
+    "screenReaderHint": "VoiceOver có thể đọc đầu ra; dùng nhiều bộ nhớ hơn",
     "settingsNotifications": "Thông báo",
     "notifyBlocked": "Khi tác tử cần nhập liệu",
     "notifyDone": "Khi tác vụ hoàn tất",

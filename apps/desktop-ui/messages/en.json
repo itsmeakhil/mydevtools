@@ -3373,6 +3373,8 @@
     "cursorBlink": "Blinking cursor",
     "scrollbackLines": "Scrollback lines",
     "copyOnSelect": "Copy on select",
+    "screenReader": "Screen reader support",
+    "screenReaderHint": "Lets VoiceOver read terminal output; uses more memory",
     "settingsNotifications": "Notifications",
     "notifyBlocked": "When an agent needs input",
     "notifyDone": "When a task finishes",

@@ -3373,6 +3373,8 @@
     "cursorBlink": "Migający kursor",
     "scrollbackLines": "Wiersze historii",
     "copyOnSelect": "Kopiuj przy zaznaczeniu",
+    "screenReader": "Obsługa czytnika ekranu",
+    "screenReaderHint": "VoiceOver może czytać wyjście; zużywa więcej pamięci",
     "settingsNotifications": "Powiadomienia",
     "notifyBlocked": "Gdy agent potrzebuje danych",
     "notifyDone": "Gdy zadanie się zakończy",

@@ -3373,6 +3373,8 @@
     "cursorBlink": "مکان‌نمای چشمک‌زن",
     "scrollbackLines": "خطوط تاریخچه",
     "copyOnSelect": "کپی هنگام انتخاب",
+    "screenReader": "پشتیبانی از صفحه‌خوان",
+    "screenReaderHint": "VoiceOver خروجی را می‌خواند؛ حافظهٔ بیشتری مصرف می‌کند",
     "settingsNotifications": "اعلان‌ها",
     "notifyBlocked": "وقتی عاملی به ورودی نیاز دارد",
     "notifyDone": "وقتی کاری تمام می‌شود",

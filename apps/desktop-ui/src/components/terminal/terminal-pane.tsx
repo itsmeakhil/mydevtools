@@ -151,6 +151,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         cursorStyle: prefs.cursorStyle,
         cursorBlink: prefs.cursorBlink,
         scrollback: prefs.scrollback,
+        screenReaderMode: prefs.screenReader,
         macOptionIsMeta: useTerminalStore.getState().optionAsMeta,
         allowProposedApi: true, // unicode11 version switch
         // Keeps the default ANSI palette legible on the light theme's white pane.
@@ -355,7 +356,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     const refit = o.fontFamily !== font || o.lineHeight !== prefs.lineHeight
     Object.assign(o, {
       fontFamily: font, lineHeight: prefs.lineHeight, cursorStyle: prefs.cursorStyle,
-      cursorBlink: prefs.cursorBlink, scrollback: prefs.scrollback,
+      cursorBlink: prefs.cursorBlink, scrollback: prefs.scrollback, screenReaderMode: prefs.screenReader,
     })
     if (refit) relayout.current()
   }, [prefs])
@@ -486,6 +487,8 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
           "relative flex min-h-0 flex-1 flex-col pl-2.5 pt-0.5 transition-opacity duration-150",
           // In a split, the panes not receiving keystrokes recede.
           split && !focused && !zoomed && "opacity-60",
+          // Which pane gets keystrokes, without relying on the dimming alone.
+          split && focused && !zoomed && "ring-1 ring-inset ring-primary/50",
         )}
       >
         <div ref={hostRef} className="min-h-0 flex-1" />

@@ -3373,6 +3373,8 @@
     "cursorBlink": "커서 깜박임",
     "scrollbackLines": "스크롤백 줄 수",
     "copyOnSelect": "선택 시 복사",
+    "screenReader": "화면 읽기 지원",
+    "screenReaderHint": "VoiceOver가 출력을 읽을 수 있습니다. 메모리를 더 사용합니다",
     "settingsNotifications": "알림",
     "notifyBlocked": "에이전트가 입력을 기다릴 때",
     "notifyDone": "작업이 끝났을 때",

@@ -3373,6 +3373,8 @@
     "cursorBlink": "Kursor berkelip",
     "scrollbackLines": "Baris tatal balik",
     "copyOnSelect": "Salin apabila dipilih",
+    "screenReader": "Sokongan pembaca skrin",
+    "screenReaderHint": "VoiceOver boleh membaca output; menggunakan lebih banyak memori",
     "settingsNotifications": "Pemberitahuan",
     "notifyBlocked": "Apabila ejen memerlukan input",
     "notifyDone": "Apabila tugas selesai",
