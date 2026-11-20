@@ -3350,6 +3350,7 @@
     "close": "Tanca",
     "copy": "Copia",
     "paste": "Enganxa",
+    "insertPath": "Insereix el camí d'un fitxer…",
     "clear": "Neteja",
     "optionAsMeta": "Fes servir Option com a tecla Meta",
     "settings": "Configuració del terminal",

@@ -3350,6 +3350,7 @@
     "close": "Fermer",
     "copy": "Copier",
     "paste": "Coller",
+    "insertPath": "Insérer un chemin de fichier…",
     "clear": "Effacer",
     "optionAsMeta": "Utiliser Option comme touche Méta",
     "settings": "Réglages du terminal",

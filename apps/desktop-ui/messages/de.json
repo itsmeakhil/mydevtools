@@ -3350,6 +3350,7 @@
     "close": "Schließen",
     "copy": "Kopieren",
     "paste": "Einfügen",
+    "insertPath": "Dateipfad einfügen…",
     "clear": "Leeren",
     "optionAsMeta": "Wahltaste als Meta-Taste verwenden",
     "settings": "Terminal-Einstellungen",

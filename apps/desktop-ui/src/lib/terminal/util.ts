@@ -260,3 +260,8 @@ export function normalizePrefs(raw: unknown): TerminalPrefs {
     notifySound: bool("notifySound"),
   }
 }
+
+/** Paths as shell words: plain ones as-is, anything else single-quoted ('it'\''s'). */
+export function shellQuote(paths: string[]): string {
+  return paths.map((p) => (/^[\w@%+=:,./-]+$/.test(p) ? p : `'${p.replace(/'/g, `'\\''`)}'`)).join(" ")
+}

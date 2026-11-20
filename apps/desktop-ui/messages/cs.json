@@ -3350,6 +3350,7 @@
     "close": "Zavřít",
     "copy": "Kopírovat",
     "paste": "Vložit",
+    "insertPath": "Vložit cestu k souboru…",
     "clear": "Vymazat",
     "optionAsMeta": "Použít Option jako klávesu Meta",
     "settings": "Nastavení terminálu",

@@ -11,7 +11,7 @@ import type { SearchAddon } from "@xterm/addon-search"
 import { terminalExists, useTerminalStore } from "@/store/terminal-store"
 import type { TermStatus } from "@/lib/terminal/status"
 import {
-  cwdFromOsc7, decodeOutput, encodeInput, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
+  cwdFromOsc7, decodeOutput, encodeInput, shellQuote, FONT_SIZE, isForeignEditable, keyedChain, matchPaneShortcut, promptTarget, writeQueue, type PaneShortcut,
 } from "@/lib/terminal/util"
 import {
   terminalAttach, terminalClearScrollback, terminalKill, terminalResize, terminalSpawn, terminalWrite,
@@ -398,6 +398,18 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     const text = termRef.current?.getSelection()
     if (text) navigator.clipboard.writeText(text).catch((e) => toast.error(errMsg(e)))
   }
+  // Native picker → quoted paths typed at the cursor (file drops can't carry paths: dragDropEnabled is off for HTML5 DnD).
+  const insertPaths = async () => {
+    try {
+      const { open } = await import("@tauri-apps/plugin-dialog")
+      const picked = await open({ multiple: true })
+      const paths = picked === null ? [] : Array.isArray(picked) ? picked : [picked]
+      if (paths.length) termRef.current?.paste(`${shellQuote(paths)} `)
+      termRef.current?.focus()
+    } catch (e) {
+      toast.error(errMsg(e))
+    }
+  }
   const paste = () =>
     navigator.clipboard.readText().then((text) => text && termRef.current?.paste(text)).catch((e) => toast.error(errMsg(e)))
 
@@ -606,6 +618,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
           <ContextMenuItem onSelect={paste}>
             {t("paste")}<ContextMenuShortcut>⌘V</ContextMenuShortcut>
           </ContextMenuItem>
+          <ContextMenuItem onSelect={insertPaths}>{t("insertPath")}</ContextMenuItem>
           <ContextMenuSeparator />
           <ContextMenuItem onSelect={() => store().split(id, "row")}>
             {t("splitRight")}<ContextMenuShortcut>⌘D</ContextMenuShortcut>
