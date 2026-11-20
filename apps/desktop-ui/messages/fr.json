@@ -3432,6 +3432,19 @@
     "openHome": "Ouvrir le dossier personnel",
     "nextWaitingHint": "Aller au prochain terminal qui a besoin de vous",
     "palettePanes": "Volets du terminal",
-    "startAgent": "Lancer {agent}"
+    "startAgent": "Lancer {agent}",
+    "blockExit": "Code de sortie {code}",
+    "blockOk": "Réussi",
+    "blockCopyCommand": "Copier la commande",
+    "blockCopyOutput": "Copier la sortie",
+    "blockRerun": "Relancer",
+    "rerunBusy": "Attendez la fin de la commande en cours",
+    "rerunMultiline": "Les commandes sur plusieurs lignes ne peuvent pas être relancées d'ici",
+    "rerunNoCommand": "Ce shell ne transmet pas le texte de la commande",
+    "copyLastOutput": "Copier la dernière sortie",
+    "outputCopied": "Sortie copiée",
+    "commandCopied": "Commande copiée",
+    "noOutputYet": "Aucune sortie de commande terminée pour l'instant",
+    "scFailedJump": "Commande échouée précédente / suivante"
   }
 }

@@ -3432,6 +3432,19 @@
     "openHome": "Obre la carpeta d'inici",
     "nextWaitingHint": "Ves al següent terminal que et necessita",
     "palettePanes": "Panells del terminal",
-    "startAgent": "Inicia {agent}"
+    "startAgent": "Inicia {agent}",
+    "blockExit": "Sortida {code}",
+    "blockOk": "Correcte",
+    "blockCopyCommand": "Copia l'ordre",
+    "blockCopyOutput": "Copia la sortida",
+    "blockRerun": "Torna a executar",
+    "rerunBusy": "Espera que acabi l'ordre actual",
+    "rerunMultiline": "Les ordres de diverses línies no es poden tornar a executar des d'aquí",
+    "rerunNoCommand": "Aquest intèrpret no informa del text de l'ordre",
+    "copyLastOutput": "Copia l'última sortida",
+    "outputCopied": "Sortida copiada",
+    "commandCopied": "Ordre copiada",
+    "noOutputYet": "Encara no hi ha sortida de cap ordre acabada",
+    "scFailedJump": "Ordre fallida anterior / següent"
   }
 }

@@ -3432,6 +3432,19 @@
     "openHome": "باز کردن پوشهٔ خانه",
     "nextWaitingHint": "رفتن به ترمینال بعدی که به شما نیاز دارد",
     "palettePanes": "پنل‌های ترمینال",
-    "startAgent": "اجرای {agent}"
+    "startAgent": "اجرای {agent}",
+    "blockExit": "کد خروج {code}",
+    "blockOk": "موفق",
+    "blockCopyCommand": "کپی فرمان",
+    "blockCopyOutput": "کپی خروجی",
+    "blockRerun": "اجرای دوباره",
+    "rerunBusy": "صبر کنید تا فرمان فعلی تمام شود",
+    "rerunMultiline": "فرمان‌های چندخطی را نمی‌توان از اینجا دوباره اجرا کرد",
+    "rerunNoCommand": "این پوسته متن فرمان را گزارش نمی‌کند",
+    "copyLastOutput": "کپی آخرین خروجی",
+    "outputCopied": "خروجی کپی شد",
+    "commandCopied": "فرمان کپی شد",
+    "noOutputYet": "هنوز خروجی فرمان تمام‌شده‌ای نیست",
+    "scFailedJump": "فرمان ناموفق قبلی / بعدی"
   }
 }

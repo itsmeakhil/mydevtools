@@ -3432,6 +3432,19 @@
     "openHome": "Buka folder beranda",
     "nextWaitingHint": "Lompat ke terminal berikutnya yang membutuhkan Anda",
     "palettePanes": "Panel terminal",
-    "startAgent": "Mulai {agent}"
+    "startAgent": "Mulai {agent}",
+    "blockExit": "Kode keluar {code}",
+    "blockOk": "Berhasil",
+    "blockCopyCommand": "Salin perintah",
+    "blockCopyOutput": "Salin keluaran",
+    "blockRerun": "Jalankan lagi",
+    "rerunBusy": "Tunggu hingga perintah saat ini selesai",
+    "rerunMultiline": "Perintah multi-baris tidak dapat dijalankan lagi dari sini",
+    "rerunNoCommand": "Shell ini tidak melaporkan teks perintah",
+    "copyLastOutput": "Salin keluaran terakhir",
+    "outputCopied": "Keluaran disalin",
+    "commandCopied": "Perintah disalin",
+    "noOutputYet": "Belum ada keluaran dari perintah yang selesai",
+    "scFailedJump": "Perintah gagal sebelumnya / berikutnya"
   }
 }

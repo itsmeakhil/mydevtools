@@ -3432,6 +3432,19 @@
     "openHome": "Benutzerordner öffnen",
     "nextWaitingHint": "Zum nächsten Terminal springen, das dich braucht",
     "palettePanes": "Terminalbereiche",
-    "startAgent": "{agent} starten"
+    "startAgent": "{agent} starten",
+    "blockExit": "Exit-Code {code}",
+    "blockOk": "Erfolgreich",
+    "blockCopyCommand": "Befehl kopieren",
+    "blockCopyOutput": "Ausgabe kopieren",
+    "blockRerun": "Erneut ausführen",
+    "rerunBusy": "Warte, bis der aktuelle Befehl fertig ist",
+    "rerunMultiline": "Mehrzeilige Befehle lassen sich hier nicht erneut ausführen",
+    "rerunNoCommand": "Diese Shell meldet den Befehlstext nicht",
+    "copyLastOutput": "Letzte Ausgabe kopieren",
+    "outputCopied": "Ausgabe kopiert",
+    "commandCopied": "Befehl kopiert",
+    "noOutputYet": "Noch keine Ausgabe eines abgeschlossenen Befehls",
+    "scFailedJump": "Vorheriger / nächster fehlgeschlagener Befehl"
   }
 }

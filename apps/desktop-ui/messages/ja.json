@@ -3432,6 +3432,19 @@
     "openHome": "ホームフォルダを開く",
     "nextWaitingHint": "対応が必要な次のターミナルへ移動",
     "palettePanes": "ターミナルのペイン",
-    "startAgent": "{agent} を起動"
+    "startAgent": "{agent} を起動",
+    "blockExit": "終了コード {code}",
+    "blockOk": "成功",
+    "blockCopyCommand": "コマンドをコピー",
+    "blockCopyOutput": "出力をコピー",
+    "blockRerun": "もう一度実行",
+    "rerunBusy": "現在のコマンドが終わるまでお待ちください",
+    "rerunMultiline": "複数行のコマンドはここから再実行できません",
+    "rerunNoCommand": "このシェルはコマンドのテキストを通知しません",
+    "copyLastOutput": "最後の出力をコピー",
+    "outputCopied": "出力をコピーしました",
+    "commandCopied": "コマンドをコピーしました",
+    "noOutputYet": "完了したコマンドの出力はまだありません",
+    "scFailedJump": "前 / 次の失敗したコマンド"
   }
 }

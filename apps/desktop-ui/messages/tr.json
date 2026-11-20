@@ -3432,6 +3432,19 @@
     "openHome": "Ana klasörü aç",
     "nextWaitingHint": "Seni bekleyen sonraki terminale geç",
     "palettePanes": "Terminal bölmeleri",
-    "startAgent": "{agent} başlat"
+    "startAgent": "{agent} başlat",
+    "blockExit": "Çıkış kodu {code}",
+    "blockOk": "Başarılı",
+    "blockCopyCommand": "Komutu kopyala",
+    "blockCopyOutput": "Çıktıyı kopyala",
+    "blockRerun": "Yeniden çalıştır",
+    "rerunBusy": "Geçerli komutun bitmesini bekleyin",
+    "rerunMultiline": "Çok satırlı komutlar buradan yeniden çalıştırılamaz",
+    "rerunNoCommand": "Bu kabuk komut metnini bildirmiyor",
+    "copyLastOutput": "Son çıktıyı kopyala",
+    "outputCopied": "Çıktı kopyalandı",
+    "commandCopied": "Komut kopyalandı",
+    "noOutputYet": "Henüz tamamlanmış bir komut çıktısı yok",
+    "scFailedJump": "Önceki / sonraki başarısız komut"
   }
 }

@@ -3432,6 +3432,19 @@
     "openHome": "Åpne hjemmemappe",
     "nextWaitingHint": "Gå til neste terminal som trenger deg",
     "palettePanes": "Terminalruter",
-    "startAgent": "Start {agent}"
+    "startAgent": "Start {agent}",
+    "blockExit": "Avslutningskode {code}",
+    "blockOk": "Vellykket",
+    "blockCopyCommand": "Kopier kommando",
+    "blockCopyOutput": "Kopier utdata",
+    "blockRerun": "Kjør igjen",
+    "rerunBusy": "Vent til gjeldende kommando er ferdig",
+    "rerunMultiline": "Kommandoer over flere linjer kan ikke kjøres igjen herfra",
+    "rerunNoCommand": "Dette skallet oppgir ikke kommandoteksten",
+    "copyLastOutput": "Kopier siste utdata",
+    "outputCopied": "Utdata kopiert",
+    "commandCopied": "Kommando kopiert",
+    "noOutputYet": "Ingen utdata fra en fullført kommando ennå",
+    "scFailedJump": "Forrige / neste mislykkede kommando"
   }
 }

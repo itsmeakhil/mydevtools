@@ -3432,6 +3432,19 @@
     "openHome": "홈 폴더 열기",
     "nextWaitingHint": "응답이 필요한 다음 터미널로 이동",
     "palettePanes": "터미널 창",
-    "startAgent": "{agent} 시작"
+    "startAgent": "{agent} 시작",
+    "blockExit": "종료 코드 {code}",
+    "blockOk": "성공",
+    "blockCopyCommand": "명령 복사",
+    "blockCopyOutput": "출력 복사",
+    "blockRerun": "다시 실행",
+    "rerunBusy": "현재 명령이 끝날 때까지 기다리세요",
+    "rerunMultiline": "여러 줄 명령은 여기서 다시 실행할 수 없습니다",
+    "rerunNoCommand": "이 셸은 명령 텍스트를 알려 주지 않습니다",
+    "copyLastOutput": "마지막 출력 복사",
+    "outputCopied": "출력을 복사했습니다",
+    "commandCopied": "명령을 복사했습니다",
+    "noOutputYet": "아직 완료된 명령의 출력이 없습니다",
+    "scFailedJump": "이전 / 다음 실패한 명령"
   }
 }

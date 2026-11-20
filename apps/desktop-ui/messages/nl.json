@@ -3432,6 +3432,19 @@
     "openHome": "Thuismap openen",
     "nextWaitingHint": "Ga naar de volgende terminal die je nodig heeft",
     "palettePanes": "Terminalvensters",
-    "startAgent": "{agent} starten"
+    "startAgent": "{agent} starten",
+    "blockExit": "Afsluitcode {code}",
+    "blockOk": "Gelukt",
+    "blockCopyCommand": "Opdracht kopiëren",
+    "blockCopyOutput": "Uitvoer kopiëren",
+    "blockRerun": "Opnieuw uitvoeren",
+    "rerunBusy": "Wacht tot de huidige opdracht klaar is",
+    "rerunMultiline": "Opdrachten van meerdere regels kunnen hier niet opnieuw worden uitgevoerd",
+    "rerunNoCommand": "Deze shell meldt de opdrachttekst niet",
+    "copyLastOutput": "Laatste uitvoer kopiëren",
+    "outputCopied": "Uitvoer gekopieerd",
+    "commandCopied": "Opdracht gekopieerd",
+    "noOutputYet": "Nog geen uitvoer van een voltooide opdracht",
+    "scFailedJump": "Vorige / volgende mislukte opdracht"
   }
 }

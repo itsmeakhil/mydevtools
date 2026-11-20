@@ -3432,6 +3432,19 @@
     "openHome": "فتح المجلد الرئيسي",
     "nextWaitingHint": "الانتقال إلى الطرفية التالية التي تحتاجك",
     "palettePanes": "أجزاء الطرفية",
-    "startAgent": "تشغيل {agent}"
+    "startAgent": "تشغيل {agent}",
+    "blockExit": "رمز الخروج {code}",
+    "blockOk": "نجح",
+    "blockCopyCommand": "نسخ الأمر",
+    "blockCopyOutput": "نسخ المخرجات",
+    "blockRerun": "تشغيل مرة أخرى",
+    "rerunBusy": "انتظر حتى ينتهي الأمر الحالي",
+    "rerunMultiline": "لا يمكن إعادة تشغيل الأوامر متعددة الأسطر من هنا",
+    "rerunNoCommand": "هذه الصدفة لا تُبلغ عن نص الأمر",
+    "copyLastOutput": "نسخ آخر مخرجات",
+    "outputCopied": "تم نسخ المخرجات",
+    "commandCopied": "تم نسخ الأمر",
+    "noOutputYet": "لا توجد مخرجات أمر مكتمل بعد",
+    "scFailedJump": "الأمر الفاشل السابق / التالي"
   }
 }

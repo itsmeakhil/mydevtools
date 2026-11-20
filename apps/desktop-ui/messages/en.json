@@ -3432,6 +3432,19 @@
     "openHome": "Open home folder",
     "nextWaitingHint": "Jump to the next terminal that needs you",
     "palettePanes": "Terminal panes",
-    "startAgent": "Start {agent}"
+    "startAgent": "Start {agent}",
+    "blockExit": "Exit {code}",
+    "blockOk": "Succeeded",
+    "blockCopyCommand": "Copy command",
+    "blockCopyOutput": "Copy output",
+    "blockRerun": "Run again",
+    "rerunBusy": "Wait for the current command to finish",
+    "rerunMultiline": "Multi-line commands can't be run again from here",
+    "rerunNoCommand": "This shell doesn't report the command text",
+    "copyLastOutput": "Copy last output",
+    "outputCopied": "Output copied",
+    "commandCopied": "Command copied",
+    "noOutputYet": "No finished command output yet",
+    "scFailedJump": "Previous / next failed command"
   }
 }

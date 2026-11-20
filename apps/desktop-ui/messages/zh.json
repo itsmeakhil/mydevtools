@@ -3432,6 +3432,19 @@
     "openHome": "打开主文件夹",
     "nextWaitingHint": "跳转到下一个需要你处理的终端",
     "palettePanes": "终端窗格",
-    "startAgent": "启动 {agent}"
+    "startAgent": "启动 {agent}",
+    "blockExit": "退出码 {code}",
+    "blockOk": "成功",
+    "blockCopyCommand": "复制命令",
+    "blockCopyOutput": "复制输出",
+    "blockRerun": "再次运行",
+    "rerunBusy": "请等待当前命令完成",
+    "rerunMultiline": "多行命令无法从这里再次运行",
+    "rerunNoCommand": "此 shell 不提供命令文本",
+    "copyLastOutput": "复制最后的输出",
+    "outputCopied": "已复制输出",
+    "commandCopied": "已复制命令",
+    "noOutputYet": "还没有已完成命令的输出",
+    "scFailedJump": "上一个 / 下一个失败的命令"
   }
 }

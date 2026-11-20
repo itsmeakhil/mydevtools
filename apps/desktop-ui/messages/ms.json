@@ -3432,6 +3432,19 @@
     "openHome": "Buka folder rumah",
     "nextWaitingHint": "Lompat ke terminal seterusnya yang memerlukan anda",
     "palettePanes": "Anak tetingkap terminal",
-    "startAgent": "Mulakan {agent}"
+    "startAgent": "Mulakan {agent}",
+    "blockExit": "Kod keluar {code}",
+    "blockOk": "Berjaya",
+    "blockCopyCommand": "Salin arahan",
+    "blockCopyOutput": "Salin output",
+    "blockRerun": "Jalankan semula",
+    "rerunBusy": "Tunggu sehingga arahan semasa selesai",
+    "rerunMultiline": "Arahan berbilang baris tidak boleh dijalankan semula dari sini",
+    "rerunNoCommand": "Shell ini tidak melaporkan teks arahan",
+    "copyLastOutput": "Salin output terakhir",
+    "outputCopied": "Output disalin",
+    "commandCopied": "Arahan disalin",
+    "noOutputYet": "Belum ada output daripada arahan yang selesai",
+    "scFailedJump": "Arahan gagal sebelum / seterusnya"
   }
 }

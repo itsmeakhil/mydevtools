@@ -3432,6 +3432,19 @@
     "openHome": "Open tuisgids",
     "nextWaitingHint": "Spring na die volgende terminaal wat jou nodig het",
     "palettePanes": "Terminaalpanele",
-    "startAgent": "Begin {agent}"
+    "startAgent": "Begin {agent}",
+    "blockExit": "Uitgang {code}",
+    "blockOk": "Geslaag",
+    "blockCopyCommand": "Kopieer opdrag",
+    "blockCopyOutput": "Kopieer uitvoer",
+    "blockRerun": "Voer weer uit",
+    "rerunBusy": "Wag tot die huidige opdrag klaar is",
+    "rerunMultiline": "Opdragte oor meer as een reël kan nie van hier af weer uitgevoer word nie",
+    "rerunNoCommand": "Hierdie dop rapporteer nie die opdragteks nie",
+    "copyLastOutput": "Kopieer laaste uitvoer",
+    "outputCopied": "Uitvoer gekopieer",
+    "commandCopied": "Opdrag gekopieer",
+    "noOutputYet": "Nog geen voltooide opdraguitvoer nie",
+    "scFailedJump": "Vorige / volgende mislukte opdrag"
   }
 }

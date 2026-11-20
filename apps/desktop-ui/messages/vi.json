@@ -3432,6 +3432,19 @@
     "openHome": "Mở thư mục chính",
     "nextWaitingHint": "Chuyển đến terminal tiếp theo đang cần bạn",
     "palettePanes": "Ô terminal",
-    "startAgent": "Khởi động {agent}"
+    "startAgent": "Khởi động {agent}",
+    "blockExit": "Mã thoát {code}",
+    "blockOk": "Thành công",
+    "blockCopyCommand": "Sao chép lệnh",
+    "blockCopyOutput": "Sao chép đầu ra",
+    "blockRerun": "Chạy lại",
+    "rerunBusy": "Hãy đợi lệnh hiện tại hoàn tất",
+    "rerunMultiline": "Không thể chạy lại lệnh nhiều dòng từ đây",
+    "rerunNoCommand": "Shell này không báo văn bản của lệnh",
+    "copyLastOutput": "Sao chép đầu ra gần nhất",
+    "outputCopied": "Đã sao chép đầu ra",
+    "commandCopied": "Đã sao chép lệnh",
+    "noOutputYet": "Chưa có đầu ra của lệnh nào đã hoàn tất",
+    "scFailedJump": "Lệnh lỗi trước / tiếp theo"
   }
 }
