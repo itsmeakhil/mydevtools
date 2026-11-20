@@ -11,6 +11,9 @@ use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 
 const MAX_REQUEST: u64 = 64 * 1024;
+/// After answering, how long and how much of the client's leftover input is read and discarded.
+const DRAIN_TIMEOUT: Duration = Duration::from_secs(2);
+const DRAIN_MAX: usize = 1024 * 1024;
 const OP_TIMEOUT: Duration = Duration::from_secs(10);
 const MAX_WAIT_S: u64 = 600;
 const MAX_CHILDREN: usize = 4;
@@ -279,6 +282,22 @@ pub async fn serve(path: PathBuf, st: Arc<TerminalState>) -> Result<(), String> 
                 handle(&st, &String::from_utf8_lossy(&buf)).await
             };
             let _ = tokio::time::timeout(OP_TIMEOUT, wr.write_all(format!("{reply}\n").as_bytes())).await;
+            // Send EOF, then read (and discard) whatever the client still sends until it's done:
+            // closing with unread input makes Linux reset the connection and the client loses
+            // the reply (e.g. the rest of an oversized request). Bounded in time and size.
+            let _ = wr.shutdown().await;
+            let mut rest = rd.into_inner().into_inner();
+            let _ = tokio::time::timeout(DRAIN_TIMEOUT, async {
+                let mut sink = [0u8; 8192];
+                let mut total = 0;
+                while let Ok(n) = rest.read(&mut sink).await {
+                    total += n;
+                    if n == 0 || total > DRAIN_MAX {
+                        break;
+                    }
+                }
+            })
+            .await;
         });
     }
 }
@@ -925,6 +944,35 @@ mod tests {
         let big = ask(vec![b'x'; 70 * 1024]).await;
         assert_eq!(big, format!("{}\n", json!({"error": "request too large"})));
         st.kill_all();
+        let _ = std::fs::remove_dir_all(&dir);
+    }
+
+    /// After an oversized request is refused, the server keeps reading (and discarding) until the
+    /// client is done, so the client can always read the reply. Closing with unread input makes
+    /// Linux reset the connection, which loses the reply (CI failure on ubuntu).
+    #[tokio::test]
+    async fn oversized_request_is_drained_not_reset() {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+        let st = state();
+        let dir = std::env::temp_dir().join(format!("mdt-ctl-drain-{}", std::process::id()));
+        let path = dir.join("ctl.sock");
+        tokio::spawn(serve(path.clone(), st.clone()));
+        let mut s = loop {
+            if let Ok(s) = tokio::net::UnixStream::connect(&path).await {
+                break s;
+            }
+            tokio::time::sleep(Duration::from_millis(20)).await;
+        };
+        s.write_all(&vec![b'x'; 70 * 1024]).await.unwrap();
+        let mut reply = vec![0u8; 64];
+        let n = s.read(&mut reply).await.unwrap();
+        assert!(String::from_utf8_lossy(&reply[..n]).contains("request too large"));
+        // The server is still reading: more input is accepted, not refused with a broken pipe.
+        tokio::time::sleep(Duration::from_millis(100)).await;
+        s.write_all(&vec![b'y'; 16 * 1024]).await.expect("server drains instead of closing early");
+        s.shutdown().await.unwrap();
+        let mut rest = Vec::new();
+        s.read_to_end(&mut rest).await.expect("clean EOF, no reset");
         let _ = std::fs::remove_dir_all(&dir);
     }
 
