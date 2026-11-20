@@ -26,6 +26,11 @@ import { AgentTag, StatusDot } from "./terminal-sidebar"
 import { useCloseGuard } from "./close-guard"
 
 const FONT = 'ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace'
+/** The user's font first, the system monospace stack as fallback. Quotes are stripped so the name can't break the list. */
+const fontStack = (family: string) => {
+  const f = family.replace(/["'\\]/g, "").trim()
+  return f ? `"${f}", ${FONT}` : FONT
+}
 // Spawn is idempotent and reports the fallback on every call — warn once per session.
 const warnedFallback = new Set<string>()
 // Attaches for one id reach Rust in mount order, so a fast remount's attach can't be
@@ -97,6 +102,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
   const onShortcut = React.useRef<(a: PaneShortcut) => void>(() => {})
   const wantFocus = React.useRef(false)
   const fontSize = useTerminalStore((s) => s.fontSize)
+  const prefs = useTerminalStore((s) => s.prefs)
   const agent = useTerminalStore((s) => s.agents[id])
   const optionAsMeta = useTerminalStore((s) => s.optionAsMeta)
   const zoomed = useTerminalStore((s) => s.zoomedId === id && s.focusedTerminalId === id)
@@ -135,15 +141,18 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
       if (disposed) return
       const openLink = (_e: MouseEvent, uri: string) =>
         void openExternal(uri).catch((err) => toast.error(errMsg(err)))
+      const prefs = useTerminalStore.getState().prefs
       const term = new Terminal({
         // OSC 8 hyperlinks (ls --hyperlink, gh, etc.); xterm's default shows a confirm() + window.open.
         linkHandler: { activate: openLink, allowNonHttpProtocols: false },
-        fontFamily: FONT,
+        fontFamily: fontStack(prefs.fontFamily),
         fontSize: useTerminalStore.getState().fontSize,
+        lineHeight: prefs.lineHeight,
+        cursorStyle: prefs.cursorStyle,
+        cursorBlink: prefs.cursorBlink,
+        scrollback: prefs.scrollback,
         macOptionIsMeta: useTerminalStore.getState().optionAsMeta,
         allowProposedApi: true, // unicode11 version switch
-        cursorBlink: true,
-        scrollback: 10000,
         // Keeps the default ANSI palette legible on the light theme's white pane.
         minimumContrastRatio: 4.5,
         theme: themeFor(host),
@@ -249,6 +258,10 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         term.onData(write),
         term.onResize(({ cols, rows }) => void terminalResize(id, cols, rows).catch(() => {})),
         term.onTitleChange((title) => useTerminalStore.getState().setTitle(id, title)),
+        term.onSelectionChange(() => {
+          if (useTerminalStore.getState().prefs.copyOnSelect && term.hasSelection())
+            navigator.clipboard.writeText(term.getSelection()).catch(() => {}) // best effort, like other terminals
+        }),
       ]
 
       let frame = 0
@@ -332,6 +345,20 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     term.options.fontSize = fontSize
     relayout.current()
   }, [fontSize])
+
+  // Settings changed: apply to the live terminal; font metrics need a refit.
+  React.useEffect(() => {
+    const term = termRef.current
+    if (!term) return
+    const o = term.options
+    const font = fontStack(prefs.fontFamily)
+    const refit = o.fontFamily !== font || o.lineHeight !== prefs.lineHeight
+    Object.assign(o, {
+      fontFamily: font, lineHeight: prefs.lineHeight, cursorStyle: prefs.cursorStyle,
+      cursorBlink: prefs.cursorBlink, scrollback: prefs.scrollback,
+    })
+    if (refit) relayout.current()
+  }, [prefs])
 
   const find = (dir: "next" | "prev", incremental = false) => {
     const s = searchRef.current

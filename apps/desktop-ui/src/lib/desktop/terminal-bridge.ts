@@ -48,6 +48,9 @@ export const terminalClearWaiting = (id: string) => invoke<void>("terminal_clear
 export const terminalSetViewing = (id: string | null) => invoke<void>("terminal_set_viewing", { id })
 export const terminalSetStrings = (waitingBody: string, doneBody: string, failedBody: string, quitTitle: string) =>
   invoke<void>("terminal_set_strings", { waitingBody, doneBody, failedBody, quitTitle })
+/** Which notifications Rust shows (the Dock badge always counts), and whether they play a sound. */
+export const terminalSetNotify = (blocked: boolean, done: boolean, sound: boolean) =>
+  invoke<void>("terminal_set_notify", { blocked, done, sound })
 export const appQuitConfirmed = () => invoke<void>("app_quit_confirmed")
 export const appQuitCancelled = () => invoke<void>("app_quit_cancelled")
 

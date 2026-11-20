@@ -3,7 +3,7 @@ import { toast } from "sonner"
 import { leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import { needsAttention, type TermStatus } from "@/lib/terminal/status"
 import { loadTerminalState, saveTerminalState, terminalKill, type CommandEnd, type Worktree } from "@/lib/desktop/terminal-bridge"
-import { clampFontSize, FONT_SIZE } from "@/lib/terminal/util"
+import { clampFontSize, DEFAULT_PREFS, FONT_SIZE, normalizePrefs, type TerminalPrefs } from "@/lib/terminal/util"
 
 export interface TerminalTab {
   id: string; name: string; layout: SplitNode; terminalNames: Record<string, string>
@@ -29,6 +29,8 @@ export interface TerminalPersisted {
   fontSize?: number
   /** ⌥ sends Meta (readline word jumps) instead of typing ⌥ characters. Off by default: non-US layouts type @ € etc. with ⌥. */
   optionAsMeta?: boolean
+  /** Older saves lack it; normalized on load. */
+  prefs?: Partial<TerminalPrefs>
 }
 
 export interface Attention {
@@ -48,6 +50,8 @@ interface TerminalState extends TerminalPersisted {
   titles: Record<string, string>
   fontSize: number
   optionAsMeta: boolean
+  prefs: TerminalPrefs
+  setPrefs: (patch: Partial<TerminalPrefs>) => void
   /** Live current directory per pane from OSC 7; not persisted. */
   cwds: Record<string, string>
   /** Pane maximized over its tab (⌘⇧↵); only honoured while it is also the focused pane. Not persisted. */
@@ -139,9 +143,9 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       let ok = false
       do {
         rerun = false
-        const { projects, activeProjectId, fontSize, optionAsMeta } = get()
+        const { projects, activeProjectId, fontSize, optionAsMeta, prefs } = get()
         try {
-          await saveTerminalState({ projects, activeProjectId, fontSize, optionAsMeta })
+          await saveTerminalState({ projects, activeProjectId, fontSize, optionAsMeta, prefs })
           ok = true
         } catch (e) {
           ok = false
@@ -193,6 +197,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
           activeProjectId: s.activeProjectId ?? d.activeProjectId ?? null,
           fontSize: s.dirty || d.fontSize === undefined ? s.fontSize : clampFontSize(d.fontSize),
           optionAsMeta: s.dirty || d.optionAsMeta === undefined ? s.optionAsMeta : d.optionAsMeta === true,
+          prefs: s.dirty || d.prefs === undefined ? s.prefs : normalizePrefs(d.prefs),
           loaded: true,
         }
       })
@@ -207,7 +212,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
 
   return {
     projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, runOnStart: {},
-    optionAsMeta: false, cwds: {}, zoomedId: null,
+    optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
     // Idempotent: a no-op once loaded; concurrent callers share one request.
@@ -424,6 +429,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     setFontSize: (size) => {
       const fontSize = clampFontSize(size)
       if (fontSize !== get().fontSize) mutate(() => ({ fontSize }))
+    },
+
+    setPrefs: (patch) => {
+      const prefs = normalizePrefs({ ...get().prefs, ...patch })
+      if (Object.entries(prefs).some(([k, v]) => get().prefs[k as keyof TerminalPrefs] !== v)) mutate(() => ({ prefs }))
     },
 
     setOptionAsMeta: (on) => {

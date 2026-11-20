@@ -1,4 +1,4 @@
-import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago, duration } from "@/lib/terminal/util"
+import { decodeOutput, encodeInput, isForeignEditable, keyedChain, matchShortcut, nextWaiting, singleFlight, writeQueue, matchPaneShortcut, promptTarget, clampFontSize, FONT_SIZE, tabIndexFor, neighborPane, cwdFromOsc7, tildify, ago, duration, normalizePrefs, DEFAULT_PREFS } from "@/lib/terminal/util"
 
 describe("terminal util", () => {
   it("round-trips UTF-8 (emoji, CJK, control bytes) through base64", () => {
@@ -214,6 +214,14 @@ describe("terminal util", () => {
     expect(clampFontSize(NaN)).toBe(FONT_SIZE.default)
   })
 
+  it("normalizePrefs fills defaults and drops out-of-range values", () => {
+    expect(normalizePrefs(undefined)).toEqual(DEFAULT_PREFS)
+    expect(normalizePrefs({ lineHeight: 1.2, cursorStyle: "bar", scrollback: 50_000, notifySound: true })).toEqual({
+      ...DEFAULT_PREFS, lineHeight: 1.2, cursorStyle: "bar", scrollback: 50_000, notifySound: true,
+    })
+    expect(normalizePrefs({ lineHeight: 9, cursorStyle: "beam", scrollback: -1, copyOnSelect: "yes", fontFamily: 3 })).toEqual(DEFAULT_PREFS)
+    expect(normalizePrefs({ fontFamily: "x".repeat(500) }).fontFamily).toHaveLength(200)
+  })
   it("duration shows one rounded-down unit", () => {
     expect(duration(45_500, "en")).toBe("45s")
     expect(duration(185_000, "en")).toBe("3m")
