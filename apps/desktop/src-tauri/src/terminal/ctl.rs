@@ -331,9 +331,9 @@ asking for input (blocked), exiting, being closed, or the timeout.
 status is one of done, idle, blocked, exit, closed, timeout. exit_code is
 present when known. Errors print {\"error\": \"...\"} to stderr.
 
-Exit codes of wait: 0 done, idle, or exited with code 0; 1 blocked or exited
-with a non-zero code (read the tail, then send input or fix it); 2 closed or
-timed out; 3 error (bad arguments, no helper access, not your pane).
+Exit codes of wait: 0 done, idle, or exited with code 0; 1 blocked (read the
+tail, then send input); 2 closed or timed out; 3 error (bad arguments, no
+helper access, not your pane); 4 finished with a non-zero exit code (see tail).
 Other commands exit 0 on success and 3 on error.
 
 You can only see and control helpers you started. Always close helpers when done.
@@ -403,7 +403,8 @@ fn exit_code(op: &str, v: &Value) -> i32 {
     }
     match (v["status"].as_str(), v["exit_code"].as_i64()) {
         (Some("done" | "idle"), _) | (Some("exit"), None | Some(0)) => 0,
-        (Some("blocked" | "exit"), _) => 1,
+        (Some("blocked"), _) => 1,
+        (Some("exit"), _) => 4,
         (Some("closed" | "timeout"), _) => 2,
         _ => 3,
     }
@@ -870,7 +871,7 @@ mod tests {
         assert_eq!(w(json!({"status": "done"})), 0);
         assert_eq!(w(json!({"status": "idle"})), 0);
         assert_eq!(w(json!({"status": "exit", "exit_code": 0})), 0);
-        assert_eq!(w(json!({"status": "exit", "exit_code": 2})), 1);
+        assert_eq!(w(json!({"status": "exit", "exit_code": 2})), 4);
         assert_eq!(w(json!({"status": "blocked"})), 1);
         assert_eq!(w(json!({"status": "closed"})), 2);
         assert_eq!(w(json!({"status": "timeout"})), 2);
