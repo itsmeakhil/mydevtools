@@ -12,7 +12,17 @@ use tauri::{AppHandle, Emitter, State};
 pub enum TermStatus {
     Idle,
     Running,
+    /// Blocked on the user (permission prompt, question, error).
     Waiting,
+    /// Finished a turn; ready for review.
+    Done,
+}
+
+impl TermStatus {
+    /// Waiting or Done: counts toward the badge, notifies, cleared by looking at the pane.
+    pub fn needs_you(self) -> bool {
+        matches!(self, Self::Waiting | Self::Done)
+    }
 }
 
 #[derive(Deserialize, Debug)]
@@ -32,7 +42,8 @@ pub fn parse_line(line: &str, token: &str) -> Option<HookMsg> {
 pub fn status_for(event: &str) -> Option<TermStatus> {
     match event {
         "claude-UserPromptSubmit" | "claude-PreToolUse" => Some(TermStatus::Running),
-        "claude-Notification" | "claude-Stop" => Some(TermStatus::Waiting),
+        "claude-Notification" => Some(TermStatus::Waiting),
+        "claude-Stop" => Some(TermStatus::Done),
         "claude-SessionEnd" => Some(TermStatus::Idle),
         _ => None,
     }
@@ -42,6 +53,7 @@ pub fn status_for(event: &str) -> Option<TermStatus> {
 pub struct Transition {
     pub id: String,
     pub status: TermStatus,
+    /// Entered Waiting or Done (from anything else, or switched between the two).
     pub entered_waiting: bool,
 }
 
@@ -58,12 +70,12 @@ impl StatusMap {
         (prev != Some(s)).then(|| Transition {
             id: id.to_string(),
             status: s,
-            entered_waiting: s == TermStatus::Waiting,
+            entered_waiting: s.needs_you(),
         })
     }
 
     pub fn clear_waiting(&mut self, id: &str) -> Option<Transition> {
-        (self.status.get(id) == Some(&TermStatus::Waiting)).then(|| self.apply(id, TermStatus::Idle))?
+        self.status.get(id).is_some_and(|s| s.needs_you()).then(|| self.apply(id, TermStatus::Idle))?
     }
 
     /// Forget a terminal that was killed or exited; `Some` (as Idle) if it had a status.
@@ -78,7 +90,7 @@ impl StatusMap {
     pub fn waiting_count(&self) -> usize {
         self.status
             .values()
-            .filter(|s| **s == TermStatus::Waiting)
+            .filter(|s| s.needs_you())
             .count()
     }
 
@@ -259,7 +271,7 @@ mod tests {
             ("claude-UserPromptSubmit", Running),
             ("claude-PreToolUse", Running),
             ("claude-Notification", Waiting),
-            ("claude-Stop", Waiting),
+            ("claude-Stop", Done),
             ("claude-SessionEnd", Idle),
         ] {
             assert_eq!(status_for(e), Some(s), "{e}");
@@ -280,6 +292,11 @@ mod tests {
         assert_eq!(t.status, TermStatus::Idle);
         assert_eq!(m.waiting_count(), 0);
         assert!(m.clear_waiting("a").is_none());
+        // Done counts and clears the same way; switching blocked → done notifies again.
+        assert!(m.apply("a", TermStatus::Done).unwrap().entered_waiting);
+        assert_eq!(m.waiting_count(), 1);
+        assert!(m.apply("a", TermStatus::Waiting).unwrap().entered_waiting);
+        assert_eq!(m.clear_waiting("a").unwrap().status, TermStatus::Idle);
     }
 
     #[test]

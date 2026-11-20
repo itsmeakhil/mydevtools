@@ -124,8 +124,8 @@ fn cwd_from_url(url: &str) -> Option<String> {
 }
 
 /// OSC 7501 (herdr's Program Status Protocol): `key=value` fields joined by `:`.
-/// Only root records (no `id`) count. working → Running; blocked/done/error →
-/// Waiting (the program stopped and the user should look); idle/clear → Idle.
+/// Only root records (no `id`) count. working → Running; blocked/error → Waiting
+/// (needs the user); done → Done (finished, ready for review); idle/clear → Idle.
 fn status_7501(fields: &str) -> Option<Osc> {
     let mut state = None;
     let mut msg = None;
@@ -149,11 +149,12 @@ fn status_7501(fields: &str) -> Option<Osc> {
     }
     let s = match state? {
         "working" => TermStatus::Running,
-        "blocked" | "done" | "error" => TermStatus::Waiting,
+        "blocked" | "error" => TermStatus::Waiting,
+        "done" => TermStatus::Done,
         "idle" | "clear" => TermStatus::Idle,
         _ => return None,
     };
-    Some(Osc::Status(s, msg.filter(|_| s == TermStatus::Waiting)))
+    Some(Osc::Status(s, msg.filter(|_| s.needs_you())))
 }
 
 #[cfg(test)]
@@ -205,7 +206,7 @@ mod tests {
             vec![Osc::Status(TermStatus::Waiting, Some("needs approval".into()))]
         );
         assert_eq!(scan(&[b"\x1b]7501;state=working\x07"]), vec![Osc::Status(TermStatus::Running, None)]);
-        assert_eq!(scan(&[b"\x1b]7501;state=done\x07"]), vec![Osc::Status(TermStatus::Waiting, None)]);
+        assert_eq!(scan(&[b"\x1b]7501;state=done\x07"]), vec![Osc::Status(TermStatus::Done, None)]);
         assert_eq!(scan(&[b"\x1b]7501;state=clear\x07"]), vec![Osc::Status(TermStatus::Idle, None)]);
         assert_eq!(scan(&[b"\x1b]7501;state=working:id=sub\x07"]), vec![]);
         assert_eq!(scan(&[b"\x1b]7501;state=bogus\x07"]), vec![]);

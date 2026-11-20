@@ -14,7 +14,8 @@ import { cn } from "@/lib/utils"
 
 export function StatusDot({ status }: { status: TermStatus | undefined }) {
   const t = useTranslations("Terminal")
-  const label = status === "waiting" ? t("statusWaiting") : status === "running" ? t("statusRunning") : t("statusIdle")
+  const label =
+    status === "waiting" ? t("statusWaiting") : status === "done" ? t("statusDone") : status === "running" ? t("statusRunning") : t("statusIdle")
   return (
     <span
       role="img"
@@ -22,7 +23,7 @@ export function StatusDot({ status }: { status: TermStatus | undefined }) {
       title={label}
       className={cn(
         "size-2 shrink-0 rounded-full",
-        status === "waiting" ? "bg-warning" : status === "running" ? "bg-success" : "border border-muted-foreground/60",
+        status === "waiting" ? "bg-warning" : status === "done" ? "bg-primary" : status === "running" ? "bg-success" : "border border-muted-foreground/60",
       )}
     />
   )
@@ -113,7 +114,7 @@ function NeedsYouBox() {
             title={a?.message}
             className="flex w-full items-start gap-2 rounded-lg px-1.5 py-1 text-left text-[13px] text-foreground/90 transition-colors hover:bg-foreground/[0.05]"
           >
-            <span className="flex h-5 items-center"><StatusDot status="waiting" /></span>
+            <span className="flex h-5 items-center"><StatusDot status={it.status} /></span>
             <span className="min-w-0 flex-1">
               <span className="flex items-baseline gap-2">
                 <span className="min-w-0 truncate">

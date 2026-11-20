@@ -347,7 +347,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
     if (useTerminalStore.getState().focusedTerminalId !== id) useTerminalStore.getState().focusTerminal(id)
   }
 
-  const waiting = status === "waiting"
+  const statusLabel = status === "waiting" ? t("statusWaiting") : status === "done" ? t("statusDone") : null
   const store = useTerminalStore.getState
   const close = () => guardClose([id], () => store().closeTerminal(id))
   // Blur ends a rename (saving it); Enter blurs, Escape blurs without saving.
@@ -374,7 +374,8 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
         "flex h-full min-h-0 flex-col bg-card",
         // Maximized: cover the whole tab (the nearest positioned ancestor; split panels aren't positioned).
         zoomed && "absolute inset-0 z-20",
-        waiting && "outline outline-2 -outline-offset-2 outline-warning",
+        status === "waiting" && "outline outline-2 -outline-offset-2 outline-warning",
+        status === "done" && "outline outline-1 -outline-offset-1 outline-primary/60",
       )}
     >
       <div className="group/pane flex h-6 shrink-0 items-center gap-1.5 px-2.5 text-[12px] text-muted-foreground">
@@ -400,7 +401,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
             onDoubleClick={() => setRenaming(label)}
           >
             {label}
-            {waiting && ` · ${t("statusWaiting")}`}
+            {statusLabel && ` · ${statusLabel}`}
           </span>
         )}
         <span className="ml-auto flex shrink-0 items-center gap-0.5">

@@ -249,8 +249,8 @@ impl Pane {
         Some(match state {
             State::Working => TermStatus::Running,
             State::Blocked => TermStatus::Waiting,
-            // Finished a turn: the user should look, like claude's Stop hook.
-            _ if was == Some(State::Working) => TermStatus::Waiting,
+            // Finished a turn: ready for review, like claude's Stop hook.
+            _ if was == Some(State::Working) => TermStatus::Done,
             _ => TermStatus::Idle,
         })
     }
@@ -499,7 +499,7 @@ line_regex = ["^exact line$"]
         assert_eq!(p.step(), Some(TermStatus::Running));
         p.feed(b"\x1b[2J\x1b[H> Type your message");
         assert_eq!(p.step(), None, "idle held one tick");
-        assert_eq!(p.step(), Some(TermStatus::Waiting), "turn finished: user should look");
+        assert_eq!(p.step(), Some(TermStatus::Done), "turn finished: ready for review");
         assert_eq!(p.step(), None, "no change, no event");
         p.feed(b"\x1b[2J\x1b[H\xe2\x94\x82 Allow execution? Yes");
         assert_eq!(p.step(), Some(TermStatus::Waiting));

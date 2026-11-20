@@ -1,6 +1,6 @@
 //! "Claude needs you" (Dock badge + notification), hide-on-close and confirm-quit.
 
-use super::hooks::{self, Transition};
+use super::hooks::{self, TermStatus, Transition};
 use super::pty::TerminalState;
 use serde_json::json;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -17,6 +17,7 @@ pub fn should_notify(window_focused: bool, viewing: Option<&str>, id: &str) -> b
 pub struct Ui {
     viewing: Mutex<Option<String>>,
     waiting_body: Mutex<String>,
+    done_body: Mutex<String>,
     /// A quit was handed to the UI and not yet answered.
     quit_pending: AtomicBool,
 }
@@ -27,6 +28,7 @@ impl Default for Ui {
             viewing: Mutex::default(),
             // Replaced by the localized string from `terminal_set_strings`.
             waiting_body: Mutex::new("Claude is waiting for you".into()),
+            done_body: Mutex::new("Finished, ready for review".into()),
             quit_pending: AtomicBool::new(false),
         }
     }
@@ -40,7 +42,7 @@ fn show(app: &AppHandle) {
     }
 }
 
-/// Update the Dock badge after any transition; notify on entering Waiting.
+/// Update the Dock badge after any transition; notify on entering Waiting or Done.
 pub fn on_transition(t: &Transition, message: Option<&str>, app: &AppHandle) {
     let term = app.state::<Arc<TerminalState>>();
     let win = app.get_webview_window("main");
@@ -57,7 +59,8 @@ pub fn on_transition(t: &Transition, message: Option<&str>, app: &AppHandle) {
     if !should_notify(focused, ui.viewing.lock().unwrap().as_deref(), &t.id) {
         return;
     }
-    let body = message.map_or_else(|| ui.waiting_body.lock().unwrap().clone(), str::to_owned);
+    let fallback = if t.status == TermStatus::Done { &ui.done_body } else { &ui.waiting_body };
+    let body = message.map_or_else(|| fallback.lock().unwrap().clone(), str::to_owned);
     let mut b = app.notification().builder().body(body).extra("terminalId", &t.id);
     // No title → the plugin falls back to productName.
     if let Ok(s) = term.get(&t.id) {
@@ -289,9 +292,10 @@ pub fn terminal_set_viewing(app: AppHandle, ui: State<'_, Ui>, id: Option<String
 
 /// `quit_title` is accepted for the UI contract; the quit dialog itself is rendered by the UI.
 #[tauri::command]
-pub fn terminal_set_strings(ui: State<'_, Ui>, waiting_body: String, quit_title: String) {
+pub fn terminal_set_strings(ui: State<'_, Ui>, waiting_body: String, done_body: String, quit_title: String) {
     let _ = quit_title;
     *ui.waiting_body.lock().unwrap() = waiting_body;
+    *ui.done_body.lock().unwrap() = done_body;
 }
 
 #[tauri::command]
