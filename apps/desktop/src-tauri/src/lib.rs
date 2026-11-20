@@ -278,6 +278,8 @@ pub fn run() {
             terminal::hooks::terminal_clear_waiting,
             terminal::git::terminal_git_info,
             terminal::pty::terminal_screen_tail,
+            terminal::files::terminal_resolve_paths,
+            terminal::files::terminal_open_path,
             terminal::paste::terminal_save_image,
             terminal::project_file::terminal_project_file_read,
             terminal::project_file::terminal_project_file_write,

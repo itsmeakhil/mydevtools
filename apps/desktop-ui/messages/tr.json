@@ -3445,6 +3445,9 @@
     "outputCopied": "Çıktı kopyalandı",
     "commandCopied": "Komut kopyalandı",
     "noOutputYet": "Henüz tamamlanmış bir komut çıktısı yok",
-    "scFailedJump": "Önceki / sonraki başarısız komut"
+    "scFailedJump": "Önceki / sonraki başarısız komut",
+    "openFilesIn": "Dosyaları şurada aç",
+    "openFilesInHint": "Çıktıdaki bir dosya başvurusuna (src/app.ts:12) tıklayarak dosyayı o satırda açın.",
+    "editorSystem": "Sistem varsayılanı"
   }
 }

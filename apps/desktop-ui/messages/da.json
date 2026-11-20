@@ -3445,6 +3445,9 @@
     "outputCopied": "Output kopieret",
     "commandCopied": "Kommando kopieret",
     "noOutputYet": "Intet output fra en færdig kommando endnu",
-    "scFailedJump": "Forrige / næste mislykkede kommando"
+    "scFailedJump": "Forrige / næste mislykkede kommando",
+    "openFilesIn": "Åbn filer i",
+    "openFilesInHint": "Klik på en filreference i outputtet (src/app.ts:12) for at åbne den på den linje.",
+    "editorSystem": "Systemstandard"
   }
 }

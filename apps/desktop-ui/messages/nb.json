@@ -3445,6 +3445,9 @@
     "outputCopied": "Utdata kopiert",
     "commandCopied": "Kommando kopiert",
     "noOutputYet": "Ingen utdata fra en fullført kommando ennå",
-    "scFailedJump": "Forrige / neste mislykkede kommando"
+    "scFailedJump": "Forrige / neste mislykkede kommando",
+    "openFilesIn": "Åpne filer i",
+    "openFilesInHint": "Klikk på en filreferanse i utdataene (src/app.ts:12) for å åpne den på den linjen.",
+    "editorSystem": "Systemstandard"
   }
 }

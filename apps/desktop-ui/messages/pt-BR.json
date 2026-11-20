@@ -3445,6 +3445,9 @@
     "outputCopied": "Saída copiada",
     "commandCopied": "Comando copiado",
     "noOutputYet": "Ainda não há saída de comando concluído",
-    "scFailedJump": "Comando com falha anterior / seguinte"
+    "scFailedJump": "Comando com falha anterior / seguinte",
+    "openFilesIn": "Abrir arquivos no",
+    "openFilesInHint": "Clique em uma referência de arquivo na saída (src/app.ts:12) para abri-lo nessa linha.",
+    "editorSystem": "Padrão do sistema"
   }
 }

@@ -3445,6 +3445,9 @@
     "outputCopied": "Output copied",
     "commandCopied": "Command copied",
     "noOutputYet": "No finished command output yet",
-    "scFailedJump": "Previous / next failed command"
+    "scFailedJump": "Previous / next failed command",
+    "openFilesIn": "Open files in",
+    "openFilesInHint": "Click a file reference in the output (src/app.ts:12) to open it at that line.",
+    "editorSystem": "System default"
   }
 }

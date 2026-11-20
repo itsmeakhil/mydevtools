@@ -248,11 +248,16 @@ export interface TerminalPrefs {
   notifyBlocked: boolean
   notifyDone: boolean
   notifySound: boolean
+  /** The editor that file references in output open in. */
+  editor: Editor
 }
+
+export const EDITORS = ["vscode", "cursor", "zed", "system"] as const
+export type Editor = (typeof EDITORS)[number]
 
 export const DEFAULT_PREFS: TerminalPrefs = {
   fontFamily: "", lineHeight: 1, cursorStyle: "block", cursorBlink: true, scrollback: 10_000, copyOnSelect: false, screenReader: false,
-  notifyBlocked: true, notifyDone: true, notifySound: false,
+  notifyBlocked: true, notifyDone: true, notifySound: false, editor: "vscode",
 }
 export const LINE_HEIGHTS = [1, 1.1, 1.2, 1.3, 1.4] as const
 export const SCROLLBACK_SIZES = [1_000, 5_000, 10_000, 50_000] as const
@@ -273,6 +278,7 @@ export function normalizePrefs(raw: unknown): TerminalPrefs {
     notifyBlocked: bool("notifyBlocked"),
     notifyDone: bool("notifyDone"),
     notifySound: bool("notifySound"),
+    editor: pick(r.editor, EDITORS, DEFAULT_PREFS.editor),
   }
 }
 

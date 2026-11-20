@@ -3445,6 +3445,9 @@
     "outputCopied": "خروجی کپی شد",
     "commandCopied": "فرمان کپی شد",
     "noOutputYet": "هنوز خروجی فرمان تمام‌شده‌ای نیست",
-    "scFailedJump": "فرمان ناموفق قبلی / بعدی"
+    "scFailedJump": "فرمان ناموفق قبلی / بعدی",
+    "openFilesIn": "باز کردن فایل‌ها در",
+    "openFilesInHint": "روی ارجاع فایل در خروجی (src/app.ts:12) کلیک کنید تا در همان خط باز شود.",
+    "editorSystem": "پیش‌فرض سیستم"
   }
 }

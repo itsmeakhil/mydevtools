@@ -3445,6 +3445,9 @@
     "outputCopied": "تم نسخ المخرجات",
     "commandCopied": "تم نسخ الأمر",
     "noOutputYet": "لا توجد مخرجات أمر مكتمل بعد",
-    "scFailedJump": "الأمر الفاشل السابق / التالي"
+    "scFailedJump": "الأمر الفاشل السابق / التالي",
+    "openFilesIn": "فتح الملفات في",
+    "openFilesInHint": "انقر على مرجع ملف في المخرجات (src/app.ts:12) لفتحه عند ذلك السطر.",
+    "editorSystem": "الافتراضي للنظام"
   }
 }

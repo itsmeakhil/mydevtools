@@ -3445,6 +3445,9 @@
     "outputCopied": "Skopiowano wynik",
     "commandCopied": "Skopiowano polecenie",
     "noOutputYet": "Brak jeszcze wyniku zakończonego polecenia",
-    "scFailedJump": "Poprzednie / następne nieudane polecenie"
+    "scFailedJump": "Poprzednie / następne nieudane polecenie",
+    "openFilesIn": "Otwieraj pliki w",
+    "openFilesInHint": "Kliknij odwołanie do pliku w wyniku (src/app.ts:12), aby otworzyć go w tym wierszu.",
+    "editorSystem": "Domyślna aplikacja systemu"
   }
 }
