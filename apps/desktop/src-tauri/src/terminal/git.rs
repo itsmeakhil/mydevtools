@@ -70,6 +70,80 @@ pub async fn terminal_git_info(path: String, with_changed: bool) -> GitInfo {
     .unwrap_or_default()
 }
 
+/// Run git in `dir` without prompts and with the repo's fsmonitor off; stdout, or stderr as the error.
+fn git(dir: &Path, args: &[&str]) -> Result<String, String> {
+    let out = std::process::Command::new("git")
+        .arg("-C")
+        .arg(dir)
+        .args(["-c", "core.fsmonitor=false"])
+        .args(args)
+        .env("GIT_TERMINAL_PROMPT", "0")
+        .stdin(std::process::Stdio::null())
+        .output()
+        .map_err(|e| e.to_string())?;
+    if out.status.success() {
+        Ok(String::from_utf8_lossy(&out.stdout).trim().to_string())
+    } else {
+        Err(String::from_utf8_lossy(&out.stderr).trim().to_string())
+    }
+}
+
+/// Branch/folder name for a task: lowercase letters, digits and single dashes, at most 48 chars.
+pub fn slug(name: &str) -> String {
+    let mut s = String::new();
+    for c in name.trim().to_lowercase().chars() {
+        if c.is_ascii_alphanumeric() {
+            s.push(c);
+        } else if !s.ends_with('-') && !s.is_empty() {
+            s.push('-');
+        }
+    }
+    let s: String = s.chars().take(48).collect();
+    match s.trim_end_matches('-') {
+        "" => "task".into(),
+        t => t.into(),
+    }
+}
+
+#[derive(Serialize, Debug)]
+pub struct Worktree {
+    pub path: String,
+    pub branch: String,
+}
+
+/// New branch `slug(name)` checked out at `<parent>/<repo>.worktrees/<slug>`: beside the
+/// repo, so it never shows up as untracked files in the repo itself.
+pub fn worktree_add(dir: &Path, name: &str) -> Result<Worktree, String> {
+    let root = PathBuf::from(git(dir, &["rev-parse", "--show-toplevel"])?);
+    let repo = root.file_name().and_then(|n| n.to_str()).ok_or("repository folder has no name")?;
+    let branch = slug(name);
+    let path = root.with_file_name(format!("{repo}.worktrees")).join(&branch);
+    let p = path.to_str().ok_or("worktree path is not valid UTF-8")?;
+    git(&root, &["worktree", "add", "-b", &branch, p])?;
+    Ok(Worktree { path: p.to_string(), branch })
+}
+
+/// `git worktree remove` (no --force: uncommitted or untracked changes keep it). The branch stays.
+pub fn worktree_remove(path: &Path) -> Result<(), String> {
+    let common = PathBuf::from(git(path, &["rev-parse", "--path-format=absolute", "--git-common-dir"])?);
+    let main = common.parent().ok_or("no main worktree")?;
+    git(main, &["worktree", "remove", path.to_str().ok_or("path is not valid UTF-8")?]).map(|_| ())
+}
+
+#[tauri::command]
+pub async fn terminal_worktree_add(path: String, name: String) -> Result<Worktree, String> {
+    tauri::async_runtime::spawn_blocking(move || worktree_add(Path::new(&path), &name))
+        .await
+        .map_err(|e| e.to_string())?
+}
+
+#[tauri::command]
+pub async fn terminal_worktree_remove(path: String) -> Result<(), String> {
+    tauri::async_runtime::spawn_blocking(move || worktree_remove(Path::new(&path)))
+        .await
+        .map_err(|e| e.to_string())?
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -161,5 +235,38 @@ mod tests {
         assert!(set.success());
         assert!(changed_count(&d).is_some());
         assert!(!marker.exists(), "git status ran the repo's core.fsmonitor");
+    }
+
+    #[test]
+    fn slug_makes_safe_branch_names() {
+        assert_eq!(slug("Fix login bug!"), "fix-login-bug");
+        assert_eq!(slug("  --weird__name--  "), "weird-name");
+        assert_eq!(slug("日本語"), "task");
+        assert_eq!(slug(&"a".repeat(60)).len(), 48);
+    }
+
+    #[test]
+    fn worktree_add_then_remove() {
+        let repo = tmp("wtrepo").join("app");
+        fs::create_dir_all(&repo).unwrap();
+        let run = |args: &[&str]| {
+            let ok = std::process::Command::new("git").arg("-C").arg(&repo).args(args).output().unwrap().status.success();
+            assert!(ok, "git {args:?}");
+        };
+        run(&["init", "-q", "-b", "main"]);
+        run(&["-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "--allow-empty", "-m", "init"]);
+        let wt = worktree_add(&repo.join("."), "Fix login").unwrap();
+        assert_eq!(wt.branch, "fix-login");
+        let p = PathBuf::from(&wt.path);
+        assert!(p.ends_with("app.worktrees/fix-login") && p.is_dir(), "{}", wt.path);
+        assert_eq!(read_branch(&p).as_deref(), Some("fix-login"));
+        assert!(worktree_add(&repo, "fix login").unwrap_err().contains("fix-login"), "same branch twice fails");
+        // Untracked work blocks removal; a clean worktree goes.
+        fs::write(p.join("wip.txt"), "x").unwrap();
+        assert!(worktree_remove(&p).is_err());
+        fs::remove_file(p.join("wip.txt")).unwrap();
+        worktree_remove(&p).unwrap();
+        assert!(!p.exists());
+        let _ = fs::remove_dir_all(repo.parent().unwrap());
     }
 }

@@ -17,7 +17,7 @@ import { needsAttention, needsYou } from "@/lib/terminal/status"
 import {
   isForeignEditable, matchShortcut, neighborPane, nextWaiting, singleFlight, tabIndexFor, tildify, type PaneRect,
 } from "@/lib/terminal/util"
-import { onClosePane, terminalGitInfo, terminalSetViewing } from "@/lib/desktop/terminal-bridge"
+import { onClosePane, terminalGitInfo, terminalSetViewing, terminalWorktreeRemove, type Worktree } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
 import { LaunchMenu } from "./launch-menu"
 import { SplitView } from "./split-view"
@@ -98,7 +98,9 @@ function useGitInfo(visible: boolean, activeProjectId: string | null) {
   return git
 }
 
-function TabBar({ project }: { project: TerminalProject }) {
+function TabBar({ project, isRepo, onWorktreeClosed }: {
+  project: TerminalProject; isRepo: boolean; onWorktreeClosed: (wt: Worktree) => void
+}) {
   const t = useTranslations("Terminal")
   const statuses = useTerminalStore((s) => s.statuses)
   const focusedId = useTerminalStore((s) => s.focusedTerminalId)
@@ -136,6 +138,9 @@ function TabBar({ project }: { project: TerminalProject }) {
               )}
             >
               {attention && <StatusDot status={attention} />}
+              {tab.worktree && (
+                <IconGitBranch className="h-3.5 w-3.5 shrink-0 text-muted-foreground" aria-label={tab.worktree.branch} />
+              )}
               {editing === tab.id ? (
                 <Input
                   autoFocus
@@ -189,7 +194,12 @@ function TabBar({ project }: { project: TerminalProject }) {
               )}
               <button
                 type="button"
-                onClick={() => guardClose(leafIds(tab.layout), () => S().closeTab(project.id, tab.id))}
+                onClick={() =>
+                  guardClose(leafIds(tab.layout), () => {
+                    S().closeTab(project.id, tab.id)
+                    if (tab.worktree) onWorktreeClosed(tab.worktree)
+                  })
+                }
                 aria-label={t("closeTab")}
                 title={t("closeTab")}
                 className={cn(
@@ -212,7 +222,7 @@ function TabBar({ project }: { project: TerminalProject }) {
         >
           <IconPlus className="h-4 w-4" />
         </Button>
-        <LaunchMenu project={project} />
+        <LaunchMenu project={project} isRepo={isRepo} />
       </div>
       <div className="h-5 w-px bg-border" />
       <Button
@@ -431,6 +441,20 @@ export function TerminalLayout() {
   )
 
   const info = project ? git[project.id] : undefined
+  // Closing a worktree tab: offer to delete its checkout (the branch always stays).
+  const offerRemoveWorktree = React.useCallback(
+    async (wt: Worktree) => {
+      const ok = await confirm({
+        title: t("removeWorktreeTitle", { branch: wt.branch }),
+        description: t("removeWorktreeBody"),
+        confirmLabel: t("removeWorktree"),
+        cancelLabel: t("keepWorktree"),
+        destructive: true,
+      })
+      if (ok) terminalWorktreeRemove(wt.path).catch((e) => toast.error(errMsg(e)))
+    },
+    [confirm, t],
+  )
   // Status bar follows the focused pane's directory (OSC 7); the project folder until the shell reports one.
   const shownPath = (focusedId && activeLeaves.includes(focusedId) && cwds[focusedId]) || project?.path || ""
 
@@ -448,7 +472,7 @@ export function TerminalLayout() {
           <Empty icon={IconTerminal2} message={t("noProjects")} action={t("addProject")} onAction={addProject} secondary={openHome} />
         ) : (
           <>
-            {project.tabs.length > 0 && <TabBar project={project} />}
+            {project.tabs.length > 0 && <TabBar project={project} isRepo={!!info?.branch} onWorktreeClosed={offerRemoveWorktree} />}
             <div className="relative min-h-0 flex-1">
               {project.tabs.length === 0 && (
                 <div className="absolute inset-0 flex">
@@ -470,7 +494,7 @@ export function TerminalLayout() {
                         <SplitView
                           node={tab.layout}
                           path={[]}
-                          ctx={{ tab, cwd: p.path, projectName: p.name, visible: shown && toolActive }}
+                          ctx={{ tab, cwd: tab.worktree?.path ?? p.path, projectName: p.name, visible: shown && toolActive }}
                         />
                       </div>
                     )

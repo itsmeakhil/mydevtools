@@ -183,14 +183,24 @@ describe("terminal store", () => {
   it("newTab queues a command for the new pane, read once", () => {
     S().addProject("/x/a")
     const p = S().projects[0]
-    S().newTab(p.id, "Codex", "  codex  ")
+    S().newTab(p.id, "Codex", { run: "  codex  " })
     const tab = S().projects[0].tabs.at(-1)!
     const id = leafIds(tab.layout)[0]
     expect(tab.name).toBe("Codex")
     expect(S().takeRunOnStart(id)).toBe("codex")
     expect(S().takeRunOnStart(id)).toBeUndefined()
-    S().newTab(p.id, undefined, "   ")
+    S().newTab(p.id, undefined, { run: "   " })
     expect(S().runOnStart).toEqual({})
+  })
+
+  it("a worktree tab keeps its worktree and doesn't inherit the focused pane's folder", () => {
+    S().addProject("/x/a")
+    const p = S().projects[0]
+    S().focusTerminal(leafIds(p.tabs[0].layout)[0])
+    S().newTab(p.id, "fix login", { worktree: { path: "/x/a.worktrees/fix-login", branch: "fix-login" } })
+    const tab = S().projects[0].tabs.at(-1)!
+    expect(tab.worktree).toEqual({ path: "/x/a.worktrees/fix-login", branch: "fix-login" })
+    expect(S().cwdFrom[leafIds(tab.layout)[0]]).toBeUndefined()
   })
 
   it("saved commands: add trims and names blank ones after the command, remove by index", () => {
