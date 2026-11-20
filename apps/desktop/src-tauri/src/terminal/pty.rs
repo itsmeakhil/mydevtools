@@ -123,17 +123,21 @@ pub struct Session {
     last_cmd: Mutex<Option<Option<i32>>>,
     /// The pane started work (a shell command, an agent turn) since the last control-socket input.
     worked: std::sync::atomic::AtomicBool,
-    /// `on_child_closed` already reported this helper (close and exit both end it).
+    /// `on_child_closed` already reported this helper closed (an exit after that is not reported).
     closed_reported: std::sync::atomic::AtomicBool,
 }
 
 pub type JsonFn = Arc<dyn Fn(Value) + Send + Sync>;
 
-/// Tell `f` once that helper pane `id` is gone; top-level panes are not reported.
-fn report_child_closed(f: Option<&JsonFn>, id: &str, s: &Session) {
+/// Tell `f` that helper pane `id` ended; top-level panes are not reported. `closed`: removed
+/// (reported once; the UI drops its pane); else its process exited (the pane and its session
+/// stay, so the user sees the output and `wait` answers with the exit, until it's closed).
+fn report_child_closed(f: Option<&JsonFn>, id: &str, s: &Session, closed: bool) {
+    use std::sync::atomic::Ordering::SeqCst;
     if let (Some(f), Some(parent)) = (f, &s.parent) {
-        if !s.closed_reported.swap(true, std::sync::atomic::Ordering::SeqCst) {
-            f(json!({"id": id, "parent": parent}));
+        let first = if closed { !s.closed_reported.swap(true, SeqCst) } else { !s.closed_reported.load(SeqCst) };
+        if first {
+            f(json!({"id": id, "parent": parent, "reason": if closed { "closed" } else { "exited" }}));
         }
     }
 }
@@ -270,7 +274,7 @@ pub struct TerminalState {
     pub on_agent: std::sync::OnceLock<AgentFn>,
     /// Set once in `setup`; told `{parent, id, name, cwd}` when a pane starts a helper (ctl `run`).
     pub on_spawn_child: std::sync::OnceLock<JsonFn>,
-    /// Set once in `setup`; told `{id, parent}` once when a helper pane is closed or exits.
+    /// Set once in `setup`; told `{id, parent, reason}` when a helper exits (`exited`) and once when it's closed (`closed`).
     pub on_child_closed: std::sync::OnceLock<JsonFn>,
     /// Projects whose agents may start helper panes (UI pref, `terminal_set_project_prefs`).
     pub spawn_projects: Mutex<std::collections::HashSet<String>>,
@@ -441,7 +445,7 @@ impl TerminalState {
             if let Some(f) = on_exit {
                 f(&id);
             }
-            report_child_closed(on_child_closed.as_ref(), &id, &s);
+            report_child_closed(on_child_closed.as_ref(), &id, &s, false);
             let _ = bus.send((id, None));
         });
 
@@ -472,7 +476,7 @@ impl TerminalState {
     pub fn close(&self, id: &str) {
         if let Some((_, s)) = self.sessions.remove(id) {
             s.kill();
-            report_child_closed(self.on_child_closed.get(), id, &s);
+            report_child_closed(self.on_child_closed.get(), id, &s, true);
         }
         let _ = self.bus.send((id.to_string(), None));
     }

@@ -206,7 +206,16 @@ fn outcome(st: &TerminalState, s: &Session, id: &str, until: &str, status: Optio
         ("done", TermStatus::Idle) => worked && last.is_some(),
         _ => false,
     };
-    hit.then(|| (name(status), last.flatten()))
+    if !hit {
+        return None;
+    }
+    Some(match (status, last) {
+        // A long command that failed also ends as Waiting (osc.rs): finished, not blocked.
+        (TermStatus::Waiting, Some(Some(c))) if c != 0 && worked => ("done", Some(c)),
+        // Blocked on input: an older command's exit code would only mislead.
+        (TermStatus::Waiting, _) => ("blocked", None),
+        _ => (name(status), last.flatten()),
+    })
 }
 
 async fn wait(st: &Arc<TerminalState>, s: &Arc<Session>, id: &str, until: &str, timeout: Duration) -> Value {
@@ -410,9 +419,9 @@ fn exit_code(op: &str, v: &Value) -> i32 {
         return 0;
     }
     match (v["status"].as_str(), v["exit_code"].as_i64()) {
-        (Some("done" | "idle"), _) | (Some("exit"), None | Some(0)) => 0,
+        (Some("done" | "idle" | "exit" | "blocked"), Some(c)) if c != 0 => 4,
+        (Some("done" | "idle" | "exit"), _) => 0,
         (Some("blocked"), _) => 1,
-        (Some("exit"), _) => 4,
         (Some("closed" | "timeout"), _) => 2,
         _ => 3,
     }
@@ -671,15 +680,27 @@ mod tests {
         pane(&st, "a", Some("p"));
         let h = run(&st, "a", "sleep 30").await;
         assert_eq!(call(&st, "a", "close", json!({"id": h})).await, json!({"ok": true}));
-        assert_eq!(*events.lock().unwrap(), vec![json!({"id": h, "parent": "a"})]);
-        let h2 = run(&st, "a", "exit 0").await;
+        assert_eq!(*events.lock().unwrap(), vec![json!({"id": h, "parent": "a", "reason": "closed"})]);
+        let h2 = run(&st, "a", "exit 4").await;
         let end = Instant::now() + Duration::from_secs(3);
         while events.lock().unwrap().len() < 2 && Instant::now() < end {
             tokio::time::sleep(Duration::from_millis(20)).await;
         }
         tokio::time::sleep(Duration::from_millis(200)).await; // the closed helper's reader thread is done too
+        assert_eq!(events.lock().unwrap()[1], json!({"id": h2, "parent": "a", "reason": "exited"}));
+        // An exited helper stays (the UI keeps its output): wait still answers with its exit.
+        let r = call(&st, "a", "wait", json!({"id": h2, "until": "done", "timeout_s": 1})).await;
+        assert_eq!((r["status"].as_str(), r["exit_code"].as_i64()), (Some("exit"), Some(4)), "{r}");
+        assert_eq!(call(&st, "a", "close", json!({"id": h2})).await, json!({"ok": true}));
         st.close("a"); // not a helper: no event
-        assert_eq!(*events.lock().unwrap(), vec![json!({"id": h, "parent": "a"}), json!({"id": h2, "parent": "a"})]);
+        assert_eq!(
+            *events.lock().unwrap(),
+            vec![
+                json!({"id": h, "parent": "a", "reason": "closed"}),
+                json!({"id": h2, "parent": "a", "reason": "exited"}),
+                json!({"id": h2, "parent": "a", "reason": "closed"}),
+            ]
+        );
         st.kill_all();
     }
 
@@ -789,6 +810,7 @@ mod tests {
         let h = run(&st, "a", r"printf 'M%sK\n\033]133;C\007\033]133;D;3\007\033]133;A\007' AR").await;
         let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 5})).await;
         assert_eq!((r["status"].as_str(), r["exit_code"].as_i64()), (Some("idle"), Some(3)), "{r}");
+        assert_eq!(exit_code("wait", &r), 4, "a failed command is not success: {r}");
         assert!(r["tail"].as_str().unwrap().contains("MARK"), "{r}");
         assert!(r["duration_ms"].is_u64());
         // After new input the old Idle no longer counts as done.
@@ -802,6 +824,47 @@ mod tests {
         assert_eq!(call(&st, "a", "send", json!({"id": h, "text": "exit 5\r"})).await, json!({"ok": true}));
         let r = call(&st, "a", "wait", json!({"id": h, "until": "exit", "timeout_s": 5})).await;
         assert_eq!((r["status"].as_str(), r["exit_code"].as_i64()), (Some("exit"), Some(5)), "{r}");
+        st.kill_all();
+    }
+
+    async fn until(cond: impl Fn() -> bool) {
+        let end = Instant::now() + Duration::from_secs(5);
+        while !cond() && Instant::now() < end {
+            tokio::time::sleep(Duration::from_millis(20)).await;
+        }
+        assert!(cond(), "condition not reached");
+    }
+
+    /// A long command that fails ends as Waiting (osc.rs `Commands::end`): that is a failed
+    /// command, not a helper asking for input.
+    #[tokio::test]
+    async fn wait_reports_failed_long_command_as_done() {
+        let st = state();
+        with_status(&st);
+        opt_in(&st, "p");
+        pane(&st, "a", Some("p"));
+        let h = run(&st, "a", r"printf '\033]133;C\007\033]133;D;3\007'; sleep 30").await;
+        let s = st.get(&h).unwrap();
+        until(|| s.last_command() == Some(Some(3))).await;
+        // What the reader thread reports when that command took >= LONG_COMMAND.
+        apply_status_if_live(&st, &h, Source::Shell, TermStatus::Waiting, None);
+        let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 5})).await;
+        assert_eq!((r["status"].as_str(), r["exit_code"].as_i64()), (Some("done"), Some(3)), "{r}");
+        assert_eq!(exit_code("wait", &r), 4);
+        st.kill_all();
+    }
+
+    /// A program that says it is blocked (OSC 7501) is still reported blocked.
+    #[tokio::test]
+    async fn wait_reports_blocked_program_as_blocked() {
+        let st = state();
+        with_status(&st);
+        opt_in(&st, "p");
+        pane(&st, "a", Some("p"));
+        let h = run(&st, "a", r"printf '\033]133;C\007\033]7501;state=blocked\007'; sleep 30").await;
+        let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 5})).await;
+        assert_eq!(r["status"], "blocked", "{r}");
+        assert_eq!(exit_code("wait", &r), 1);
         st.kill_all();
     }
 
@@ -890,6 +953,10 @@ mod tests {
         assert_eq!(w(json!({"status": "exit", "exit_code": 0})), 0);
         assert_eq!(w(json!({"status": "exit", "exit_code": 2})), 4);
         assert_eq!(w(json!({"status": "blocked"})), 1);
+        // Any reported non-zero exit code means the helper's command failed.
+        assert_eq!(w(json!({"status": "idle", "exit_code": 3})), 4);
+        assert_eq!(w(json!({"status": "done", "exit_code": 1})), 4);
+        assert_eq!(w(json!({"status": "idle", "exit_code": 0})), 0);
         assert_eq!(w(json!({"status": "closed"})), 2);
         assert_eq!(w(json!({"status": "timeout"})), 2);
         assert_eq!(w(json!({"error": "bad token"})), 3);
