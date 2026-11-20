@@ -1,6 +1,6 @@
 [package]
 name = "mydevtools-desktop"
-version = "0.2.0"
+version = "0.2.1"
 description = "MyDevTools desktop app"
 edition = "2021"
 
