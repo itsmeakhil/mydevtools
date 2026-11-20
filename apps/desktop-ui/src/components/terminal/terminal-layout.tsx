@@ -4,7 +4,8 @@ import * as React from "react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 import {
-  IconFolderPlus, IconGitBranch, IconHome, IconLayoutColumns, IconLayoutRows, IconPlus, IconTerminal2, IconX,
+  IconArrowsMaximize, IconBell, IconFolderPlus, IconGitBranch, IconHome, IconLayoutColumns, IconLayoutRows, IconPlus,
+  IconTerminal2, IconX,
 } from "@tabler/icons-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,6 +20,8 @@ import {
 } from "@/lib/terminal/util"
 import { onClosePane, terminalGitInfo, terminalSetViewing, terminalWorktreeRemove, type Worktree } from "@/lib/desktop/terminal-bridge"
 import { cn } from "@/lib/utils"
+import { usePaletteActions, type PaletteActionGroup } from "@/lib/palette-actions"
+import { agentName, LAUNCH_AGENTS } from "@/lib/terminal/agents"
 import { LaunchMenu } from "./launch-menu"
 import { SplitView } from "./split-view"
 import { StatusDot, TerminalSidebar, useTabReorder, type GitInfo } from "./terminal-sidebar"
@@ -425,6 +428,48 @@ export function TerminalLayout() {
     () => (home ? { label: t("openHome"), icon: IconHome, onClick: () => S().addProject(home, t("untitledTab", { n: 1 })) } : undefined),
     [home, t],
   )
+
+  // ⌘K actions while the Terminal is the open tool.
+  const paletteGroup = React.useMemo((): PaletteActionGroup | null => {
+    if (!toolActive) return null
+    const project = () => {
+      const st = S()
+      return st.projects.find((x) => x.id === st.activeProjectId) ?? st.projects[0]
+    }
+    const visibleFocus = () => {
+      const f = S().focusedTerminalId
+      return f && visibleLeaves().includes(f) ? f : null
+    }
+    const withProject = (fn: (p: TerminalProject) => void) => () => {
+      const p = project()
+      if (p) fn(p)
+    }
+    return {
+      heading: t("title"),
+      actions: [
+        { id: "terminal-new-tab", title: t("newTab"), hint: "⌘T", Icon: IconPlus,
+          run: withProject((p) => S().newTab(p.id, t("untitledTab", { n: nextTabNumber(p) }))) },
+        ...LAUNCH_AGENTS.map((a) => ({
+          id: `terminal-start-${a}`, title: t("startAgent", { agent: agentName(a) }), Icon: IconTerminal2,
+          run: withProject((p) => S().newTab(p.id, agentName(a), { run: a })),
+        })),
+        { id: "terminal-split-right", title: t("splitRight"), hint: "⌘D", Icon: IconLayoutColumns,
+          run: () => { const f = visibleFocus(); if (f) S().split(f, "row") } },
+        { id: "terminal-split-down", title: t("splitDown"), hint: "⌘⇧D", Icon: IconLayoutRows,
+          run: () => { const f = visibleFocus(); if (f) S().split(f, "col") } },
+        { id: "terminal-maximize", title: t("maximizePane"), hint: "⌘⇧↵", Icon: IconArrowsMaximize,
+          run: () => { const f = visibleFocus(); if (f) S().toggleZoom(f) } },
+        { id: "terminal-next-waiting", title: t("nextWaitingHint"), hint: "⌘J", Icon: IconBell,
+          run: () => {
+            const st = S()
+            const id = nextWaiting(needsYou(st.projects, st.statuses).map((i) => i.terminalId), st.focusedTerminalId)
+            if (id) st.focusTerminal(id)
+          } },
+        { id: "terminal-add-project", title: t("addProject"), Icon: IconFolderPlus, run: () => void addProject() },
+      ],
+    }
+  }, [toolActive, t, addProject])
+  usePaletteActions(paletteGroup)
 
   const removeProject = React.useCallback(
     async (p: TerminalProject) => {

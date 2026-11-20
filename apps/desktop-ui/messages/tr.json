@@ -3359,6 +3359,8 @@
     "maximizePane": "Bölmeyi büyüt",
     "restorePane": "Bölmeyi geri yükle",
     "openHome": "Ana klasörü aç",
-    "nextWaitingHint": "Seni bekleyen sonraki terminale geç"
+    "nextWaitingHint": "Seni bekleyen sonraki terminale geç",
+    "palettePanes": "Terminal bölmeleri",
+    "startAgent": "{agent} başlat"
   }
 }

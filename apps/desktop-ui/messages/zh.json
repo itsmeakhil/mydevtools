@@ -3359,6 +3359,8 @@
     "maximizePane": "最大化窗格",
     "restorePane": "还原窗格",
     "openHome": "打开主文件夹",
-    "nextWaitingHint": "跳转到下一个需要你处理的终端"
+    "nextWaitingHint": "跳转到下一个需要你处理的终端",
+    "palettePanes": "终端窗格",
+    "startAgent": "启动 {agent}"
   }
 }

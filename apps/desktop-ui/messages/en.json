@@ -3359,6 +3359,8 @@
     "maximizePane": "Maximize pane",
     "restorePane": "Restore pane",
     "openHome": "Open home folder",
-    "nextWaitingHint": "Jump to the next terminal that needs you"
+    "nextWaitingHint": "Jump to the next terminal that needs you",
+    "palettePanes": "Terminal panes",
+    "startAgent": "Start {agent}"
   }
 }

@@ -3359,6 +3359,8 @@
     "maximizePane": "بزرگ کردن پنل",
     "restorePane": "بازگرداندن پنل",
     "openHome": "باز کردن پوشهٔ خانه",
-    "nextWaitingHint": "رفتن به ترمینال بعدی که به شما نیاز دارد"
+    "nextWaitingHint": "رفتن به ترمینال بعدی که به شما نیاز دارد",
+    "palettePanes": "پنل‌های ترمینال",
+    "startAgent": "اجرای {agent}"
   }
 }

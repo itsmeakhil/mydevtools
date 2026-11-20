@@ -3359,6 +3359,8 @@
     "maximizePane": "Paneel maximaliseren",
     "restorePane": "Paneel herstellen",
     "openHome": "Thuismap openen",
-    "nextWaitingHint": "Ga naar de volgende terminal die je nodig heeft"
+    "nextWaitingHint": "Ga naar de volgende terminal die je nodig heeft",
+    "palettePanes": "Terminalvensters",
+    "startAgent": "{agent} starten"
   }
 }

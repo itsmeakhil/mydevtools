@@ -3359,6 +3359,8 @@
     "maximizePane": "تكبير اللوحة",
     "restorePane": "استعادة اللوحة",
     "openHome": "فتح المجلد الرئيسي",
-    "nextWaitingHint": "الانتقال إلى الطرفية التالية التي تحتاجك"
+    "nextWaitingHint": "الانتقال إلى الطرفية التالية التي تحتاجك",
+    "palettePanes": "أجزاء الطرفية",
+    "startAgent": "تشغيل {agent}"
   }
 }

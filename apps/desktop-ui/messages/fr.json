@@ -3359,6 +3359,8 @@
     "maximizePane": "Agrandir le panneau",
     "restorePane": "Restaurer le panneau",
     "openHome": "Ouvrir le dossier personnel",
-    "nextWaitingHint": "Aller au prochain terminal qui a besoin de vous"
+    "nextWaitingHint": "Aller au prochain terminal qui a besoin de vous",
+    "palettePanes": "Volets du terminal",
+    "startAgent": "Lancer {agent}"
   }
 }

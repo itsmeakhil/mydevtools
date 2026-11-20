@@ -3359,6 +3359,8 @@
     "maximizePane": "Maksimér rude",
     "restorePane": "Gendan rude",
     "openHome": "Åbn hjemmemappe",
-    "nextWaitingHint": "Gå til næste terminal, der har brug for dig"
+    "nextWaitingHint": "Gå til næste terminal, der har brug for dig",
+    "palettePanes": "Terminalruder",
+    "startAgent": "Start {agent}"
   }
 }

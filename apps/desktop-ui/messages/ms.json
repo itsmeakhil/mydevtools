@@ -3359,6 +3359,8 @@
     "maximizePane": "Maksimumkan panel",
     "restorePane": "Pulihkan panel",
     "openHome": "Buka folder rumah",
-    "nextWaitingHint": "Lompat ke terminal seterusnya yang memerlukan anda"
+    "nextWaitingHint": "Lompat ke terminal seterusnya yang memerlukan anda",
+    "palettePanes": "Anak tetingkap terminal",
+    "startAgent": "Mulakan {agent}"
   }
 }

@@ -3359,6 +3359,8 @@
     "maximizePane": "Maksymalizuj panel",
     "restorePane": "Przywróć panel",
     "openHome": "Otwórz folder domowy",
-    "nextWaitingHint": "Przejdź do następnego terminala, który cię potrzebuje"
+    "nextWaitingHint": "Przejdź do następnego terminala, który cię potrzebuje",
+    "palettePanes": "Panele terminala",
+    "startAgent": "Uruchom {agent}"
   }
 }

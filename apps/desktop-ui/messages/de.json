@@ -3359,6 +3359,8 @@
     "maximizePane": "Bereich maximieren",
     "restorePane": "Bereich wiederherstellen",
     "openHome": "Benutzerordner öffnen",
-    "nextWaitingHint": "Zum nächsten Terminal springen, das dich braucht"
+    "nextWaitingHint": "Zum nächsten Terminal springen, das dich braucht",
+    "palettePanes": "Terminalbereiche",
+    "startAgent": "{agent} starten"
   }
 }

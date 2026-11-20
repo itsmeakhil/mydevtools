@@ -3359,6 +3359,8 @@
     "maximizePane": "Maksimer rute",
     "restorePane": "Gjenopprett rute",
     "openHome": "Åpne hjemmemappe",
-    "nextWaitingHint": "Gå til neste terminal som trenger deg"
+    "nextWaitingHint": "Gå til neste terminal som trenger deg",
+    "palettePanes": "Terminalruter",
+    "startAgent": "Start {agent}"
   }
 }

@@ -3359,6 +3359,8 @@
     "maximizePane": "Ingrandisci riquadro",
     "restorePane": "Ripristina riquadro",
     "openHome": "Apri cartella Inizio",
-    "nextWaitingHint": "Vai al prossimo terminale che ha bisogno di te"
+    "nextWaitingHint": "Vai al prossimo terminale che ha bisogno di te",
+    "palettePanes": "Riquadri del terminale",
+    "startAgent": "Avvia {agent}"
   }
 }
