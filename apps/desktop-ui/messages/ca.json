@@ -3373,6 +3373,8 @@
     "cursorBlink": "Cursor intermitent",
     "scrollbackLines": "Línies d'historial",
     "copyOnSelect": "Copia en seleccionar",
+    "screenReader": "Compatibilitat amb lectors de pantalla",
+    "screenReaderHint": "Permet que VoiceOver llegeixi la sortida; fa servir més memòria",
     "settingsNotifications": "Notificacions",
     "notifyBlocked": "Quan un agent necessita una resposta",
     "notifyDone": "Quan una tasca acaba",

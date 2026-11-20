@@ -3373,6 +3373,8 @@
     "cursorBlink": "Blikající kurzor",
     "scrollbackLines": "Řádky historie",
     "copyOnSelect": "Kopírovat při výběru",
+    "screenReader": "Podpora čtečky obrazovky",
+    "screenReaderHint": "VoiceOver může číst výstup; spotřebuje víc paměti",
     "settingsNotifications": "Oznámení",
     "notifyBlocked": "Když agent potřebuje vstup",
     "notifyDone": "Když úloha skončí",

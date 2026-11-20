@@ -3373,6 +3373,8 @@
     "cursorBlink": "Kursor berkedip",
     "scrollbackLines": "Baris riwayat",
     "copyOnSelect": "Salin saat dipilih",
+    "screenReader": "Dukungan pembaca layar",
+    "screenReaderHint": "VoiceOver dapat membaca output; memakai lebih banyak memori",
     "settingsNotifications": "Notifikasi",
     "notifyBlocked": "Saat agen butuh input",
     "notifyDone": "Saat tugas selesai",

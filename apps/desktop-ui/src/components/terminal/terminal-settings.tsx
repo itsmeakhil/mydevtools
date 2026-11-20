@@ -101,6 +101,7 @@ export function TerminalSettings({ open, onOpenChange }: { open: boolean; onOpen
             </Select>
           </Row>
           <Toggle id="term-copy" k="copyOnSelect" label={t("copyOnSelect")} />
+          <Toggle id="term-sr" k="screenReader" label={t("screenReader")} hint={t("screenReaderHint")} />
           <Row label={t("optionAsMeta")} htmlFor="term-meta">
             <Switch id="term-meta" checked={optionAsMeta} onCheckedChange={(v) => st().setOptionAsMeta(v)} />
           </Row>

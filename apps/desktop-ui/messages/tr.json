@@ -3373,6 +3373,8 @@
     "cursorBlink": "Yanıp sönen imleç",
     "scrollbackLines": "Geri kaydırma satırı",
     "copyOnSelect": "Seçince kopyala",
+    "screenReader": "Ekran okuyucu desteği",
+    "screenReaderHint": "VoiceOver çıktıyı okuyabilir; daha fazla bellek kullanır",
     "settingsNotifications": "Bildirimler",
     "notifyBlocked": "Bir ajan girdi beklediğinde",
     "notifyDone": "Bir görev bittiğinde",

@@ -3373,6 +3373,8 @@
     "cursorBlink": "Δρομέας που αναβοσβήνει",
     "scrollbackLines": "Γραμμές ιστορικού",
     "copyOnSelect": "Αντιγραφή με την επιλογή",
+    "screenReader": "Υποστήριξη αναγνώστη οθόνης",
+    "screenReaderHint": "Το VoiceOver διαβάζει την έξοδο· χρησιμοποιεί περισσότερη μνήμη",
     "settingsNotifications": "Ειδοποιήσεις",
     "notifyBlocked": "Όταν ένας πράκτορας χρειάζεται είσοδο",
     "notifyDone": "Όταν ολοκληρώνεται μια εργασία",

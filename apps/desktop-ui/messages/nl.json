@@ -3373,6 +3373,8 @@
     "cursorBlink": "Knipperende cursor",
     "scrollbackLines": "Scrollback-regels",
     "copyOnSelect": "Kopiëren bij selecteren",
+    "screenReader": "Ondersteuning voor schermlezers",
+    "screenReaderHint": "VoiceOver kan de uitvoer lezen; gebruikt meer geheugen",
     "settingsNotifications": "Meldingen",
     "notifyBlocked": "Als een agent invoer nodig heeft",
     "notifyDone": "Als een taak klaar is",

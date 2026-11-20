@@ -3373,6 +3373,8 @@
     "cursorBlink": "Blinkender Cursor",
     "scrollbackLines": "Scrollback-Zeilen",
     "copyOnSelect": "Beim Auswählen kopieren",
+    "screenReader": "Screenreader-Unterstützung",
+    "screenReaderHint": "VoiceOver kann die Ausgabe lesen; braucht mehr Speicher",
     "settingsNotifications": "Mitteilungen",
     "notifyBlocked": "Wenn ein Agent eine Eingabe braucht",
     "notifyDone": "Wenn eine Aufgabe fertig ist",

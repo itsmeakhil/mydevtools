@@ -3373,6 +3373,8 @@
     "cursorBlink": "مؤشر وامض",
     "scrollbackLines": "سطور التمرير",
     "copyOnSelect": "النسخ عند التحديد",
+    "screenReader": "دعم قارئ الشاشة",
+    "screenReaderHint": "يتيح لـ VoiceOver قراءة مخرجات الطرفية؛ يستهلك ذاكرة أكثر",
     "settingsNotifications": "الإشعارات",
     "notifyBlocked": "عندما يحتاج وكيل إلى إدخال",
     "notifyDone": "عند انتهاء مهمة",

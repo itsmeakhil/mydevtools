@@ -3373,6 +3373,8 @@
     "cursorBlink": "Flikkerende wyser",
     "scrollbackLines": "Terugrol-reëls",
     "copyOnSelect": "Kopieer by kies",
+    "screenReader": "Skermleser-ondersteuning",
+    "screenReaderHint": "Laat VoiceOver terminaaluitvoer lees; gebruik meer geheue",
     "settingsNotifications": "Kennisgewings",
     "notifyBlocked": "Wanneer 'n agent insette nodig het",
     "notifyDone": "Wanneer 'n taak klaar is",

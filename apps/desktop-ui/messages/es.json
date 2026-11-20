@@ -3373,6 +3373,8 @@
     "cursorBlink": "Cursor parpadeante",
     "scrollbackLines": "Líneas de historial",
     "copyOnSelect": "Copiar al seleccionar",
+    "screenReader": "Compatibilidad con lectores de pantalla",
+    "screenReaderHint": "Permite que VoiceOver lea la salida; usa más memoria",
     "settingsNotifications": "Notificaciones",
     "notifyBlocked": "Cuando un agente necesita una respuesta",
     "notifyDone": "Cuando termina una tarea",

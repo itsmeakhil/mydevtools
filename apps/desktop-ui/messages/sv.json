@@ -3373,6 +3373,8 @@
     "cursorBlink": "Blinkande markör",
     "scrollbackLines": "Rader i historiken",
     "copyOnSelect": "Kopiera vid markering",
+    "screenReader": "Stöd för skärmläsare",
+    "screenReaderHint": "VoiceOver kan läsa utdata; använder mer minne",
     "settingsNotifications": "Aviseringar",
     "notifyBlocked": "När en agent behöver inmatning",
     "notifyDone": "När en uppgift är klar",

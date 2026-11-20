@@ -3373,6 +3373,8 @@
     "cursorBlink": "光标闪烁",
     "scrollbackLines": "回滚行数",
     "copyOnSelect": "选中即复制",
+    "screenReader": "屏幕阅读器支持",
+    "screenReaderHint": "让 VoiceOver 朗读终端输出；占用更多内存",
     "settingsNotifications": "通知",
     "notifyBlocked": "智能体需要输入时",
     "notifyDone": "任务完成时",

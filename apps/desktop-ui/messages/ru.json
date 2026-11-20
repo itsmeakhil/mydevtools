@@ -3373,6 +3373,8 @@
     "cursorBlink": "Мигающий курсор",
     "scrollbackLines": "Строк прокрутки",
     "copyOnSelect": "Копировать при выделении",
+    "screenReader": "Поддержка экранного диктора",
+    "screenReaderHint": "VoiceOver сможет читать вывод; расходует больше памяти",
     "settingsNotifications": "Уведомления",
     "notifyBlocked": "Когда агенту нужен ввод",
     "notifyDone": "Когда задача завершена",
