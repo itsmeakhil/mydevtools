@@ -6,7 +6,7 @@ export function envVarOk(name: string, value: string): boolean {
     /^[A-Za-z_][A-Za-z0-9_]{0,63}$/.test(name) &&
     !DENY.has(name) &&
     !/^(LD_|DYLD_|MDT_|BASH_FUNC_)/.test(name) &&
-    new TextEncoder().encode(value).length <= 8 * 1024 &&
+    new TextEncoder().encode(value).length <= 64 * 1024 &&
     !value.includes("\0")
   )
 }

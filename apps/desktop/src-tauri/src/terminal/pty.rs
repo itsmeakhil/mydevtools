@@ -70,7 +70,7 @@ pub fn extra_env_ok(name: &str, value: &str) -> bool {
     valid_name
         && !DENY.contains(&name)
         && !["LD_", "DYLD_", "MDT_", "BASH_FUNC_"].iter().any(|p| name.starts_with(p))
-        && value.len() <= 8 * 1024
+        && value.len() <= 64 * 1024
         && !value.contains('\0')
 }
 
@@ -691,7 +691,7 @@ mod tests {
             assert!(!extra_env_ok(bad, "x"), "{bad}");
         }
         assert!(!extra_env_ok("TOKEN", "a\0b"));
-        assert!(!extra_env_ok("TOKEN", &"x".repeat(8 * 1024 + 1)));
+        assert!(!extra_env_ok("TOKEN", &"x".repeat(64 * 1024 + 1)));
     }
 
     #[test]

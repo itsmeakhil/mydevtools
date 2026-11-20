@@ -2091,6 +2091,7 @@
     "toolbar": {
       "moreActions": "More actions",
       "code": "Generate code",
+      "runInTerminal": "Run in Terminal",
       "save": "Save request",
       "importCurl": "Import cURL",
       "importCollection": "Import collection (Postman / HAR)",
