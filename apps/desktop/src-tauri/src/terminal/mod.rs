@@ -1,6 +1,7 @@
 pub mod ctl;
 pub mod detect;
 pub mod env;
+pub mod files;
 pub mod git;
 pub mod hooks;
 pub mod notify;
