@@ -3369,6 +3369,7 @@
     "closeFind": "Aramayı kapat",
     "noMatches": "Eşleşme yok",
     "closeRunningTitle": "Çalışan terminal kapatılsın mı?",
+    "closeTitle": "Terminal kapatılsın mı?",
     "closeRunningBody": "Burada hâlâ çalışan bir şey var. Kapatmak onu sonlandırır.",
     "close": "Kapat",
     "copy": "Kopyala",

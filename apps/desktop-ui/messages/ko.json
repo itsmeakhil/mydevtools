@@ -3369,6 +3369,7 @@
     "closeFind": "찾기 닫기",
     "noMatches": "일치 항목 없음",
     "closeRunningTitle": "실행 중인 터미널을 닫을까요?",
+    "closeTitle": "터미널을 닫을까요?",
     "closeRunningBody": "아직 실행 중인 작업이 있습니다. 닫으면 종료됩니다.",
     "close": "닫기",
     "copy": "복사",

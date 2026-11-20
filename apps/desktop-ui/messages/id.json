@@ -3369,6 +3369,7 @@
     "closeFind": "Tutup pencarian",
     "noMatches": "Tidak ada kecocokan",
     "closeRunningTitle": "Tutup terminal yang sedang berjalan?",
+    "closeTitle": "Tutup terminal?",
     "closeRunningBody": "Masih ada yang berjalan di sini. Menutupnya akan menghentikannya.",
     "close": "Tutup",
     "copy": "Salin",

@@ -3369,6 +3369,7 @@
     "closeFind": "关闭查找",
     "noMatches": "无匹配项",
     "closeRunningTitle": "关闭正在运行的终端？",
+    "closeTitle": "关闭终端？",
     "closeRunningBody": "这里仍有程序在运行。关闭将结束它。",
     "close": "关闭",
     "copy": "复制",

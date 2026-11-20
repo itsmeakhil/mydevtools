@@ -3369,6 +3369,7 @@
     "closeFind": "検索を閉じる",
     "noMatches": "一致なし",
     "closeRunningTitle": "実行中のターミナルを閉じますか？",
+    "closeTitle": "ターミナルを閉じますか？",
     "closeRunningBody": "まだ実行中の処理があります。閉じると終了します。",
     "close": "閉じる",
     "copy": "コピー",

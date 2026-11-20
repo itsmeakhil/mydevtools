@@ -3369,6 +3369,7 @@
     "closeFind": "Close find",
     "noMatches": "No matches",
     "closeRunningTitle": "Close running terminal?",
+    "closeTitle": "Close terminal?",
     "closeRunningBody": "Something is still running here. Closing will end it.",
     "close": "Close",
     "copy": "Copy",

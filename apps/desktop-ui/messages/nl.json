@@ -3369,6 +3369,7 @@
     "closeFind": "Zoeken sluiten",
     "noMatches": "Geen overeenkomsten",
     "closeRunningTitle": "Actieve terminal sluiten?",
+    "closeTitle": "Terminal sluiten?",
     "closeRunningBody": "Er draait hier nog iets. Sluiten beëindigt het.",
     "close": "Sluiten",
     "copy": "Kopiëren",

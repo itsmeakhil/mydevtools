@@ -3369,6 +3369,7 @@
     "closeFind": "Lukk søk",
     "noMatches": "Ingen treff",
     "closeRunningTitle": "Lukke kjørende terminal?",
+    "closeTitle": "Lukke terminal?",
     "closeRunningBody": "Noe kjører fortsatt her. Lukking vil avslutte det.",
     "close": "Lukk",
     "copy": "Kopier",

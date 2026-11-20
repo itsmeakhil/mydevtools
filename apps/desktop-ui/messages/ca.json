@@ -3369,6 +3369,7 @@
     "closeFind": "Tanca la cerca",
     "noMatches": "Cap coincidència",
     "closeRunningTitle": "Tancar el terminal en execució?",
+    "closeTitle": "Tancar el terminal?",
     "closeRunningBody": "Encara hi ha alguna cosa en execució. Si el tanques, s'aturarà.",
     "close": "Tanca",
     "copy": "Copia",

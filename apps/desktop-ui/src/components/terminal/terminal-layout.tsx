@@ -324,13 +324,13 @@ export function TerminalLayout() {
   }, [viewing, viewingWaiting])
   React.useEffect(() => () => void terminalSetViewing(null).catch(() => {}), [])
 
-  // Closing a pane with a running command or a waiting agent asks first.
+  // Closing always asks; a running command or waiting agent gets the stronger warning.
   const guardClose = React.useCallback<CloseGuard>(
     async (ids, close) => {
-      if (!anyBusy(ids)) return close()
+      const busy = anyBusy(ids)
       const ok = await confirm({
-        title: t("closeRunningTitle"),
-        description: t("closeRunningBody"),
+        title: t(busy ? "closeRunningTitle" : "closeTitle"),
+        description: busy ? t("closeRunningBody") : undefined,
         confirmLabel: t("close"),
         cancelLabel: t("cancel"),
         destructive: true,

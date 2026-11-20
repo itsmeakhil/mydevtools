@@ -576,7 +576,7 @@ function TerminalPaneImpl({ id, cwd, projectName, label, status, focused, visibl
             </button>
             <button
               type="button"
-              onClick={() => store().closeTerminal(id)}
+              onClick={close}
               className="rounded px-1.5 py-0.5 hover:bg-foreground/[0.06] hover:text-foreground"
             >
               {t("closePane")}

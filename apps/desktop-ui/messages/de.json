@@ -3369,6 +3369,7 @@
     "closeFind": "Suche schließen",
     "noMatches": "Keine Treffer",
     "closeRunningTitle": "Laufendes Terminal schließen?",
+    "closeTitle": "Terminal schließen?",
     "closeRunningBody": "Hier läuft noch etwas. Beim Schließen wird es beendet.",
     "close": "Schließen",
     "copy": "Kopieren",

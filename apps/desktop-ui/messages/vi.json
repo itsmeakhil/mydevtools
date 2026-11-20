@@ -3369,6 +3369,7 @@
     "closeFind": "Đóng tìm kiếm",
     "noMatches": "Không có kết quả",
     "closeRunningTitle": "Đóng terminal đang chạy?",
+    "closeTitle": "Đóng terminal?",
     "closeRunningBody": "Vẫn còn tiến trình đang chạy ở đây. Đóng sẽ kết thúc nó.",
     "close": "Đóng",
     "copy": "Sao chép",

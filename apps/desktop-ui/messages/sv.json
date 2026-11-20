@@ -3369,6 +3369,7 @@
     "closeFind": "Stäng sök",
     "noMatches": "Inga träffar",
     "closeRunningTitle": "Stäng terminal som körs?",
+    "closeTitle": "Stäng terminal?",
     "closeRunningBody": "Något körs fortfarande här. Om du stänger avslutas det.",
     "close": "Stäng",
     "copy": "Kopiera",
