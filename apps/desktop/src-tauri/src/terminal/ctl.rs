@@ -674,9 +674,17 @@ mod tests {
         opt_in(&st, "p");
         pane(&st, "a", Some("p"));
         let t = Instant::now();
+        let mut seen = st.bus.subscribe();
         let h = run(&st, "a", "sh -c 'sleep 1; exit 3'").await;
         let r = call(&st, "a", "wait", json!({"id": h, "until": "done", "timeout_s": 15})).await;
-        assert_eq!((r["status"].as_str(), r["exit_code"].as_i64()), (Some("idle"), Some(3)), "{r}");
+        // TEMP diagnostics for the ubuntu CI failure: the raw OSC 133 marks and the status bus.
+        let raw = String::from_utf8_lossy(&st.get(&h).map(|s| s.scrollback()).unwrap_or_default()).to_string();
+        let marks: Vec<&str> = raw.split("\x1b]133;").skip(1).map(|m| m.split('\x07').next().unwrap_or("")).collect();
+        let mut bus = vec![];
+        while let Ok(e) = seen.try_recv() {
+            bus.push(format!("{:?}", e));
+        }
+        assert_eq!((r["status"].as_str(), r["exit_code"].as_i64()), (Some("idle"), Some(3)), "{r}\nmarks={marks:?}\nbus={bus:?}");
         assert!(t.elapsed() >= Duration::from_secs(1), "returned before the command finished: {r}");
         st.kill_all();
     }
