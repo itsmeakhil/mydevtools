@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - "apps/desktop-ui/**"
+      - "packages/cli/**"
       - "apps/web/**"
       - "package.json"
       - "pnpm-lock.yaml"
@@ -19,6 +20,7 @@ on:
   pull_request:
     paths:
       - "apps/desktop-ui/**"
+      - "packages/cli/**"
       - "apps/web/**"
       - "package.json"
       - "pnpm-lock.yaml"
@@ -65,3 +67,12 @@ jobs:
 
       - name: Unit tests (desktop-ui)
         run: pnpm --filter @mydevtools/desktop-ui exec jest --ci
+
+      # The CLI runs desktop-ui's sources directly (packages/cli/register.mjs),
+      # so it needs only desktop-ui's install.
+      - name: Typecheck CLI
+        run: node apps/desktop-ui/node_modules/typescript/bin/tsc -p packages/cli/tsconfig.json
+
+      - name: Tests (CLI)
+        working-directory: packages/cli
+        run: node --import ./register.mjs --test "test/*.test.ts"

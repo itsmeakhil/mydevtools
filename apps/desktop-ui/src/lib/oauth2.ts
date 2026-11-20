@@ -4,11 +4,11 @@ import { apiFetch } from "@/lib/desktop/api-fetch";
  * Token requests go through `/api/proxy` so they benefit from the same SSRF
  * checks and live in the same trust boundary as ordinary API calls.
  *
- * Supported grants (this batch):
+ * Supported grants:
  *   - client_credentials
- *   - refresh_token (driven automatically when an access token is expired)
- *
- * authorization_code + PKCE lands in batch 3 (needs a /oauth/callback route).
+ *   - password (resource owner credentials — legacy, but still common internally)
+ *   - refresh_token (a pasted refresh token; also driven automatically on expiry)
+ *   - authorization_code + PKCE (popup + /oauth/callback)
  */
 
 export type OAuth2GrantType =
@@ -142,6 +142,29 @@ export async function fetchClientCredentialsToken(cfg: OAuth2Config): Promise<OA
     return applyTokenResponse(cfg, resp)
 }
 
+export async function fetchPasswordToken(cfg: OAuth2Config): Promise<OAuth2Config> {
+    if (!cfg.tokenUrl) throw new Error("OAuth: tokenUrl is required")
+    if (!cfg.username) throw new Error("OAuth: username is required")
+    const body: Record<string, string> = {
+        grant_type: "password",
+        username: cfg.username,
+        password: cfg.password ?? "",
+    }
+    if (cfg.clientId) body.client_id = cfg.clientId
+    if (cfg.clientSecret) body.client_secret = cfg.clientSecret
+    if (cfg.scope) body.scope = cfg.scope
+    if (cfg.audience) body.audience = cfg.audience
+    const resp = await postTokenRequest(cfg.tokenUrl, body)
+    return applyTokenResponse(cfg, resp)
+}
+
+/** Grants that can mint a new token with no user present — re-run on expiry. */
+function refetchToken(cfg: OAuth2Config): Promise<OAuth2Config> | null {
+    if (cfg.grantType === "client_credentials") return fetchClientCredentialsToken(cfg)
+    if (cfg.grantType === "password") return fetchPasswordToken(cfg)
+    return null
+}
+
 export async function refreshAccessToken(cfg: OAuth2Config): Promise<OAuth2Config> {
     if (!cfg.refreshToken) throw new Error("OAuth: no refresh_token to refresh with")
     if (!cfg.tokenUrl) throw new Error("OAuth: tokenUrl is required")
@@ -270,14 +293,10 @@ export async function ensureFreshToken(cfg: OAuth2Config): Promise<OAuth2Config>
             return await refreshAccessToken(cfg)
         } catch (err) {
             // Refresh failed (revoked / network) — fall through to grant retry if applicable.
-            if (cfg.grantType === "client_credentials") {
-                return fetchClientCredentialsToken(cfg)
-            }
+            const retry = refetchToken(cfg)
+            if (retry) return retry
             throw err
         }
     }
-    if (cfg.grantType === "client_credentials") {
-        return fetchClientCredentialsToken(cfg)
-    }
-    return cfg
+    return refetchToken(cfg) ?? cfg
 }

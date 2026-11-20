@@ -8,6 +8,7 @@
  * comfortably handle ~32KB URLs; we cap below that with a clear error.
  */
 
+import { redactCollectionAuth } from "@/lib/api-client/file-store"
 import type { Collection } from "@/components/api-client/types"
 
 const MAX_FRAGMENT_BYTES = 24 * 1024  // ~24KB after base64url — safely under typical URL limits
@@ -45,7 +46,8 @@ async function gunzip(input: Uint8Array): Promise<Uint8Array> {
 }
 
 export async function encodeCollectionShareFragment(collection: Collection): Promise<string> {
-    const json = JSON.stringify(collection)
+    // A link gets pasted anywhere — never ship literal tokens/passwords in it.
+    const json = JSON.stringify(redactCollectionAuth(collection))
     const enc = new TextEncoder().encode(json)
     const compressed = await gzip(enc)
     const out = uint8ToBase64Url(compressed)

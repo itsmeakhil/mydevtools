@@ -4,7 +4,7 @@
  * wrappers live in `@/lib/desktop/collection-files`), so everything is unit-testable.
  *
  * Layout:
- *   collection.yaml        manifest {formatVersion, id, name}
+ *   collection.yaml        manifest {formatVersion, id, name, collection defaults, variables}
  *   001-login.yaml         request (NNN- prefix = sibling order)
  *   002-users/             folder
  *     folder.yaml          folder meta {id, name, defaults, scripts}
@@ -15,7 +15,9 @@
  * and no-op mutations produce zero writes.
  */
 
+import { redactCertsForFile } from "@/lib/api-client/network-settings"
 import { dump, load } from "js-yaml"
+import { isAssertionOperator, type Assertion } from "./assertions"
 import type {
     Collection,
     CollectionFolder,
@@ -40,11 +42,12 @@ export interface FileEntry {
 }
 
 // Fixed top-level key order; nested/unknown keys sort alphabetically after.
-const KEY_ORDER = [
-    "formatVersion", "id", "name", "kind", "method", "url",
-    "params", "headers", "body", "auth",
-    "defaultHeaders", "defaultAuth",
-    "timeoutMs", "useCookieJar",
+// Every key here is documented in packages/cli/COLLECTION-FORMAT.md (tested).
+export const KEY_ORDER = [
+    "formatVersion", "id", "name", "kind", "method", "url", "description",
+    "params", "headers", "omitHeaders", "body", "auth",
+    "defaultHeaders", "defaultAuth", "variables",
+    "timeoutMs", "useCookieJar", "followRedirects", "maxRedirects", "verifySsl", "assertions",
     "preRequestScript", "testScript",
     "websocket", "grpc", "examples",
 ]
@@ -92,6 +95,20 @@ function prune<T>(value: T): T | undefined {
 function stripKvIds(items: KeyValueItem[] | undefined) {
     if (!items || items.length === 0) return undefined
     return items.map(({ key, value, active }) => ({ key, value, active }))
+}
+
+function restoreAssertions(raw: unknown): Assertion[] | undefined {
+    if (!Array.isArray(raw)) return undefined
+    const rows = raw
+        .filter((a): a is Record<string, unknown> => !!a && typeof a === "object" && isAssertionOperator(a.operator))
+        .map((a) => ({
+            id: newId(),
+            enabled: a.enabled !== false,
+            target: typeof a.target === "string" ? a.target : "",
+            operator: a.operator as Assertion["operator"],
+            value: typeof a.value === "string" ? a.value : a.value === undefined ? "" : String(a.value),
+        }))
+    return rows.length ? rows : undefined
 }
 
 function restoreKvIds(items: Array<Partial<KeyValueItem>> | undefined): KeyValueItem[] {
@@ -177,7 +194,7 @@ function redactAuth(auth: RequestAuth | undefined): { auth: RequestAuth | undefi
 
 /** Literal (non-`{{…}}`) credentials in the tree — what redaction WILL drop on write. */
 export function countLiteralAuthSecrets(col: Collection): number {
-    let count = 0
+    let count = redactAuth(col.defaultAuth).redacted
     const visit = (items: (CollectionFolder | CollectionRequest)[]) => {
         for (const item of items) {
             if (isFolder(item)) {
@@ -190,6 +207,18 @@ export function countLiteralAuthSecrets(col: Collection): number {
     }
     visit(col.items)
     return count
+}
+
+/** Copy of `col` with literal credentials stripped from every auth (collection, folders, requests). */
+export function redactCollectionAuth(col: Collection): Collection {
+    const visit = (items: (CollectionFolder | CollectionRequest)[]): (CollectionFolder | CollectionRequest)[] =>
+        items.map((item) =>
+            isFolder(item)
+                ? { ...item, defaultAuth: redactAuth(item.defaultAuth).auth, items: visit(item.items) }
+                : { ...item, auth: redactAuth(item.auth).auth as RequestAuth },
+        )
+    // Certificate entries are machine-local paths (+ maybe a passphrase): never shared.
+    return { ...col, defaultAuth: redactAuth(col.defaultAuth).auth, items: visit(col.items), clientCerts: undefined, caPaths: undefined }
 }
 
 // ── Serialize ──────────────────────────────────────────────────────────────
@@ -213,9 +242,16 @@ function serializeRequestObj(req: CollectionRequest): object {
         params: stripKvIds(req.params),
         headers: stripKvIds(req.headers),
         body: body?.type === "none" ? undefined : body,
-        auth: req.auth?.type === "none" ? undefined : redactAuth(req.auth).auth,
+        // Omitted = inherit (the format's default); `none` is written so it stays explicit.
+        auth: !req.auth || req.auth.type === "inherit" ? undefined : redactAuth(req.auth).auth,
         timeoutMs: req.timeoutMs,
         useCookieJar: req.useCookieJar === false ? false : undefined,
+        omitHeaders: req.omitHeaders?.length ? req.omitHeaders : undefined,
+        followRedirects: req.followRedirects === false ? false : undefined,
+        maxRedirects: req.maxRedirects,
+        verifySsl: req.verifySsl === false ? false : undefined,
+        assertions: req.assertions?.length ? req.assertions.map(({ id: _id, ...rest }) => rest) : undefined,
+        description: req.description?.trim() ? req.description : undefined,
         preRequestScript: req.preRequestScript || undefined,
         testScript: req.testScript || undefined,
         // Runtime noise stripped from websocket/grpc; graphqlSchema (introspection
@@ -238,15 +274,27 @@ function serializeRequestObj(req: CollectionRequest): object {
     return prune(cleaned) ?? { id: req.id, name: req.name }
 }
 
-function serializeFolderMeta(folder: CollectionFolder): object {
-    const cleaned = {
-        id: folder.id,
-        name: folder.name,
-        defaultHeaders: stripKvIds(folder.defaultHeaders),
-        defaultAuth: folder.defaultAuth?.type === "none" ? undefined : redactAuth(folder.defaultAuth).auth,
-        preRequestScript: folder.preRequestScript || undefined,
-        testScript: folder.testScript || undefined,
+/** Defaults shared by folder.yaml and the collection manifest. */
+function serializeDefaults(d: Pick<CollectionFolder, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript" | "description">) {
+    return {
+        description: d.description?.trim() ? d.description : undefined,
+        defaultHeaders: stripKvIds(d.defaultHeaders),
+        defaultAuth: !d.defaultAuth || d.defaultAuth.type === "none" ? undefined : redactAuth(d.defaultAuth).auth,
+        preRequestScript: d.preRequestScript || undefined,
+        testScript: d.testScript || undefined,
     }
+}
+
+function parseDefaults(doc: Record<string, unknown>, into: Pick<CollectionFolder, "defaultHeaders" | "defaultAuth" | "preRequestScript" | "testScript" | "description">) {
+    if (typeof doc.description === "string") into.description = doc.description
+    if (Array.isArray(doc.defaultHeaders)) into.defaultHeaders = restoreKvIds(doc.defaultHeaders)
+    if (doc.defaultAuth) into.defaultAuth = doc.defaultAuth as CollectionFolder["defaultAuth"]
+    if (typeof doc.preRequestScript === "string") into.preRequestScript = doc.preRequestScript
+    if (typeof doc.testScript === "string") into.testScript = doc.testScript
+}
+
+function serializeFolderMeta(folder: CollectionFolder): object {
+    const cleaned = { id: folder.id, name: folder.name, ...serializeDefaults(folder) }
     return prune(cleaned) ?? { id: folder.id, name: folder.name }
 }
 
@@ -262,7 +310,15 @@ export function serializeCollection(col: Collection): FileEntry[] {
             relPath: MANIFEST_FILE,
             content:
                 MANIFEST_HEADER +
-                dumpYaml({ formatVersion: FORMAT_VERSION, id: col.id, name: col.name }),
+                dumpYaml(prune({
+                    formatVersion: FORMAT_VERSION,
+                    id: col.id,
+                    name: col.name,
+                    ...serializeDefaults(col),
+                    variables: stripKvIds(col.variables),
+                    clientCerts: redactCertsForFile(col.clientCerts),
+                    caPaths: col.caPaths?.length ? col.caPaths : undefined,
+                }) ?? { formatVersion: FORMAT_VERSION, id: col.id, name: col.name }),
         },
     ]
     const walk = (items: (CollectionFolder | CollectionRequest)[], dir: string) => {
@@ -332,9 +388,15 @@ function parseRequest(
         params: restoreKvIds(doc.params as KeyValueItem[]),
         headers: restoreKvIds(doc.headers as KeyValueItem[]),
         body,
-        auth: (doc.auth as CollectionRequest["auth"]) ?? { type: "none" },
+        auth: (doc.auth as CollectionRequest["auth"]) ?? { type: "inherit" },
         timeoutMs: doc.timeoutMs as number | undefined,
         useCookieJar: doc.useCookieJar === false ? false : undefined,
+        omitHeaders: Array.isArray(doc.omitHeaders) ? doc.omitHeaders.filter((k): k is string => typeof k === "string") : undefined,
+        followRedirects: doc.followRedirects === false ? false : undefined,
+        maxRedirects: typeof doc.maxRedirects === "number" ? doc.maxRedirects : undefined,
+        verifySsl: doc.verifySsl === false ? false : undefined,
+        assertions: restoreAssertions(doc.assertions),
+        description: typeof doc.description === "string" ? doc.description : undefined,
         preRequestScript: doc.preRequestScript as string | undefined,
         testScript: doc.testScript as string | undefined,
         websocket: doc.websocket
@@ -419,10 +481,7 @@ export function parseCollection(entries: FileEntry[]): ParsedCollection {
                 const f = node.folder
                 if (typeof doc.id === "string") f.id = doc.id
                 if (typeof doc.name === "string") f.name = doc.name
-                if (Array.isArray(doc.defaultHeaders)) f.defaultHeaders = restoreKvIds(doc.defaultHeaders)
-                if (doc.defaultAuth) f.defaultAuth = doc.defaultAuth as CollectionFolder["defaultAuth"]
-                if (typeof doc.preRequestScript === "string") f.preRequestScript = doc.preRequestScript
-                if (typeof doc.testScript === "string") f.testScript = doc.testScript
+                parseDefaults(doc, f)
             }
             continue
         }
@@ -442,14 +501,16 @@ export function parseCollection(entries: FileEntry[]): ParsedCollection {
         return node.children.map((c) => c.item)
     }
 
-    return {
-        collection: {
-            id: typeof manifest.id === "string" ? manifest.id : `path:${MANIFEST_FILE}`,
-            name: typeof manifest.name === "string" ? manifest.name : "Untitled",
-            items: finalize(root),
-        },
-        warnings,
+    const collection: Collection = {
+        id: typeof manifest.id === "string" ? manifest.id : `path:${MANIFEST_FILE}`,
+        name: typeof manifest.name === "string" ? manifest.name : "Untitled",
+        items: finalize(root),
     }
+    parseDefaults(manifest, collection)
+    if (Array.isArray(manifest.variables)) collection.variables = restoreKvIds(manifest.variables)
+    if (Array.isArray(manifest.clientCerts)) collection.clientCerts = manifest.clientCerts as Collection["clientCerts"]
+    if (Array.isArray(manifest.caPaths)) collection.caPaths = (manifest.caPaths as unknown[]).filter((p): p is string => typeof p === "string")
+    return { collection, warnings }
 }
 
 // ── Diff ───────────────────────────────────────────────────────────────────

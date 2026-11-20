@@ -17,7 +17,7 @@ import { putCachedResponse, getCachedResponse } from "@/lib/cache/response-cache
 import { registerApiClientServiceWorker } from "@/lib/sw/register-api-client-sw"
 import { listenForExtensionImports, capturedToTab } from "@/lib/extension/listen"
 import { recordExchange } from "@/lib/recorder/traffic-recorder"
-import type { SavedExample } from "./types"
+import type { RequestSettings, SavedExample } from "./types"
 import { HelpShortcutsDialog } from "./help-shortcuts-dialog"
 import { SaveRequestDialog } from "./collections/save-request-dialog"
 import { parseCurlCommand } from "@/utils/curl-parser"
@@ -43,22 +43,25 @@ import { toast } from "sonner"
 import { useIsMobile } from "@/components/hooks/use-mobile"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard } from "lucide-react"
+import { FolderOpen, MoreVertical, MoreHorizontal, Cookie, Download, Activity, Keyboard, Send, Save, Plus, Plug, Boxes, X, Copy, ArrowRight, ArrowLeft, Link2, Terminal, Layers, Network, Puzzle } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { IconCode, IconSettings } from "@tabler/icons-react"
 import { ensureHttpScheme } from "@/lib/url-normalize"
-import { encodeBasicCredentials } from "@/lib/basic-auth"
 import { ensureFreshToken } from "@/lib/oauth2"
-import { signAwsSigV4 } from "@/lib/auth/aws-sigv4"
-import { signHawk } from "@/lib/auth/hawk"
-import { signDigest } from "@/lib/auth/digest"
-import { signJwt } from "@/lib/auth/jwt-bearer"
+import { digestCredentials } from "@/lib/auth/digest"
+import { applyHeaderAuth, applyPayloadAuth } from "@/lib/api-client/apply-auth"
+import { introspectionBody } from "@/lib/graphql-introspect"
 import { cookieHeaderForUrl, storeCookiesFromResponse } from "@/lib/cookie-jar"
-import { resolveResponsePath } from "@/lib/response-path"
+import { evaluateAssertions } from "@/lib/api-client/assertions"
+import { collectionNet } from "@/lib/api-client/network-settings"
+import { streamSse, wantsEventStream, type StreamEvent } from "@/lib/api-client/sse"
+import { isSubscriptionOperation, toWebSocketUrl } from "@/lib/api-client/graphql-operation"
+import { subscribeGraphqlWs } from "@/lib/graphql-subscriptions"
 import { resolveSecretVariables } from "@/lib/secret-variables"
 import { useCipherKey } from "@/lib/use-cipher-key"
-import { withFolderDefaults, findRequestAncestors } from "@/lib/folder-inheritance"
-import { requestFromTab, requestFingerprint, savePatch } from "@/lib/api-client/saved-request"
+import { withFolderDefaults, findRequestAncestors, findRequestContext, listInheritedHeaders } from "@/lib/folder-inheritance"
+import { SECRET_MASK, staticVariables, substituteVariables, variablesToRecord } from "@/lib/api-client/variables"
+import { requestFromTab, requestFingerprint, savePatch, syncTabWithStored } from "@/lib/api-client/saved-request"
 import { useJsonFormatter } from "./workers/use-json-formatter"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
 import { useJsonBodyValidation } from "./use-json-validation"
@@ -66,6 +69,8 @@ import { useTabs, useTabsActions, createNewTab } from "./context/tabs-context"
 import { useCollectionsState, useCollectionsActions } from "./context/collections-context"
 import { useEnvironmentsState, useEnvironmentsActions } from "./context/environments-context"
 import { useHistoryState, useHistoryActions } from "./context/history-context"
+import { isMacPlatform, matchShortcut, shortcutHint, type ShortcutId } from "@/lib/api-client/shortcuts"
+import { usePaletteActions, type PaletteAction } from "@/lib/palette-actions"
 
 const EnvironmentManager = dynamic(
     () => import("./environment-manager").then(m => ({ default: m.EnvironmentManager })),
@@ -80,6 +85,8 @@ const CodeGenerator = dynamic(
 const GrpcPanel = dynamic(() => import("./grpc-panel").then(m => ({ default: m.GrpcPanel })), { ssr: false, loading: () => null })
 const WebSocketPanel = dynamic(() => import("./websocket-panel").then(m => ({ default: m.WebSocketPanel })), { ssr: false, loading: () => null })
 const ImportDialog = dynamic(() => import("./import-dialog").then(m => ({ default: m.ImportDialog })), { ssr: false, loading: () => null })
+const PluginsDialog = dynamic(() => import("./plugins-dialog").then(m => ({ default: m.PluginsDialog })), { ssr: false, loading: () => null })
+const NetworkSettingsDialog = dynamic(() => import("./network/network-settings-dialog").then(m => ({ default: m.NetworkSettingsDialog })), { ssr: false, loading: () => null })
 const CookieJarDialog = dynamic(() => import("./cookie-jar-dialog").then(m => ({ default: m.CookieJarDialog })), { ssr: false, loading: () => null })
 const MetricsDialog = dynamic(() => import("./metrics-dialog").then(m => ({ default: m.MetricsDialog })), { ssr: false, loading: () => null })
 
@@ -112,6 +119,9 @@ function buildRequestUrl(raw: string): URL {
 function ApiClientInner() {
     const t = useTranslations("ApiClient")
     const tNav = useTranslations("Navigation")
+    const tNet = useTranslations("ApiClient.network")
+    const tPlugins = useTranslations("ApiClient.plugins")
+    const tSave = useTranslations("ApiClient.saveExample")
     const { tabs, activeTabId, activeTab } = useTabs()
     const { addTab, appendTab, closeTab, duplicateTab, renameTab, reorderTabs, setActiveTabId, updateActiveTab, updateTab } = useTabsActions()
 
@@ -126,7 +136,7 @@ function ApiClientInner() {
     const { saveRequest, updateRequest, addFolder, createCollection } = useCollectionsActions()
     const { history } = useHistoryState()
     const { addHistoryItem } = useHistoryActions()
-    const { environments, activeEnvId, activeEnvironmentVariables } = useEnvironmentsState()
+    const { environments, activeEnvId, activeEnvironmentVariables, globalVariables, secretVariables } = useEnvironmentsState()
     const { setActiveEnvId, updateEnvironment } = useEnvironmentsActions()
     // Cipher key for cross-tool {{vault.*}} / {{env.*}} secret resolution.
     const cipherKey = useCipherKey()
@@ -142,6 +152,8 @@ function ApiClientInner() {
     const [helpOpen, setHelpOpen] = React.useState(false)
     const [saveOpen, setSaveOpen] = React.useState(false)
     const [cookieJarOpen, setCookieJarOpen] = React.useState(false)
+    const [networkOpen, setNetworkOpen] = React.useState(false)
+    const [pluginsOpen, setPluginsOpen] = React.useState(false)
     const [importOpen, setImportOpen] = React.useState(false)
     const [saveExampleOpen, setSaveExampleOpen] = React.useState(false)
     const [metricsOpen, setMetricsOpen] = React.useState(false)
@@ -170,15 +182,16 @@ function ApiClientInner() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab.id])
 
-    /** Compiled plugin instances; loaded once on mount. */
+    /** Compiled instances of the enabled plugins; reloaded when the Plugins dialog changes them. */
     const pluginInstancesRef = React.useRef<PluginInstance[]>([])
-    React.useEffect(() => {
+    const reloadPlugins = React.useCallback(() => {
         pluginInstancesRef.current = loadPlugins()
             .filter((p) => p.enabled)
             .map((p) => instantiatePlugin(p))
             .filter((r) => r.instance)
             .map((r) => r.instance!)
     }, [])
+    React.useEffect(reloadPlugins, [reloadPlugins])
 
     const handleSaveExample = (name: string) => {
         if (!activeTab.response) return
@@ -203,7 +216,7 @@ function ApiClientInner() {
             },
         }
         updateActiveTab({ examples: [...(activeTab.examples ?? []), example] })
-        toast.success(`Saved example "${name}"`)
+        toast.success(tSave("saved", { name }))
     }
 
     const handleDeleteExample = React.useCallback((id: string) => {
@@ -223,7 +236,7 @@ function ApiClientInner() {
             },
             isLoading: false,
         })
-        toast.success(`Loaded example "${example.name}"`)
+        toast.success(tSave("loaded", { name: example.name }))
     }, [updateActiveTab])
 
     // One stable setter per RequestTabs field. Inline `(v) => updateActiveTab({...})`
@@ -240,8 +253,43 @@ function ApiClientInner() {
             testScript: make("testScript"),
             graphqlSchema: make("graphqlSchema"),
             comments: make("comments"),
+            assertions: make("assertions"),
+            description: make("description"),
+            omitHeaders: make("omitHeaders"),
+            settings: (patch: RequestSettings) => updateActiveTab(patch),
         }
     }, [updateActiveTab])
+    // Own object so the memoized RequestTabs doesn't re-render on every URL/body keystroke.
+    const { timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl } = activeTab
+    const requestSettings = React.useMemo<RequestSettings>(
+        () => ({ timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl }),
+        [timeoutMs, useCookieJar, followRedirects, maxRedirects, verifySsl],
+    )
+    // Values the editor can show for {{vars}} — globals < collection < environment.
+    const activeSourceId = activeTab.source?.requestId
+    const activeContext = React.useMemo(
+        () => (activeSourceId ? findRequestContext(collections, activeSourceId) : null),
+        [collections, activeSourceId],
+    )
+    const activeCollection = activeContext?.collection
+    // Default headers this request gets from its collection/folders (B3 omit list).
+    const { headers: activeHeaders, omitHeaders: activeOmitHeaders } = activeTab
+    const inheritedHeaders = React.useMemo(
+        () => (activeContext
+            ? listInheritedHeaders([activeContext.collection, ...activeContext.folders], activeHeaders, activeOmitHeaders)
+            : []),
+        [activeContext, activeHeaders, activeOmitHeaders],
+    )
+    // Secret values are masked here — this map only feeds the editor's hover text.
+    const editorVariables = React.useMemo(() => {
+        const vars = staticVariables({
+            globals: globalVariables,
+            collection: variablesToRecord(activeCollection?.variables),
+            environment: activeEnvironmentVariables,
+        })
+        for (const key of Object.keys(secretVariables)) if (Object.hasOwn(vars, key)) vars[key] = SECRET_MASK
+        return vars
+    }, [globalVariables, activeCollection, activeEnvironmentVariables, secretVariables])
     const openSaveExample = React.useCallback(() => setSaveExampleOpen(true), [])
 
     // Scroll position memory for mobile panel toggle
@@ -334,6 +382,30 @@ function ApiClientInner() {
     React.useEffect(() => { tabsRef.current = tabs }, [tabs])
     const collectionsRef = React.useRef(collections)
     React.useEffect(() => { collectionsRef.current = collections }, [collections])
+
+    // Folder collections reload when their files change on disk: refresh clean
+    // tabs, never clobber unsaved edits (warn once per disk version instead).
+    const diskConflictsRef = React.useRef(new Set<string>())
+    React.useEffect(() => {
+        for (const tab of tabsRef.current) {
+            const requestId = tab.source?.requestId
+            if (!requestId) continue
+            const ctx = findRequestContext(collections, requestId)
+            if (!ctx?.collection.source) continue
+            const parent = ctx.folders.length ? ctx.folders[ctx.folders.length - 1].items : ctx.collection.items
+            const stored = parent.find((i): i is CollectionRequest => i.id === requestId)
+            if (!stored) continue
+            const sync = syncTabWithStored(tab, stored)
+            if (sync.kind === "mark-saved") {
+                updateTab(tab.id, { savedFingerprint: sync.fingerprint })
+            } else if (sync.kind === "refresh") {
+                updateTab(tab.id, { ...requestFromTab(stored as unknown as ApiRequestState), savedFingerprint: sync.fingerprint })
+            } else if (sync.kind === "conflict" && !diskConflictsRef.current.has(`${tab.id}:${sync.fingerprint}`)) {
+                diskConflictsRef.current.add(`${tab.id}:${sync.fingerprint}`)
+                toast.warning(t("fileSync.changedOnDisk", { name: stored.name }), { duration: 10000 })
+            }
+        }
+    }, [collections, updateTab, t])
     const handleCopyCurl = React.useCallback(() => {
         void copyToClipboard(generateCode(withFolderDefaults(activeTabRef.current, collectionsRef.current), "curl"), {
             successMessage: t("toasts.curlCopied"),
@@ -432,20 +504,19 @@ function ApiClientInner() {
         // never cached in component state.
         let secretVars: Record<string, string> = {}
 
-        const substituteAll = (text: string): string => {
-            if (!text) return text
-            return text.replace(/\{\{(.+?)\}\}/g, (m, k) => {
-                const key = (k as string).trim()
-                if (key.startsWith("response.")) {
-                    const resolved = resolveResponsePath(key.slice("response.".length), previousResponse)
-                    return resolved ?? m
-                }
-                if (scriptEnvUnsets.has(key)) return m
-                if (key in scriptEnvOverlay) return scriptEnvOverlay[key]
-                if (key in sessionVarsRef.current) return sessionVarsRef.current[key]
-                return activeEnvironmentVariables[key] ?? secretVars[key] ?? m
-            })
-        }
+        // Collection variables of the collection this tab was opened from (live).
+        const sendCollection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+        const collectionVars = variablesToRecord(sendCollection?.variables)
+        const substituteAll = (text: string): string => substituteVariables(text, {
+            globals: globalVariables,
+            collection: collectionVars,
+            environment: activeEnvironmentVariables,
+            session: sessionVarsRef.current,
+            overlay: scriptEnvOverlay,
+            unsets: scriptEnvUnsets,
+            secrets: secretVars,
+            previousResponse,
+        })
 
         try {
             // Working request state. Pre-request script may rewrite url/method/headers/body.
@@ -469,6 +540,8 @@ function ApiClientInner() {
                     },
                     environment: { ...activeEnvironmentVariables },
                     variables: { ...sessionVarsRef.current },
+                    collectionVariables: collectionVars,
+                    globals: globalVariables,
                 }
                 const r = await runScript(sendTab.preRequestScript, preCtx)
                 scriptTests.push(...r.tests)
@@ -526,57 +599,15 @@ function ApiClientInner() {
                 headersObj[substituteAll(k)] = substituteAll(v)
             })
 
-            // Add Auth — credentials are trimmed: copy-pasted tokens routinely carry leading/trailing
-            // whitespace which most servers reject as malformed.
-            if (sendTab.auth.type === "bearer" && sendTab.auth.token) {
-                headersObj["Authorization"] = `Bearer ${substituteAll(sendTab.auth.token).trim()}`
-            } else if (sendTab.auth.type === "basic" && sendTab.auth.username && sendTab.auth.password) {
-                const credentials = encodeBasicCredentials(
-                    substituteAll(sendTab.auth.username).trim(),
-                    substituteAll(sendTab.auth.password),
-                )
-                headersObj["Authorization"] = `Basic ${credentials}`
-            } else if (sendTab.auth.type === "api-key" && sendTab.auth.apiKeyKey && sendTab.auth.apiKeyValue) {
-                const key = substituteAll(sendTab.auth.apiKeyKey).trim()
-                const val = substituteAll(sendTab.auth.apiKeyValue).trim()
-                if (sendTab.auth.apiKeyLocation === "query") {
-                    urlObj.searchParams.append(key, val)
-                } else {
-                    headersObj[key] = val
-                }
-            } else if (sendTab.auth.type === "jwt-bearer" && sendTab.auth.jwtBearer) {
-                try {
-                    const cfg = sendTab.auth.jwtBearer
-                    let extra: Record<string, unknown> | undefined
-                    if (cfg.extraClaimsJson && cfg.extraClaimsJson.trim()) {
-                        extra = JSON.parse(cfg.extraClaimsJson) as Record<string, unknown>
-                    }
-                    const jwt = await signJwt({
-                        algorithm: cfg.algorithm,
-                        secret: cfg.secret,
-                        privateKeyPem: cfg.privateKeyPem,
-                        ttlSeconds: cfg.ttlSeconds,
-                        claims: {
-                            iss: cfg.issuer || undefined,
-                            sub: cfg.subject || undefined,
-                            aud: cfg.audience || undefined,
-                            extra,
-                        },
-                    })
-                    headersObj["Authorization"] = `Bearer ${jwt}`
-                } catch (err) {
-                    toast.error(`JWT signing failed: ${(err as Error).message}`)
-                    updateActiveTab({ isLoading: false })
-                    return
-                }
-            } else if (sendTab.auth.type === "aws-sigv4" && sendTab.auth.awsSigV4) {
-                // Defer signing until after the body is built — it has to hash the payload.
-                // We mark the intent here and apply at the end of body assembly.
-            } else if (sendTab.auth.type === "hawk" && sendTab.auth.hawk) {
-                // Same — deferred to post-body assembly.
-            } else if (sendTab.auth.type === "digest" && sendTab.auth.digest) {
-                // Digest with qop=auth-int also needs body. Deferred.
-            } else if (sendTab.auth.type === "oauth2" && sendTab.auth.oauth2) {
+            // Header/URL auth (bearer, basic, api-key, jwt-bearer); OAuth2 below writes back to the tab.
+            try {
+                await applyHeaderAuth(sendTab.auth, { headers: headersObj, url: urlObj }, substituteAll)
+            } catch (err) {
+                toast.error(t("toasts.jwtFailed", { message: (err as Error).message }))
+                updateActiveTab({ isLoading: false })
+                return
+            }
+            if (sendTab.auth.type === "oauth2" && sendTab.auth.oauth2) {
                 // Refresh / re-fetch as needed. The fresh config is persisted back
                 // into tab state so subsequent sends reuse the same access token.
                 try {
@@ -596,7 +627,7 @@ function ApiClientInner() {
                         headersObj["Authorization"] = `${tokenType} ${fresh.accessToken}`
                     }
                 } catch (err) {
-                    toast.error(`OAuth token refresh failed: ${(err as Error).message}`)
+                    toast.error(t("toasts.oauthRefreshFailed", { message: (err as Error).message }))
                     updateActiveTab({ isLoading: false })
                     return
                 }
@@ -684,6 +715,17 @@ function ApiClientInner() {
                         entries,
                     }
                     deleteContentTypeHeader(headersObj)
+                } else if (sendTab.body.type === "binary") {
+                    const file = sendTab.body.binaryFile
+                    if (!file?.fileContentBase64) {
+                        toast.error(t("requestBody.binaryMissing"))
+                        updateActiveTab({ isLoading: false })
+                        return
+                    }
+                    bodyPayload = { mode: "base64", data: file.fileContentBase64 }
+                    if (!Object.keys(headersObj).some((key) => key.toLowerCase() === "content-type")) {
+                        headersObj["Content-Type"] = file.fileType || "application/octet-stream"
+                    }
                 } else if (sendTab.body.type === "graphql") {
                     // GraphQL is serialised as { query, variables } JSON and sent as application/json.
                     const query = substituteAll(sendTab.body.content)
@@ -693,7 +735,7 @@ function ApiClientInner() {
                         try {
                             variables = JSON.parse(substituteAll(rawVars))
                         } catch (e) {
-                            toast.error(`Invalid GraphQL variables JSON: ${(e as Error).message}`)
+                            toast.error(t("toasts.invalidGraphqlVars", { message: (e as Error).message }))
                             updateActiveTab({ isLoading: false })
                             return
                         }
@@ -704,8 +746,8 @@ function ApiClientInner() {
                 } else {
                     bodyContent = substituteAll(sendTab.body.content)
                     bodyPayload = bodyContent
-                    if (!headersObj["Content-Type"]) {
-                        headersObj["Content-Type"] = "text/plain"
+                    if (!Object.keys(headersObj).some((key) => key.toLowerCase() === "content-type")) {
+                        headersObj["Content-Type"] = sendTab.body.type === "xml" ? "application/xml" : "text/plain"
                     }
                 }
             }
@@ -717,33 +759,9 @@ function ApiClientInner() {
                 ? bodyPayload
                 : (bodyContent ?? "")
             try {
-                if (sendTab.auth.type === "aws-sigv4" && sendTab.auth.awsSigV4) {
-                    await signAwsSigV4({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.awsSigV4,
-                    })
-                } else if (sendTab.auth.type === "hawk" && sendTab.auth.hawk) {
-                    await signHawk({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.hawk,
-                    })
-                } else if (sendTab.auth.type === "digest" && sendTab.auth.digest) {
-                    await signDigest({
-                        method: workMethod,
-                        url: urlObj,
-                        headers: headersObj,
-                        body: bodyForSigning,
-                        cfg: sendTab.auth.digest,
-                    })
-                }
+                await applyPayloadAuth(sendTab.auth, { method: workMethod, url: urlObj, headers: headersObj, body: bodyForSigning })
             } catch (signErr) {
-                toast.error(`Auth signing failed: ${(signErr as Error).message}`)
+                toast.error(t("toasts.authSigningFailed", { message: (signErr as Error).message }))
                 updateActiveTab({ isLoading: false })
                 return
             }
@@ -828,6 +846,96 @@ function ApiClientInner() {
                 return
             }
 
+            // ── Live streams: SSE (`Accept: text/event-stream`) and GraphQL subscriptions ──
+            // Messages land on the sending tab's response as they arrive; Cancel stops them.
+            const gql = sendTab.body.type === "graphql" && bodyContent
+                ? JSON.parse(bodyContent) as { query: string; variables?: Record<string, unknown> }
+                : null
+            const isSubscription = !!gql && isSubscriptionOperation(gql.query)
+            if (isSubscription || wantsEventStream(headersObj)) {
+                const tabId = sendTab.id
+                const started = performance.now()
+                const open = (r: Pick<ApiResponse, "status" | "statusText" | "headers">) => updateTab(tabId, {
+                    response: { ...r, body: "", time: Math.round(performance.now() - started), size: 0, streamEvents: [] },
+                })
+                const append = (events: StreamEvent[]) => updateTab(tabId, (tab) => tab.response ? {
+                    // ponytail: keeps the newest 1000 in memory; add a "save transcript" if people need more.
+                    response: { ...tab.response, streamEvents: [...(tab.response.streamEvents ?? []), ...events].slice(-1000) },
+                } : {})
+                let streamError: string | undefined
+                let raw = ""
+                if (gql && isSubscription) {
+                    streamError = await new Promise<string | undefined>((resolve) => {
+                        let acked = false
+                        const handle = subscribeGraphqlWs({
+                            url: toWebSocketUrl(urlObj.toString()),
+                            query: gql.query,
+                            variables: gql.variables,
+                            // Browsers can't set WebSocket headers; graphql-ws servers read auth from here.
+                            connectionParams: headersObj,
+                            onNext: (data, errors) => append([{
+                                event: errors?.length ? "error" : "next",
+                                data: JSON.stringify(errors?.length ? { data, errors } : data, null, 2),
+                                timestamp: Date.now(),
+                            }]),
+                            // A graphql-ws `error` ends the operation; no `complete` follows it.
+                            // Before the ack, `ready` rejects with the reason instead.
+                            onError: (e) => {
+                                if (!acked) return
+                                append([{ event: "error", data: e.message, timestamp: Date.now() }])
+                                handle.close()
+                                resolve(undefined)
+                            },
+                            onComplete: () => resolve(undefined),
+                        })
+                        handle.ready.then(
+                            () => { acked = true; open({ status: 101, statusText: "Switching Protocols", headers: {} }) },
+                            (e: Error) => resolve(e.message),
+                        )
+                        controller.signal.addEventListener("abort", () => { handle.close(); resolve(undefined) }, { once: true })
+                    })
+                } else {
+                    const r = await streamSse({
+                        input: {
+                            url: urlObj.toString(),
+                            method: workMethod,
+                            headers: headersObj,
+                            body: typeof bodyPayload === "string" ? bodyPayload : (bodyContent ?? undefined),
+                            verifySsl: sendTab.verifySsl,
+                            net: collectionNet({ certs: sendCollection?.clientCerts, caPaths: sendCollection?.caPaths }, substituteAll),
+                        },
+                        signal: controller.signal,
+                        onMeta: open,
+                        onEvents: append,
+                    })
+                    streamError = r.error
+                    raw = r.raw
+                }
+                updateTab(tabId, (tab) => ({
+                    isLoading: false,
+                    response: !tab.response
+                        ? (streamError ? { status: 0, statusText: API_CLIENT_ERROR_STATUS_TEXT, headers: {}, body: streamError, time: 0, size: 0, error: streamError } : null)
+                        : {
+                            ...tab.response,
+                            body: raw,
+                            streamEvents: streamError
+                                ? [...(tab.response.streamEvents ?? []), { event: "error", data: streamError, timestamp: Date.now() }]
+                                : tab.response.streamEvents,
+                        },
+                }))
+                addHistoryItem({
+                    method: workMethod as RequestMethod,
+                    url: sendTab.url,
+                    params: sendTab.params,
+                    headers: sendTab.headers,
+                    body: sendTab.body,
+                    auth: sendTab.auth,
+                    preRequestScript: sendTab.preRequestScript,
+                    testScript: sendTab.testScript,
+                }, historyName(sendTab.name, workMethod, sendTab.url), streamError ? 0 : (isSubscription ? 101 : 200))
+                return
+            }
+
             // Plugins: onBeforeSend lets installed plugins mutate URL / headers / body.
             const pluginRequest = {
                 method: workMethod,
@@ -847,6 +955,14 @@ function ApiClientInner() {
                 headers: headersObj,
                 body: beforeApplied.req.body ?? bodyPayload ?? bodyContent,
                 timeoutMs: sendTab.timeoutMs,
+                followRedirects: sendTab.followRedirects,
+                maxRedirects: sendTab.maxRedirects,
+                verifySsl: sendTab.verifySsl,
+                digestAuth: sendTab.auth.type === "digest" && !sendTab.auth.digest?.nonce?.trim()
+                    ? digestCredentials(sendTab.auth.digest, substituteAll)
+                    : undefined,
+                // Collection certificates/CAs; global ones are merged in api-fetch.
+                net: collectionNet({ certs: sendCollection?.clientCerts, caPaths: sendCollection?.caPaths }, substituteAll),
             }, controller.signal)
             const proxyData = {
                 ...rawEnvelope,
@@ -873,8 +989,9 @@ function ApiClientInner() {
             // Observability: record metric for the metrics dashboard. Resolved
             // {{vault.*}}/{{env.*}} secrets are redacted back to their tokens —
             // the metrics panel renders these URLs.
+            // Secret-flagged environment/global values are redacted the same way.
             const redactSecrets = (text: string): string =>
-                Object.entries(secretVars).reduce(
+                Object.entries({ ...secretVariables, ...secretVars }).reduce(
                     (acc, [token, value]) => (value ? acc.split(value).join(`{{${token}}}`) : acc),
                     text,
                 )
@@ -934,6 +1051,8 @@ function ApiClientInner() {
                     },
                     environment: { ...activeEnvironmentVariables, ...scriptEnvOverlay },
                     variables: { ...sessionVarsRef.current },
+                    collectionVariables: collectionVars,
+                    globals: globalVariables,
                 }
                 const r = await runScript(sendTab.testScript, postCtx)
                 scriptTests.push(...r.tests)
@@ -946,6 +1065,13 @@ function ApiClientInner() {
                 }
                 sessionVarsRef.current = r.variables
             }
+
+            scriptTests.push(...evaluateAssertions(sendTab.assertions, {
+                status: proxyData.status,
+                headers: proxyData.headers ?? {},
+                body: proxyData.body ?? "",
+                time: proxyData.time ?? 0,
+            }))
 
             // Persist script-induced env mutations to the active environment.
             if (
@@ -985,6 +1111,7 @@ function ApiClientInner() {
                     error: proxyData.error,
                     setCookies: proxyData.setCookies,
                     redirectChain: proxyData.redirectChain as ApiResponse["redirectChain"],
+                    timeline: proxyData.timeline as ApiResponse["timeline"],
                 },
                 scriptResults: (scriptTests.length || scriptLogs.length || scriptErrors.length)
                     ? { tests: scriptTests, logs: scriptLogs, errors: scriptErrors }
@@ -1063,11 +1190,14 @@ function ApiClientInner() {
         activeTab,
         collections,
         updateActiveTab,
+        updateTab,
         isMobile,
         formatJson,
         runScript,
         addHistoryItem,
         activeEnvironmentVariables,
+        globalVariables,
+        secretVariables,
         activeEnvId,
         environments,
         updateEnvironment,
@@ -1079,6 +1209,42 @@ function ApiClientInner() {
     const sendRef = React.useRef(sendImpl)
     React.useEffect(() => { sendRef.current = sendImpl }, [sendImpl])
     const handleSend = React.useCallback(() => sendRef.current(), [])
+
+    // GraphQL introspection target: the tab's URL, params, headers and auth with
+    // variables resolved — what a send would use, minus scripts and body signers.
+    const introspectionTargetImpl = React.useCallback(async (): Promise<{ url: string; headers: Record<string, string> }> => {
+        const tab = withFolderDefaults(activeTab, collections)
+        const collection = activeTab.source ? findRequestContext(collections, activeTab.source.requestId)?.collection : undefined
+        const secrets = await resolveSecretVariables(
+            [tab.url, JSON.stringify({ params: tab.params, headers: tab.headers, auth: tab.auth })],
+            cipherKey,
+        )
+        const sub = (text: string) => substituteVariables(text, {
+            globals: globalVariables,
+            collection: variablesToRecord(collection?.variables),
+            environment: activeEnvironmentVariables,
+            session: sessionVarsRef.current,
+            secrets,
+        })
+        const urlObj = buildRequestUrl(sub(tab.url))
+        tab.params.forEach((p) => { if (p.active && p.key) urlObj.searchParams.append(sub(p.key), sub(p.value)) })
+        const headers: Record<string, string> = {}
+        tab.headers.forEach((h) => { if (h.active && h.key) headers[sub(h.key)] = sub(h.value) })
+        const auth = tab.auth
+        await applyHeaderAuth(auth, { headers, url: urlObj }, sub)
+        if (auth.type === "oauth2" && auth.oauth2) {
+            const fresh = await ensureFreshToken(auth.oauth2)
+            if (fresh.accessToken) headers["Authorization"] = `${fresh.tokenType || "Bearer"} ${fresh.accessToken}`
+        }
+        // Body signers hash exactly what fetchGraphQLSchema will POST.
+        headers["Content-Type"] = "application/json"
+        await applyPayloadAuth(auth, { method: "POST", url: urlObj, headers, body: introspectionBody() })
+        // ponytail: NTLM/SPNEGO introspection unsupported (their proxy routes return 501 on desktop anyway).
+        return { url: urlObj.toString(), headers }
+    }, [activeTab, collections, cipherKey, globalVariables, activeEnvironmentVariables])
+    const introspectionTargetRef = React.useRef(introspectionTargetImpl)
+    React.useEffect(() => { introspectionTargetRef.current = introspectionTargetImpl }, [introspectionTargetImpl])
+    const resolveIntrospectionTarget = React.useCallback(() => introspectionTargetRef.current(), [])
 
     const handleCurlPaste = React.useCallback((curl: string) => {
         try {
@@ -1102,32 +1268,88 @@ function ApiClientInner() {
         }
     }, [updateActiveTab, replaceUrlWithEnvBaseUrl, t])
 
-    // Keyboard shortcuts.
-    // Cmd/Ctrl+T and Cmd/Ctrl+W are hard-reserved by the browser (`preventDefault`
-    // does not override) so we bind Alt+T / Alt+W as the working equivalents.
-    // Cmd/Ctrl+Enter still works inside form inputs.
-    React.useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            const isMac = /Mac|iPhone|iPad/i.test(navigator.userAgent)
-            const mod = isMac ? e.metaKey : e.ctrlKey
+    const cycleTab = React.useCallback((step: 1 | -1) => {
+        const list = tabsRef.current
+        const i = list.findIndex((tab) => tab.id === activeTabRef.current.id)
+        if (list.length < 2 || i === -1) return
+        setActiveTabId(list[(i + step + list.length) % list.length].id)
+    }, [setActiveTabId])
 
-            if (e.altKey && !e.ctrlKey && !e.metaKey && (e.key === "t" || e.key === "T")) {
-                e.preventDefault()
-                addTab()
-            } else if (e.altKey && !e.ctrlKey && !e.metaKey && (e.key === "w" || e.key === "W")) {
-                e.preventDefault()
-                closeTab(activeTabId)
-            } else if (mod && e.key === "Enter") {
-                e.preventDefault()
-                handleSend()
-            } else if (mod && !e.shiftKey && !e.altKey && (e.key === "s" || e.key === "S")) {
-                e.preventDefault()
-                void handleSaveShortcut()
+    /** One entry point for keyboard shortcuts and their ⌘K palette twins. */
+    const runShortcut = React.useCallback((id: ShortcutId) => {
+        switch (id) {
+            case "sendRequest": handleSend(); break
+            case "saveRequest": void handleSaveShortcut(); break
+            case "newTab": addTab(); break
+            case "closeTab": closeTab(activeTabRef.current.id); break
+            case "nextTab": cycleTab(1); break
+            case "prevTab": cycleTab(-1); break
+            case "focusUrl": {
+                const input = document.querySelector<HTMLInputElement>("[data-api-url-input]")
+                input?.focus()
+                input?.select()
+                break
             }
+        }
+    }, [handleSend, handleSaveShortcut, addTab, closeTab, cycleTab])
+
+    // Keyboard shortcuts — the map lives in lib/api-client/shortcuts.ts.
+    React.useEffect(() => {
+        const isMac = isMacPlatform()
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // An open dialog (save, import, palette…) owns the keyboard.
+            if (document.querySelector('[role="dialog"][data-state="open"]')) return
+            const id = matchShortcut(e, isMac)
+            if (!id) return
+            e.preventDefault()
+            runShortcut(id)
         }
         window.addEventListener("keydown", handleKeyDown)
         return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [addTab, closeTab, handleSend, handleSaveShortcut, activeTabId])
+    }, [runShortcut])
+
+    // Set after mount: the server render can't know the platform.
+    const [isMac, setIsMac] = React.useState(false)
+    React.useEffect(() => { setIsMac(isMacPlatform()) }, [])
+
+    // ⌘K palette commands while the API client is open.
+    const paletteGroup = React.useMemo(() => {
+        const shortcut = (id: ShortcutId, title: string, Icon: React.ElementType): PaletteAction =>
+            ({ id, title, Icon, hint: shortcutHint(id, isMac), run: () => runShortcut(id) })
+        const switchEnv = (id: string | null, name: string): PaletteAction => ({
+            id: `env-${id ?? "none"}`,
+            title: t("palette.switchEnvironment", { name }),
+            keywords: [t("toolbar.environments")],
+            Icon: Layers,
+            run: () => setActiveEnvId(id),
+        })
+        return {
+            heading: tNav("apiClient"),
+            actions: [
+                shortcut("sendRequest", t("shortcuts.sendRequest"), Send),
+                shortcut("saveRequest", t("shortcuts.saveRequest"), Save),
+                shortcut("newTab", t("tabBar.newRest"), Plus),
+                { id: "new-websocket", title: t("tabBar.newWebSocket"), Icon: Plug, run: () => addTab("websocket") },
+                { id: "new-grpc", title: t("tabBar.newGrpc"), Icon: Boxes, run: () => addTab("grpc") },
+                { id: "duplicate-tab", title: t("tabBar.duplicateTab"), Icon: Copy, run: () => duplicateTab(activeTabRef.current.id) },
+                shortcut("closeTab", t("shortcuts.closeTab"), X),
+                shortcut("nextTab", t("shortcuts.nextTab"), ArrowRight),
+                shortcut("prevTab", t("shortcuts.prevTab"), ArrowLeft),
+                shortcut("focusUrl", t("shortcuts.focusUrl"), Link2),
+                { id: "import-curl", title: t("toolbar.importCurl"), Icon: Terminal, run: () => setImportCurlOpen(true) },
+                { id: "import-collection", title: t("toolbar.importCollection"), Icon: Download, run: () => setImportOpen(true) },
+                { id: "generate-code", title: t("toolbar.code"), Icon: IconCode, run: () => setCodeGenOpen(true) },
+                { id: "environments", title: t("environmentManager.manageDialogTitle"), Icon: IconSettings, run: () => setEnvMgrOpen(true) },
+                { id: "cookies", title: t("toolbar.cookies"), Icon: Cookie, run: () => setCookieJarOpen(true) },
+                { id: "network", title: tNet("title"), Icon: Network, run: () => setNetworkOpen(true) },
+                { id: "plugins", title: tPlugins("title"), Icon: Puzzle, run: () => setPluginsOpen(true) },
+                { id: "shortcuts", title: t("toolbar.shortcuts"), Icon: Keyboard, run: () => setHelpOpen(true) },
+                switchEnv(null, t("environmentManager.noEnvironment")),
+                ...environments.map((env) => switchEnv(env.id, env.name)),
+            ],
+        }
+    }, [t, tNav, tNet, tPlugins, isMac, runShortcut, addTab, duplicateTab, environments, setActiveEnvId])
+    usePaletteActions(paletteGroup)
 
     // Desktop request column — reused whether it sits full-width (no response yet)
     // or inside the resizable split (once a response exists / is loading).
@@ -1146,6 +1368,7 @@ function ApiClientInner() {
                 onCopyCurl={handleCopyCurl}
                 urlHistory={urlHistory}
                 tabId={activeTab.id}
+                variables={editorVariables}
             />
             <div className="flex-1 min-h-0">
                 <RequestTabs
@@ -1153,6 +1376,9 @@ function ApiClientInner() {
                     setParams={setField.params}
                     headers={activeTab.headers}
                     setHeaders={setField.headers}
+                    inheritedHeaders={inheritedHeaders}
+                    omitHeaders={activeOmitHeaders}
+                    setOmitHeaders={setField.omitHeaders}
                     body={activeTab.body}
                     setBody={setField.body}
                     auth={activeTab.auth}
@@ -1162,6 +1388,7 @@ function ApiClientInner() {
                     testScript={activeTab.testScript}
                     setTestScript={setField.testScript}
                     graphqlUrl={activeTab.url}
+                    resolveIntrospectionTarget={resolveIntrospectionTarget}
                     graphqlSchema={activeTab.graphqlSchema}
                     setGraphqlSchema={setField.graphqlSchema}
                     examples={activeTab.examples}
@@ -1169,6 +1396,12 @@ function ApiClientInner() {
                     onLoadExample={handleLoadExample}
                     comments={activeTab.comments}
                     setComments={setField.comments}
+                    settings={requestSettings}
+                    setSettings={setField.settings}
+                    assertions={activeTab.assertions}
+                    setAssertions={setField.assertions}
+                    description={activeTab.description}
+                    setDescription={setField.description}
                 />
             </div>
         </div>
@@ -1220,6 +1453,14 @@ function ApiClientInner() {
                                         <DropdownMenuItem onSelect={() => setCookieJarOpen(true)}>
                                             <Cookie className="h-4 w-4 mr-2" />
                                             {t("toolbar.cookies")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setNetworkOpen(true)}>
+                                            <Network className="h-4 w-4 mr-2" />
+                                            {tNet("title")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
+                                            <Puzzle className="h-4 w-4 mr-2" />
+                                            {tPlugins("title")}
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
@@ -1295,7 +1536,7 @@ function ApiClientInner() {
                                     onOpenChange={setSaveOpen}
                                     showTrigger
                                 />
-                                <ImportCurlDialog onImport={handleImportCurl} />
+                                <ImportCurlDialog onImport={handleImportCurl} open={importCurlOpen} onOpenChange={setImportCurlOpen} showTrigger />
                                 <Button
                                     variant="ghost"
                                     size="icon"
@@ -1315,6 +1556,14 @@ function ApiClientInner() {
                                         <DropdownMenuItem onSelect={() => setCookieJarOpen(true)}>
                                             <Cookie className="h-4 w-4 mr-2" />
                                             {t("toolbar.cookies")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setNetworkOpen(true)}>
+                                            <Network className="h-4 w-4 mr-2" />
+                                            {tNet("title")}
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem onSelect={() => setPluginsOpen(true)}>
+                                            <Puzzle className="h-4 w-4 mr-2" />
+                                            {tPlugins("title")}
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem onSelect={() => setMetricsOpen(true)}>
@@ -1361,6 +1610,8 @@ function ApiClientInner() {
                         )}
                         <HelpShortcutsDialog open={helpOpen} onOpenChange={setHelpOpen} />
                         <CookieJarDialog open={cookieJarOpen} onOpenChange={setCookieJarOpen} />
+                        {pluginsOpen && <PluginsDialog open={pluginsOpen} onOpenChange={setPluginsOpen} onChange={reloadPlugins} />}
+                        {networkOpen && <NetworkSettingsDialog open={networkOpen} onOpenChange={setNetworkOpen} />}
                         <ImportDialog open={importOpen} onOpenChange={setImportOpen} />
                         <SaveExampleDialog
                             open={saveExampleOpen}
@@ -1456,12 +1707,16 @@ function ApiClientInner() {
                                             onCopyCurl={handleCopyCurl}
                                             urlHistory={urlHistory}
                                             tabId={activeTab.id}
+                                            variables={editorVariables}
                                         />
                                         <RequestTabs
                                             params={activeTab.params}
                                             setParams={setField.params}
                                             headers={activeTab.headers}
                                             setHeaders={setField.headers}
+                                            inheritedHeaders={inheritedHeaders}
+                                            omitHeaders={activeOmitHeaders}
+                                            setOmitHeaders={setField.omitHeaders}
                                             body={activeTab.body}
                                             setBody={setField.body}
                                             auth={activeTab.auth}
@@ -1471,6 +1726,7 @@ function ApiClientInner() {
                                             testScript={activeTab.testScript}
                                             setTestScript={setField.testScript}
                                             graphqlUrl={activeTab.url}
+                                            resolveIntrospectionTarget={resolveIntrospectionTarget}
                                             graphqlSchema={activeTab.graphqlSchema}
                                             setGraphqlSchema={setField.graphqlSchema}
                                             examples={activeTab.examples}
@@ -1478,6 +1734,12 @@ function ApiClientInner() {
                                             onLoadExample={handleLoadExample}
                                             comments={activeTab.comments}
                                             setComments={setField.comments}
+                                            settings={requestSettings}
+                                            setSettings={setField.settings}
+                                            assertions={activeTab.assertions}
+                                            setAssertions={setField.assertions}
+                                            description={activeTab.description}
+                                            setDescription={setField.description}
                                         />
                                     </div>
                                 </div>

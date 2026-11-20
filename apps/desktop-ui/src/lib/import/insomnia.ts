@@ -7,6 +7,7 @@
 
 import * as yaml from "js-yaml"
 
+import { normalizeMethod } from "@/lib/api-client/http-method"
 import type {
     Collection,
     CollectionFolder,
@@ -66,9 +67,6 @@ export interface InsomniaImportResult {
     environments: Environment[]
 }
 
-const VALID_METHODS = new Set<RequestMethod>([
-    "GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS",
-])
 
 function id(): string { return crypto.randomUUID() }
 
@@ -127,7 +125,8 @@ function convertBody(b: InsBody | undefined): RequestBody {
 }
 
 function convertAuth(a: InsAuth | undefined): RequestAuth {
-    if (!a || a.disabled || !a.type) return { type: "none" }
+    if (!a || !a.type) return { type: "inherit" } // Insomnia's default: inherit from folder
+    if (a.disabled) return { type: "none" }
     switch (a.type) {
         case "basic":
             return { type: "basic", username: opt(a.username), password: opt(a.password) }
@@ -168,8 +167,7 @@ function scripts(n: InsNode): { preRequestScript?: string; testScript?: string }
 }
 
 function convertRequest(r: InsNode): CollectionRequest {
-    const m = (r.method ?? "GET").toUpperCase() as RequestMethod
-    const method = VALID_METHODS.has(m) ? m : "GET"
+    const method: RequestMethod = normalizeMethod(r.method) ?? "GET"
     return {
         id: id(),
         name: r.name || method,
@@ -287,6 +285,8 @@ export function looksLikeInsomniaExport(text: string): boolean {
 export function importInsomniaWithMeta(text: string): InsomniaImportResult {
     const t = text.trim()
     // yaml.load also parses JSON, so v4 YAML exports come for free.
+    // js-yaml v4+: load() is the safe schema, !!js/function was removed.
+    // threatcrush-disable-next-line js-unsafe-yaml-load
     const doc = (t.startsWith("{") ? JSON.parse(t) : yaml.load(t)) as
         { _type?: string; resources?: InsV4Resource[] } & InsV5Doc
     if (!doc || typeof doc !== "object") throw new Error("Not an Insomnia export")

@@ -47,6 +47,7 @@ function mimeFor(req: CollectionRequest): string {
         case "graphql":
             return "application/json"
         case "text": return "text/plain"
+        case "xml": return "application/xml"
         case "x-www-form-urlencoded": return "application/x-www-form-urlencoded"
         case "form-data": return "multipart/form-data"
         default: return ""
@@ -54,7 +55,7 @@ function mimeFor(req: CollectionRequest): string {
 }
 
 function bodyText(req: CollectionRequest): string {
-    if (req.body.type === "json" || req.body.type === "text" || req.body.type === "graphql") {
+    if (req.body.type === "json" || req.body.type === "text" || req.body.type === "xml" || req.body.type === "graphql") {
         return req.body.content ?? ""
     }
     if (req.body.type === "x-www-form-urlencoded") {

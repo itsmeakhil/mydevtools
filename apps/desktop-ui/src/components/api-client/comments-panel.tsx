@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Trash2, MessageSquare } from "lucide-react"
 import type { RequestComment } from "./types"
 import { useAppUser } from "@/hooks/use-app-user"
+import { useTranslations } from "next-intl"
 
 /** Pulled out so the lint rule for impure render-time calls doesn't flag the inline use. */
 const nowMs = (): number => Date.now()
@@ -18,10 +19,11 @@ interface CommentsPanelProps {
 
 export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
     const user = useAppUser()
+    const t = useTranslations("ApiClient.comments")
     const [draft, setDraft] = React.useState("")
     const list = comments ?? []
 
-    const myName = user.name || "Anonymous"
+    const myName = user.name || t("anonymous")
 
     const handlePost = () => {
         const text = draft.trim()
@@ -46,7 +48,7 @@ export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
                 {list.length === 0 ? (
                     <div className="h-full flex flex-col items-center justify-center text-[13px] text-muted-foreground py-12 gap-2 text-center">
                         <MessageSquare className="h-8 w-8 text-muted-foreground/60" />
-                        No comments yet. Leave context for teammates loading this request later.
+                        {t("empty")}
                     </div>
                 ) : (
                     <div className="p-1 space-y-2">
@@ -64,7 +66,7 @@ export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
                                             variant="ghost"
                                             className="h-6 w-6 ml-auto"
                                             onClick={() => handleDelete(c.id)}
-                                            title="Delete comment"
+                                            title={t("delete")}
                                         >
                                             <Trash2 className="h-3.5 w-3.5" />
                                         </Button>
@@ -77,7 +79,7 @@ export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
             </ScrollArea>
             <div className="border border-border rounded-lg p-2 space-y-2 bg-muted/40">
                 <Textarea
-                    placeholder={`Write as ${myName}…`}
+                    placeholder={t("placeholder", { name: myName })}
                     value={draft}
                     onChange={(e) => setDraft(e.target.value)}
                     onKeyDown={(e) => {
@@ -89,9 +91,9 @@ export function CommentsPanel({ comments, onChange }: CommentsPanelProps) {
                     className="text-[13px] min-h-[60px]"
                 />
                 <div className="flex items-center justify-between text-[11px] text-muted-foreground">
-                    <span>⌘/Ctrl + Enter to post</span>
+                    <span>{t("hint")}</span>
                     <Button size="sm" onClick={handlePost} disabled={!draft.trim()}>
-                        Post
+                        {t("post")}
                     </Button>
                 </div>
             </div>

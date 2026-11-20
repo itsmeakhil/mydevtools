@@ -236,14 +236,14 @@ describe("Insomnia v4 import", () => {
         })
     })
 
-    it("unpacks graphql bodies, drops disabled auth, and falls back on unknown methods", () => {
+    it("unpacks graphql bodies, drops disabled auth, and keeps custom methods", () => {
         const gql = reqs(collection.items)[4]
         expect(gql.body).toEqual({ type: "graphql", content: "query { me { id } }", graphqlVariables: '{"a":1}' })
         expect(gql.auth).toEqual({ type: "none" })
 
         const bogus = reqs(collection.items)[5]
-        expect(bogus.method).toBe("GET")
-        expect(bogus.auth).toEqual({ type: "none" })
+        expect(bogus.method).toBe("PURGE")
+        expect(bogus.auth).toEqual({ type: "inherit" }) // no authentication = inherit from folder
         expect(bogus.body).toEqual({ type: "none", content: "" })
     })
 

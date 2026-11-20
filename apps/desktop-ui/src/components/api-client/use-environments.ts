@@ -2,7 +2,9 @@
 
 import * as React from "react"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 import useAuth from "@/utils/useAuth"
+import { getUserPreferences, patchUserPreferences } from "@/lib/user-preferences-api"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 
@@ -11,6 +13,8 @@ export interface EnvironmentVariable {
     key: string
     value: string
     enabled: boolean
+    /** Masked in the UI, blanked in exports and redacted from metrics/logs. */
+    secret?: boolean
 }
 
 export interface Environment {
@@ -33,6 +37,34 @@ export function useEnvironments() {
     const [activeEnvId, setActiveEnvId] = React.useState<string | null>(null)
     const [isLoading, setIsLoading] = React.useState(true)
     const migrationRanRef = React.useRef(false)
+    // Globals: one list in the local preferences doc, below collection variables.
+    const [globals, setGlobals] = React.useState<EnvironmentVariable[]>([])
+    const tGlobals = useTranslations("ApiClient.globals")
+    const te = useTranslations("ApiClient.environmentToasts")
+
+    React.useEffect(() => {
+        if (loading || !user) return
+        let cancelled = false
+        getUserPreferences()
+            .then((p) => { if (!cancelled) setGlobals(p.apiClientGlobals ?? []) })
+            .catch((e) => console.error("Error loading globals:", e))
+        return () => { cancelled = true }
+    }, [user, loading])
+
+    const globalsRef = React.useRef(globals)
+    React.useEffect(() => { globalsRef.current = globals }, [globals])
+    const updateGlobals = React.useCallback(async (next: EnvironmentVariable[]) => {
+        const prev = globalsRef.current
+        setGlobals(next)
+        try {
+            await patchUserPreferences({ apiClientGlobals: next })
+        } catch (e) {
+            // Restore so the edit isn't silently dropped; the next change retries.
+            setGlobals(prev)
+            console.error("Error saving globals", e)
+            toast.error(tGlobals("saveFailed"))
+        }
+    }, [tGlobals])
 
     React.useEffect(() => {
         if (!user) migrationRanRef.current = false
@@ -85,7 +117,7 @@ export function useEnvironments() {
                 if (!cancelled) setEnvironments(envs)
             } catch (error) {
                 console.error("Error fetching environments:", error)
-                toast.error("Failed to load environments")
+                toast.error(te("loadFailed"))
             } finally {
                 if (!cancelled) setIsLoading(false)
             }
@@ -180,11 +212,11 @@ export function useEnvironments() {
             const created = (await res.json()) as Environment
             setEnvironments((prev) => sortEnvs([...prev, created]))
             broadcastApiClientUpdate("environments")
-            toast.success("Environment created")
+            toast.success(te("created"))
             return created.id
         } catch (e) {
             console.error("Error creating environment", e)
-            toast.error("Failed to create environment")
+            toast.error(te("createFailed"))
             return ""
         }
     }
@@ -202,7 +234,7 @@ export function useEnvironments() {
             broadcastApiClientUpdate("environments")
         } catch (e) {
             console.error("Error updating environment", e)
-            toast.error("Failed to update environment")
+            toast.error(te("updateFailed"))
         }
     }
 
@@ -216,32 +248,11 @@ export function useEnvironments() {
                 setActiveEnvId(null)
             }
             broadcastApiClientUpdate("environments")
-            toast.success("Environment deleted")
+            toast.success(te("deleted"))
         } catch (e) {
             console.error("Error deleting environment", e)
-            toast.error("Failed to delete environment")
+            toast.error(te("deleteFailed"))
         }
-    }
-
-    const getActiveVariables = (): Record<string, string> => {
-        if (!activeEnvId) return {}
-        const env = environments.find(e => e.id === activeEnvId)
-        if (!env) return {}
-
-        return env.variables.reduce((acc, v) => {
-            if (v.enabled && v.key) {
-                acc[v.key] = v.value
-            }
-            return acc
-        }, {} as Record<string, string>)
-    }
-
-    const substituteVariables = (text: string): string => {
-        if (!text) return text
-        const variables = getActiveVariables()
-        return text.replace(/\{\{(.+?)\}\}/g, (match, key) => {
-            return variables[key.trim()] || match
-        })
     }
 
     return {
@@ -251,7 +262,8 @@ export function useEnvironments() {
         addEnvironment,
         updateEnvironment,
         deleteEnvironment,
-        substituteVariables,
+        globals,
+        updateGlobals,
         isLoading
     }
 }

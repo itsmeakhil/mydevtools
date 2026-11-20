@@ -1,4 +1,8 @@
-export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS"
+import type { Assertion } from "@/lib/api-client/assertions"
+import type { GqlSchema } from "@/lib/api-client/graphql-schema"
+
+/** Standard methods, or any custom HTTP token (e.g. PROPFIND) set via the method picker. */
+export type RequestMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS" | (string & {})
 
 /** Persisted in localStorage; translate in UI with ApiClient.defaults */
 export const API_CLIENT_DEFAULT_TAB_NAME = "New Request"
@@ -14,9 +18,12 @@ export interface KeyValueItem {
 }
 
 export interface RequestBody {
-    type: "json" | "text" | "none" | "form-data" | "x-www-form-urlencoded" | "graphql"
+    type: "json" | "text" | "xml" | "none" | "form-data" | "x-www-form-urlencoded" | "graphql" | "binary"
     content: string
     formData?: RequestFormDataItem[]
+    /** File sent as the raw body when `type === "binary"`. Bytes may be stripped
+     *  (localStorage quota, history) — the name stays so the user can re-pick it. */
+    binaryFile?: Pick<RequestFormDataItem, "fileName" | "fileType" | "fileContentBase64">
     urlEncoded?: KeyValueItem[]
     /** GraphQL variables — JSON-encoded string. Only used when `type === "graphql"`. */
     graphqlVariables?: string
@@ -88,7 +95,8 @@ export interface DigestConfig {
 }
 
 export interface RequestAuth {
-    type: "none" | "bearer" | "basic" | "api-key" | "oauth2" | "aws-sigv4" | "hawk" | "digest" | "ntlm" | "jwt-bearer" | "spnego"
+    /** `inherit` uses the nearest folder/collection auth at send time; `none` sends no auth. */
+    type: "none" | "inherit" | "bearer" | "basic" | "api-key" | "oauth2" | "aws-sigv4" | "hawk" | "digest" | "ntlm" | "jwt-bearer" | "spnego"
     token?: string
     username?: string
     password?: string
@@ -153,6 +161,30 @@ export interface ApiResponse {
     time: number
     size: number
     error?: string
+    /** What was actually sent and when (desktop proxy only). In memory only — it holds auth headers. */
+    timeline?: ResponseTimeline
+    /** Live messages of an SSE stream or GraphQL subscription, oldest first. */
+    streamEvents?: import("@/lib/api-client/sse").StreamEvent[]
+}
+
+/** One request the proxy sent: the original, a redirect hop, or a digest retry. */
+export interface TimelineHop {
+    method: string
+    url: string
+    status: number
+    /** Offset from the start of the send, ms. */
+    startMs: number
+    /** Request sent → response headers received (includes DNS/TCP/TLS on a new connection), ms. */
+    ttfbMs: number
+    /** Headers as handed to the HTTP client, in order; duplicates kept. */
+    headers: [string, string][]
+}
+
+export interface ResponseTimeline {
+    hops: TimelineHop[]
+    /** Final response body read, ms. */
+    downloadMs: number
+    totalMs: number
 }
 
 export type TabKind = "rest" | "websocket" | "grpc"
@@ -212,13 +244,6 @@ export interface WebSocketState {
 }
 
 /** Public-only fragment of the GraphQL spec we care about for the schema explorer. */
-export interface GraphQLIntrospectionType {
-    name?: string
-    kind?: string
-    fields?: Array<{ name: string; type?: { name?: string; ofType?: { name?: string } } }>
-    description?: string
-}
-
 export interface ApiRequestState {
     id: string
     name: string
@@ -235,12 +260,24 @@ export interface ApiRequestState {
     websocket?: WebSocketState
     grpc?: GrpcWebState
     /** Last successful GraphQL introspection result for this tab. */
-    graphqlSchema?: { types: GraphQLIntrospectionType[]; queryType?: string; mutationType?: string; subscriptionType?: string }
+    graphqlSchema?: GqlSchema
     /** Per-request timeout override (ms). Falls back to proxy default when omitted. */
     timeoutMs?: number
     /** When false, the cookie jar does not attach cookies or store Set-Cookie for this request.
      *  Defaults to true. */
     useCookieJar?: boolean
+    /** Lowercased keys of collection/folder default headers this request opts out of. */
+    omitHeaders?: string[]
+    /** Follow 3xx responses (default true). Off returns the redirect response itself. */
+    followRedirects?: boolean
+    /** Redirect hops before giving up (default 5, capped at 50 by the Rust engine). */
+    maxRedirects?: number
+    /** Verify TLS certificates (default true). Off accepts self-signed/invalid certs. */
+    verifySsl?: boolean
+    /** Declarative checks (`res.status eq 200`) reported alongside `pm.test` results. */
+    assertions?: Assertion[]
+    /** Markdown docs shown in the Docs tab and the HTML docs export. */
+    description?: string
     /** Optional JS sandbox script run before each send (Postman-style `pm.*`). */
     preRequestScript?: string
     /** Optional JS sandbox script run after each response — assertions land in the Tests tab. */
@@ -296,6 +333,9 @@ export interface RequestComment {
     text: string
 }
 
+/** Per-request transport options edited in the request Settings tab. */
+export type RequestSettings = Pick<ApiRequestState, "timeoutMs" | "useCookieJar" | "followRedirects" | "maxRedirects" | "verifySsl">
+
 export interface CollectionRequest extends Omit<ApiRequestState, "response" | "isLoading" | "scriptResults" | "source" | "savedFingerprint"> {
     id: string
     name: string
@@ -315,6 +355,8 @@ export interface CollectionFolder {
     defaultAuth?: RequestAuth
     preRequestScript?: string
     testScript?: string
+    /** Markdown docs for this folder. */
+    description?: string
 }
 
 export interface Collection {
@@ -323,9 +365,24 @@ export interface Collection {
     items: (CollectionFolder | CollectionRequest)[]
     /** Free-form workspace label (e.g. "Personal", "Acme Prod"). Empty / undefined = default workspace. */
     workspace?: string
-    /** Desktop-only: set when this collection is backed by a folder of YAML files
-     *  (git-friendly). In-memory marker — never sent to the backend. */
-    source?: { kind: "file"; path: string }
+    /** Desktop-only: set when this collection is backed by a folder — our YAML
+     *  files, or a live-linked Bruno folder (edits write back to its .bru files).
+     *  In-memory marker — never sent to the backend. */
+    source?: { kind: "file"; path: string } | ({ kind: "bruno"; path: string } & import("@/lib/import/bruno-write").BrunoLink)
+    /** Collection-level defaults — the root of the folder chain, resolved live at
+     *  send/run time (never copied into requests). */
+    defaultHeaders?: KeyValueItem[]
+    defaultAuth?: RequestAuth
+    preRequestScript?: string
+    testScript?: string
+    /** Collection variables: below the environment, above globals. */
+    variables?: KeyValueItem[]
+    /** Markdown docs for this collection. */
+    description?: string
+    /** Client certificates for this collection's hosts (checked before the global ones). */
+    clientCerts?: import("@/lib/api-client/network-settings").ClientCertEntry[]
+    /** Extra CA certificate files (PEM) trusted for this collection's requests. */
+    caPaths?: string[]
 }
 
 export interface HistoryRequest extends CollectionRequest {

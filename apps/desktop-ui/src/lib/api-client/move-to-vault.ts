@@ -90,7 +90,8 @@ export function planVaultMoves(
             return { ...req, auth: moveAuth(req.auth, req.name) as CollectionRequest["auth"] }
         })
 
-    return { creates, collection: { ...col, items: visit(col.items) }, moved }
+    const defaultAuth = moveAuth(col.defaultAuth, col.name)
+    return { creates, collection: { ...col, ...(defaultAuth && { defaultAuth }), items: visit(col.items) }, moved }
 }
 
 /**

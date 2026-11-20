@@ -1,4 +1,6 @@
 import { apiRequest } from "@/lib/backend-api"
+import type { EnvironmentVariable } from "@/components/api-client/use-environments"
+import type { NetworkSettings } from "@/lib/api-client/network-settings"
 
 const BASE = "/api/v1/user-preferences"
 
@@ -24,6 +26,10 @@ export type UserPreferencesOut = {
     /** Keyed pinned-tools map added in T24. Present on all responses after backend migration. */
     pinnedToolsByWorkspace?: Record<string, string[]>
     toolStats: Record<string, ToolStatOut>
+    /** API client globals — lowest-precedence variables, shared by every collection. */
+    apiClientGlobals?: EnvironmentVariable[]
+    /** API client client certificates, CA files and proxy (encrypted store; holds passphrases). */
+    apiClientNetwork?: NetworkSettings
     createdAt: number
     updatedAt: number
 }
@@ -42,6 +48,8 @@ export type UserPreferencesPatch = {
     /** New keyed pinned-tools map (T24). Frontend sends this instead of toolFavorites. */
     pinnedToolsByWorkspace?: Record<string, string[]>
     toolStats?: Record<string, ToolStatOut>
+    apiClientGlobals?: EnvironmentVariable[]
+    apiClientNetwork?: NetworkSettings
 }
 
 export type NosqlQueryHistoryOut = {

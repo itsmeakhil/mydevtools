@@ -11,15 +11,18 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { CheckCircle2, AlertCircle, Loader2, Play, X, FileDown, Trash2 } from "lucide-react"
+import { useTranslations } from "next-intl"
 import { cn } from "@/lib/utils"
-import type { Collection } from "./types"
+import type { Collection, CollectionRequest } from "./types"
 import { useScriptsRunner } from "./workers/use-scripts-runner"
 import { useEnvironmentsState } from "./context/environments-context"
 import { parseDataFile } from "@/lib/runner/csv"
-import { runCollection } from "@/lib/runner/runner"
+import { runCollection, walkRequests } from "@/lib/runner/runner"
 import { downloadJUnitXml } from "@/lib/runner/junit"
+import { downloadHtmlReport } from "@/lib/runner/html-report"
 import type { RequestRunResult } from "@/lib/runner/types"
 import { toast } from "sonner"
 
@@ -30,7 +33,8 @@ interface CollectionRunnerDialogProps {
 }
 
 export function CollectionRunnerDialog({ open, onOpenChange, collection }: CollectionRunnerDialogProps) {
-    const { activeEnvironmentVariables } = useEnvironmentsState()
+    const t = useTranslations("ApiClient.runner")
+    const { activeEnvironmentVariables, globalVariables } = useEnvironmentsState()
     const { run: runScript } = useScriptsRunner()
 
     const [iterations, setIterations] = React.useState(1)
@@ -39,6 +43,10 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
     const [results, setResults] = React.useState<RequestRunResult[]>([])
     const [running, setRunning] = React.useState(false)
     const [total, setTotal] = React.useState(0)
+    const [bail, setBail] = React.useState(false)
+    const [delayMs, setDelayMs] = React.useState(0)
+    const [excluded, setExcluded] = React.useState<Set<string>>(() => new Set())
+    const [durationMs, setDurationMs] = React.useState(0)
     const abortRef = React.useRef<AbortController | null>(null)
 
     React.useEffect(() => {
@@ -48,10 +56,24 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
             setDataRows([])
             setDataFileName("")
             setIterations(1)
+            setExcluded(new Set())
             abortRef.current?.abort()
             abortRef.current = null
         }
     }, [open])
+
+    const requests = React.useMemo(() => {
+        const out: CollectionRequest[] = []
+        if (collection) walkRequests(collection.items, out)
+        return out
+    }, [collection])
+    const selectedCount = requests.filter((r) => !excluded.has(r.id)).length
+    const toggleRequest = (id: string, on: boolean) => setExcluded((prev) => {
+        const next = new Set(prev)
+        if (on) next.delete(id)
+        else next.add(id)
+        return next
+    })
 
     const handleDataFile = async (file: File | null) => {
         if (!file) return
@@ -60,9 +82,9 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
             const rows = parseDataFile(text)
             setDataRows(rows)
             setDataFileName(file.name)
-            toast.success(`Loaded ${rows.length} rows from ${file.name}`)
+            toast.success(t("loaded", { count: rows.length, file: file.name }))
         } catch (e) {
-            toast.error(`Could not parse data file: ${(e as Error).message}`)
+            toast.error(t("parseFailed", { message: (e as Error).message }))
         }
     }
 
@@ -71,14 +93,19 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
         setResults([])
         setRunning(true)
         abortRef.current = new AbortController()
+        const started = performance.now()
         try {
             await runCollection({
                 collection,
                 iterations,
                 dataRows: dataRows.length > 0 ? dataRows : undefined,
                 environmentVariables: activeEnvironmentVariables,
+                globalVariables,
                 runScript,
                 abortSignal: abortRef.current.signal,
+                bail,
+                delayMs,
+                only: excluded.size > 0 ? new Set(requests.filter((r) => !excluded.has(r.id)).map((r) => r.id)) : undefined,
                 onProgress: (e) => {
                     if (e.kind === "started") setTotal(e.total)
                     if (e.kind === "request-done") {
@@ -87,8 +114,9 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                 },
             })
         } catch (e) {
-            toast.error(`Run failed: ${(e as Error).message}`)
+            toast.error(t("runFailed", { message: (e as Error).message }))
         } finally {
+            setDurationMs(Math.round(performance.now() - started))
             setRunning(false)
             abortRef.current = null
         }
@@ -110,26 +138,19 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
         return { totalTests, failedTests, networkErrors, passed: totalTests - failedTests }
     }, [results])
 
-    const handleExport = () => {
-        if (!collection) return
-        downloadJUnitXml(results, collection.name)
-    }
-
     return (
         <Dialog open={open} onOpenChange={(o) => { if (!running) onOpenChange(o) }}>
             <DialogContent className="sm:max-w-[720px] max-h-[85vh] flex flex-col">
                 <DialogHeader>
-                    <DialogTitle>Run collection: {collection?.name ?? "—"}</DialogTitle>
-                    <DialogDescription>
-                        Sends every request in this collection sequentially. Pre-request + test scripts
-                        + cookie jar + OAuth refresh + env substitution all behave exactly as a normal send.
-                    </DialogDescription>
+                    <DialogTitle>{t("title", { name: collection?.name ?? "—" })}</DialogTitle>
+                    <DialogDescription>{t("description")}</DialogDescription>
                 </DialogHeader>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                        <Label className="text-xs">Iterations</Label>
+                        <Label htmlFor="runner-iterations" className="text-xs">{t("iterations")}</Label>
                         <Input
+                            id="runner-iterations"
                             type="number"
                             min={1}
                             value={iterations}
@@ -139,12 +160,12 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                         />
                         {dataRows.length > 0 && (
                             <p className="text-[10px] text-muted-foreground">
-                                Iterations forced to {dataRows.length} (from data file).
+                                {t("iterationsFromData", { count: dataRows.length })}
                             </p>
                         )}
                     </div>
                     <div className="space-y-1">
-                        <Label className="text-xs">Data file (CSV or JSON array)</Label>
+                        <Label className="text-xs">{t("dataFile")}</Label>
                         <div className="flex items-center gap-2">
                             <label className="inline-flex">
                                 <input
@@ -155,42 +176,96 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                                     disabled={running}
                                 />
                                 <Button variant="outline" size="sm" asChild disabled={running}>
-                                    <span>Choose</span>
+                                    <span>{t("choose")}</span>
                                 </Button>
                             </label>
                             {dataFileName ? (
                                 <div className="flex-1 flex items-center gap-1 text-xs text-muted-foreground truncate">
                                     <span className="truncate">{dataFileName}</span>
-                                    <Button size="icon" variant="ghost" className="h-6 w-6" onClick={() => { setDataRows([]); setDataFileName("") }} disabled={running}>
+                                    <Button size="icon" variant="ghost" className="h-6 w-6" aria-label={t("removeDataFile")} onClick={() => { setDataRows([]); setDataFileName("") }} disabled={running}>
                                         <X className="h-3 w-3" />
                                     </Button>
                                 </div>
                             ) : (
-                                <span className="text-xs text-muted-foreground">none</span>
+                                <span className="text-xs text-muted-foreground">{t("noDataFile")}</span>
                             )}
                         </div>
                     </div>
+                    <div className="space-y-1">
+                        <Label htmlFor="runner-delay" className="text-xs">{t("delay")}</Label>
+                        <Input
+                            id="runner-delay"
+                            type="number"
+                            min={0}
+                            value={delayMs}
+                            onChange={(e) => setDelayMs(Math.max(0, Number(e.target.value) || 0))}
+                            disabled={running}
+                            className="h-9"
+                        />
+                    </div>
+                    <div className="flex items-center gap-2 sm:pt-5">
+                        <Checkbox id="runner-bail" checked={bail} onCheckedChange={(v) => setBail(v === true)} disabled={running} />
+                        <Label htmlFor="runner-bail" className="text-xs">{t("bail")}</Label>
+                    </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                {requests.length > 0 && (
+                    <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs font-medium flex-1">
+                                {t("requests", { selected: selectedCount, total: requests.length })}
+                            </span>
+                            <Button variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={() => setExcluded(new Set())} disabled={running}>
+                                {t("selectAll")}
+                            </Button>
+                            <Button variant="ghost" size="sm" className="h-6 px-2 text-xs" onClick={() => setExcluded(new Set(requests.map((r) => r.id)))} disabled={running}>
+                                {t("selectNone")}
+                            </Button>
+                        </div>
+                        <div className="max-h-32 overflow-y-auto border border-border rounded-lg">
+                            <ul className="p-1.5 space-y-0.5">
+                                {requests.map((r) => (
+                                    <li key={r.id}>
+                                        <label className="flex items-center gap-2 px-1.5 py-1 rounded-md text-xs hover:bg-muted/50">
+                                            <Checkbox
+                                                checked={!excluded.has(r.id)}
+                                                onCheckedChange={(v) => toggleRequest(r.id, v === true)}
+                                                disabled={running}
+                                            />
+                                            <span className="font-semibold text-[10px] w-12 text-right">{r.method}</span>
+                                            <span className="truncate">{r.name}</span>
+                                        </label>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                )}
+
+                <div className="flex items-center gap-2 flex-wrap">
                     {!running ? (
-                        <Button onClick={handleRun} disabled={!collection || running}>
-                            <Play className="h-4 w-4 mr-2" /> Run
+                        <Button onClick={handleRun} disabled={!collection || selectedCount === 0}>
+                            <Play className="h-4 w-4 mr-2" /> {t("run")}
                         </Button>
                     ) : (
                         <Button variant="outline" onClick={handleAbort} className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive">
-                            <X className="h-4 w-4 mr-2" /> Abort
+                            <X className="h-4 w-4 mr-2" /> {t("abort")}
                         </Button>
                     )}
                     {results.length > 0 && (
                         <Button variant="outline" size="sm" onClick={() => setResults([])} disabled={running}>
-                            <Trash2 className="h-4 w-4 mr-2" /> Clear
+                            <Trash2 className="h-4 w-4 mr-2" /> {t("clear")}
                         </Button>
                     )}
-                    {results.length > 0 && !running && (
-                        <Button variant="outline" size="sm" onClick={handleExport}>
-                            <FileDown className="h-4 w-4 mr-2" /> JUnit XML
-                        </Button>
+                    {results.length > 0 && !running && collection && (
+                        <>
+                            <Button variant="outline" size="sm" onClick={() => downloadJUnitXml(results, collection.name)}>
+                                <FileDown className="h-4 w-4 mr-2" /> {t("exportJunit")}
+                            </Button>
+                            <Button variant="outline" size="sm" onClick={() => downloadHtmlReport(results, collection.name, durationMs)}>
+                                <FileDown className="h-4 w-4 mr-2" /> {t("exportHtml")}
+                            </Button>
+                        </>
                     )}
                 </div>
 
@@ -204,18 +279,18 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                         )}
                         <span className="inline-flex items-center gap-1 text-success">
                             <CheckCircle2 className="h-3.5 w-3.5" />
-                            {stats.passed} pass
+                            {t("passed", { count: stats.passed })}
                         </span>
                         {stats.failedTests > 0 && (
                             <span className="inline-flex items-center gap-1 text-destructive">
                                 <AlertCircle className="h-3.5 w-3.5" />
-                                {stats.failedTests} fail
+                                {t("failed", { count: stats.failedTests })}
                             </span>
                         )}
                         {stats.networkErrors > 0 && (
                             <span className="inline-flex items-center gap-1 text-warning">
                                 <AlertCircle className="h-3.5 w-3.5" />
-                                {stats.networkErrors} network
+                                {t("networkErrors", { count: stats.networkErrors })}
                             </span>
                         )}
                     </div>
@@ -225,7 +300,7 @@ export function CollectionRunnerDialog({ open, onOpenChange, collection }: Colle
                     <div className="p-3 space-y-1.5">
                         {results.length === 0 && !running && (
                             <div className="text-center py-10 text-[13px] text-muted-foreground">
-                                Configure and click Run.
+                                {t("empty")}
                             </div>
                         )}
                         {results.map((r, i) => {

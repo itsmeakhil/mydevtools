@@ -35,6 +35,8 @@ export interface ProxyEnvelope {
   headers?: Record<string, string>;
   setCookies?: string[];
   redirectChain?: unknown[];
+  /** Desktop proxy only: hops sent + timings (see ResponseTimeline). */
+  timeline?: unknown;
   body?: string;
   isBase64?: boolean;
   time?: number;
@@ -42,10 +44,20 @@ export interface ProxyEnvelope {
   error?: string;
 }
 
+/**
+ * Every api-client request into Rust carries the network settings: the
+ * caller's own (collection) entries in `input.net`, merged here with the global
+ * certificates / CA files / proxy from preferences — one place, every caller.
+ */
+async function withNet(input: unknown): Promise<unknown> {
+  const { withGlobalNet } = await import("@/lib/api-client/network-settings");
+  return withGlobalNet((input ?? {}) as { net?: undefined });
+}
+
 export async function sendProxyRequest(input: unknown, signal?: AbortSignal): Promise<ProxyEnvelope> {
   if (isDesktop()) {
     const { invoke } = await import("@tauri-apps/api/core");
-    return (await invoke("http_request", { input })) as ProxyEnvelope;
+    return (await invoke("http_request", { input: await withNet(input) })) as ProxyEnvelope;
   }
   const res = await fetch("/api/proxy", {
     method: "POST",
@@ -73,7 +85,7 @@ export async function apiFetch(path: string, init?: RequestInit): Promise<Respon
   // api-client HTTP proxy → Rust http_request (returns the /api/proxy envelope).
   if (path === "/api/proxy" || path.startsWith("/api/proxy?")) {
     const { invoke } = await import("@tauri-apps/api/core");
-    const input = body ? JSON.parse(body) : {};
+    const input = await withNet(body ? JSON.parse(body) : {});
     const envelope = await invoke("http_request", { input });
     return new Response(JSON.stringify(envelope), {
       status: 200,
@@ -83,7 +95,7 @@ export async function apiFetch(path: string, init?: RequestInit): Promise<Respon
   // Native gRPC → Rust h2 transport (returns the /api/proxy-grpc envelope).
   if (path.startsWith("/api/proxy-grpc")) {
     const { invoke } = await import("@tauri-apps/api/core");
-    const input = body ? JSON.parse(body) : {};
+    const input = await withNet(body ? JSON.parse(body) : {});
     const envelope = await invoke("proxy_grpc", { input });
     return new Response(JSON.stringify(envelope), {
       status: 200,

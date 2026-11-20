@@ -1,4 +1,5 @@
 import type { ApiRequestState, CollectionRequest } from "@/components/api-client/types"
+import { withoutFileBytes } from "./body-files"
 
 /**
  * The tab fields ⌘S writes back to a collection request.
@@ -21,6 +22,12 @@ export function requestFromTab(tab: ApiRequestState): Omit<CollectionRequest, "i
         testScript: tab.testScript,
         timeoutMs: tab.timeoutMs,
         useCookieJar: tab.useCookieJar,
+        omitHeaders: tab.omitHeaders?.length ? tab.omitHeaders : undefined,
+        followRedirects: tab.followRedirects,
+        maxRedirects: tab.maxRedirects,
+        verifySsl: tab.verifySsl,
+        assertions: tab.assertions,
+        description: tab.description,
     }
 }
 
@@ -44,10 +51,7 @@ export function requestFingerprint(tab: ApiRequestState): string {
         auth: oauth2
             ? { ...r.auth, oauth2: { ...oauth2, accessToken: undefined, refreshToken: undefined, tokenType: undefined, expiresAt: undefined } }
             : r.auth,
-        body: {
-            ...r.body,
-            formData: r.body.formData?.map((f) => ({ ...f, fileContentBase64: undefined })),
-        },
+        body: withoutFileBytes(r.body, undefined),
     })
     cache.set(tab, fp)
     return fp
@@ -58,12 +62,20 @@ export function isTabDirty(tab: ApiRequestState): boolean {
     return tab.savedFingerprint !== undefined && requestFingerprint(tab) !== tab.savedFingerprint
 }
 
+/** Binary-body twin of the form-data restore below: same file name, bytes lost → keep stored bytes. */
+function restoreBinaryBytes<T extends Pick<CollectionRequest, "body">>(r: T, stored: CollectionRequest | undefined): T {
+    const file = r.body.binaryFile
+    const kept = stored?.body.binaryFile
+    if (!file || file.fileContentBase64 || !kept?.fileContentBase64 || kept.fileName !== file.fileName) return r
+    return { ...r, body: { ...r.body, binaryFile: { ...file, fileContentBase64: kept.fileContentBase64 } } }
+}
+
 /**
  * Patch for overwriting `stored` with `tab`. File bytes the tab no longer
  * holds (quota fallback) are taken from the stored request, never blanked.
  */
 export function savePatch(tab: ApiRequestState, stored: CollectionRequest | undefined): Omit<CollectionRequest, "id"> {
-    const r = requestFromTab(tab)
+    const r = restoreBinaryBytes(requestFromTab(tab), stored)
     const storedFiles = new Map(
         (stored?.body.formData ?? []).map((f) => [f.id, f.fileContentBase64] as const),
     )
@@ -79,4 +91,24 @@ export function savePatch(tab: ApiRequestState, stored: CollectionRequest | unde
             ),
         },
     }
+}
+
+/**
+ * What to do with an open tab when its saved request changed under it (folder
+ * collection reloaded from disk, or our own save landing):
+ *   - "mark-saved": the tab already matches the stored request — just re-baseline;
+ *   - "refresh": the tab has no unsaved edits — take the stored version;
+ *   - "conflict": unsaved edits AND a different stored version — keep the edits
+ *     (never clobber them) and tell the user saving will overwrite the file.
+ */
+export function syncTabWithStored(
+    tab: ApiRequestState,
+    stored: CollectionRequest,
+): { kind: "none" } | { kind: "mark-saved" | "refresh" | "conflict"; fingerprint: string } {
+    if (tab.savedFingerprint === undefined) return { kind: "none" }
+    const fingerprint = requestFingerprint(stored as unknown as ApiRequestState)
+    if (fingerprint === tab.savedFingerprint) return { kind: "none" }
+    const current = requestFingerprint(tab)
+    if (current === fingerprint) return { kind: "mark-saved", fingerprint }
+    return { kind: current === tab.savedFingerprint ? "refresh" : "conflict", fingerprint }
 }

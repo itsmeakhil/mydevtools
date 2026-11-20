@@ -4,6 +4,7 @@ import * as React from "react"
 import useAuth from "@/utils/useAuth"
 import { apiFetch } from "@/lib/desktop/api-fetch"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 export interface Workspace {
     id: string
@@ -15,6 +16,7 @@ const ACTIVE_KEY = "api-client-active-workspace"
 
 export function useWorkspaces() {
     const { user, loading: loadingUser } = useAuth()
+    const t = useTranslations("ApiClient.workspaces")
     const [workspaces, setWorkspaces] = React.useState<Workspace[]>([])
     const [activeId, setActiveId] = React.useState<string | null>(null)
     const [isLoading, setIsLoading] = React.useState(true)
@@ -63,10 +65,10 @@ export function useWorkspaces() {
             if (!res.ok) throw new Error(`HTTP ${res.status}`)
             const created = await res.json() as Workspace
             setWorkspaces((prev) => [...prev, created].sort((a, b) => a.name.localeCompare(b.name)))
-            toast.success(`Workspace "${name}" created`)
+            toast.success(t("created", { name }))
             return created
         } catch (e) {
-            toast.error(`Create failed: ${(e as Error).message}`)
+            toast.error(t("createFailed", { message: (e as Error).message }))
             return null
         }
     }
@@ -85,7 +87,7 @@ export function useWorkspaces() {
                 prev.map((w) => (w.id === id ? updated : w)).sort((a, b) => a.name.localeCompare(b.name)),
             )
         } catch (e) {
-            toast.error(`Rename failed: ${(e as Error).message}`)
+            toast.error(t("renameFailed", { message: (e as Error).message }))
         }
     }
 
@@ -96,9 +98,9 @@ export function useWorkspaces() {
             if (!res.ok && res.status !== 204) throw new Error(`HTTP ${res.status}`)
             setWorkspaces((prev) => prev.filter((w) => w.id !== id))
             if (activeId === id) setActiveId(null)
-            toast.success("Workspace deleted (collections reset to default)")
+            toast.success(t("deleted"))
         } catch (e) {
-            toast.error(`Delete failed: ${(e as Error).message}`)
+            toast.error(t("deleteFailed", { message: (e as Error).message }))
         }
     }
 

@@ -1,3 +1,4 @@
+mod csp;
 mod db;
 mod dbtools;
 mod error;
@@ -43,13 +44,58 @@ fn http_request_stream_cancel(id: u64) {
 }
 
 #[tauri::command]
-async fn mock_server_start(app: tauri::AppHandle) -> Result<u16, String> {
-    http::mock_server::start(app).await
+async fn mock_server_start(
+    app: tauri::AppHandle,
+    port: Option<u16>,
+    latency_ms: Option<u64>,
+) -> Result<u16, String> {
+    http::mock_server::start(app, port, latency_ms).await
+}
+
+#[tauri::command]
+async fn mock_server_stop() {
+    http::mock_server::stop().await
+}
+
+#[tauri::command]
+async fn mock_server_status() -> http::mock_server::Status {
+    http::mock_server::status().await
+}
+
+#[tauri::command]
+fn mock_server_clear_log() {
+    http::mock_server::clear_log()
 }
 
 #[tauri::command]
 async fn proxy_grpc(input: serde_json::Value) -> Result<serde_json::Value, String> {
     Ok(http::grpc::proxy_grpc(input).await)
+}
+
+#[tauri::command]
+async fn grpc_stream_start(
+    input: serde_json::Value,
+    channel: tauri::ipc::Channel<serde_json::Value>,
+) -> Result<u64, String> {
+    let emit: http::grpc::Emit = std::sync::Arc::new(move |v| {
+        let _ = channel.send(v);
+    });
+    http::grpc::stream_start(input, emit).await
+}
+
+#[tauri::command]
+fn grpc_stream_send(id: u64, frame: String) -> Result<(), String> {
+    http::grpc::stream_send(id, &frame)
+}
+
+#[tauri::command]
+fn grpc_stream_end(id: u64) -> Result<(), String> {
+    http::grpc::stream_end(id)
+}
+
+#[tauri::command]
+fn grpc_stream_cancel(id: u64) {
+    http::grpc::stream_cancel(id)
 }
 
 /// Registry of opened folder-collection dirs, stored as a JSON file in the app
@@ -153,6 +199,14 @@ pub fn run() {
                 r => eprintln!("terminal: shell integration disabled, resources unusable: {r:?}"),
             }
 
+            // Created here rather than from config so every asset response, worker
+            // scripts included, carries the CSP (see csp.rs).
+            let main = app.config().app.windows.iter().find(|w| w.label == "main")
+                .ok_or("main window config missing")?;
+            tauri::WebviewWindowBuilder::from_config(app.handle(), main)?
+                .on_web_resource_request(|_req, res| csp::apply(res))
+                .build()?;
+
             // window-state plugin restores the last saved geometry, which can be
             // wider/taller than the current monitor (smaller screen, unplugged
             // external display). Clamp it to the monitor so it never opens
@@ -181,7 +235,14 @@ pub fn run() {
             http_request_stream,
             http_request_stream_cancel,
             mock_server_start,
+            mock_server_stop,
+            mock_server_status,
+            mock_server_clear_log,
             proxy_grpc,
+            grpc_stream_start,
+            grpc_stream_send,
+            grpc_stream_end,
+            grpc_stream_cancel,
             fs_allow_collection_dir,
             file_collections_registry_load,
             file_collections_registry_save,

@@ -23,6 +23,10 @@ import {
     listCookies,
     deleteCookie,
     clearCookies,
+    exportJar,
+    importCookies,
+    parseCookieFile,
+    toNetscapeCookies,
 } from "../cookie-jar"
 
 beforeEach(() => {
@@ -135,5 +139,48 @@ describe("deleteCookie + clearCookies", () => {
     it("clears everything", () => {
         clearCookies()
         expect(listCookies()).toHaveLength(0)
+    })
+})
+
+describe("cookie files", () => {
+    const future = Date.now() + 86_400_000
+
+    it("round-trips through cookies.txt and our JSON", () => {
+        storeCookiesFromResponse("https://api.example.com/", [
+            "sid=a\tb; Path=/v1; HttpOnly; Secure; Max-Age=3600",
+            "theme=dark",
+        ])
+        const jar = exportJar()
+        const txt = toNetscapeCookies(jar)
+        expect(txt).toContain("#HttpOnly_.api.example.com\tTRUE\t/v1\tTRUE\t")
+        const back = parseCookieFile(txt)
+        expect(back.map((c) => [c.name, c.value, c.domain, c.path, !!c.httpOnly, !!c.secure])).toEqual([
+            ["sid", "a\tb", "api.example.com", "/v1", true, true],
+            ["theme", "dark", "api.example.com", "/", false, false],
+        ])
+        expect(Math.abs(back[0].expires! - jar[0].expires!)).toBeLessThan(1000)
+        expect(back[1].expires).toBeUndefined()
+        expect(parseCookieFile(JSON.stringify(jar))).toEqual(jar)
+    })
+
+    it("reads browser-extension JSON and skips junk rows", () => {
+        const rows = parseCookieFile(JSON.stringify([
+            { name: "a", value: "1", domain: ".x.test", path: "/", expirationDate: future / 1000, sameSite: "no_restriction", hostOnly: false },
+            { name: "", domain: "x.test" },
+            { value: "nameless" },
+        ]))
+        expect(rows).toEqual([{ name: "a", value: "1", domain: "x.test", path: "/", expires: Math.round(future), secure: undefined, httpOnly: undefined, sameSite: "None" }])
+        expect(parseCookieFile("not json {")).toEqual([])
+        expect(parseCookieFile("{bad")).toEqual([])
+    })
+
+    it("imports into the jar, upserting and skipping expired", () => {
+        storeCookiesFromResponse("https://x.test/", ["a=old"])
+        const n = importCookies([
+            { name: "a", value: "new", domain: "x.test", path: "/" },
+            { name: "gone", value: "1", domain: "x.test", path: "/", expires: Date.now() - 1 },
+        ])
+        expect(n).toBe(1)
+        expect(cookieHeaderForUrl("https://x.test/")).toBe("a=new")
     })
 })

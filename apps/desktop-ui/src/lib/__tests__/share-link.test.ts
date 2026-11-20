@@ -37,6 +37,24 @@ describe("share-link", () => {
         expect(back.items[0].name).toBe("List users")
     })
 
+    it("strips literal credentials but keeps {{variable}} references", async () => {
+        const withAuth: Collection = {
+            ...sample,
+            defaultAuth: { type: "bearer", token: "COLLECTION-SECRET" },
+            items: [
+                { ...(sample.items[0] as Collection["items"][number] & { auth: unknown }), auth: { type: "basic", username: "u", password: "REQ-SECRET" } } as Collection["items"][number],
+                {
+                    id: "f1", name: "Folder", type: "folder", items: [],
+                    defaultAuth: { type: "bearer", token: "{{vault.token}}" },
+                },
+            ],
+        }
+        const json = JSON.stringify(await decodeCollectionShareFragment(await encodeCollectionShareFragment(withAuth)))
+        expect(json).not.toContain("COLLECTION-SECRET")
+        expect(json).not.toContain("REQ-SECRET")
+        expect(json).toContain("{{vault.token}}")
+    })
+
     it("encoded fragment is URL-safe (no `+`, `/`, `=`)", async () => {
         const frag = await encodeCollectionShareFragment(sample)
         expect(frag).toMatch(/^[A-Za-z0-9_-]+$/)

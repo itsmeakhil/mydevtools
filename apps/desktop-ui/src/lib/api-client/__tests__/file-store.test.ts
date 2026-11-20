@@ -67,6 +67,80 @@ describe("file-store", () => {
         expect(canonicalTree(parsed)).toEqual(canonicalTree(col))
     })
 
+    test("explicit none survives a round-trip; inherit is written as omitted auth", () => {
+        const col: Collection = {
+            id: "c", name: "C",
+            items: [request({ id: "n", name: "No auth", auth: { type: "none" } }), request({ id: "i", name: "Inherit", auth: { type: "inherit" } })],
+        }
+        const files = serializeCollection(col)
+        const inheritFile = files.find((f) => f.content.includes("name: Inherit"))!
+        expect(inheritFile.content).not.toMatch(/^auth:/m)
+        const auths = Object.fromEntries(
+            (parseCollection(files).collection.items as CollectionRequest[]).map((r) => [r.name, r.auth.type]),
+        )
+        expect(auths).toEqual({ "No auth": "none", Inherit: "inherit" })
+    })
+
+    test("collection-level defaults and variables round-trip through the manifest", () => {
+        const col: Collection = {
+            ...collection(),
+            defaultHeaders: [kv("X-App", "1")],
+            defaultAuth: { type: "bearer", token: "{{vault.apiToken}}" },
+            preRequestScript: "// col pre",
+            testScript: "// col test",
+            variables: [kv("baseUrl", "https://api.example.com")],
+        }
+        const files = serializeCollection(col)
+        const manifest = files.find((f) => f.relPath === MANIFEST_FILE)!.content
+        expect(manifest).toContain("baseUrl")
+        const { collection: parsed } = parseCollection(files)
+        expect(canonicalTree(parsed)).toEqual(canonicalTree(col))
+    })
+
+    test("per-request omitHeaders round-trip; empty lists stay out of the YAML", () => {
+        const col: Collection = { id: "c", name: "c", items: [request({ omitHeaders: ["x-app"] }), request({ id: "r2", name: "Plain", omitHeaders: [] })] }
+        const files = serializeCollection(col)
+        expect(parseCollection(files).collection.items[0]).toMatchObject({ omitHeaders: ["x-app"] })
+        expect(files.find((f) => f.content.includes("name: Plain"))!.content).not.toContain("omitHeaders")
+    })
+
+    test("a manifest without collection fields loads as before", () => {
+        const { collection: parsed } = parseCollection(serializeCollection(collection()))
+        expect(parsed).not.toHaveProperty("variables")
+        expect(parsed).not.toHaveProperty("defaultAuth")
+        const manifest = serializeCollection(collection()).find((f) => f.relPath === MANIFEST_FILE)!.content
+        expect(manifest).not.toMatch(/variables|defaultAuth|defaultHeaders/)
+    })
+
+    test("literal collection auth is redacted from the manifest and counted", () => {
+        const col: Collection = { ...collection(), defaultAuth: { type: "bearer", token: "LITERAL-TOKEN" } }
+        const all = serializeCollection(col).map((f) => f.content).join("\n")
+        expect(all).not.toContain("LITERAL-TOKEN")
+        expect(countLiteralAuthSecrets(col)).toBe(1)
+    })
+
+    test("request settings round-trip; defaults stay out of the YAML", () => {
+        const custom = request({ timeoutMs: 5000, followRedirects: false, maxRedirects: 2, verifySsl: false, useCookieJar: false })
+        const col: Collection = { id: "c", name: "c", items: [custom, request({ id: "r2", name: "Plain" })] }
+        const files = serializeCollection(col)
+        const { collection: parsed } = parseCollection(files)
+        expect(parsed.items[0]).toMatchObject({ timeoutMs: 5000, followRedirects: false, maxRedirects: 2, verifySsl: false, useCookieJar: false })
+        const plain = files.find((f) => f.content.includes("name: Plain"))!.content
+        expect(plain).not.toMatch(/followRedirects|maxRedirects|verifySsl|useCookieJar|timeoutMs/)
+    })
+
+    test("assertions round-trip without ids; empty lists stay out of the YAML", () => {
+        const assertions = [{ id: "a1", enabled: false, target: "res.status", operator: "eq" as const, value: "200" }]
+        const col: Collection = { id: "c", name: "c", items: [request({ assertions }), request({ id: "r2", name: "Plain", assertions: [] })] }
+        const files = serializeCollection(col)
+        expect(files.map((f) => f.content).join("\n")).not.toContain("a1")
+        const { collection: parsed } = parseCollection(files)
+        expect((parsed.items[0] as CollectionRequest).assertions?.map(({ id: _id, ...a }) => a)).toEqual([
+            { enabled: false, target: "res.status", operator: "eq", value: "200" },
+        ])
+        expect(files.find((f) => f.content.includes("name: Plain"))!.content).not.toContain("assertions")
+    })
+
     test("serialization is deterministic (byte-identical on repeat)", () => {
         const a = serializeCollection(collection())
         const b = serializeCollection(collection())

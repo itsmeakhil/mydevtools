@@ -29,6 +29,14 @@ describe("parseProto", () => {
         const stream = services[0].methods[1]
         expect(stream.serverStreaming).toBe(true)
     })
+
+    it("names request/response types as strings that encode", () => {
+        const [m] = parseProto(SAMPLE).services[0].methods
+        expect(m.requestTypeName).toBe("demo.HelloRequest")
+        expect(m.responseTypeName).toBe("demo.HelloReply")
+        const { root } = parseProto(SAMPLE)
+        expect(decodeMessage(root, m.requestTypeName, encodeMessage(root, m.requestTypeName, { name: "a" }))).toEqual({ name: "a", age: 0 })
+    })
 })
 
 describe("encode / decode round-trip", () => {

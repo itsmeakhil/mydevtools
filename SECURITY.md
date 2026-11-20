@@ -91,8 +91,6 @@ before reporting.
   enabled it sends two events with a rotating session id, app version and locale
   — no device id, no paths, nothing typed into a tool. See
   [`apps/desktop-ui/src/lib/telemetry.ts`](apps/desktop-ui/src/lib/telemetry.ts).
-- **Automated scanning.** Every push is scanned in CI
-  (`.github/workflows/threatcrush-scan.yml`) with results uploaded as SARIF.
 - **Auditable.** The app is AGPL-3.0 and the whole source is in this repository.
   Verify the claims above rather than taking them on faith.
 

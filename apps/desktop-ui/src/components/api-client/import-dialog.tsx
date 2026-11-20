@@ -23,6 +23,8 @@ import { useCollectionsActions } from "./context/collections-context"
 import { useEnvironmentsActions } from "./context/environments-context"
 import type { EnvironmentVariable } from "./use-environments"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
+import { isDesktop } from "@/lib/desktop/is-desktop"
 
 interface ImportDialogProps {
     open: boolean
@@ -41,10 +43,25 @@ const FORMAT_LABEL: Record<ImportFormat, string> = {
 }
 
 export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
-    const { importCollection } = useCollectionsActions()
+    const { importCollection, openFolderCollection } = useCollectionsActions()
     const { addEnvironment, updateEnvironment } = useEnvironmentsActions()
+    const tf = useTranslations("ApiClient.fileSync")
+    const t = useTranslations("ApiClient.importDialog")
     const [text, setText] = React.useState("")
     const [busy, setBusy] = React.useState(false)
+    // isDesktop() is false during SSR — gate behind a mounted flag to avoid hydration mismatch.
+    const [desktop, setDesktop] = React.useState(false)
+    React.useEffect(() => { setDesktop(isDesktop()) }, [])
+
+    /** "Open folder" live-links a Bruno folder; this keeps the old one-time import. */
+    const importBrunoCopy = async () => {
+        setBusy(true)
+        try {
+            if (await openFolderCollection("copy")) onOpenChange(false)
+        } finally {
+            setBusy(false)
+        }
+    }
 
     const detected: ImportFormat = React.useMemo(() => detectImportFormat(text), [text])
     const canImport = detected !== "curl" && detected !== "unknown"
@@ -63,19 +80,16 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                 const env = importPostmanEnvironment(text)
                 const envId = await addEnvironment(env.name)
                 if (envId) await updateEnvironment(envId, { variables: env.variables })
-                toast.success(`Imported environment "${env.name}" (${env.variables.length} variables)`)
+                toast.success(t("envImported", { name: env.name, count: env.variables.length }))
                 onOpenChange(false)
                 setText("")
                 return
             }
-            let postmanVariables: Array<{ key: string; value: string }> = []
             // Insomnia and Bruno carry their own environments alongside the tree.
             let importedEnvironments: Array<{ name: string; variables: EnvironmentVariable[] }> = []
             let collection
             if (detected === "postman") {
-                const result = importPostmanCollectionWithMeta(text)
-                collection = result.collection
-                postmanVariables = result.variables
+                collection = importPostmanCollectionWithMeta(text).collection
             } else if (detected === "insomnia") {
                 const result = importInsomniaWithMeta(text)
                 collection = result.collection
@@ -97,21 +111,6 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
             }
             const created = await importCollection(collection)
             if (created) {
-                // Postman collection-level variables → an api-client environment,
-                // so {{baseUrl}}-style references resolve right after import.
-                if (postmanVariables.length) {
-                    const envId = await addEnvironment(collection.name)
-                    if (envId) {
-                        await updateEnvironment(envId, {
-                            variables: postmanVariables.map((v) => ({
-                                id: crypto.randomUUID(),
-                                key: v.key,
-                                value: v.value,
-                                enabled: true,
-                            })),
-                        })
-                    }
-                }
                 for (const env of importedEnvironments) {
                     const envId = await addEnvironment(env.name)
                     if (envId) await updateEnvironment(envId, { variables: env.variables })
@@ -120,7 +119,7 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                 setText("")
             }
         } catch (err) {
-            toast.error(`Import failed: ${(err as Error).message}`)
+            toast.error(t("failed", { message: (err as Error).message }))
         } finally {
             setBusy(false)
         }
@@ -130,11 +129,8 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
         <Dialog open={open} onOpenChange={(o) => { if (!busy) onOpenChange(o) }}>
             <DialogContent className="sm:max-w-[640px] max-h-[85vh] flex flex-col">
                 <DialogHeader>
-                    <DialogTitle>Import collection</DialogTitle>
-                    <DialogDescription>
-                        Paste a Postman, Insomnia or Bruno export, an OpenAPI spec or a HAR file,
-                        or pick one from disk. Format is auto-detected.
-                    </DialogDescription>
+                    <DialogTitle>{t("title")}</DialogTitle>
+                    <DialogDescription>{t("description")}</DialogDescription>
                 </DialogHeader>
 
                 <div className="flex flex-col gap-3 flex-1 min-h-0">
@@ -147,29 +143,34 @@ export function ImportDialog({ open, onOpenChange }: ImportDialogProps) {
                                 onChange={(e) => void handleFile(e.target.files?.[0] ?? null)}
                             />
                             <Button type="button" variant="outline" size="sm" asChild>
-                                <span>Choose file</span>
+                                <span>{t("chooseFile")}</span>
                             </Button>
                         </label>
+                        {desktop && (
+                            <Button type="button" variant="outline" size="sm" onClick={() => void importBrunoCopy()} disabled={busy}>
+                                {tf("importBrunoCopy")}
+                            </Button>
+                        )}
                         <div className="text-xs text-muted-foreground">
-                            Detected: <span className={
+                            {t("detected")} <span className={
                                 canImport ? "text-success font-semibold" : "text-muted-foreground"
                             }>
-                                {FORMAT_LABEL[detected]}
+                                {detected === "curl" ? t("formatCurl") : detected === "unknown" ? t("formatUnknown") : FORMAT_LABEL[detected]}
                             </span>
                         </div>
                     </div>
                     <Textarea
                         className="flex-1 min-h-[300px] font-mono text-xs"
-                        placeholder="Paste collection JSON here…"
+                        placeholder={t("placeholder")}
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                     />
                 </div>
 
                 <DialogFooter>
-                    <Button variant="outline" onClick={() => onOpenChange(false)} disabled={busy}>Cancel</Button>
+                    <Button variant="outline" onClick={() => onOpenChange(false)} disabled={busy}>{t("cancel")}</Button>
                     <Button onClick={handleImport} disabled={!canImport || busy}>
-                        {busy ? "Importing…" : "Import"}
+                        {busy ? t("importing") : t("import")}
                     </Button>
                 </DialogFooter>
             </DialogContent>

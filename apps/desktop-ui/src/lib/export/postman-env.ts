@@ -12,7 +12,10 @@ export function exportPostmanEnvironment(env: Environment): string {
             name: env.name,
             values: env.variables
                 .filter((v) => v.key)
-                .map((v) => ({ key: v.key, value: v.value, enabled: v.enabled, type: "default" })),
+                // Secret values never leave the app: key kept, value blanked.
+                .map((v) => (v.secret
+                    ? { key: v.key, value: "", enabled: v.enabled, type: "secret" }
+                    : { key: v.key, value: v.value, enabled: v.enabled, type: "default" })),
             _postman_variable_scope: "environment",
             _postman_exported_at: new Date().toISOString(),
         },

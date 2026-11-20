@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react"
 import { HistoryRequest, CollectionRequest } from "./types"
 import useAuth from "@/utils/useAuth"
 import { apiFetch } from "@/lib/desktop/api-fetch"
+import { withoutFileBytes } from "@/lib/api-client/body-files"
 import { broadcastApiClientUpdate, useApiClientSyncListener } from "@/lib/api-client-sync"
 
 const HISTORY_STORAGE_KEY = "api-client-history"
@@ -17,21 +18,7 @@ const HISTORY_LIMIT = 100
  */
 function stripHistoryFileBytes(items: HistoryRequest[]): HistoryRequest[] {
     return items.map((item) => {
-        const formData = item.body?.formData
-        if (!formData?.some((f) => f.valueType === "file" && f.fileContentBase64)) {
-            return item
-        }
-        return {
-            ...item,
-            body: {
-                ...item.body,
-                formData: formData.map((f) =>
-                    f.valueType === "file" && f.fileContentBase64
-                        ? { ...f, fileContentBase64: "" }
-                        : f
-                ),
-            },
-        }
+        return item.body ? { ...item, body: withoutFileBytes(item.body, "") } : item
     })
 }
 

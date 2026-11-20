@@ -58,6 +58,7 @@ function reqBodyText(req: CollectionRequest): string {
     switch (req.body.type) {
         case "json":
         case "text":
+        case "xml":
         case "graphql":
             return req.body.content ?? ""
         case "x-www-form-urlencoded": {
@@ -78,6 +79,7 @@ function reqMime(req: CollectionRequest): string {
     if (req.body.type === "json" || req.body.type === "graphql") return "application/json"
     if (req.body.type === "x-www-form-urlencoded") return "application/x-www-form-urlencoded"
     if (req.body.type === "form-data") return "multipart/form-data"
+    if (req.body.type === "xml") return "application/xml"
     return "text/plain"
 }
 

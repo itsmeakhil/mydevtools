@@ -1,0 +1,13 @@
+id: me
+name: Me
+method: GET
+url: '{{baseUrl}}/{{apiVersion}}/me'
+auth:
+  token: '{{token}}'
+  type: bearer
+assertions:
+  - enabled: true
+    operator: eq
+    target: res.body.name
+    value: Ada
+preRequestScript: req.setHeader("X-Trace", bru.getEnvVar("user"))

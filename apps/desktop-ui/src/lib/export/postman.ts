@@ -20,6 +20,7 @@ interface PostmanEventOut {
 
 interface PostmanItemOut {
     name: string
+    description?: string
     item?: PostmanItemOut[]
     request?: unknown
     event?: PostmanEventOut[]
@@ -35,7 +36,9 @@ function makeScriptEvent(listen: "prerequest" | "test", script: string): Postman
 }
 
 function exportAuth(auth: RequestAuth): unknown {
-    if (!auth || auth.type === "none") return undefined
+    // No auth key = Postman's inherit-from-parent; `noauth` is its explicit "no auth".
+    if (!auth || auth.type === "inherit") return undefined
+    if (auth.type === "none") return { type: "noauth" }
     if (auth.type === "bearer") {
         return {
             type: "bearer",
@@ -135,12 +138,13 @@ function exportRequest(r: CollectionRequest): unknown {
         },
         body: exportBody(r.body),
         auth: exportAuth(r.auth),
+        description: r.description?.trim() ? r.description : undefined,
     }
 }
 
 function exportItem(item: CollectionFolder | CollectionRequest): PostmanItemOut {
     if ("type" in item && item.type === "folder") {
-        return { name: item.name, item: item.items.map(exportItem) }
+        return { name: item.name, description: item.description?.trim() ? item.description : undefined, item: item.items.map(exportItem) }
     }
     const req = item as CollectionRequest
     const out: PostmanItemOut = { name: req.name, request: exportRequest(req) }
@@ -157,6 +161,7 @@ export function exportPostmanCollection(collection: Collection): string {
             info: {
                 _postman_id: collection.id,
                 name: collection.name,
+                description: collection.description?.trim() ? collection.description : undefined,
                 schema: POSTMAN_SCHEMA,
             },
             item: collection.items.map(exportItem),

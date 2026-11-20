@@ -5,6 +5,7 @@
  * Pre-request + test scripts (`event[]`) are also pulled across.
  */
 
+import { normalizeMethod } from "@/lib/api-client/http-method"
 import type {
     Collection,
     CollectionFolder,
@@ -17,15 +18,24 @@ import type {
 } from "@/components/api-client/types"
 
 interface PostmanCollection {
-    info?: { name?: string; schema?: string; description?: string; _postman_id?: string }
+    info?: { name?: string; schema?: string; description?: PostmanDescription; _postman_id?: string }
     item?: PostmanItem[]
     auth?: PostmanAuth
     event?: PostmanEvent[]
     variable?: Array<{ key: string; value?: string }>
 }
 
+/** Postman stores descriptions as a string or `{ content, type }`. */
+type PostmanDescription = string | { content?: string; type?: string }
+
+function readDescription(d: PostmanDescription | undefined): string | undefined {
+    const text = typeof d === "string" ? d : d?.content
+    return text?.trim() ? text : undefined
+}
+
 interface PostmanItem {
     name?: string
+    description?: PostmanDescription
     item?: PostmanItem[]
     request?: PostmanRequest
     event?: PostmanEvent[]
@@ -38,6 +48,7 @@ interface PostmanEvent {
 }
 
 interface PostmanRequest {
+    description?: PostmanDescription
     method?: string
     url?: string | PostmanUrl
     header?: PostmanHeader[]
@@ -84,9 +95,6 @@ interface PostmanAuth {
     oauth2?: PostmanKV[]
 }
 
-const VALID_METHODS = new Set<RequestMethod>([
-    "GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS",
-])
 
 function id(): string { return crypto.randomUUID() }
 
@@ -203,11 +211,10 @@ function convertAuth(a: PostmanAuth | undefined): RequestAuth {
     return { type: "none" }
 }
 
-function convertRequest(item: PostmanItem, inheritedAuth?: RequestAuth): CollectionRequest {
+function convertRequest(item: PostmanItem): CollectionRequest {
     const r = item.request ?? {}
     const { url, query } = readUrl(r.url)
-    const method = (r.method ?? "GET").toUpperCase() as RequestMethod
-    const safeMethod: RequestMethod = VALID_METHODS.has(method) ? method : "GET"
+    const safeMethod: RequestMethod = normalizeMethod(r.method) ?? "GET"
     const preRequestScript = pickScript(item.event, "prerequest")
     const testScript = pickScript(item.event, "test")
 
@@ -220,41 +227,32 @@ function convertRequest(item: PostmanItem, inheritedAuth?: RequestAuth): Collect
         headers: kvList(r.header),
         body: convertBody(r.body),
         // Postman semantics: no request-level auth → inherit from the nearest
-        // ancestor. Folder auth becomes folder defaultAuth (runtime merge);
-        // collection auth has no runtime home, so it's baked in here.
-        auth: r.auth ? convertAuth(r.auth) : inheritedAuth ?? { type: "none" },
+        // folder/collection, resolved live at send time.
+        auth: r.auth ? convertAuth(r.auth) : { type: "inherit" },
         preRequestScript: preRequestScript || undefined,
         testScript: testScript || undefined,
+        description: readDescription(r.description ?? item.description),
     }
 }
 
-function joinScripts(...parts: Array<string | undefined>): string | undefined {
-    const cleaned = parts.map((p) => (p ?? "").trim()).filter(Boolean)
-    return cleaned.length ? cleaned.join("\n\n") : undefined
-}
-
-function convertItems(
-    items: PostmanItem[] | undefined,
-    inheritedAuth?: RequestAuth,
-): Array<CollectionFolder | CollectionRequest> {
+function convertItems(items: PostmanItem[] | undefined): Array<CollectionFolder | CollectionRequest> {
     if (!items) return []
     const out: Array<CollectionFolder | CollectionRequest> = []
     for (const item of items) {
         if (item.request) {
-            out.push(convertRequest(item, inheritedAuth))
+            out.push(convertRequest(item))
         } else if (item.item) {
             const folderAuth = item.auth ? convertAuth(item.auth) : undefined
             out.push({
                 id: id(),
                 name: item.name ?? "Folder",
                 type: "folder",
-                // Folder auth applies at runtime via defaultAuth, so children stop
-                // inheriting the collection-level fallback under such a folder.
-                items: convertItems(item.item, folderAuth ? undefined : inheritedAuth),
+                items: convertItems(item.item),
                 isOpen: false,
                 defaultAuth: folderAuth,
                 preRequestScript: pickScript(item.event, "prerequest") || undefined,
                 testScript: pickScript(item.event, "test") || undefined,
+                description: readDescription(item.description),
             })
         }
         // Items with neither `request` nor `item` are skipped silently — they're either
@@ -265,8 +263,6 @@ function convertItems(
 
 export interface PostmanImportResult {
     collection: Collection
-    /** Collection-level `variable[]` — offer these as an api-client environment. */
-    variables: Array<{ key: string; value: string }>
 }
 
 export function importPostmanCollectionWithMeta(raw: string | unknown): PostmanImportResult {
@@ -275,33 +271,24 @@ export function importPostmanCollectionWithMeta(raw: string | unknown): PostmanI
     if (!data.info?.name && !Array.isArray(data.item)) {
         throw new Error("Not a Postman collection (missing info.name + item[])")
     }
+    // Collection-level auth, scripts and variables live on the collection and
+    // are resolved at send time — not copied into every request.
     const collectionAuth = data.auth ? convertAuth(data.auth) : undefined
-    const items = convertItems(data.item, collectionAuth?.type === "none" ? undefined : collectionAuth)
-
-    // Collection-level scripts run before everything else. Prepend them at the
-    // top level: folders cascade to children at runtime; bare root requests get
-    // them baked in. (Both CollectionFolder and CollectionRequest carry the
-    // same script fields.)
-    const pre = pickScript(data.event, "prerequest")
-    const test = pickScript(data.event, "test")
-    if (pre || test) {
-        for (const item of items) {
-            item.preRequestScript = joinScripts(pre, item.preRequestScript)
-            item.testScript = joinScripts(test, item.testScript)
-        }
-    }
-
     const variables = (data.variable ?? [])
         .filter((v) => v && typeof v.key === "string" && v.key)
-        .map((v) => ({ key: v.key, value: v.value ?? "" }))
+        .map((v) => ({ id: id(), key: v.key, value: v.value ?? "", active: true }))
 
     return {
         collection: {
             id: id(),
             name: data.info?.name ?? "Imported Postman collection",
-            items,
+            items: convertItems(data.item),
+            defaultAuth: collectionAuth?.type === "none" ? undefined : collectionAuth,
+            preRequestScript: pickScript(data.event, "prerequest") || undefined,
+            testScript: pickScript(data.event, "test") || undefined,
+            variables: variables.length ? variables : undefined,
+            description: readDescription(data.info?.description),
         },
-        variables,
     }
 }
 

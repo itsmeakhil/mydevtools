@@ -41,8 +41,9 @@ function walk(ns: protobuf.NamespaceBase, services: ParsedProto["services"]): vo
                     serviceName: child.fullName.replace(/^\./, ""),
                     path: `${child.fullName.replace(/^\./, "")}/${m.name}`,
                     methodName: m.name,
-                    requestTypeName: (m.resolvedRequestType ?? m.requestType) as string,
-                    responseTypeName: (m.resolvedResponseType ?? m.responseType) as string,
+                    // resolve() sets resolvedRequestType to a protobuf.Type object, not a name.
+                    requestTypeName: m.resolvedRequestType?.fullName.replace(/^\./, "") ?? m.requestType,
+                    responseTypeName: m.resolvedResponseType?.fullName.replace(/^\./, "") ?? m.responseType,
                     clientStreaming: m.requestStream,
                     serverStreaming: m.responseStream,
                 })
