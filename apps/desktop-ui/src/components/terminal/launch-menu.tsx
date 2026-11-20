@@ -13,15 +13,25 @@ import {
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { agentName, LAUNCH_AGENTS } from "@/lib/terminal/agents"
 import { terminalWorktreeAdd } from "@/lib/desktop/terminal-bridge"
+import { LAYOUT_PRESETS, type SplitNode } from "@/lib/terminal/layout"
 import { useTerminalStore, type TerminalProject } from "@/store/terminal-store"
 
-/** "New tab with…": a coding agent or one of the project's saved commands. */
+const PRESETS = [
+  ["layoutColumns2", LAYOUT_PRESETS.columns2],
+  ["layoutRows2", LAYOUT_PRESETS.rows2],
+  ["layoutColumns3", LAYOUT_PRESETS.columns3],
+  ["layoutGrid", LAYOUT_PRESETS.grid],
+] as const
+
+/** "New tab with…": a coding agent, one of the project's saved commands, or a split layout. */
 export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRepo: boolean }) {
   const t = useTranslations("Terminal")
   const [editing, setEditing] = React.useState(false)
   const [worktree, setWorktree] = React.useState(false)
   const launch = (name: string, command: string) => useTerminalStore.getState().newTab(project.id, name, { run: command })
   const commands = project.commands ?? []
+  const activeTab = project.tabs.find((x) => x.id === project.activeTabId)
+  const newLayoutTab = (name: string, layout: SplitNode) => useTerminalStore.getState().newTab(project.id, name, { layout })
 
   return (
     <>
@@ -57,6 +67,25 @@ export function LaunchMenu({ project, isRepo }: { project: TerminalProject; isRe
           ))}
           <DropdownMenuItem onSelect={() => setEditing(true)} className="text-muted-foreground">
             {t("editCommands")}
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>{t("layouts")}</DropdownMenuLabel>
+          {PRESETS.map(([key, layout]) => (
+            <DropdownMenuItem key={key} onSelect={() => newLayoutTab(t(key), layout)}>
+              {t(key)}
+            </DropdownMenuItem>
+          ))}
+          {(project.layouts ?? []).map((l, i) => (
+            <DropdownMenuItem key={`saved-${i}`} onSelect={() => newLayoutTab(l.name, l.layout)}>
+              <span className="min-w-0 truncate">{l.name}</span>
+            </DropdownMenuItem>
+          ))}
+          <DropdownMenuItem
+            disabled={!activeTab || activeTab.layout.kind === "leaf"}
+            onSelect={() => activeTab && useTerminalStore.getState().saveLayout(project.id, activeTab.id)}
+            className="text-muted-foreground"
+          >
+            {t("saveLayout")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -109,6 +138,28 @@ function CommandsDialog({ project, open, onOpenChange }: { project: TerminalProj
               </li>
             ))}
           </ul>
+        )}
+        {(project.layouts ?? []).length > 0 && (
+          <div className="grid gap-1 border-t border-border pt-3">
+            <p className="text-[11px] font-semibold text-muted-foreground">{t("savedLayouts")}</p>
+            <ul className="space-y-1">
+              {(project.layouts ?? []).map((l, i) => (
+                <li key={i} className="flex items-center gap-2 rounded-md border border-border px-2 py-1.5 text-[13px]">
+                  <span className="min-w-0 flex-1 truncate">{l.name}</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-7 w-7 shrink-0"
+                    aria-label={t("removeCommand", { name: l.name })}
+                    title={t("removeCommand", { name: l.name })}
+                    onClick={() => useTerminalStore.getState().removeLayout(project.id, i)}
+                  >
+                    <IconTrash className="h-3.5 w-3.5" />
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
         <form onSubmit={add} className="grid gap-3 border-t border-border pt-3">
           <div className="grid gap-1.5">

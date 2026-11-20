@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { toast } from "sonner"
-import { leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
+import { cloneLayout, leaf, splitAt, removeLeaf, leafIds, setSizes, replaceLeaf, type SplitNode } from "@/lib/terminal/layout"
 import { needsAttention, type TermStatus } from "@/lib/terminal/status"
 import { loadTerminalState, saveTerminalState, terminalKill, type CommandEnd, type Worktree } from "@/lib/desktop/terminal-bridge"
 import { clampFontSize, DEFAULT_PREFS, FONT_SIZE, normalizePrefs, type TerminalPrefs } from "@/lib/terminal/util"
@@ -16,7 +16,11 @@ export interface TerminalProject {
   tabSeq?: number
   /** Saved launch commands ("dev server" → `npm run dev`), offered in the new-tab menu. */
   commands?: SavedCommand[]
+  /** Saved tab layouts (split shape only), offered in the new-tab menu. */
+  layouts?: SavedLayout[]
 }
+
+export interface SavedLayout { name: string; layout: SplitNode }
 
 export interface SavedCommand { name: string; command: string }
 
@@ -71,7 +75,10 @@ interface TerminalState extends TerminalPersisted {
   toggleCollapsed: (id: string) => void
   selectProject: (id: string) => void
   /** `run` is typed into the new pane's shell once it has started; `worktree` makes it a worktree task tab. */
-  newTab: (projectId: string, name?: string, opts?: { run?: string; worktree?: Worktree }) => void
+  newTab: (projectId: string, name?: string, opts?: { run?: string; worktree?: Worktree; layout?: SplitNode }) => void
+  /** Save a tab's split shape under its name; `removeLayout` by index. */
+  saveLayout: (projectId: string, tabId: string) => void
+  removeLayout: (projectId: string, index: number) => void
   /** The command queued for a pane's first start, removed as it's read. */
   takeRunOnStart: (terminalId: string) => string | undefined
   addCommand: (projectId: string, cmd: SavedCommand) => void
@@ -257,15 +264,21 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     },
 
     // Opens where the focused pane is, when that pane belongs to this project.
-    newTab: (projectId, name, { run, worktree } = {}) => {
+    newTab: (projectId, name, { run, worktree, layout } = {}) => {
       const p = get().projects.find((x) => x.id === projectId)
       if (!p) return
       const n = nextTabNumber(p)
-      const tab: TerminalTab = { ...makeTab(n, name), ...(worktree && { worktree }) }
-      const leafId = leafIds(tab.layout)[0]
+      const tab: TerminalTab = {
+        ...makeTab(n, name),
+        ...(worktree && { worktree }),
+        ...(layout && { layout: cloneLayout(layout, uid) }),
+      }
+      const ids = leafIds(tab.layout)
+      const leafId = ids[0]
       const from = get().focusedTerminalId
       // A worktree tab starts in its worktree, not wherever the focused pane is.
-      if (!worktree && from && find([p], from)) set((s) => ({ cwdFrom: { ...s.cwdFrom, [leafId]: from } }))
+      if (!worktree && from && find([p], from))
+        set((s) => ({ cwdFrom: { ...s.cwdFrom, ...Object.fromEntries(ids.map((id) => [id, from])) } }))
       if (run?.trim()) set((s) => ({ runOnStart: { ...s.runOnStart, [leafId]: run.trim() } }))
       mutate(mapProject(projectId, (x) => ({ ...x, tabs: [...x.tabs, tab], activeTabId: tab.id, tabSeq: n })))
     },
@@ -286,6 +299,15 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       if (!command) return
       mutate(mapProject(projectId, (p) => ({ ...p, commands: [...(p.commands ?? []), { name: name || command, command }] })))
     },
+
+    saveLayout: (projectId, tabId) => {
+      const tab = get().projects.find((p) => p.id === projectId)?.tabs.find((t) => t.id === tabId)
+      if (!tab || tab.layout.kind === "leaf") return // a single pane is just "New tab"
+      mutate(mapProject(projectId, (p) => ({ ...p, layouts: [...(p.layouts ?? []), { name: tab.name, layout: tab.layout }] })))
+    },
+
+    removeLayout: (projectId, index) =>
+      mutate(mapProject(projectId, (p) => ({ ...p, layouts: (p.layouts ?? []).filter((_, i) => i !== index) }))),
 
     removeCommand: (projectId, index) =>
       mutate(mapProject(projectId, (p) => ({ ...p, commands: (p.commands ?? []).filter((_, i) => i !== index) }))),
