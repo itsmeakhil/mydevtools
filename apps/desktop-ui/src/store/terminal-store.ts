@@ -111,6 +111,10 @@ interface TerminalState extends TerminalPersisted {
   runOnStart: Record<string, string>
   /** New pane id → extra environment for its process (secrets; read once at spawn); never persisted. */
   envOnStart: Record<string, Record<string, string>>
+  /** New pane id → secrets to mask in its output, label → value (read once at spawn); never persisted. */
+  maskOnStart: Record<string, Record<string, string>>
+  /** Pane id → labels of the secrets masked in it (names only, for the header); not persisted. */
+  masked: Record<string, string[]>
   focusedTerminalId: string | null
   dirty: boolean
   loaded: boolean
@@ -136,9 +140,14 @@ interface TerminalState extends TerminalPersisted {
   newTab: (
     projectId: string,
     name?: string,
-    opts?: { run?: string; env?: Record<string, string>; worktree?: Worktree; layout?: SplitNode; panes?: { run?: string; env?: Record<string, string> }[] },
+    opts?: {
+      run?: string; env?: Record<string, string>; mask?: Record<string, string>; worktree?: Worktree; layout?: SplitNode
+      panes?: { run?: string; env?: Record<string, string>; mask?: Record<string, string> }[]
+    },
   ) => void
   takeEnvOnStart: (terminalId: string) => Record<string, string> | undefined
+  /** The pane's mask, removed as it's read; its labels stay in `masked`. Build it with `maskFor`. */
+  takeMaskOnStart: (terminalId: string) => Record<string, string> | undefined
   /** Save a tab's split shape under its name; `removeLayout` by index. */
   saveLayout: (projectId: string, tabId: string) => void
   removeLayout: (projectId: string, index: number) => void
@@ -265,6 +274,10 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       const agents = { ...s.agents }
       const runningSince = { ...s.runningSince }
       const sources = { ...s.sources }
+      const masked = { ...s.masked }
+      // A pane closed before it spawned: drop the secrets it was holding.
+      const envOnStart = { ...s.envOnStart }
+      const maskOnStart = { ...s.maskOnStart }
       const children: Record<string, string[]> = {}
       for (const [parent, list] of Object.entries(s.children)) {
         const kept = list.filter((c) => !ids.includes(c))
@@ -276,8 +289,11 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
         delete statuses[id]
         delete attention[id]
         delete agents[id]
+        delete masked[id]
+        delete envOnStart[id]
+        delete maskOnStart[id]
       })
-      return { statuses, attention, agents, runningSince, sources, children }
+      return { statuses, attention, agents, runningSince, sources, children, masked, envOnStart, maskOnStart }
     })
   /**
    * File-backed project: apply `fn` to its repo config and write the file back. False when not file-backed.
@@ -361,7 +377,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
   }
 
   return {
-    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, trusted: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, children: {}, runOnStart: {}, envOnStart: {},
+    projects: [], activeProjectId: null, statuses: {}, attention: {}, agents: {}, runningSince: {}, sources: {}, boardOpen: false, projectFiles: {}, trusted: {}, titles: {}, fontSize: FONT_SIZE.default, cwdFrom: {}, children: {}, runOnStart: {}, envOnStart: {}, maskOnStart: {}, masked: {},
     optionAsMeta: false, prefs: DEFAULT_PREFS, cwds: {}, ports: {}, zoomedId: null,
     focusedTerminalId: null, dirty: false, loaded: false,
 
@@ -408,7 +424,7 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
     },
 
     // Opens where the focused pane is, when that pane belongs to this project.
-    newTab: (projectId, name, { run, env, worktree, layout, panes } = {}) => {
+    newTab: (projectId, name, { run, env, mask, worktree, layout, panes } = {}) => {
       const p = get().projects.find((x) => x.id === projectId)
       if (!p) return
       const n = nextTabNumber(p)
@@ -424,11 +440,12 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
       if (!worktree && from && find([p], from))
         set((s) => ({ cwdFrom: { ...s.cwdFrom, ...Object.fromEntries(ids.map((id) => [id, from])) } }))
       // `panes` (a workspace) gives each pane its own command/env; `run`/`env` are for the first pane.
-      const perPane = panes ?? [{ run, env }]
+      const perPane = panes ?? [{ run, env, mask }]
       ids.forEach((id, i) => {
         const p = perPane[i]
         if (p?.run?.trim()) set((s) => ({ runOnStart: { ...s.runOnStart, [id]: p.run!.trim() } }))
         if (p?.env && Object.keys(p.env).length) set((s) => ({ envOnStart: { ...s.envOnStart, [id]: p.env! } }))
+        if (p?.mask && Object.keys(p.mask).length) set((s) => ({ maskOnStart: { ...s.maskOnStart, [id]: p.mask! } }))
       })
       mutate(mapProject(projectId, (x) => ({ ...x, tabs: [...x.tabs, tab], activeTabId: tab.id, tabSeq: n })))
     },
@@ -453,6 +470,16 @@ export const useTerminalStore = create<TerminalState>((set, get) => {
           return { envOnStart: rest }
         })
       return env
+    },
+
+    takeMaskOnStart: (terminalId) => {
+      const mask = get().maskOnStart[terminalId]
+      if (mask)
+        set((s) => {
+          const { [terminalId]: _taken, ...rest } = s.maskOnStart
+          return { maskOnStart: rest, masked: { ...s.masked, [terminalId]: Object.keys(mask) } }
+        })
+      return mask
     },
 
     addCommand: (projectId, cmd) => {

@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useLocale, useTranslations } from "next-intl"
 import { toast } from "sonner"
-import { IconArrowsMinimize, IconChevronDown, IconChevronUp, IconPlayerPlay, IconRefresh, IconX } from "@tabler/icons-react"
+import { IconArrowsMinimize, IconChevronDown, IconChevronUp, IconLock, IconPlayerPlay, IconRefresh, IconX } from "@tabler/icons-react"
 import { agentName, resumeCommand } from "@/lib/terminal/agents"
 import { blobToBase64, imageToPaste, imageTooLarge } from "@/lib/terminal/paste-image"
 import "@xterm/xterm/css/xterm.css"
@@ -140,6 +140,7 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
   const source = useTerminalStore((s) => s.sources[id])
   const optionAsMeta = useTerminalStore((s) => s.optionAsMeta)
   const zoomed = useTerminalStore((s) => s.zoomedId === id && s.focusedTerminalId === id)
+  const masked = useTerminalStore((s) => s.masked[id])
   const guardClose = useCloseGuard()
   const [exited, setExited] = React.useState(false)
   /** Agent that ran here before the app quit, with the command that picks it up again. */
@@ -427,7 +428,8 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
       try {
         const inheritCwdFrom = useTerminalStore.getState().cwdFrom[id]
         const env = useTerminalStore.getState().takeEnvOnStart(id)
-        const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName, inheritCwdFrom, env, projectId })
+        const mask = useTerminalStore.getState().takeMaskOnStart(id)
+        const res = await terminalSpawn({ id, cwd, cols: term.cols, rows: term.rows, projectName, inheritCwdFrom, env, mask, projectId })
         if (disposed) {
           // Closed mid-spawn: its kill may have reached Rust first, leaving this spawn an orphan PTY.
           // (A remount keeps the id in the store, so its session is left alone.)
@@ -672,6 +674,17 @@ function TerminalPaneImpl({ id, cwd, projectName, projectId, label, status, focu
         )}
         <span className="ml-auto flex shrink-0 items-center gap-0.5">
           <PortChips id={id} />
+          {masked && masked.length > 0 && (
+            // Names only: the values never reach the UI after spawn.
+            <span
+              role="img"
+              aria-label={t("secretsMasked", { count: masked.length, names: masked.join(", ") })}
+              title={t("secretsMasked", { count: masked.length, names: masked.join(", ") })}
+              className="p-0.5"
+            >
+              <IconLock className="h-3 w-3" aria-hidden />
+            </span>
+          )}
           {zoomed && (
             <button
               type="button"

@@ -88,7 +88,7 @@ const ConnectionRow = React.memo(function ConnectionRow({
     const cli = isDesktop() ? dbCli(connection.sourceId, connection.config) : null;
     const openCli = () => {
         if (!cli) return;
-        openInTerminal({ name: connection.name, run: cli.command, env: cli.env }, router.push).catch((e) =>
+        openInTerminal({ name: connection.name, run: cli.command, env: cli.env, mask: cli.mask }, router.push).catch((e) =>
             toast.error(e instanceof Error ? e.message : String(e))
         );
     };

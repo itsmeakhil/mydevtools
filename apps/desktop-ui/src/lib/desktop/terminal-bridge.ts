@@ -19,6 +19,8 @@ export const terminalSpawn = (req: {
   inheritCwdFrom?: string
   /** Extra environment for a fresh session (secrets for a CLI); Rust refuses shell-altering names. */
   env?: Record<string, string>
+  /** Secrets to replace by `‹LABEL›` in all output (label → value); Rust refuses the pane unless each passes `mask_ok` and is an `env` value. */
+  mask?: Record<string, string>
   /** Lets Rust check the project's helper-pane opt-in for `mdt-term run`. */
   projectId?: string
 }) =>

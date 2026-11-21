@@ -90,6 +90,7 @@ pub async fn handle(st: &Arc<TerminalState>, line: &str) -> Value {
             wait(st, &s, &r.id, until, timeout).await
         }
         "read" => json!({"tail": s.tail(r.lines.unwrap_or(TAIL_LINES).clamp(1, 500))}),
+        "send" if s.has_secret(&r.text) => err(SECRET_TEXT),
         "send" => blocking(st, move |st| {
             st.input(&r.id);
             match s.send(r.text.as_bytes()) {
@@ -119,6 +120,8 @@ async fn blocking(st: &Arc<TerminalState>, f: impl FnOnce(&TerminalState) -> Val
 // ponytail: one global lock makes check-then-spawn atomic; per-caller locks if run ever gets hot.
 static RUN: Mutex<()> = Mutex::new(());
 
+const SECRET_TEXT: &str = "text contains a masked secret";
+
 fn run(st: &TerminalState, r: Req) -> Value {
     let _g = RUN.lock().unwrap_or_else(|e| e.into_inner());
     let Ok(caller) = st.get(&r.caller) else { return err("unknown caller") };
@@ -132,6 +135,10 @@ fn run(st: &TerminalState, r: Req) -> Value {
     }
     if r.command.trim().is_empty() {
         return err("command required");
+    }
+    // Typed into the helper, an expanded secret would be echoed and saved in its shell history.
+    if caller.has_secret(&r.command) {
+        return err(SECRET_TEXT);
     }
     if st.children(&r.caller).iter().filter(|c| st.is_live(c)).count() >= MAX_CHILDREN {
         return err(&format!("helper limit reached ({MAX_CHILDREN})"));
@@ -767,6 +774,31 @@ mod tests {
         // Opting out stops new helpers.
         st.spawn_projects.lock().unwrap().remove("p");
         assert_eq!(call(&st, "a", "run", json!({"command": "sleep 30"})).await, off);
+        st.kill_all();
+    }
+
+    /// An expanded secret typed into a helper would be echoed and saved in its shell history.
+    #[tokio::test]
+    async fn run_and_send_refuse_text_holding_a_secret() {
+        let st = state();
+        opt_in(&st, "p");
+        let req = SpawnRequest {
+            id: "a".into(),
+            cwd: "/tmp".into(),
+            cols: 80,
+            rows: 24,
+            project_id: Some("p".into()),
+            mask: [("GH".to_string(), "ghp_abcdefgh".to_string())].into(),
+            ..Default::default()
+        };
+        let env = vec![("GH".to_string(), "ghp_abcdefgh".to_string())];
+        st.spawn(req, env, vec!["/bin/sh".into(), "-c".into(), "sleep 30".into()]).unwrap();
+        let refused = json!({"error": "text contains a masked secret"});
+        assert_eq!(call(&st, "a", "run", json!({"command": "curl -H 'x: ghp_abcdefgh'"})).await, refused);
+        assert!(st.children("a").is_empty(), "no helper spawned");
+        let h = run(&st, "a", "sleep 30").await;
+        assert_eq!(call(&st, "a", "send", json!({"id": h, "text": "echo ghp_abcdefgh\r"})).await, refused);
+        assert_eq!(call(&st, "a", "send", json!({"id": h, "text": "true\r"})).await, json!({"ok": true}));
         st.kill_all();
     }
 
