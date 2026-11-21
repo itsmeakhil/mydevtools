@@ -113,6 +113,14 @@ fn json_to_bson(v: &Value, under_id: bool) -> Bson {
         }
         Value::Array(a) => Bson::Array(a.iter().map(|x| json_to_bson(x, under_id)).collect()),
         Value::Object(o) => {
+            // Extended JSON wrappers ({"$oid": ..}, {"$date": ..}, ...) that the
+            // query builder and snippets emit. Query operators like $regex stay
+            // as-is; an invalid wrapper falls through and the server reports it.
+            if o.keys().next().is_some_and(|k| EXTJSON_KEYS.contains(&k.as_str())) {
+                if let Ok(b) = Bson::try_from(v.clone()) {
+                    return b;
+                }
+            }
             let mut d = Document::new();
             for (k, val) in o {
                 // `_id` (or operators nested under it, e.g. {$in: [...]}) get
@@ -122,6 +130,36 @@ fn json_to_bson(v: &Value, under_id: bool) -> Bson {
             }
             Bson::Document(d)
         }
+    }
+}
+
+const EXTJSON_KEYS: &[&str] = &[
+    "$oid", "$date", "$numberLong", "$numberInt", "$numberDouble", "$numberDecimal",
+    "$binary", "$uuid", "$timestamp", "$regularExpression", "$minKey", "$maxKey",
+    "$symbol", "$code", "$dbPointer", "$undefined",
+];
+
+#[cfg(test)]
+mod extjson_tests {
+    use super::*;
+
+    #[test]
+    fn decodes_extended_json_wrappers() {
+        let hex = "507f1f77bcf86cd799439011";
+        let d = json_to_doc(&json!({
+            "_id": { "$oid": hex },
+            "ids": { "$in": [{ "$oid": hex }] },
+            "at": { "$gte": { "$date": "2024-01-01T00:00:00Z" } },
+            "n": { "$numberLong": "5" },
+            "name": { "$regex": "a", "$options": "i" }
+        }))
+        .unwrap();
+        let oid = ObjectId::parse_str(hex).unwrap();
+        assert_eq!(d.get_object_id("_id").unwrap(), oid);
+        assert_eq!(d.get_document("ids").unwrap().get_array("$in").unwrap()[0], Bson::ObjectId(oid));
+        assert!(matches!(d.get_document("at").unwrap().get("$gte"), Some(Bson::DateTime(_))));
+        assert_eq!(d.get_i64("n").unwrap(), 5);
+        assert_eq!(d.get_document("name").unwrap().get_str("$regex").unwrap(), "a");
     }
 }
 
