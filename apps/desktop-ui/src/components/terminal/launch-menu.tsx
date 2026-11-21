@@ -30,8 +30,8 @@ type T = ReturnType<typeof useTranslations<"Terminal">>
 
 /** The pane's mask for `env` (see `maskEntries`); warns, by name only, about values it can't mask. */
 function maskOrWarn(env: Record<string, string>, all: boolean, t: T) {
-  const { mask, tooLong, tooMany } = maskEntries(env, { all })
-  const names = [...tooLong, ...tooMany]
+  const { mask, tooShort, tooLong, tooMany } = maskEntries(env, { all })
+  const names = [...tooShort, ...tooLong, ...tooMany]
   if (names.length) toast.warning(t("secretsNotMasked", { names: names.join(", ") }))
   return mask
 }
@@ -391,6 +391,13 @@ function SecretsDialog({ project, onOpenChange }: { project: TerminalProject; on
   const [secrets, setSecrets] = React.useState<VaultSecret[] | null>(null)
   /** `source:id:field` → its env var name, for the picked fields. */
   const [picked, setPicked] = React.useState<Record<string, string>>({})
+  // Vault locked (or re-keyed): drop the decrypted values now, not when the dialog closes.
+  const [loadedFor, setLoadedFor] = React.useState(key)
+  if (key !== loadedFor) {
+    setLoadedFor(key)
+    setSecrets(null)
+    setPicked({})
+  }
   React.useEffect(() => {
     if (!key) return
     let live = true

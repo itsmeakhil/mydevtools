@@ -28,7 +28,7 @@ export function defaultVarName(label: string, field: SecretChoice["field"]): str
   return /^\d/.test(name) ? `_${name}` : name
 }
 
-const SECRET_NAME = /(SECRET|TOKEN|PASSWORD|PASSWD|PWD|API_?KEY|AUTH|CREDENTIAL|PRIVATE)/i
+const SECRET_NAME = /(SECRET|TOKEN|PASSWORD|PASSWD|PWD|API_?KEY|AUTH|CREDENTIAL|PRIVATE)|(^|_)(KEY|PAT|DSN|WEBHOOK)(_|$)/i
 // Rust `mask_ok` (terminal/mask.rs): Rust refuses to open the pane unless every entry passes.
 const MIN_BYTES = 8
 const MAX_BYTES = 4096
@@ -41,16 +41,21 @@ const bytes = (s: string) => new TextEncoder().encode(s).length
  * names uppercased with anything outside `[A-Z0-9_]` as `_` (≤ 64), values are 8–4096 bytes
  * and taken from `env` itself, at most 64 entries. `all` masks every value, otherwise only
  * secret-looking names. Values under 8 bytes can't be masked (they'd hit ordinary output);
- * `tooLong` / `tooMany` name the ones left unmasked that the user should hear about.
+ * `tooShort` / `tooLong` / `tooMany` name the ones left unmasked that the user should hear about.
  */
 export function maskEntries(env: Record<string, string>, { all = false }: { all?: boolean }) {
   const mask: Record<string, string> = {}
+  const tooShort: string[] = []
   const tooLong: string[] = []
   const tooMany: string[] = []
   for (const [name, value] of Object.entries(env)) {
     if (!all && !SECRET_NAME.test(name)) continue
     const n = bytes(value)
-    if (n < MIN_BYTES || value.includes("\0")) continue
+    if (value.includes("\0")) continue
+    if (n < MIN_BYTES) {
+      if (n > 0) tooShort.push(name)
+      continue
+    }
     if (n > MAX_BYTES) {
       tooLong.push(name)
       continue
@@ -66,7 +71,7 @@ export function maskEntries(env: Record<string, string>, { all = false }: { all?
     for (let i = 2; label in mask; i++) label = `${base.slice(0, LABEL_LEN - String(i).length - 1)}_${i}`
     mask[label] = value
   }
-  return { mask, tooLong, tooMany }
+  return { mask, tooShort, tooLong, tooMany }
 }
 
 export const maskFor = (env: Record<string, string>, opts: { all?: boolean }) => maskEntries(env, opts).mask

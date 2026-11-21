@@ -40,6 +40,14 @@ describe("maskFor", () => {
     expect(maskFor({ MYSQL_PWD: "12345678", REDISCLI_AUTH: "abcdefghi", my_apikey: "abcdefghij" }, {}))
       .toEqual({ MYSQL_PWD: "12345678", REDISCLI_AUTH: "abcdefghi", MY_APIKEY: "abcdefghij" })
   })
+  it("default also catches KEY, PAT, DSN and WEBHOOK names, as whole name parts", () => {
+    const e = { STRIPE_KEY: "sk_live_abcdef", GITHUB_PAT: "github_pat_abc", SENTRY_DSN: "https://k@sentry.io/1", SLACK_WEBHOOK_URL: "https://hooks.slack.com/x", MONKEY_NAME: "abcdefghij", PATH_PREFIX: "/usr/local/x" }
+    expect(Object.keys(maskFor(e, {}))).toEqual(["STRIPE_KEY", "GITHUB_PAT", "SENTRY_DSN", "SLACK_WEBHOOK_URL"])
+  })
+  it("non-empty values too short to mask are reported", () => {
+    expect(maskEntries(env, {}).tooShort).toEqual(["API_KEY"])
+    expect(maskEntries({ PIN: "1234", EMPTY_TOKEN: "" }, { all: true }).tooShort).toEqual(["PIN"])
+  })
   it("all: every value of 8+ bytes", () => {
     expect(maskFor(env, { all: true })).toEqual({ GITHUB_TOKEN: "ghp_abcdefgh", PGPASSWORD: "longpassword", NODE_ENV: "production", DB_HOST: "db.internal.example" })
   })
