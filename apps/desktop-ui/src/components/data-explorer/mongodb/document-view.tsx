@@ -489,6 +489,18 @@ export function DocumentView({
         [documents]
     );
     const allFields = useMemo(() => ["_id", ...fields], [fields]);
+
+    // Query-builder field options: every field seen in this collection, so a
+    // filter that matches nothing doesn't empty the dropdown. Reset per
+    // collection; merged during render (React's derived-state pattern).
+    const collKey = `${connectionName}|${dbName}|${collectionName}`;
+    const [knownFields, setKnownFields] = useState({ key: collKey, fields: [] as string[] });
+    const prevKnown = knownFields.key === collKey ? knownFields.fields : [];
+    const newFields = fields.filter(f => !prevKnown.includes(f));
+    if (knownFields.key !== collKey || newFields.length > 0) {
+        setKnownFields({ key: collKey, fields: [...prevKnown, ...newFields] });
+    }
+    const builderFields = newFields.length > 0 ? [...prevKnown, ...newFields] : prevKnown;
     const totalPages = useMemo(() => Math.ceil(total / limit) || 1, [total, limit]);
     const isAllSelected = useMemo(
         () => documents.length > 0 && selectedIds.size === documents.length,
@@ -557,7 +569,7 @@ export function DocumentView({
                             setSearchQuery(q);
                             onSearch(q);
                         }}
-                        fields={fields}
+                        fields={builderFields}
                         connectionName={connectionName}
                         dbName={dbName}
                         collectionName={collectionName}
