@@ -207,6 +207,11 @@ impl Session {
         self.masked(self.inner.lock().unwrap().scrollback.snapshot())
     }
 
+    /// `text` holds one of this pane's secrets whole.
+    pub fn has_secret(&self, text: &str) -> bool {
+        self.masks.as_ref().is_some_and(|m| m.contains(text.as_bytes()))
+    }
+
     fn masked(&self, bytes: Vec<u8>) -> Vec<u8> {
         match &self.masks {
             Some(m) => m.mask_all(&bytes),
@@ -360,6 +365,11 @@ impl TerminalState {
         }
         // Mask only what this pane was given; no pane starts unless its masking is set up.
         let mut masker = super::mask::Masker::new(&req.mask)?;
+        // A helper pane masks its parent's secrets: a command it runs can print them too.
+        if masker.is_none() {
+            let inherited = req.parent.as_ref().and_then(|p| self.get(p).ok()).and_then(|p| p.masks.clone());
+            masker = inherited.map(super::mask::Masker::from_patterns);
+        }
         if let Some((k, _)) = req.mask.iter().find(|(_, v)| !env.iter().any(|(_, e)| e == *v)) {
             return Err(format!("masked secret is not in the pane's environment: {k}"));
         }
@@ -472,6 +482,10 @@ impl TerminalState {
                     s.det.lock().unwrap().feed(bytes);
                     port_scan.feed(bytes, &mut ports_found);
                     if !ports_found.is_empty() {
+                        // Escape stripping can join a secret the masker saw split by colour codes.
+                        if let Some(m) = &s.masks {
+                            ports_found.iter_mut().for_each(|p| p.url = m.mask_str(&p.url));
+                        }
                         s.ports.lock().unwrap().offer(ports_found.drain(..));
                     }
                     scanner.feed(bytes, &mut found);
@@ -1039,6 +1053,37 @@ mod tests {
         let value = "-----BEGIN KEY-----\nline-one-secret\nline-two-secret\n-----END KEY-----";
         let cmd = "printf '%s\\n' \"$K\"; echo done";
         assert_masked_everywhere("66666666-pem", "K", value, cmd, &["line-one-secret", "line-two-secret"]);
+    }
+
+    /// A helper pane (`mdt-term run`) masks its parent's secrets too.
+    #[test]
+    fn helper_pane_masks_its_parents_secrets() {
+        let st = TerminalState::default();
+        let env = vec![("GH".to_string(), "ghp_abcdefgh".to_string())];
+        st.spawn(masked_req("parent", "GH", "ghp_abcdefgh"), env, sh("sleep 30")).unwrap();
+        let child = SpawnRequest { parent: Some("parent".into()), ..req("child", "/tmp") };
+        st.spawn(child, vec![], sh("printf 'a ghp_abcdefgh b'; echo done; sleep 30")).unwrap();
+        let s = st.get("child").unwrap();
+        assert!(wait_for(|| text(&s).contains("done"), 3), "{:?}", text(&s));
+        assert!(text(&s).contains("a ‹GH› b"), "{:?}", text(&s));
+        assert!(s.has_secret("x ghp_abcdefgh") && !s.has_secret("x ghp_abc"));
+        st.kill_all();
+    }
+
+    /// A secret split by colour codes survives the port scanner's escape stripping; the URL is
+    /// re-masked before it is offered.
+    #[test]
+    fn port_url_is_masked() {
+        let l = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+        let port = l.local_addr().unwrap().port();
+        let st = TerminalState::default();
+        let env = vec![("GH".to_string(), "ghp_abcdefgh".to_string())];
+        let cmd = format!("printf 'on http://localhost:{port}/x/ghp_\\033[1mabcdefgh\\033[0m ok\\n'; sleep 30");
+        st.spawn(masked_req("pm", "GH", "ghp_abcdefgh"), env, sh(&cmd)).unwrap();
+        let s = st.get("pm").unwrap();
+        assert!(wait_for(|| { st.poll_ports(false, super::super::ports::listening); !s.ports.lock().unwrap().list().is_empty() }, 5));
+        assert_eq!(s.ports.lock().unwrap().list()[0].url, format!("http://localhost:{port}/x/‹GH›"));
+        st.kill_all();
     }
 
     #[test]

@@ -19,9 +19,16 @@ pub struct Patterns {
     ac: AhoCorasick,
     /// `‹NAME›` per pattern id.
     labels: Vec<Vec<u8>>,
+    /// Each pattern with its KMP failure table (for a live masker's held-back tail).
+    values: Vec<(Vec<u8>, Vec<usize>)>,
 }
 
 impl Patterns {
+    /// `data` holds a whole secret.
+    pub fn contains(&self, data: &[u8]) -> bool {
+        self.ac.is_match(data)
+    }
+
     /// Every secret in `data` masked (for a whole buffer, not a stream).
     pub fn mask_all(&self, data: &[u8]) -> Vec<u8> {
         let mut out = Vec::with_capacity(data.len());
@@ -33,14 +40,28 @@ impl Patterns {
         String::from_utf8_lossy(&self.mask_all(s.as_bytes())).into_owned()
     }
 
-    /// Write `data` up to `hold` (or past it, through a match that starts before it), masked.
-    /// Returns how far it wrote.
+    /// Write `data` up to `hold` (or past it, through matches that start before it), masked.
+    /// Overlapping matches merge into one run, labelled by its first (longest) match, so no
+    /// piece of either secret shows. Returns how far it wrote.
     fn emit(&self, data: &[u8], hold: usize, out: &mut Vec<u8>) -> usize {
+        let mut ms: Vec<_> = self.ac.find_overlapping_iter(data).collect();
+        ms.sort_by_key(|m| (m.start(), std::cmp::Reverse(m.end())));
         let mut pos = 0;
-        for m in self.ac.find_iter(data).take_while(|m| m.start() < hold) {
-            out.extend_from_slice(&data[pos..m.start()]);
-            out.extend_from_slice(&self.labels[m.pattern().as_usize()]);
-            pos = m.end();
+        let mut i = 0;
+        while i < ms.len() && ms[i].start() < hold {
+            let (start, label) = (ms[i].start(), &self.labels[ms[i].pattern().as_usize()]);
+            let mut end = 0;
+            while i < ms.len() && ms[i].start() < end.max(start + 1) {
+                end = end.max(ms[i].end());
+                i += 1;
+            }
+            out.extend_from_slice(&data[pos..start]);
+            // A match starting at or after `hold` (not found yet) may still extend this run.
+            if end > hold {
+                return start;
+            }
+            out.extend_from_slice(label);
+            pos = end;
         }
         if pos < hold {
             out.extend_from_slice(&data[pos..hold]);
@@ -52,8 +73,6 @@ impl Patterns {
 
 pub struct Masker {
     pats: Arc<Patterns>,
-    /// Each pattern with its KMP failure table (for the held-back tail).
-    values: Vec<(Vec<u8>, Vec<usize>)>,
     /// Output tail that may be the start of a secret; waits for more input or `flush`.
     held: Vec<u8>,
 }
@@ -115,21 +134,31 @@ impl Masker {
         let mut pats: Vec<(Vec<u8>, Vec<u8>)> = vec![];
         for (k, v) in secrets {
             let label = format!("‹{k}›").into_bytes();
-            pats.push((v.as_bytes().to_vec(), label.clone()));
-            // The PTY (ONLCR) prints each `\n` as `\r\n`: a multi-line value (a PEM key) appears so.
-            if v.contains('\n') && !v.contains('\r') {
-                pats.push((v.replace('\n', "\r\n").into_bytes(), label));
+            // The PTY (ONLCR) prints each `\n` as `\r\n`, so a multi-line value (a PEM key)
+            // appears so (its own `\r\n` as `\r\r\n`); a program that normalises line endings
+            // prints it without its `\r`s.
+            let bare = v.replace('\r', "");
+            let mut forms = vec![v.replace('\n', "\r\n"), bare.replace('\n', "\r\n"), bare, v.clone()];
+            forms.sort();
+            forms.dedup();
+            for f in forms.into_iter().filter(|f| f.len() >= 8) {
+                pats.push((f.into_bytes(), label.clone()));
             }
         }
         let ac = AhoCorasick::builder()
-            .match_kind(MatchKind::LeftmostLongest)
+            .match_kind(MatchKind::Standard)
             .build(pats.iter().map(|(v, _)| v))
             .map_err(|e| e.to_string())?;
-        Ok(Some(Masker {
+        Ok(Some(Masker::from_patterns(Arc::new(Patterns {
+            ac,
             values: pats.iter().map(|(v, _)| (v.clone(), failure(v))).collect(),
-            pats: Arc::new(Patterns { ac, labels: pats.into_iter().map(|(_, l)| l).collect() }),
-            held: vec![],
-        }))
+            labels: pats.into_iter().map(|(_, l)| l).collect(),
+        }))))
+    }
+
+    /// A masker for the same secrets as another pane's (a helper masks its parent's).
+    pub fn from_patterns(pats: Arc<Patterns>) -> Masker {
+        Masker { pats, held: vec![] }
     }
 
     /// For masking this pane's stored copies whole.
@@ -147,7 +176,7 @@ impl Masker {
         self.held.extend_from_slice(input);
         let data = std::mem::take(&mut self.held);
         // A match starting before `hold` is final: more input can't make one start earlier or run longer.
-        let hold = data.len() - self.values.iter().map(|(v, f)| overlap(&data, v, f)).max().unwrap_or(0);
+        let hold = data.len() - self.pats.values.iter().map(|(v, f)| overlap(&data, v, f)).max().unwrap_or(0);
         let pos = self.pats.emit(&data, hold, out);
         self.held = data[pos..].to_vec();
     }
@@ -224,6 +253,39 @@ mod tests {
         }
         let mut m = masker(&[("K", "line-one\nline-two")]);
         assert_eq!(run(&mut m, &[b"line-one\nline-two"]), "‹K›", "the value as given still matches");
+    }
+
+    #[test]
+    fn overlapping_secrets_are_masked_whole() {
+        let input = b"x abcdefghijkl y efghijkl z";
+        let secrets = [("A", "abcdefgh"), ("B", "efghijkl")];
+        for i in 0..=input.len() {
+            for j in i..=input.len() {
+                let got = run(&mut masker(&secrets), &[&input[..i], &input[i..j], &input[j..]]);
+                assert_eq!(got, "x ‹A› y ‹B› z", "split at {i},{j}");
+            }
+        }
+        assert_eq!(masker(&secrets).patterns().mask_str("abcdefghijkl"), "‹A›");
+    }
+
+    #[test]
+    fn crlf_values_match_as_the_pty_prints_them() {
+        // ONLCR turns each `\n` into `\r\n`, so a value's own `\r\n` prints as `\r\r\n`.
+        for printed in [&b"one-line\r\r\ntwo-line"[..], b"one-line\r\ntwo-line", b"one-line\ntwo-line"] {
+            let mut m = masker(&[("K", "one-line\r\ntwo-line")]);
+            assert_eq!(run(&mut m, &[printed]), "‹K›", "{printed:?}");
+        }
+        let mut m = masker(&[("K", "aaaa\r\nbbbb\ncccc")]);
+        assert_eq!(run(&mut m, &[b"aaaa\r\r\nbbbb\r\ncccc"]), "‹K›", "mixed line endings");
+    }
+
+    #[test]
+    fn patterns_find_secrets_in_text_and_seed_another_masker() {
+        let p = masker(&[("GH", "ghp_abcdefgh")]).patterns();
+        assert!(p.contains(b"curl -H 'x: ghp_abcdefgh'"));
+        assert!(!p.contains(b"ghp_abc"));
+        let mut child = Masker::from_patterns(p);
+        assert_eq!(run(&mut child, &[b"a ghp_abc", b"defgh b"]), "a ‹GH› b");
     }
 
     #[test]
