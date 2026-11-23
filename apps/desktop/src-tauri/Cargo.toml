@@ -53,7 +53,7 @@ libc = "0.2.191"
 # Terminal agent status from the rendered screen (terminal/detect.rs).
 vt100 = "0.16"
 regex = "1"
-toml = "0.8"
+toml = "1.1"
 
 # The keyring backend is the one genuinely platform-specific dependency: the
 # macOS Keychain vs. the Linux Secret Service (GNOME Keyring / KWallet).
